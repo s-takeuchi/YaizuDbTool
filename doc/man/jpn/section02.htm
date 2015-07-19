@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=shift_jis">
+<meta http-equiv="content-style-type" content="text/css">
+<link rel="stylesheet" href="./style.css" type="text/css">
+</HEAD>
+
+<BODY>
+<div id="container">
+<H1>2. インストール／アンインストール</H1>
+
+
+<H2 ID="2.1">2.1 インストール方法</H2>
+<div class="topic">
+cmdfreak.msi を起動することにより，CmdFreakのインストーラが起動します。
+インストーラの指示に従いダイアログを操作してください。<br>
+CmdFreakのインストーラは，インストール時に以下の操作を行います。<br>
+<ul>
+<li>CmdFreakに対するWindowsファイアウォールへの例外登録。
+<li>CmdFreakサービスのシステムへの登録。
+<li>CmdFreakサービスおよび簡易Webサーバの自動起動。
+</ul>
+CmdFreak インストール後にcmdfreak.msi を起動するとプログラムの上書きインストール(Repair) を行うことができますが，
+その際下記の事項について注意する必要があります。<br>
+<ul>
+<li>上書きインストール実行前にCmdFreakのサービスを停止してください。停止せずに上書きインストールを実行すると，上書きインストール後にオペレーティングシステムの再起動が必要になります。
+<li>上書きインストール後にWebサーバおよびCmdFreak サービスが使用するポート番号がデフォルトに変更される場合があります。必要に応じて上書きインストール後にポート番号を変更してください。
+</ul>
+</div><p>
+
+
+<H2 ID="2.2">2.2 アンインストール方法</H2>
+<div class="topic">
+cmdfreak.msi を起動してRemove CmdFreakを選択するか，コントロールパネルからCmdFreakのアンインストールを行ってください。<br>
+CmdFreakのアンインストールは，アンインストール時に以下の操作を行います。<br>
+<ul>
+<li>CmdFreakサービスおよび簡易Webサーバの自動停止。
+<li>CmdFreakサービスのシステムからの削除。
+<li>CmdFreakに対するWindowsファイアウォールからの例外削除。
+</ul>
+</div><p>
+
+
+<H2 ID="2.3">2.3 CmdFreakへの接続方法</H2>
+<div class="topic">
+CmdFreakのインストール後，Webブラウザから下記のURLに接続してください。
+CmdFreakのメインコンソールが表示されていれば，インストールは問題なく完了しています。<p>
+http://＜CmdFreakのインストール先ホスト名またはIPアドレス＞:＜Webサーバのポート番号＞<p>
+メインコンソールが表示されない場合，またはエラーが表示される場合下記を確認してください。
+<ul>
+<li>ブラウザからCmdFreakへの接続でURLにホスト名を指定している場合，ホスト名からIPアドレスが名前解決できること。
+名前解決できない場合，名前解決可能なホストに変更し，再度接続を試みてください。
+<li>CmdFreak およびmongoose の両方がWindowsのファイアウォールに例外登録されていること。
+例外登録されていない場合，cmdfrksrv.exe およびmongoose-3.7.exe をファイアウォールの例外に登録してください。
+<li>cmdfrksrv.exe およびmongoose-3.7.exe がタスクマネージャのプロセス一覧に表示されること。
+プロセス一覧に表示されない場合，スタートメニューからCmdFreakのサービスを起動してください。
+<li>WebサーバおよびCmdFreakサービスが使用するポート番号が他のプロセスが使用するポート番号と重なっていないこと。
+後述のポート番号の変更手順に従い，ポート番号が重ならないよう変更を行ってください。
+</ul>
+</div><p>
+
+
+<H2 ID="2.4">2.4 ポート番号の変更</H2>
+ユーザーはインストール時にWebサーバおよびCmdFreakサービスが使用するポート番号を指定します。
+インストール後にこれらのポート番号を変更するためには，以下の手順で操作を行ってください。
+<ol>
+<li>スタートメニューから[Stop CmdFreak Service]を選択し，CmdFreakサービスを停止します。
+<li>CmdFreakサービスが使用するポート番号を変更する場合:<br>
+＜インストール先フォルダ＞\CmdFreak\bin\cmdfrksrv.conf のserviceport プロパティおよび<br>
+＜インストール先フォルダ＞\CmdFreak\htdocs\bbb.conf のaccessport プロパティを変更します。<p>
+Webサービスが使用するポート番号を変更する場合:<br>
+＜インストール先フォルダ＞\CmdFreak\htdocs\mongoose.conf のlistening_ports プロパティを変更します。
+<li>スタートメニューから[Start CmdFreak Service]を選択し，CmdFreakサービスを開始します。
+</ol>
+<p>
+
+</div>
+</BODY>
