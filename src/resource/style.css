@@ -1,0 +1,259 @@
+
+body {
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	color: #000000;
+	background-color: #808080;
+	font-family:sans-serif;
+	font-size: 14px;
+}
+
+a:link {
+	color: #7F0000;
+	font-weight: bold;
+}
+a:visited {
+	color: #7F0000;
+	font-weight: bold;
+}
+a:hover {
+	color: #7F0000;
+	font-weight: bold;
+}
+a:active {
+	color: #7F0000;
+	font-weight: bold;
+}
+
+#container{
+	width: 400px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	text-align: left;
+	background-color: #E0E0E0;
+}
+
+#box_info {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-top: 0px;
+	margin-left: 0px;
+	width:400px;
+	height: 400px;
+	float:left;
+	background-color: #E0E0E0;
+}
+
+#login {
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 120;
+	margin-bottom: auto;
+	text-align: left;
+	background-color: #E0E0E0;
+}
+
+#grid_array {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-top: 0px;
+	margin-left: 0px;
+	width: 300px;
+	height: 300px;
+}
+
+textarea {
+	font-size: 12px;
+}
+
+.spc {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	font-size: 13px;
+}
+
+.nospc {
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	height: 18px;
+	font-size: 13px;
+	background-color: #C0C0C0;
+}
+
+.headtailbar {
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	height: 20px;
+	font-size: 16px;
+	color:#ffffff;
+	background-color: #6699cc;
+	clear:left;
+}
+
+.headtailbarround {
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	height: 23px;
+	font-size: 16px;
+	color:#ffffff;
+	background-color: #e0e0e0;
+	clear:left;
+}
+
+.topic1 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 90px;
+	margin-right: 90px;
+	background-color: #c60000;
+	color:#ffffff;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.topic2 {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: #c60000;
+	color:#ffffff;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.topic3 {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+	background-color: #c60000;
+	color:#ffffff;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+table.tblstyle{
+	border-top:1px solid #000000;
+	border-bottom:1px solid #000000;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	border-collapse:collapse;
+	border-spacing:0;
+	empty-cells:show;
+}
+
+.tblstyle td{
+	border-top:1px solid #000000;
+	border-bottom:1px solid #000000;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	padding:2px 2px 2px 2px;
+	font-size: 13px;
+	background-color: #ffffff;
+}
+
+.tblstyle th{
+	border-top:1px solid #000000;
+	border-bottom:1px solid #000000;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	padding:2px 2px 2px 2px;
+	font-size: 13px;
+	color:#ffffff;
+	background-color: #6699cc;
+}
+
+table.ttblstyle{
+	border:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+	border-collapse:collapse;
+	border-spacing:0;
+	empty-cells:show;
+}
+
+.ttblstyle td{
+	border:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+	font-size: 14px;
+}
+
+#gNavi {
+	margin:0px 0px;
+	padding:0;
+	width:680px;
+	height:30px;
+	overflow:hidden;
+	background:#c60000;
+}
+
+#gNavi li {
+	list-style:none;
+	line-height:30px;
+	color:#c60000;
+	width:97px;
+	float:left;
+	text-align:center;
+	font-size: 13px;
+}
+
+#gNavi li a {
+	display:block;
+	line-height:30px;
+	color:#ffffff;
+	text-align:center;
+	font-size: 13px;
+}
+
+#gNavi li a:hover {
+	background:#f00000;
+	font-size: 13px;
+}
+
+.treeNode {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 15px;
+	margin-right: 5px;
+}
