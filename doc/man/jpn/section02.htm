@@ -1,76 +1,76 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <HEAD>
-<meta http-equiv="Content-Type" content="text/html; charset=shift_jis">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="content-style-type" content="text/css">
 <link rel="stylesheet" href="./style.css" type="text/css">
 </HEAD>
 
 <BODY>
 <div id="container">
-<H1>2. �C���X�g�[���^�A���C���X�g�[��</H1>
+<H1>2. インストール／アンインストール</H1>
 
 
-<H2 ID="2.1">2.1 �C���X�g�[�����@</H2>
+<H2 ID="2.1">2.1 インストール方法</H2>
 <div class="topic">
-cmdfreak.msi ���N�����邱�Ƃɂ��CCmdFreak�̃C���X�g�[�����N�����܂��B
-�C���X�g�[���̎w���ɏ]���_�C�A���O�𑀍삵�Ă��������B<br>
-CmdFreak�̃C���X�g�[���́C�C���X�g�[�����Ɉȉ��̑�����s���܂��B<br>
+cmdfreak.msi を起動することにより，CmdFreakのインストーラが起動します。
+インストーラの指示に従いダイアログを操作してください。<br>
+CmdFreakのインストーラは，インストール時に以下の操作を行います。<br>
 <ul>
-<li>CmdFreak�ɑ΂���Windows�t�@�C�A�E�H�[���ւ̗�O�o�^�B
-<li>CmdFreak�T�[�r�X�̃V�X�e���ւ̓o�^�B
-<li>CmdFreak�T�[�r�X����ъȈ�Web�T�[�o�̎����N���B
+<li>CmdFreakに対するWindowsファイアウォールへの例外登録。
+<li>CmdFreakサービスのシステムへの登録。
+<li>CmdFreakサービスおよび簡易Webサーバの自動起動。
 </ul>
-CmdFreak �C���X�g�[�����cmdfreak.msi ���N������ƃv���O�����̏㏑���C���X�g�[��(Repair) ���s�����Ƃ��ł��܂����C
-���̍ۉ��L�̎����ɂ��Ē��ӂ���K�v������܂��B<br>
+CmdFreak インストール後にcmdfreak.msi を起動するとプログラムの上書きインストール(Repair) を行うことができますが，
+その際下記の事項について注意する必要があります。<br>
 <ul>
-<li>�㏑���C���X�g�[�����s�O��CmdFreak�̃T�[�r�X���~���Ă��������B��~�����ɏ㏑���C���X�g�[�������s����ƁC�㏑���C���X�g�[����ɃI�y���[�e�B���O�V�X�e���̍ċN�����K�v�ɂȂ�܂��B
-<li>�㏑���C���X�g�[�����Web�T�[�o�����CmdFreak �T�[�r�X���g�p����|�[�g�ԍ����f�t�H���g�ɕύX�����ꍇ������܂��B�K�v�ɉ����ď㏑���C���X�g�[����Ƀ|�[�g�ԍ���ύX���Ă��������B
+<li>上書きインストール実行前にCmdFreakのサービスを停止してください。停止せずに上書きインストールを実行すると，上書きインストール後にオペレーティングシステムの再起動が必要になります。
+<li>上書きインストール後にWebサーバおよびCmdFreak サービスが使用するポート番号がデフォルトに変更される場合があります。必要に応じて上書きインストール後にポート番号を変更してください。
 </ul>
 </div><p>
 
 
-<H2 ID="2.2">2.2 �A���C���X�g�[�����@</H2>
+<H2 ID="2.2">2.2 アンインストール方法</H2>
 <div class="topic">
-cmdfreak.msi ���N������Remove CmdFreak��I�����邩�C�R���g���[���p�l������CmdFreak�̃A���C���X�g�[�����s���Ă��������B<br>
-CmdFreak�̃A���C���X�g�[���́C�A���C���X�g�[�����Ɉȉ��̑�����s���܂��B<br>
+cmdfreak.msi を起動してRemove CmdFreakを選択するか，コントロールパネルからCmdFreakのアンインストールを行ってください。<br>
+CmdFreakのアンインストールは，アンインストール時に以下の操作を行います。<br>
 <ul>
-<li>CmdFreak�T�[�r�X����ъȈ�Web�T�[�o�̎�����~�B
-<li>CmdFreak�T�[�r�X�̃V�X�e������̍폜�B
-<li>CmdFreak�ɑ΂���Windows�t�@�C�A�E�H�[������̗�O�폜�B
+<li>CmdFreakサービスおよび簡易Webサーバの自動停止。
+<li>CmdFreakサービスのシステムからの削除。
+<li>CmdFreakに対するWindowsファイアウォールからの例外削除。
 </ul>
 </div><p>
 
 
-<H2 ID="2.3">2.3 CmdFreak�ւ̐ڑ����@</H2>
+<H2 ID="2.3">2.3 CmdFreakへの接続方法</H2>
 <div class="topic">
-CmdFreak�̃C���X�g�[����CWeb�u���E�U���牺�L��URL�ɐڑ����Ă��������B
-CmdFreak�̃��C���R���\�[�����\������Ă���΁C�C���X�g�[���͖��Ȃ��������Ă��܂��B<p>
-http://��CmdFreak�̃C���X�g�[����z�X�g���܂���IP�A�h���X��:��Web�T�[�o�̃|�[�g�ԍ���<p>
-���C���R���\�[�����\������Ȃ��ꍇ�C�܂��̓G���[���\�������ꍇ���L���m�F���Ă��������B
+CmdFreakのインストール後，Webブラウザから下記のURLに接続してください。
+CmdFreakのメインコンソールが表示されていれば，インストールは問題なく完了しています。<p>
+http://＜CmdFreakのインストール先ホスト名またはIPアドレス＞:＜Webサーバのポート番号＞<p>
+メインコンソールが表示されない場合，またはエラーが表示される場合下記を確認してください。
 <ul>
-<li>�u���E�U����CmdFreak�ւ̐ڑ���URL�Ƀz�X�g�����w�肵�Ă���ꍇ�C�z�X�g������IP�A�h���X�����O�����ł��邱�ƁB
-���O�����ł��Ȃ��ꍇ�C���O�����\�ȃz�X�g�ɕύX���C�ēx�ڑ������݂Ă��������B
-<li>CmdFreak �����mongoose �̗�����Windows�̃t�@�C�A�E�H�[���ɗ�O�o�^����Ă��邱�ƁB
-��O�o�^����Ă��Ȃ��ꍇ�Ccmdfrksrv.exe �����mongoose-3.7.exe ���t�@�C�A�E�H�[���̗�O�ɓo�^���Ă��������B
-<li>cmdfrksrv.exe �����mongoose-3.7.exe ���^�X�N�}�l�[�W���̃v���Z�X�ꗗ�ɕ\������邱�ƁB
-�v���Z�X�ꗗ�ɕ\������Ȃ��ꍇ�C�X�^�[�g���j���[����CmdFreak�̃T�[�r�X���N�����Ă��������B
-<li>Web�T�[�o�����CmdFreak�T�[�r�X���g�p����|�[�g�ԍ������̃v���Z�X���g�p����|�[�g�ԍ��Əd�Ȃ��Ă��Ȃ����ƁB
-��q�̃|�[�g�ԍ��̕ύX�菇�ɏ]���C�|�[�g�ԍ����d�Ȃ�Ȃ��悤�ύX���s���Ă��������B
+<li>ブラウザからCmdFreakへの接続でURLにホスト名を指定している場合，ホスト名からIPアドレスが名前解決できること。
+名前解決できない場合，名前解決可能なホストに変更し，再度接続を試みてください。
+<li>CmdFreak およびmongoose の両方がWindowsのファイアウォールに例外登録されていること。
+例外登録されていない場合，cmdfrksrv.exe およびmongoose-3.7.exe をファイアウォールの例外に登録してください。
+<li>cmdfrksrv.exe およびmongoose-3.7.exe がタスクマネージャのプロセス一覧に表示されること。
+プロセス一覧に表示されない場合，スタートメニューからCmdFreakのサービスを起動してください。
+<li>WebサーバおよびCmdFreakサービスが使用するポート番号が他のプロセスが使用するポート番号と重なっていないこと。
+後述のポート番号の変更手順に従い，ポート番号が重ならないよう変更を行ってください。
 </ul>
 </div><p>
 
 
-<H2 ID="2.4">2.4 �|�[�g�ԍ��̕ύX</H2>
-���[�U�[�̓C���X�g�[������Web�T�[�o�����CmdFreak�T�[�r�X���g�p����|�[�g�ԍ����w�肵�܂��B
-�C���X�g�[����ɂ����̃|�[�g�ԍ���ύX���邽�߂ɂ́C�ȉ��̎菇�ő�����s���Ă��������B
+<H2 ID="2.4">2.4 ポート番号の変更</H2>
+ユーザーはインストール時にWebサーバおよびCmdFreakサービスが使用するポート番号を指定します。
+インストール後にこれらのポート番号を変更するためには，以下の手順で操作を行ってください。
 <ol>
-<li>�X�^�[�g���j���[����[Stop CmdFreak Service]��I�����CCmdFreak�T�[�r�X���~���܂��B
-<li>CmdFreak�T�[�r�X���g�p����|�[�g�ԍ���ύX����ꍇ:<br>
-���C���X�g�[����t�H���_��\CmdFreak\bin\cmdfrksrv.conf ��serviceport �v���p�e�B�����<br>
-���C���X�g�[����t�H���_��\CmdFreak\htdocs\bbb.conf ��accessport �v���p�e�B��ύX���܂��B<p>
-Web�T�[�r�X���g�p����|�[�g�ԍ���ύX����ꍇ:<br>
-���C���X�g�[����t�H���_��\CmdFreak\htdocs\mongoose.conf ��listening_ports �v���p�e�B��ύX���܂��B
-<li>�X�^�[�g���j���[����[Start CmdFreak Service]��I�����CCmdFreak�T�[�r�X���J�n���܂��B
+<li>スタートメニューから[Stop CmdFreak Service]を選択し，CmdFreakサービスを停止します。
+<li>CmdFreakサービスが使用するポート番号を変更する場合:<br>
+＜インストール先フォルダ＞\CmdFreak\bin\cmdfrksrv.conf のserviceport プロパティおよび<br>
+＜インストール先フォルダ＞\CmdFreak\htdocs\bbb.conf のaccessport プロパティを変更します。<p>
+Webサービスが使用するポート番号を変更する場合:<br>
+＜インストール先フォルダ＞\CmdFreak\htdocs\mongoose.conf のlistening_ports プロパティを変更します。
+<li>スタートメニューから[Start CmdFreak Service]を選択し，CmdFreakサービスを開始します。
 </ol>
 <p>
 

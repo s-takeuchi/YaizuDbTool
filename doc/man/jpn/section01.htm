@@ -1,62 +1,62 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <HEAD>
-<meta http-equiv="Content-Type" content="text/html; charset=shift_jis">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="content-style-type" content="text/css">
 <link rel="stylesheet" href="./style.css" type="text/css">
 </HEAD>
 
 <BODY>
 <div id="container">
-<H1>1. CmdFreak�ɂ���</H1>
+<H1>1. CmdFreakについて</H1>
 
-<H2 ID="1.1">1.1 CmdFreak�T�v</H2>
+<H2 ID="1.1">1.1 CmdFreak概要</H2>
 <div class="topic">
-���V�X�e����A�v���P�[�V�����\�t�g�E�F�A�̑����́C����炪���f�[�^�̉i�����@�\�Ƃ���RDBMS(�����[�V���i���f�[�^�x�[�X�Ǘ��V�X�e��)
-��p���Ă���CRDBMS�̗��p�͈͍͂�����g�傷��X���ɂ���܂��B<p>
-RDBMS�͏��V�X�e����A�v���P�[�V�����\�t�g�E�F�A�̃o�b�N�O���E���h�T�[�r�X�Ƃ��ė��p�����P�[�X���قƂ�ǂł����C
-�f�[�^�}�C�j���O��Ɩ��E�^�p�̐v������ړI�Ƃ��Ē���RDBMS�̃I���W�i���f�[�^���Q�Ƃ���P�[�X������܂��B
-�܂��CRDBMS�̓A�v���P�[�V�����\�t�g�E�F�A�̓����ɉ����đI�肳��邽�߁C
-�Ɩ��E�^�p�̒��ňقȂ镡����RDBMS�𗘗p���邱�Ƃ͈�ʓI�Ȃ��ƂƂȂ��Ă��܂��B
-���̂��߁C������RDBMS���g�������郆�[�U�[�ɂƂ��Ď��̖�肪���݂��Ă��܂����B<p>
+情報システムやアプリケーションソフトウェアの多くは，それらが持つデータの永続化機構としてRDBMS(リレーショナルデータベース管理システム)
+を用いており，RDBMSの利用範囲は今後も拡大する傾向にあります。<p>
+RDBMSは情報システムやアプリケーションソフトウェアのバックグラウンドサービスとして利用されるケースがほとんどですが，
+データマイニングや業務・運用の迅速化を目的として直接RDBMSのオリジナルデータを参照するケースがあります。
+また，RDBMSはアプリケーションソフトウェアの特徴に応じて選定されるため，
+業務・運用の中で異なる複数のRDBMSを利用することは一般的なこととなっています。
+このため，複数のRDBMSを使い分けるユーザーにとって次の問題が存在していました。<p>
 <ul>
-<li>RDBMS�̎�ނɉ����ĈقȂ�f�[�^�Q�ƃc�[���𗘗p����K�v������C���̃c�[���̊w�K�R�X�g�����傷��B
-<li>�e�N���C�A���g�ɕ����̃f�[�^�Q�ƃc�[�����C���X�g�[������K�v������C�N���C�A���g���ɔ�Ⴕ�ē����R�X�g�����傷��B
+<li>RDBMSの種類に応じて異なるデータ参照ツールを利用する必要があり，そのツールの学習コストが増大する。
+<li>各クライアントに複数のデータ参照ツールをインストールする必要があり，クライアント数に比例して導入コストが増大する。
 </ul><p>
-CmdFreak�́C�����[�V���i���f�[�^�x�[�X�E�r���A�[(�f�[�^�Q�ƃ\�t�g�E�F�A)�ł���C��L�̖��ɑ΂��Ď��̃\�����[�V������񋟂��܂��B<p>
+CmdFreakは，リレーショナルデータベース・ビュアー(データ参照ソフトウェア)であり，上記の問題に対して次のソリューションを提供します。<p>
 <ul>
-<li>�t���[�̃��W���[RDBMS�ł���CMySQL, PostgreSQL, MariaDB���T�|�[�g���C
-������RDBMS�ɑ΂��鋤�ʂ̃��[�U�[�C���^�[�t�F�[�X����ăf�[�^�̎Q�Ƃ��\�ƂȂ�܂��B
-RDBMS�̎�ނɉ����ĈقȂ�c�[���̑�����w�ԕK�v���Ȃ��w�K�R�X�g��}���邱�Ƃ��ł��܂��B
-<li>�N���C�A���g���̓����R�X�g�������I�Ƀ[���ƂȂ�Web�A�v���P�[�V�����Ƃ��ē��삵�܂��B
-������Web�T�[�o�𓯍�����I�[���C�������^�̃C���X�g�[���ɂ��C
-�ʏ��Web�A�v���P�[�V�����̂悤�ɁC���O��Web�T�[�o��X�N���v�g�����ݒ肵�Ă����K�v�͂���܂���B
-�����Ɋւ��R�X�g��}���邱�Ƃ��ł��܂��B
+<li>フリーのメジャーRDBMSである，MySQL, PostgreSQL, MariaDBをサポートし，
+これらのRDBMSに対する共通のユーザーインターフェースを介してデータの参照が可能となります。
+RDBMSの種類に応じて異なるツールの操作を学ぶ必要がなく学習コストを抑えることができます。
+<li>クライアント側の導入コストが実質的にゼロとなるWebアプリケーションとして動作します。
+加えてWebサーバを同梱するオールインワン型のインストーラにより，
+通常のWebアプリケーションのように，事前にWebサーバやスクリプト言語を設定しておく必要はありません。
+導入に関わるコストを抑えることができます。
 </ul><p>
-CmdFreak�̓f�[�^�x�[�X���Q�Ƃ��邽�߂̉��L�̋@�\��񋟂��܂��B<br>
+CmdFreakはデータベースを参照するための下記の機能を提供します。<br>
 <ul>
-<li>���R�[�h�ꗗ�̕\���^�y�[�W���O<br>
-<li>�e�[�u���̑I��<br>
-<li>�e�[�u�����̎Q��<br>
-<li>�J�����̃t�B���^�����O�^�\�[�e�B���O<br>
-<li>DBMS�̑I��<br>
+<li>レコード一覧の表示／ページング<br>
+<li>テーブルの選択<br>
+<li>テーブル情報の参照<br>
+<li>カラムのフィルタリング／ソーティング<br>
+<li>DBMSの選択<br>
 </ul>
 </div><p>
 
 
-<H2 ID="1.2">1.2 �V�X�e���v��</H2>
+<H2 ID="1.2">1.2 システム要件</H2>
 <div class="topic">
-CmdFreak�͈ȉ��̊��œ��삵�܂��B<br>
+CmdFreakは以下の環境で動作します。<br>
 <ul>
-<li>����ɕK�v��CPU:<br>
-2GHz�ȏ�̃N���b�N���g���œ��삷��CPU
+<li>動作に必要なCPU:<br>
+2GHz以上のクロック周波数で動作するCPU
 <p>
-<li>����ɕK�v�ȃ������e��:<br>
-1GBytes�ȏ�
+<li>動作に必要なメモリ容量:<br>
+1GBytes以上
 <p>
-<li>�����ɕK�v�ȋ󂫃f�B�X�N�e��:<br>
-20MBytes�ȏ�
+<li>導入に必要な空きディスク容量:<br>
+20MBytes以上
 <p>
-<li>�T�|�[�g����I�y���[�e�B���O�V�X�e���^�G�f�B�V����:<br>
+<li>サポートするオペレーティングシステム／エディション:<br>
 Windows XP Professional SP3<br>
 Windows XP Professional x64 SP2<br>
 Windows Vista Business/Ultimate SP2<br>
@@ -68,7 +68,7 @@ Windows Server 2008 Standard SP2<br>
 Windows Server 2008 R2 Standard SP1<br>
 Windows Server 2012 Standard<br>
 <p>
-<li>�T�|�[�g����Web�u���E�U:<br>
+<li>サポートするWebブラウザ:<br>
 Internet Explorer 8<br>
 Internet Explorer 9<br>
 Internet Explorer 10<br>
@@ -76,7 +76,7 @@ Firefox 3.6<br>
 Firefox 10<br>
 Firefox 17<br>
 <p>
-<li>�T�|�[�g����DBMS:<br>
+<li>サポートするDBMS:<br>
 MySQL 5.5 (+ ODBC Driver: MySQL ODBC 5.2 Unicode Driver)<br>
 MariaDB 5.5 (+ ODBC Driver: MySQL ODBC 5.2 Unicode Driver)<br>
 PostgreSQL 9.2 (+ ODBC Driver: PostgreSQL Unicode 9.2)<br>
@@ -84,29 +84,29 @@ PostgreSQL 9.2 (+ ODBC Driver: PostgreSQL Unicode 9.2)<br>
 </div><p>
 
 
-<H2 ID="1.3">1.3 �V�X�e���\��</H2>
+<H2 ID="1.3">1.3 システム構成</H2>
 <div class="topic">
-CmdFreak�̃V�X�e���\�������}�Ɏ����܂��BCmdFreak�́C��������Ȉ�Web�T�[�o"mongoose"��CGI�A�v���P�[�V����
-�����Windows�T�[�r�X�Ƃ��ē��삵�CWeb�u���E�U����Web�T�[�o���o�R����CmdFreak�𗘗p���邱�Ƃ��ł��܂��B<p>
+CmdFreakのシステム構成を下図に示します。CmdFreakは，同梱する簡易Webサーバ"mongoose"のCGIアプリケーション
+およびWindowsサービスとして動作し，WebブラウザからWebサーバを経由してCmdFreakを利用することができます。<p>
 <img src="systemstructure.gif">
 <table class="tblstyle">
-<tr><th>�R���|�[�l���g</th><th>����</th></tr>
-<tr><td>Web Browser</td><td>Internet Explorer�܂���Firefox�B</td></tr>
-<tr><td>Web Server</td><td>�ȈՌ^Web�T�[�o"mongoose"�B</td></tr>
-<tr><td>CGI</td><td>Web Browser�̃��N�G�X�g�����߂��CCmdFreak Service�Ƀf�[�^�x�[�X�Q�Ƃ̂��߂̊e�탊�N�G�X�g�𑗂�܂��B</td></tr>
-<tr><td>CmdFreak Service</td><td>CGI����̃��N�G�X�g���󂯕t���C�f�[�^�x�[�X���̎擾��CmdFreak�̊e�퐧����s���܂��B</td></tr>
-<tr><td>RDBMS</td><td>ODBC���g�p����CmdFreak���ڑ�����f�[�^�x�[�X�B</td></tr>
+<tr><th>コンポーネント</th><th>説明</th></tr>
+<tr><td>Web Browser</td><td>Internet ExplorerまたはFirefox。</td></tr>
+<tr><td>Web Server</td><td>簡易型Webサーバ"mongoose"。</td></tr>
+<tr><td>CGI</td><td>Web Browserのリクエストを解釈し，CmdFreak Serviceにデータベース参照のための各種リクエストを送ります。</td></tr>
+<tr><td>CmdFreak Service</td><td>CGIからのリクエストを受け付け，データベース情報の取得やCmdFreakの各種制御を行います。</td></tr>
+<tr><td>RDBMS</td><td>ODBCを使用してCmdFreakが接続するデータベース。</td></tr>
 </table><p>
-��}�ɂ�����Client�CServer�����DB Server�͓���̃T�[�o�ł����Ă���肠��܂���B<br>
+上図におけるClient，ServerおよびDB Serverは同一のサーバであっても問題ありません。<br>
 </div><p>
 
 
-<H2 ID="1.4">1.4 �g�p��������</H2>
+<H2 ID="1.4">1.4 使用許諾条件</H2>
 <div class="topic">
-CmdFreak�i�ȉ��{�\�t�g�E�F�A�ƕ\�L�j�̓t���[�E�F�A�ł��B���p�҂͈ȉ��̏����̂��Ɩ{�\�t�g�E�F�A�𖳏��ŗ��p���邱�Ƃ��ł��܂��B<P>
-- �{�\�t�g�E�F�A���i���p�Җ{�l�Ɛ���҂������j��O�҂ɍĔz�z����ꍇ�C
-�{�\�t�g�E�F�A�Ɋ܂܂��S�Ẵt�@�C�����p�b�P�[�W�`�����܂ߖ����ςŔz�z���Ȃ���΂Ȃ�܂���B<P>
-- �{�\�t�g�E�F�A�̐���҂́C�{�\�t�g�E�F�A�̗��p�ɂ�萶�������p�҂̂����Ȃ鑹�Q���⏞���܂���B<P>
+CmdFreak（以下本ソフトウェアと表記）はフリーウェアです。利用者は以下の条件のもと本ソフトウェアを無償で利用することができます。<P>
+- 本ソフトウェアを（利用者本人と制作者を除く）第三者に再配布する場合，
+本ソフトウェアに含まれる全てのファイルをパッケージ形式も含め無改変で配布しなければなりません。<P>
+- 本ソフトウェアの制作者は，本ソフトウェアの利用により生じた利用者のいかなる損害も補償しません。<P>
 </div><p>
 
 </div>

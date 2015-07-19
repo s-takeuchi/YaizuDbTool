@@ -1,34 +1,34 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <HEAD>
-<meta http-equiv="Content-Type" content="text/html; charset=shift_jis">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="content-style-type" content="text/css">
 <link rel="stylesheet" href="./style.css" type="text/css">
 </HEAD>
 
 <BODY>
 <div id="container">
-<H1>3. ���̑�</H1>
+<H1>3. その他</H1>
 
-<H2 ID="3.1">3.1 RDBMS�ւ̐ڑ��ɂ���</H2>
+<H2 ID="3.1">3.1 RDBMSへの接続について</H2>
 <div class="topic">
-CmdFreak��RDBMS�ւ̐ڑ���ODBC���g�p���Ă��邽�߁CCmdFreak�����삷��T�[�o�ɗ\��ODBC�h���C�o���C���X�g�[�����Ă��������B
-ODBC�h���C�o�͐ڑ��Ώۂ�RDBMS�̎�ނɉ��������̂ł���K�v������܂��B�Ⴆ��MySQL�ɂ�MySQL�p��ODBC�h���C�o���K�v�ɂȂ�܂��B<br>
-CmdFreak��32�r�b�g�A�v���P�[�V�����Ƃ��ē��삷�邽�߁CODBC�h���C�o��32�r�b�g�ł�p�ӂ��Ă��������iCmdFreak�̃C���X�g�[����
-�I�y���[�e�B���O�V�X�e����64�r�b�g�łł����Ă�32�r�b�g��ODBC�h���C�o���C���X�g�[������K�v������܂��j�B
-ODBC�h���C�o��RDBMS��񋟂���x���_�[�����J���Ă��܂��B�Ώۃx���_�[��Web�T�C�g��������肵�Ă��������B
+CmdFreakはRDBMSへの接続にODBCを使用しているため，CmdFreakが動作するサーバに予めODBCドライバをインストールしてください。
+ODBCドライバは接続対象のRDBMSの種類に応じたものである必要があります。例えばMySQLにはMySQL用のODBCドライバが必要になります。<br>
+CmdFreakは32ビットアプリケーションとして動作するため，ODBCドライバも32ビット版を用意してください（CmdFreakのインストール先
+オペレーティングシステムが64ビット版であっても32ビット版ODBCドライバをインストールする必要があります）。
+ODBCドライバはRDBMSを提供するベンダーが公開しています。対象ベンダーのWebサイト等から入手してください。
 </div><p>
 
 
-<H2 ID="3.2">3.2 �e�����l</H2>
+<H2 ID="3.2">3.2 各種上限値</H2>
 <div class="topic">
 <table class="tblstyle">
-<tr><th>�Ώ�</th><th>����l</th><th>���l</th></tr>
-<tr><td>�ő�e�[�u������(����)</td><td>63</td><td></td></tr>
-<tr><td>�ő�J��������(����)</td><td>63</td><td></td></tr>
-<tr><td>�ő�J�����l��(����)</td><td>63</td><td>64�����ȍ~�͕\������܂���B</td></tr>
-<tr><td>�ő�e�[�u����</td><td>300</td><td></td></tr>
-<tr><td>�ő�J������</td><td>50</td><td>51�Ԗڈȍ~�̃J�����͕\������܂���B</td></tr>
-<tr><td>�ő僌�R�[�h��</td><td>15,000</td><td>15,001�Ԗڈȍ~�̃��R�[�h�͕\������܂���B</td></tr>
+<tr><th>対象</th><th>上限値</th><th>備考</th></tr>
+<tr><td>最大テーブル名長(文字)</td><td>63</td><td></td></tr>
+<tr><td>最大カラム名長(文字)</td><td>63</td><td></td></tr>
+<tr><td>最大カラム値長(文字)</td><td>63</td><td>64文字以降は表示されません。</td></tr>
+<tr><td>最大テーブル数</td><td>300</td><td></td></tr>
+<tr><td>最大カラム数</td><td>50</td><td>51番目以降のカラムは表示されません。</td></tr>
+<tr><td>最大レコード数</td><td>15,000</td><td>15,001番目以降のレコードは表示されません。</td></tr>
 </table>
 </div><p>
 
