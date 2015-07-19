@@ -2,7 +2,7 @@
 #include "DbAccessor.h"
 #include "..\Global.h"
 #include "dataaccess.h"
-#include "..\..\com\commonfunc\StkGeneric.h"
+#include "..\..\..\YaizuComLib\src\commonfunc\StkGeneric.h"
 
 DbAccessor::DbAccessor()
 {

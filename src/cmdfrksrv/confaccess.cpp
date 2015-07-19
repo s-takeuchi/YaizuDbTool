@@ -2,7 +2,7 @@
 #include <shlwapi.h>
 #include "confaccess.h"
 #include "..\Global.h"
-#include "..\..\com\commonfunc\StkGeneric.h"
+#include "..\..\..\YaizuComLib\src\commonfunc\StkGeneric.h"
 
 ConfAccess* ConfAccess::ThisInstance;
 

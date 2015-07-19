@@ -3,9 +3,9 @@
 #include <shlwapi.h>
 #include "dataaccess.h"
 #include "..\Global.h"
-#include "..\..\com\stkdata\stkdata.h"
-#include "..\..\com\commonfunc\StkGeneric.h"
-#include "..\..\com\msgproc\msgproc.h"
+#include "..\..\..\YaizuComLib\src\stkdata\stkdata.h"
+#include "..\..\..\YaizuComLib\src\commonfunc\StkGeneric.h"
+#include "..\..\..\YaizuComLib\src\msgproc\msgproc.h"
 
 DataAccess* DataAccess::ThisInstance;
 

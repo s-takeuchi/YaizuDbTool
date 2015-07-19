@@ -3,7 +3,7 @@
 #include <shlwapi.h>
 #include <stdio.h>
 #include <wtsapi32.h>
-#include "..\..\com\msgproc\msgproc.h"
+#include "..\..\..\YaizuComLib\src\msgproc\msgproc.h"
 
 BOOL DebugOption = FALSE;
 

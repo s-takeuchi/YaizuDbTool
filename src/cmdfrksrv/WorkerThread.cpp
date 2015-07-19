@@ -1,6 +1,6 @@
 #include <windows.h>
 #include <tchar.h>
-#include "..\..\com\stkthread\stkthread.h"
+#include "..\..\..\YaizuComLib\src\stkthread\stkthread.h"
 #include "netaccess.h"
 
 int SessionMonitorThreadMain(int Id)

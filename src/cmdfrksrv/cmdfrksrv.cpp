@@ -1,4 +1,4 @@
-#include "..\..\com\stksocket\stksocket.h"
+#include "..\..\..\YaizuComLib\src\stksocket\stksocket.h"
 #include <windows.h>
 #include <shlwapi.h>
 #include <stdio.h>
@@ -10,7 +10,7 @@
 #include "netaccess.h"
 #include "dataaccess.h"
 #include "WorkerThread.h"
-#include "..\..\com\msgproc\msgproc.h"
+#include "..\..\..\YaizuComLib\src\msgproc\msgproc.h"
 
 
 #define SERVICE_NAME (TEXT("CmdFreak Service"))

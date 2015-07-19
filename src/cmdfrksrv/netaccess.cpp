@@ -1,4 +1,4 @@
-#include "..\..\com\stksocket\stksocket.h"
+#include "..\..\..\YaizuComLib\src\stksocket\stksocket.h"
 #include <windows.h>
 #include <memory.h>
 #include <stdlib.h>
@@ -9,8 +9,8 @@
 #include "OdbcManager.h"
 #include "DbAccessor.h"
 #include "..\Global.h"
-#include "..\..\com\commonfunc\StkGeneric.h"
-#include "..\..\com\msgproc\msgproc.h"
+#include "..\..\..\YaizuComLib\src\commonfunc\StkGeneric.h"
+#include "..\..\..\YaizuComLib\src\msgproc\msgproc.h"
 
 NetAccess* NetAccess::ThisInstance;
 
