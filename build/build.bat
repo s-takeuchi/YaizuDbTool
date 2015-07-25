@@ -7,6 +7,7 @@ echo =========================================
 
 set CURRENTPATH=%cd%
 set DEVENV="C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe"
+set SEVENZIP="C:\Program Files\7-Zip\7z.exe"
 
 
 rem ########## Initializing ##########
@@ -51,16 +52,6 @@ copy "..\doc\man\eng\*.*" webapp\manual\eng
 copy "..\doc\man\jpn\*.*" webapp\manual\jpn
 xcopy /y /q /s "..\src\etc\*.*" webapp
 
-exit /B
-
-
-rem ########## Making installer ##########
-echo;
-echo Digital signing (1st)...
-if exist ..\stkcodesign.pfx "C:\Program Files\Microsoft Platform SDK\Bin\signtool" sign /f ..\stkcodesign.pfx /a /t "http://timestamp.globalsign.com/scripts/timstamp.dll" /p happ1975 webapp\bbb.exe
-if exist ..\stkcodesign.pfx "C:\Program Files\Microsoft Platform SDK\Bin\signtool" sign /f ..\stkcodesign.pfx /a /t "http://timestamp.globalsign.com/scripts/timstamp.dll" /p happ1975 webapp\cmdfrksrv.exe
-if exist ..\stkcodesign.pfx "C:\Program Files\Microsoft Platform SDK\Bin\signtool" sign /f ..\stkcodesign.pfx /a /t "http://timestamp.globalsign.com/scripts/timstamp.dll" /p happ1975 webapp\stkdatagui.exe
-if exist ..\stkcodesign.pfx "C:\Program Files\Microsoft Platform SDK\Bin\signtool" sign /f ..\stkcodesign.pfx /a /t "http://timestamp.globalsign.com/scripts/timstamp.dll" /p happ1975 webapp\srvcmd.exe
 
 echo;
 echo Making installer...
@@ -68,20 +59,16 @@ echo Making installer...
 mkdir deployment
 copy setup\Release\cmdfreak.msi deployment
 
-echo;
-echo Digital signing (2nd)...
-if exist ..\stkcodesign.pfx "C:\Program Files\Microsoft Platform SDK\Bin\signtool" sign /f ..\stkcodesign.pfx /a /t "http://timestamp.globalsign.com/scripts/timstamp.dll" /p happ1975 deployment\cmdfreak.msi
-
 
 rem ########## ZIP packing ##########
 echo;
 echo ZIP packing stage...
-copy ReadmeJPN.txt deployment
-copy ReadmeENG.txt deployment
+copy ..\doc\readme\ReadmeJPN.txt deployment
+copy ..\doc\readme\ReadmeENG.txt deployment
 cd deployment
-..\..\7za.exe a cfk100.zip cmdfreak.msi
-..\..\7za.exe a cfk100.zip ReadmeENG.txt
-..\..\7za.exe a cfk100.zip ReadmeJPN.txt
+%SEVENZIP% a cfk100.zip cmdfreak.msi
+%SEVENZIP% a cfk100.zip ReadmeENG.txt
+%SEVENZIP% a cfk100.zip ReadmeJPN.txt
 del ReadmeENG.txt
 del ReadmeJPN.txt
 del cmdfreak.msi
