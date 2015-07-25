@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "cmdfreak", "cmdfreak.vdproj", "{AC6CDD0D-0BE3-4290-BFDD-BDDDE4390161}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC6CDD0D-0BE3-4290-BFDD-BDDDE4390161}.Debug|Default.ActiveCfg = Debug
+		{AC6CDD0D-0BE3-4290-BFDD-BDDDE4390161}.Debug|Default.Build.0 = Debug
+		{AC6CDD0D-0BE3-4290-BFDD-BDDDE4390161}.Release|Default.ActiveCfg = Release
+		{AC6CDD0D-0BE3-4290-BFDD-BDDDE4390161}.Release|Default.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

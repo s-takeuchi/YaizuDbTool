@@ -2,7 +2,7 @@
 
 echo;
 echo =========================================
-echo Build CmdFreak
+echo Build YaizuDbTool
 echo =========================================
 
 set CURRENTPATH=%cd%
@@ -49,7 +49,7 @@ copy "..\src\prog_add\Release\prog_add.exe" setup
 copy "..\src\prog_del\Release\prog_del.exe" setup
 copy "..\doc\man\eng\*.*" webapp\manual\eng
 copy "..\doc\man\jpn\*.*" webapp\manual\jpn
-rem xcopy /y /q /s "..\..\data\webapp\*.*" webapp
+xcopy /y /q /s "..\src\etc\*.*" webapp
 
 exit /B
 
