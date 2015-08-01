@@ -1,0 +1,57 @@
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=shift_jis">
+<meta http-equiv="content-style-type" content="text/css">
+<link rel="stylesheet" href="./style.css" type="text/css">
+</HEAD>
+
+<BODY>
+<div id="container">
+<H1>2. 内部処理</H1>
+
+<H2 ID="2.1">2.1 インストール時の内部処理</H2>
+<div class="topic">
+<u>AppCmd.exeによる自動登録方法:</u><br>
+%windir%\system32\inetsrv\appcmd set config /section:isapiCgiRestriction /+"[path='C:\inetpub\wwwroot\bbb.exe',description='TakeUrl CGI',allowed='True']"<p>
+%windir%\system32\inetsrv\appcmd set config /section:handlers /+"[name='TakeUrlHandler',path='/aaa',verb='GET,HEAD,POST',modules='CgiModule',scriptProcessor='C:\inetpub\wwwroot\bbb.exe']"<p>
+<u>AppCmd.exeによる自動解除方法:</u><br>
+%windir%\system32\inetsrv\appcmd set config /section:isapiCgiRestriction /-"[path='C:\inetpub\wwwroot\bbb.exe',description='TakeUrl CGI',allowed='True']"<p>
+%windir%\system32\inetsrv\appcmd set config /section:handlers /-"[name='TakeUrlHandler']"<p>
+</div><p>
+
+
+
+<H2 ID="2.2">2.2 入力されたTextareaのメッセージに関する内部予約バッファサイズ</H2>
+<div class="topic">
+入力されたTextareaのメッセージに関する内部予約バッファサイズ(最悪値)を以下に示す。<br>
+<table class="tblstyle">
+<tr><th></th><th>半角文字入力</th><th>全角文字入力</th></tr>
+<tr><td>Textareに入力された文字数(文字)</td><td>2,000</td><td>2,000</td></tr>
+<tr><td>UrlEncode後のバイト数(バイト)</td><td>6,000<br>改行コード等は%文字化</td><td>24,000<br>%文字化+UTF8化</td></tr>
+<tr><td>UrlDecode後のバイト数(バイト)</td><td>2,000</td><td>8,000<br>UTF8化</td></tr>
+<tr><td>UTF8→WideChar後のバイト数(バイト)</td><td>4,000<br>WideChar化</td><td>4,000<br>WideChar化</td></tr>
+<tr><td>HTML escape後のバイト数(バイト)</td><td>24,000<br>Spaceは6倍に</td><td>4,000</td></tr>
+</table><p>
+Postリクエスト用バッファサイズ = 24,000(バイト) * 120(%) = 28,800(バイト)<br>
+データベース格納サイズ = 24,000(バイト) * 120(%) = 28,800(バイト)<br>
+</div><p>
+
+
+
+<H2 ID="2.3">2.3 ツリーノード種別について</H2>
+<div class="topic">
+<table class="tblstyle">
+<tr><th>ノード種別</th><th>説明</th></tr>
+<tr><td>0</td><td>ルートノード。以下の何れかの名称を持つノードとなる。<br>
+<ul>
+<li>ジョブ定義
+<li>ジョブ実行
+<li>ジョブ実行結果
+</ul>
+</td>
+</table>
+</div><p>
+
+
+
+</div>
+</BODY>
