@@ -193,6 +193,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MyMsgProc.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\netaccessClient.cpp"
 				>
 			</File>
@@ -212,6 +216,10 @@
 			</File>
 			<File
 				RelativePath="..\Global.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MyMsgProc.h"
 				>
 			</File>
 			<File
