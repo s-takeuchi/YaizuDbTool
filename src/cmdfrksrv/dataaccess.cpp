@@ -5,7 +5,7 @@
 #include "..\Global.h"
 #include "..\..\..\YaizuComLib\src\stkdata\stkdata.h"
 #include "..\..\..\YaizuComLib\src\commonfunc\StkGeneric.h"
-#include "..\..\..\YaizuComLib\src\msgproc\msgproc.h"
+#include "MyMsgProc.h"
 
 DataAccess* DataAccess::ThisInstance;
 
@@ -118,7 +118,7 @@ int DataAccess::GetLogAsHtml(TCHAR LogAsHtml[Global::MAX_PARAM_LENGTH / 2])
 
 	StrCpy(LogAsHtml, _T("<table class='tblstyle'>"));
 	TCHAR TmpBuf[200];
-	wsprintf(TmpBuf, _T("<tr><th>%s</th><th>%s</th></tr>"), MessageProc::GetMsg(MessageProc::CMDFRK_LOGGINGTIME), MessageProc::GetMsg(MessageProc::CMDFRK_LOGGINGMSG));
+	wsprintf(TmpBuf, _T("<tr><th>%s</th><th>%s</th></tr>"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_LOGGINGTIME), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_LOGGINGMSG));
 	StrCat(LogAsHtml, TmpBuf);
 	RecordData* CurrRecDat = RecDatLog;
 	while (CurrRecDat != NULL) {

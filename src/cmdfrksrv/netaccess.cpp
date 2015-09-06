@@ -10,7 +10,7 @@
 #include "DbAccessor.h"
 #include "..\Global.h"
 #include "..\..\..\YaizuComLib\src\commonfunc\StkGeneric.h"
-#include "..\..\..\YaizuComLib\src\msgproc\msgproc.h"
+#include "MyMsgProc.h"
 
 NetAccess* NetAccess::ThisInstance;
 
@@ -114,7 +114,7 @@ int NetAccess::Dispatcher(int Id, int Status)
 				} else {
 					lstrcpy(DbmsTypeName, _T("PostgreSQL"));
 				}
-				_snwprintf_s(Buf, 1024, _TRUNCATE, _T("%s [%s]"), MessageProc::GetMsg(MessageProc::CMDFRK_LOG_DBMSCHANGE), DbmsTypeName);
+				_snwprintf_s(Buf, 1024, _TRUNCATE, _T("%s [%s]"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), DbmsTypeName);
 				DataAccess* DatAc = DataAccess::GetInstance();
 				DatAc->AddLogMsg(Buf);
 			}
@@ -360,7 +360,7 @@ int NetAccess::Dispatcher(int Id, int Status)
 				delete Data;
 				if (Index == 5) {
 					TCHAR Buf[1024];
-					_snwprintf_s(Buf, 1024, _TRUNCATE, _T("%s"), MessageProc::GetMsg(MessageProc::CMDFRK_FILTERINGCOND_UPDATE));
+					_snwprintf_s(Buf, 1024, _TRUNCATE, _T("%s"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_FILTERINGCOND_UPDATE));
 					DataAccess* DatAc = DataAccess::GetInstance();
 					DatAc->AddLogMsg(Buf);
 				}
