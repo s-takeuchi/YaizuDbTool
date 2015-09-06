@@ -5,6 +5,7 @@
 #include <string.h>
 #include <shlwapi.h>
 #include "..\..\..\YaizuComLib\src\msgproc\msgproc.h"
+#include "MyMsgProc.h"
 #include "BbbPage.h"
 #include "confaccess.h"
 #include "netaccessClient.h"
@@ -396,6 +397,7 @@ int main(int argc, char* argv[])
 	#endif
 
 	MessageProc::SetLocaleMode(MessageProc::LOCALE_MODE_WEB);
+	MyMsgProc::AddMsg();
 
 	BYTE GetHttpMessage[Global::MAX_HTTP_REQUEST_SIZE];
 	BYTE PostHttpMessage[Global::MAX_HTTP_REQUEST_SIZE];

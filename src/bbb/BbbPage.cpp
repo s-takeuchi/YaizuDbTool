@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <shlwapi.h>
-#include "..\..\..\YaizuComLib\src\msgproc\msgproc.h"
+#include "MyMsgProc.h"
 #include "BbbPage.h"
 #include "..\Global.h"
 
@@ -185,14 +185,14 @@ void BbbPage::OutputHeadMain(int ActionType,
 	WriteText(_T("function displayToolBar(type) {\n"));
 	WriteText(_T("    $('#mainarea').empty();\n"));
 	WriteText(_T("    var buttons = [\n"));
-	WriteTxtP(_T("        ['mainarea', 'img/config_image32s.png', 'img/config_image32c.png', '%s', 100],\n"), MessageProc::GetMsg(MessageProc::CMDFRK_ODBCCONNECTIONS));
+	WriteTxtP(_T("        ['mainarea', 'img/config_image32s.png', 'img/config_image32c.png', '%s', 100],\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_ODBCCONNECTIONS));
 	WriteText(_T("        ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],\n"));
-	WriteTxtP(_T("        ['mainarea', 'img/table_image32s.png', 'img/table_image32c.png', '%s', 200],\n"), MessageProc::GetMsg(MessageProc::CMDFRK_TABLES));
-	WriteTxtP(_T("        ['mainarea', 'img/refresh_image32s.png', 'img/refresh_image32c.png', '%s', 400],\n"), MessageProc::GetMsg(MessageProc::CMDFRK_REFRESHTABLELIST));
+	WriteTxtP(_T("        ['mainarea', 'img/table_image32s.png', 'img/table_image32c.png', '%s', 200],\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_TABLES));
+	WriteTxtP(_T("        ['mainarea', 'img/refresh_image32s.png', 'img/refresh_image32c.png', '%s', 400],\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_REFRESHTABLELIST));
 	WriteText(_T("        ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],\n"));
-	WriteTxtP(_T("        ['mainarea', 'img/filter_image32s.png', 'img/filter_image32c.png', '%s', 300],\n"), MessageProc::GetMsg(MessageProc::CMDFRK_FILTERING));
+	WriteTxtP(_T("        ['mainarea', 'img/filter_image32s.png', 'img/filter_image32c.png', '%s', 300],\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_FILTERING));
 	WriteText(_T("        ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],\n"));
-	WriteTxtP(_T("        ['mainarea', 'img/info_image32s.png', 'img/info_image32c.png', '%s', 600]\n"), MessageProc::GetMsg(MessageProc::CMDFRK_INFORMATION));
+	WriteTxtP(_T("        ['mainarea', 'img/info_image32s.png', 'img/info_image32c.png', '%s', 600]\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_INFORMATION));
 	WriteText(_T("    ];\n"));
 	WriteText(_T("    for (var Loop = 0; Loop < 8; Loop++) {\n"));
 	WriteText(_T("        displayButton(buttons[Loop][0], buttons[Loop][1], buttons[Loop][2], buttons[Loop][3], buttons[Loop][4]);\n"));
@@ -271,9 +271,9 @@ void BbbPage::OutputHeadMain(int ActionType,
 	WriteText(_T("    $('#adialog-button').empty();\n"));
 	WriteText(_T("    $('#adialog-icon').append('<img src=\"' + icon + '\"/>');\n"));
 	WriteText(_T("    $('#adialog-msg').append(message);\n"));
-	WriteTxtP(_T("    displayButton('adialog-button', 'img/ok_image32s.png', 'img/ok_image32c.png', '%s', actionType + 1);\n"), MessageProc::GetMsg(MessageProc::COMMON_OK));
+	WriteTxtP(_T("    displayButton('adialog-button', 'img/ok_image32s.png', 'img/ok_image32c.png', '%s', actionType + 1);\n"), MyMsgProc::GetMsg(MyMsgProc::COMMON_OK));
 	WriteText(_T("    if (buttonType == 1) {\n"));
-	WriteTxtP(_T("        displayButton('adialog-button', 'img/ng_image32s.png', 'img/ng_image32c.png', '%s', actionType + 2);\n"), MessageProc::GetMsg(MessageProc::COMMON_CANCEL));
+	WriteTxtP(_T("        displayButton('adialog-button', 'img/ng_image32s.png', 'img/ng_image32c.png', '%s', actionType + 2);\n"), MyMsgProc::GetMsg(MyMsgProc::COMMON_CANCEL));
 	WriteText(_T("    }\n"));
 	WriteText(_T("}\n\n"));
 
@@ -295,32 +295,32 @@ void BbbPage::OutputHeadMain(int ActionType,
 	WriteText(_T("        }\n"));
 	WriteText(_T("    });\n"));
 	WriteText(_T("    if (resultcode == 1100) {\n"));
-	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1100, 512, 230, 'img/error_image48c.png', 0);\n"), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED));
-	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_ERROR_UNEXPECTED));
+	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1100, 512, 230, 'img/error_image48c.png', 0);\n"), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED));
+	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_ERROR_UNEXPECTED));
 	WriteText(_T("    }\n"));
 	WriteText(_T("    if (resultcode == 1110) {\n"));
-	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1110, 512, 290, 'img/error_image48c.png', 0);\n"), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED));
-	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_ERROR_SERVICEDOWN));
+	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1110, 512, 290, 'img/error_image48c.png', 0);\n"), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED));
+	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_ERROR_SERVICEDOWN));
 	WriteText(_T("    }\n"));
 	WriteText(_T("    if (resultcode == 1120) {\n"));
-	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1120, 512, 290, 'img/error_image48c.png', 0);\n"), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED));
-	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_ERROR_INVALIDDBCONN));
+	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1120, 512, 290, 'img/error_image48c.png', 0);\n"), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED));
+	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_ERROR_INVALIDDBCONN));
 	WriteText(_T("    }\n"));
 	WriteText(_T("    if (resultcode == 1130) {\n"));
-	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1130, 512, 290, 'img/cristal_image48c.png', 0);\n"), MessageProc::GetMsg(MessageProc::CMDFRK_WELCOME), MessageProc::GetMsg(MessageProc::CMDFRK_WELCOME));
-	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_EMPTYCONNSTR));
+	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1130, 512, 290, 'img/cristal_image48c.png', 0);\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_WELCOME), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_WELCOME));
+	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_EMPTYCONNSTR));
 	WriteText(_T("    }\n"));
 	WriteText(_T("    if (resultcode == 1140) {\n"));
-	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1140, 512, 230, 'img/error_image48c.png', 0);\n"), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED));
-	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_ERROR_TOOMUCHRECS));
+	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1140, 512, 230, 'img/error_image48c.png', 0);\n"), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED));
+	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_ERROR_TOOMUCHRECS));
 	WriteText(_T("    }\n"));
 	WriteText(_T("    if (resultcode == 1150) {\n"));
-	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1140, 512, 230, 'img/error_image48c.png', 0);\n"), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED));
-	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_ERROR_TOOLONGCONNSTR));
+	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1140, 512, 230, 'img/error_image48c.png', 0);\n"), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED));
+	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_ERROR_TOOLONGCONNSTR));
 	WriteText(_T("    }\n"));
 	WriteText(_T("    if (resultcode == 1160) {\n"));
-	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1140, 512, 230, 'img/error_image48c.png', 0);\n"), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED));
-	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_ERROR_TOOLONGFILTER));
+	WriteTxtQ(_T("        showMessageDialog('%s', '%s', 1140, 512, 230, 'img/error_image48c.png', 0);\n"), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED));
+	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_ERROR_TOOLONGFILTER));
 	WriteText(_T("    }\n"));
 	WriteText(_T("    return resultcode;\n"));
 	WriteText(_T("}\n\n"));
@@ -448,8 +448,8 @@ void BbbPage::OutputHeadMain(int ActionType,
 
 	WriteText(_T("function onMenuAction(actionType) {\n"));
 	WriteText(_T("    if (actionType == 100) {\n"));
-	WriteTxtQ(_T("        showMessageDialog('%s', '%s', actionType, 600, 440, 'img/config_image48c.png', 1);\n"), MessageProc::GetMsg(MessageProc::CMDFRK_ODBCCONNECTIONS), MessageProc::GetMsg(MessageProc::CMDFRK_ODBCINFO));
-	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_DBMS));
+	WriteTxtQ(_T("        showMessageDialog('%s', '%s', actionType, 600, 440, 'img/config_image48c.png', 1);\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_ODBCCONNECTIONS), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_ODBCINFO));
+	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_DBMS));
 	WriteText(_T("        $('#adialog-content').append('<select id=\"dbmsselector\" style=\"width:250px\" onchange=\"eventDbmsSelected()\">');\n"));
 	WriteText(_T("        $('#adialog-content').append('</select><p>');\n"));
 	WriteText(_T("        var connstrResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};\n"));
@@ -468,7 +468,7 @@ void BbbPage::OutputHeadMain(int ActionType,
 	WriteText(_T("        } else {\n"));
 	WriteText(_T("            $('#dbmsselector').append('<option value=\"postgresql\">PostgreSQL</option>');\n"));
 	WriteText(_T("        }\n"));
-	WriteTxtP(_T("        $('#adialog-content').append('%s<br>');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_CONNSTR));
+	WriteTxtP(_T("        $('#adialog-content').append('%s<br>');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_CONNSTR));
 	WriteText(_T("        $('#adialog-content').append('<textarea id=\"connstr\" name=\"connstr\" style=\"width:560px;height:150px\" spellcheck=\"false\"/><p>');\n"));
 	WriteText(_T("        $('#connstr').append(connstrResponse.data.ConnStr);\n"));
 	WriteText(_T("        return;\n"));
@@ -496,13 +496,13 @@ void BbbPage::OutputHeadMain(int ActionType,
 	WriteText(_T("    }\n"));
 	WriteText(_T("    if (actionType == 200) {\n"));
 	WriteText(_T("        if (currentTablename == \"\") {\n"));
-	WriteTxtQ(_T("            showMessageDialog('%s', '%s', actionType, 600, 270, 'img/table_image48c.png', 0);\n"), MessageProc::GetMsg(MessageProc::CMDFRK_TABLES), MessageProc::GetMsg(MessageProc::CMDFRK_TABLEINFO));
+	WriteTxtQ(_T("            showMessageDialog('%s', '%s', actionType, 600, 270, 'img/table_image48c.png', 0);\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_TABLES), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_TABLEINFO));
 	WriteText(_T("            $('#adialog-content').empty();\n"));
-	WriteTxtP(_T("            $('#adialog-content').append('<br>%s<br>');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_NOTABLEINFO));
+	WriteTxtP(_T("            $('#adialog-content').append('<br>%s<br>');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_NOTABLEINFO));
 	WriteText(_T("            return;\n"));
 	WriteText(_T("        }\n"));
-	WriteTxtQ(_T("        showMessageDialog('%s', '%s', actionType, 600, 440, 'img/table_image48c.png', 0);\n"), MessageProc::GetMsg(MessageProc::CMDFRK_TABLES), MessageProc::GetMsg(MessageProc::CMDFRK_TABLEINFO));
-	WriteTxtP(_T("        $('#adialog-content').append('%s' + currentTablename + '<br>');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_TARGETTABLE));
+	WriteTxtQ(_T("        showMessageDialog('%s', '%s', actionType, 600, 440, 'img/table_image48c.png', 0);\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_TABLES), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_TABLEINFO));
+	WriteTxtP(_T("        $('#adialog-content').append('%s' + currentTablename + '<br>');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_TARGETTABLE));
 	WriteText(_T("        $('#adialog-content').append('<table class=\"tblstyle\">');\n"));
 	WriteText(_T("        $('.tblstyle').append('<tr><th>Column name</th><th>Column type</th><th>Is nullable</th></tr>');\n"));
 	WriteText(_T("        var columnResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};\n"));
@@ -517,12 +517,12 @@ void BbbPage::OutputHeadMain(int ActionType,
 	WriteText(_T("    }\n"));
 	WriteText(_T("    if (actionType == 300) {\n"));
 	WriteText(_T("        if (currentTablename == \"\") {\n"));
-	WriteTxtQ(_T("            showMessageDialog('%s', '%s', actionType, 600, 270, 'img/filter_image48c.png', 0);\n"), MessageProc::GetMsg(MessageProc::CMDFRK_FILTERING), MessageProc::GetMsg(MessageProc::CMDFRK_FILTER_DESC));
+	WriteTxtQ(_T("            showMessageDialog('%s', '%s', actionType, 600, 270, 'img/filter_image48c.png', 0);\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_FILTERING), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_FILTER_DESC));
 	WriteText(_T("            $('#adialog-content').empty();\n"));
-	WriteTxtP(_T("            $('#adialog-content').append('<br>%s<br>');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_FILTERING_NOTABLE));
+	WriteTxtP(_T("            $('#adialog-content').append('<br>%s<br>');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_FILTERING_NOTABLE));
 	WriteText(_T("            return;\n"));
 	WriteText(_T("        }\n"));
-	WriteTxtQ(_T("        showMessageDialog('%s', '%s', actionType, 600, 440, 'img/filter_image48c.png', 1);\n"), MessageProc::GetMsg(MessageProc::CMDFRK_FILTERING), MessageProc::GetMsg(MessageProc::CMDFRK_FILTER_DESC));
+	WriteTxtQ(_T("        showMessageDialog('%s', '%s', actionType, 600, 440, 'img/filter_image48c.png', 1);\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_FILTERING), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_FILTER_DESC));
 	WriteText(_T("        for (var Loop = 1; Loop <= 5; Loop++) {\n"));
 	WriteText(_T("            $('#adialog-content').append('' + Loop + ': ');\n"));
 	WriteText(_T("            var paramCol = document.createElement('select');\n"));
@@ -561,7 +561,7 @@ void BbbPage::OutputHeadMain(int ActionType,
 	WriteText(_T("        for (var LoopCol = 1; LoopCol <= 5; LoopCol++) {\n"));
 	WriteText(_T("            $('#paramOpe' + LoopCol).attr('disabled', 'disabled');\n"));
 	WriteText(_T("            $('#paramVal' + LoopCol).attr('disabled', 'disabled');\n"));
-	WriteTxtP(_T("            $('#paramCol' + LoopCol).append('<option value=\"*\">%s</option>');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_UNSPEC));
+	WriteTxtP(_T("            $('#paramCol' + LoopCol).append('<option value=\"*\">%s</option>');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_UNSPEC));
 	WriteText(_T("            var filFndFlag = false;\n"));
 	WriteText(_T("            for (var Loop in columnData.data) {\n"));
 	WriteText(_T("                var seld = '';\n"));
@@ -573,7 +573,7 @@ void BbbPage::OutputHeadMain(int ActionType,
 	WriteText(_T("            }\n"));
 	WriteText(_T("            if (filFndFlag == false && filtercdResponse.data[LoopCol - 1].columnname != '*') {\n"));
 	WriteText(_T("                $('#adialog-content').empty();\n"));
-	WriteTxtP(_T("                $('#adialog-content').append('<br>%s<br>');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_FILTER_INVALID));
+	WriteTxtP(_T("                $('#adialog-content').append('<br>%s<br>');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_FILTER_INVALID));
 	WriteText(_T("                return;\n"));
 	WriteText(_T("            }\n"));
 	WriteText(_T("            eventParamColChanged($('#paramCol' + LoopCol).get(0));\n"));
@@ -635,10 +635,10 @@ void BbbPage::OutputHeadMain(int ActionType,
 	WriteText(_T("        showTable(currentTablename);\n"));
 	WriteText(_T("    }\n"));
 	WriteText(_T("    if (actionType == 600) {\n"));
-	WriteTxtQ(_T("        showMessageDialog('%s', '%s', actionType, 600, 440, 'img/info_image48c.png', 0);\n"), MessageProc::GetMsg(MessageProc::CMDFRK_INFORMATION), MessageProc::GetMsg(MessageProc::CMDFRK_COMPOINFO));
-	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_COMPOINFO2));
+	WriteTxtQ(_T("        showMessageDialog('%s', '%s', actionType, 600, 440, 'img/info_image48c.png', 0);\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_INFORMATION), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_COMPOINFO));
+	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_COMPOINFO2));
 	WriteText(_T("        $('#adialog-content').append('<p>');\n"));
-	WriteTxtQ(_T("        $('#adialog-content').append('<a href=\"%s\" target=\"manual\">%s</a><p>');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_MANUAL), MessageProc::GetMsg(MessageProc::CMDFRK_MANUALMSG));
+	WriteTxtQ(_T("        $('#adialog-content').append('<a href=\"%s\" target=\"manual\">%s</a><p>');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_MANUAL), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_MANUALMSG));
 	WriteText(_T("        var timeResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};\n"));
 	WriteText(_T("        if (sendRequestToWebServer('config-time', timeResponse) != 0) {\n"));
 	WriteText(_T("            return;\n"));
@@ -650,13 +650,13 @@ void BbbPage::OutputHeadMain(int ActionType,
 	WriteText(_T("        if (sendRequestToWebServer('config-checklog', logResponse) != 0) {\n"));
 	WriteText(_T("            return;\n"));
 	WriteText(_T("        }\n"));
-	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_LOG_DESC));
+	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_LOG_DESC));
 	WriteText(_T("        $('#adialog-content').append('' + logResponse.data.log + '<br/>');\n"));
 	WriteText(_T("        return;\n"));
 	WriteText(_T("    }\n"));
 	WriteText(_T("    if (actionType == 1100) {\n"));
-	WriteTxtQ(_T("        showMessageDialog('%s', '%s', actionType, 512, 230, 'img/error_image48c.png', 0);\n"), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED), MessageProc::GetMsg(MessageProc::AN_ERROR_OCCURRED));
-	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MessageProc::GetMsg(MessageProc::CMDFRK_ERROR_UNEXPECTED));
+	WriteTxtQ(_T("        showMessageDialog('%s', '%s', actionType, 512, 230, 'img/error_image48c.png', 0);\n"), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED), MyMsgProc::GetMsg(MyMsgProc::AN_ERROR_OCCURRED));
+	WriteTxtP(_T("        $('#adialog-content').append('%s');\n"), MyMsgProc::GetMsg(MyMsgProc::CMDFRK_ERROR_UNEXPECTED));
 	WriteText(_T("        return;\n"));
 	WriteText(_T("    }\n"));
 	WriteText(_T("    if (actionType % 10 == 1 || actionType % 10 == 2) {\n"));
@@ -695,7 +695,7 @@ void BbbPage::OutputMain(int ActionType,
 
 	WriteText(_T("    <noscript>\n"));
 	WriteText(_T("        "));
-	WriteText(MessageProc::GetMsg(MessageProc::CMDFRK_ERROR_JAVASCRIPTERR));
+	WriteText(MyMsgProc::GetMsg(MyMsgProc::CMDFRK_ERROR_JAVASCRIPTERR));
 	WriteText(_T("    </noscript>\n\n"));
 
 	WriteText(_T("    <div id=\"mainarea\" style=\"display:none\">\n"));
