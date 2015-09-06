@@ -10,7 +10,7 @@
 #include "netaccess.h"
 #include "dataaccess.h"
 #include "WorkerThread.h"
-#include "..\..\..\YaizuComLib\src\msgproc\msgproc.h"
+#include "MyMsgProc.h"
 
 
 #define SERVICE_NAME (TEXT("CmdFreak Service"))
@@ -81,7 +81,7 @@ DWORD WINAPI HandlerEx (DWORD dwControl, DWORD dwEventType, LPVOID lpEventData, 
 		{
 			StopMongoose();
 			DataAccess* DatAc = DataAccess::GetInstance();
-			DatAc->AddLogMsg(MessageProc::GetMsg(MessageProc::CMDFRK_SVCSTOP));
+			DatAc->AddLogMsg(MyMsgProc::GetMsg(MyMsgProc::CMDFRK_SVCSTOP));
 		}
 
 		// Set STOP_PENDING status.
@@ -206,13 +206,16 @@ VOID WINAPI ServiceMain(DWORD dwArgc, PTSTR* pszArgv)
 		return;
 	}
 
+	// Initialize messages
+	MyMsgProc::AddMsg();
+
 	// DataAccess instance
 	DataAccess* DatAc = DataAccess::GetInstance();
 
 	// Initialize data tables
 	int RetCmdFrkTbl = DatAc->CreateCmdFreakTables();
 
-	DatAc->AddLogMsg(MessageProc::GetMsg(MessageProc::CMDFRK_SVCSTART));
+	DatAc->AddLogMsg(MyMsgProc::GetMsg(MyMsgProc::CMDFRK_SVCSTART));
 	StartMongoose();
 
 	// Acquire host name and port number
@@ -252,8 +255,8 @@ void main()
 
 	bRet = StartServiceCtrlDispatcher(ServiceTable);
 
-	printf_s("%s", MessageProc::GetMsgSjis(MessageProc::CMDFRK_CMDFRKSRV));
-	printf_s("%s", MessageProc::GetMsgSjis(MessageProc::CMDFRK_CANNOT_START));
+	printf_s("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CMDFRKSRV));
+	printf_s("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CANNOT_START));
 
 	return;
 }
