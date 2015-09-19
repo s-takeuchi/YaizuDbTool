@@ -8,6 +8,17 @@ echo =========================================
 set CURRENTPATH=%cd%
 set DEVENV="C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe"
 set SEVENZIP="C:\Program Files\7-Zip\7z.exe"
+set LCOUNTER="C:\Program Files (x86)\lcounter\lcounter.exe"
+
+echo;
+echo This batch file requires softwares shown below.
+echo (1) Microsoft Visual Studio 2008 Professional Edition
+echo (2) 7-Zip 9.20
+echo (3) Line Counter
+
+if not exist %DEVENV% exit
+if not exist %SEVENZIP% exit
+if not exist %LCOUNTER% exit
 
 
 rem ########## Initializing ##########
@@ -85,6 +96,8 @@ cd..
 
 
 rem ########## build complete ##########
+echo;
+%LCOUNTER% ..\src /subdir
 echo;
 echo All building processes of CmdFreak have been successfully finished.
 exit /B
