@@ -32,6 +32,14 @@ echo Building srvcmd.sln...
 %DEVENV% "..\src\srvcmd\srvcmd.sln" /rebuild Release
 
 
+rem ########## Checking file existence ##########
+echo;
+echo Checking "bbb.exe" existence...
+if not exist "..\src\bbb\Release\bbb.exe" goto FILENOTEXIST
+echo Checking "cmdfrksrv.exe" existence...
+if not exist "..\src\cmdfrksrv\Release\cmdfrksrv.exe" goto FILENOTEXIST
+
+
 rem ########## Deployment of files and folders ##########
 echo;
 echo Deployment of files and folders...
@@ -53,6 +61,7 @@ copy "..\doc\man\jpn\*.*" webapp\manual\jpn
 xcopy /y /q /s "..\src\etc\*.*" webapp
 
 
+rem ########## Making installer ##########
 echo;
 echo Making installer...
 %DEVENV% "setup\cmdfreak.sln" /rebuild Release
@@ -79,3 +88,11 @@ rem ########## build complete ##########
 echo;
 echo All building processes of CmdFreak have been successfully finished.
 exit /B
+
+
+rem ########## Error ##########
+:FILENOTEXIST
+echo;
+echo Build error occurred because some build target files do not exist.
+exit /B
+
