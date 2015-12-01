@@ -108,6 +108,7 @@ echo;
 %LCOUNTER% ..\src /subdir
 echo;
 echo All building processes of CmdFreak have been successfully finished.
+pause
 exit /B
 
 
@@ -115,5 +116,6 @@ rem ########## Error ##########
 :FILENOTEXIST
 echo;
 echo Build error occurred because some build target files do not exist.
+pause
 exit /B
 
