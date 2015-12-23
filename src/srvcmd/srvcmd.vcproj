@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wtsapi32.lib"
+				AdditionalDependencies="wtsapi32.lib Debug\commonfunc.lib"
 				LinkIncremental="2"
 				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
@@ -134,7 +134,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wtsapi32.lib"
+				AdditionalDependencies="wtsapi32.lib Release\commonfunc.lib"
 				LinkIncremental="1"
 				UACExecutionLevel="2"
 				GenerateDebugInformation="true"

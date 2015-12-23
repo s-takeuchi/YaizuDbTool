@@ -3,7 +3,7 @@
 #include <shlwapi.h>
 #include <stdio.h>
 #include <wtsapi32.h>
-#include "..\..\..\YaizuComLib\src\msgproc\msgproc.h"
+#include "..\..\..\YaizuComLib\src\commonfunc\msgproc.h"
 
 #define CMDFRK_SVCFAILEDTOSTART 3142
 #define CMDFRK_SVCFAILEDTOSTOP 3143

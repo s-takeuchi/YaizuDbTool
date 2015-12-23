@@ -1,4 +1,4 @@
-#include "..\..\..\YaizuComLib\src\\msgproc\msgproc.h"
+#include "..\..\..\YaizuComLib\src\\commonfunc\msgproc.h"
 #include "MyMsgProc.h"
 
 void MyMsgProc::AddMsg()

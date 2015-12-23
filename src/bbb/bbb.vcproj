@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Ws2_32.lib shlwapi.lib Debug\msgproc.lib Debug\stksocket.lib Debug\commonfunc.lib"
+				AdditionalDependencies="Ws2_32.lib shlwapi.lib Debug\stksocket.lib Debug\commonfunc.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -137,7 +137,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Ws2_32.lib shlwapi.lib Release\msgproc.lib Release\stksocket.lib Release\commonfunc.lib"
+				AdditionalDependencies="Ws2_32.lib shlwapi.lib Release\stksocket.lib Release\commonfunc.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"

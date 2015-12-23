@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <shlwapi.h>
-#include "..\..\..\YaizuComLib\src\msgproc\msgproc.h"
+#include "..\..\..\YaizuComLib\src\commonfunc\msgproc.h"
 #include "MyMsgProc.h"
 #include "BbbPage.h"
 #include "confaccess.h"
