@@ -2,7 +2,7 @@
 #include <shlwapi.h>
 #include "confaccess.h"
 #include "..\Global.h"
-#include "..\..\..\YaizuComLib\src\commonfunc\StkGeneric.h"
+#include "..\..\..\YaizuComLib\src\commonfunc\StkProperties.h"
 
 ConfAccess* ConfAccess::ThisInstance;
 
@@ -32,16 +32,16 @@ int ConfAccess::GetHostnameAndPortFromFile(TCHAR Hostname[Global::CMDFREAK_SERVE
 	*PortNum = 2001;
 
 	// Load properties from the specified file
-	StkGeneric* StkGen = StkGeneric::GetInstance();
-	if (StkGen->GetProperties(_T("bbb.conf")) != 0) {
+	StkProperties StkProp;
+	if (StkProp.GetProperties(_T("bbb.conf")) != 0) {
 		return -1;
 	}
 	char Hname[256];
 	int Pnum;
-	if (StkGen->GetPropertyStr("accesshost", Hname) == 0) {
+	if (StkProp.GetPropertyStr("accesshost", Hname) == 0) {
 		wsprintf(Hostname, _T("%S"), Hname);
 	}
-	if (StkGen->GetPropertyInt("accessport", &Pnum) == 0) {
+	if (StkProp.GetPropertyInt("accessport", &Pnum) == 0) {
 		*PortNum = Pnum;
 	}
 	return 0;
