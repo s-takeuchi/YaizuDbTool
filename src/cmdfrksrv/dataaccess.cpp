@@ -4,6 +4,7 @@
 #include "dataaccess.h"
 #include "..\Global.h"
 #include "..\..\..\YaizuComLib\src\stkdata\stkdata.h"
+#include "..\..\..\YaizuComLib\src\stkdata\stkdataapi.h"
 #include "..\..\..\YaizuComLib\src\commonfunc\StkGeneric.h"
 #include "MyMsgProc.h"
 
@@ -59,7 +60,7 @@ int DataAccess::AddLogMsg(TCHAR LogMsg[100])
 	LockTable(_T("Log"), LOCK_EXCLUSIVE);
 	int Ret = InsertRecord(RecDatLog);
 	UnlockTable(_T("Log"));
-	ClearRecordData(RecDatLog);
+	delete RecDatLog;
 	MaxLogId++;
 	return 0;
 }
@@ -83,7 +84,7 @@ int DataAccess::GetMaxLogId()
 		}
 		CurrRecDat = CurrRecDat->GetNextRecord();
 	}
-	ClearRecordData(RecDatLog);
+	delete RecDatLog;
 	return MaxLogId;
 }
 
@@ -102,7 +103,7 @@ int DataAccess::GetNumOfLogs()
 		NumOfLogs++;
 		CurrRecDat = CurrRecDat->GetNextRecord();
 	}
-	ClearRecordData(RecDatLog);
+	delete RecDatLog;
 	return NumOfLogs;
 }
 
@@ -136,7 +137,7 @@ int DataAccess::GetLogAsHtml(TCHAR LogAsHtml[Global::MAX_PARAM_LENGTH / 2])
 		CurrRecDat = CurrRecDat->GetNextRecord();
 	}
 	StrCat(LogAsHtml, _T("</table>"));
-	ClearRecordData(RecDatLog);
+	delete RecDatLog;
 	return 0;
 }
 
@@ -162,11 +163,11 @@ int DataAccess::DeleteOldLogs()
 			LockTable(_T("Log"), LOCK_EXCLUSIVE);
 			DeleteRecord(DelRecDat);
 			UnlockTable(_T("Log"));
-			ClearRecordData(DelRecDat);
+			delete DelRecDat;
 
 			CurrRecDat = CurrRecDat->GetNextRecord();
 		}
-		ClearRecordData(RecDatLog);
+		delete RecDatLog;
 	}
 
 	return 0;
@@ -192,8 +193,8 @@ void DataAccess::SetOdbcConnStr(int DbmsType, TCHAR ConnStr[256])
 	LockTable(_T("OdbcConfig"), LOCK_EXCLUSIVE);
 	int Ret = UpdateRecord(RecDatSch, RecDatUpd);
 	UnlockTable(_T("OdbcConfig"));
-	ClearRecordData(RecDatSch);
-	ClearRecordData(RecDatUpd);
+	delete RecDatSch;
+	delete RecDatUpd;
 	return;
 }
 
@@ -218,7 +219,7 @@ int DataAccess::GetOdbcConfing(TCHAR ConnStr[256], int* Init)
 	int DbmsType = ColDatDbmsType->GetValue();
 	lstrcpy(ConnStr, ColDatConnStr->GetValue());
 	*Init = ColDatInit->GetValue();
-	ClearRecordData(RecDatOdbcConfig);
+	delete RecDatOdbcConfig;
 	return DbmsType;
 }
 
@@ -243,8 +244,8 @@ void DataAccess::SetFilterCondition(int Index, TCHAR ColumnName[Global::COLUMNNA
 	LockTable(_T("Filter"), LOCK_EXCLUSIVE);
 	UpdateRecord(RecDatSearch, RecDatFilter);
 	UnlockTable(_T("Filter"));
-	ClearRecordData(RecDatSearch);
-	ClearRecordData(RecDatFilter);
+	delete RecDatSearch;
+	delete RecDatFilter;
 }
 
 // Get filter conditions
@@ -271,7 +272,7 @@ void DataAccess::GetFilterCondition(int Index, TCHAR ColumnName[Global::COLUMNNA
 		}
 		CurRecDat = CurRecDat->GetNextRecord();
 	}
-	ClearRecordData(RecDatFilter);
+	delete RecDatFilter;
 }
 
 // Set filtering switch
@@ -292,8 +293,8 @@ void DataAccess::SetFilterSwitch(BOOL Switch)
 	LockTable(_T("FilterSw"), LOCK_EXCLUSIVE);
 	int Ret = UpdateRecord(RecDatSch, RecDatUpd);
 	UnlockTable(_T("FilterSw"));
-	ClearRecordData(RecDatSch);
-	ClearRecordData(RecDatUpd);
+	delete RecDatSch;
+	delete RecDatUpd;
 	return;
 }
 
@@ -310,7 +311,7 @@ BOOL DataAccess::GetFilterSwitch()
 		return -1;
 	}
 	int Switch = ColDatSwitch->GetValue();
-	ClearRecordData(RecDatFilterSw);
+	delete RecDatFilterSw;
 	return (Switch == 1)? TRUE : FALSE;
 }
 
@@ -399,7 +400,7 @@ int DataAccess::CreateCmdFreakTables()
 		LockTable(_T("OdbcConfig"), LOCK_EXCLUSIVE);
 		Ret = InsertRecord(RecDatOdbcConfig);
 		UnlockTable(_T("OdbcConfig"));
-		ClearRecordData(RecDatOdbcConfig);
+		delete RecDatOdbcConfig;
 
 		// Add record for FilterSw
 		ColumnData *ColDatFilterSw[1];
@@ -408,7 +409,7 @@ int DataAccess::CreateCmdFreakTables()
 		LockTable(_T("FilterSw"), LOCK_EXCLUSIVE);
 		Ret = InsertRecord(RecDatFilterSw);
 		UnlockTable(_T("FilterSw"));
-		ClearRecordData(RecDatFilterSw);
+		delete RecDatFilterSw;
 
 		// Add record for Filter
 		for (int Loop = 1; Loop <= 5; Loop++) {
@@ -421,7 +422,7 @@ int DataAccess::CreateCmdFreakTables()
 			LockTable(_T("Filter"), LOCK_EXCLUSIVE);
 			Ret = InsertRecord(RecDatFilter);
 			UnlockTable(_T("Filter"));
-			ClearRecordData(RecDatFilter);
+			delete RecDatFilter;
 		}
 
 	} else {
