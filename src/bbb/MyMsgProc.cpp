@@ -260,30 +260,50 @@ BYTE* MyMsgProc::GetMsgSjis(int Id)
 
 void MyMsgProc::StkErr(int Id, HWND WndHndl)
 {
-	MessageProc::StkErr(Id, WndHndl);
+	TCHAR Buf[32];
+	wsprintf(Buf, _T("Message ID : %d"), Id);
+	MessageBox(WndHndl, GetMsg(Id), Buf, MB_OK | MB_ICONSTOP);
 }
 
 void MyMsgProc::StkErr(int Id, TCHAR* Str, HWND WndHndl)
 {
-	MessageProc::StkErr(Id, Str, WndHndl);
+	TCHAR Buf[32];
+	wsprintf(Buf, _T("Message ID : %d"), Id);
+	TCHAR MsgBuf[1024];
+	wsprintf(MsgBuf, _T("%s\r\n[%s]"),  GetMsg(Id), Str);
+	MessageBox(WndHndl, MsgBuf, Buf, MB_OK | MB_ICONSTOP);
 }
 
 void MyMsgProc::StkInf(int Id, HWND WndHndl)
 {
-	MessageProc::StkInf(Id, WndHndl);
+	TCHAR Buf[32];
+	wsprintf(Buf, _T("Message ID : %d"), Id);
+	MessageBox(WndHndl, GetMsg(Id), Buf, MB_OK | MB_ICONINFORMATION);
 }
 
 void MyMsgProc::StkInf(int Id, TCHAR* Str, HWND WndHndl)
 {
-	MessageProc::StkInf(Id, Str, WndHndl);
+	TCHAR Buf[32];
+	wsprintf(Buf, _T("Message ID : %d"), Id);
+	TCHAR MsgBuf[1024];
+	wsprintf(MsgBuf, _T("%s\r\n[%s]"),  GetMsg(Id), Str);
+	MessageBox(WndHndl, MsgBuf, Buf, MB_OK | MB_ICONINFORMATION);
 }
 
 int MyMsgProc::StkYesNo(int Id, HWND WndHndl)
 {
-	return MessageProc::StkYesNo(Id, WndHndl);
+	TCHAR Buf[32];
+	wsprintf(Buf, _T("Message ID : %d"), Id);
+	int Ret = MessageBox(WndHndl, GetMsg(Id), Buf, MB_YESNO | MB_ICONQUESTION);
+	return Ret;
 }
 
 int MyMsgProc::StkYesNo(int Id, TCHAR* Str, HWND WndHndl)
 {
-	return MessageProc::StkYesNo(Id, Str, WndHndl);
+	TCHAR Buf[32];
+	wsprintf(Buf, _T("Message ID : %d"), Id);
+	TCHAR MsgBuf[1024];
+	wsprintf(MsgBuf, _T("%s\r\n[%s]"),  GetMsg(Id), Str);
+	int Ret = MessageBox(WndHndl, MsgBuf, Buf, MB_YESNO | MB_ICONQUESTION);
+	return Ret;
 }
