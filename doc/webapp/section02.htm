@@ -1,51 +1,55 @@
+ï»¿<!DOCTYPE html>
+
+<html lang="ja">
+
 <HEAD>
-<meta http-equiv="Content-Type" content="text/html; charset=shift_jis">
-<meta http-equiv="content-style-type" content="text/css">
+<title>CmdFreak</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="./style.css" type="text/css">
 </HEAD>
 
 <BODY>
 <div id="container">
-<H1>2. “à•”ˆ—</H1>
+<H1>2. å†…éƒ¨å‡¦ç†</H1>
 
-<H2 ID="2.1">2.1 ƒCƒ“ƒXƒg[ƒ‹‚Ì“à•”ˆ—</H2>
+<H2 ID="2.1">2.1 ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ™‚ã®å†…éƒ¨å‡¦ç†</H2>
 <div class="topic">
-<u>AppCmd.exe‚É‚æ‚é©“®“o˜^•û–@:</u><br>
+<u>AppCmd.exeã«ã‚ˆã‚‹è‡ªå‹•ç™»éŒ²æ–¹æ³•:</u><br>
 %windir%\system32\inetsrv\appcmd set config /section:isapiCgiRestriction /+"[path='C:\inetpub\wwwroot\bbb.exe',description='TakeUrl CGI',allowed='True']"<p>
 %windir%\system32\inetsrv\appcmd set config /section:handlers /+"[name='TakeUrlHandler',path='/aaa',verb='GET,HEAD,POST',modules='CgiModule',scriptProcessor='C:\inetpub\wwwroot\bbb.exe']"<p>
-<u>AppCmd.exe‚É‚æ‚é©“®‰ğœ•û–@:</u><br>
+<u>AppCmd.exeã«ã‚ˆã‚‹è‡ªå‹•è§£é™¤æ–¹æ³•:</u><br>
 %windir%\system32\inetsrv\appcmd set config /section:isapiCgiRestriction /-"[path='C:\inetpub\wwwroot\bbb.exe',description='TakeUrl CGI',allowed='True']"<p>
 %windir%\system32\inetsrv\appcmd set config /section:handlers /-"[name='TakeUrlHandler']"<p>
 </div><p>
 
 
 
-<H2 ID="2.2">2.2 “ü—Í‚³‚ê‚½Textarea‚ÌƒƒbƒZ[ƒW‚ÉŠÖ‚·‚é“à•”—\–ñƒoƒbƒtƒ@ƒTƒCƒY</H2>
+<H2 ID="2.2">2.2 å…¥åŠ›ã•ã‚ŒãŸTextareaã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã«é–¢ã™ã‚‹å†…éƒ¨äºˆç´„ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º</H2>
 <div class="topic">
-“ü—Í‚³‚ê‚½Textarea‚ÌƒƒbƒZ[ƒW‚ÉŠÖ‚·‚é“à•”—\–ñƒoƒbƒtƒ@ƒTƒCƒY(Åˆ«’l)‚ğˆÈ‰º‚É¦‚·B<br>
+å…¥åŠ›ã•ã‚ŒãŸTextareaã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã«é–¢ã™ã‚‹å†…éƒ¨äºˆç´„ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º(æœ€æ‚ªå€¤)ã‚’ä»¥ä¸‹ã«ç¤ºã™ã€‚<br>
 <table class="tblstyle">
-<tr><th></th><th>”¼Šp•¶š“ü—Í</th><th>‘SŠp•¶š“ü—Í</th></tr>
-<tr><td>Textare‚É“ü—Í‚³‚ê‚½•¶š”(•¶š)</td><td>2,000</td><td>2,000</td></tr>
-<tr><td>UrlEncodeŒã‚ÌƒoƒCƒg”(ƒoƒCƒg)</td><td>6,000<br>‰üsƒR[ƒh“™‚Í%•¶š‰»</td><td>24,000<br>%•¶š‰»+UTF8‰»</td></tr>
-<tr><td>UrlDecodeŒã‚ÌƒoƒCƒg”(ƒoƒCƒg)</td><td>2,000</td><td>8,000<br>UTF8‰»</td></tr>
-<tr><td>UTF8¨WideCharŒã‚ÌƒoƒCƒg”(ƒoƒCƒg)</td><td>4,000<br>WideChar‰»</td><td>4,000<br>WideChar‰»</td></tr>
-<tr><td>HTML escapeŒã‚ÌƒoƒCƒg”(ƒoƒCƒg)</td><td>24,000<br>Space‚Í6”{‚É</td><td>4,000</td></tr>
+<tr><th></th><th>åŠè§’æ–‡å­—å…¥åŠ›</th><th>å…¨è§’æ–‡å­—å…¥åŠ›</th></tr>
+<tr><td>Textareã«å…¥åŠ›ã•ã‚ŒãŸæ–‡å­—æ•°(æ–‡å­—)</td><td>2,000</td><td>2,000</td></tr>
+<tr><td>UrlEncodeå¾Œã®ãƒã‚¤ãƒˆæ•°(ãƒã‚¤ãƒˆ)</td><td>6,000<br>æ”¹è¡Œã‚³ãƒ¼ãƒ‰ç­‰ã¯%æ–‡å­—åŒ–</td><td>24,000<br>%æ–‡å­—åŒ–+UTF8åŒ–</td></tr>
+<tr><td>UrlDecodeå¾Œã®ãƒã‚¤ãƒˆæ•°(ãƒã‚¤ãƒˆ)</td><td>2,000</td><td>8,000<br>UTF8åŒ–</td></tr>
+<tr><td>UTF8â†’WideCharå¾Œã®ãƒã‚¤ãƒˆæ•°(ãƒã‚¤ãƒˆ)</td><td>4,000<br>WideCharåŒ–</td><td>4,000<br>WideCharåŒ–</td></tr>
+<tr><td>HTML escapeå¾Œã®ãƒã‚¤ãƒˆæ•°(ãƒã‚¤ãƒˆ)</td><td>24,000<br>Spaceã¯6å€ã«</td><td>4,000</td></tr>
 </table><p>
-PostƒŠƒNƒGƒXƒg—pƒoƒbƒtƒ@ƒTƒCƒY = 24,000(ƒoƒCƒg) * 120(%) = 28,800(ƒoƒCƒg)<br>
-ƒf[ƒ^ƒx[ƒXŠi”[ƒTƒCƒY = 24,000(ƒoƒCƒg) * 120(%) = 28,800(ƒoƒCƒg)<br>
+Postãƒªã‚¯ã‚¨ã‚¹ãƒˆç”¨ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º = 24,000(ãƒã‚¤ãƒˆ) * 120(%) = 28,800(ãƒã‚¤ãƒˆ)<br>
+ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹æ ¼ç´ã‚µã‚¤ã‚º = 24,000(ãƒã‚¤ãƒˆ) * 120(%) = 28,800(ãƒã‚¤ãƒˆ)<br>
 </div><p>
 
 
 
-<H2 ID="2.3">2.3 ƒcƒŠ[ƒm[ƒhí•Ê‚É‚Â‚¢‚Ä</H2>
+<H2 ID="2.3">2.3 ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ç¨®åˆ¥ã«ã¤ã„ã¦</H2>
 <div class="topic">
 <table class="tblstyle">
-<tr><th>ƒm[ƒhí•Ê</th><th>à–¾</th></tr>
-<tr><td>0</td><td>ƒ‹[ƒgƒm[ƒhBˆÈ‰º‚Ì‰½‚ê‚©‚Ì–¼Ì‚ğ‚Âƒm[ƒh‚Æ‚È‚éB<br>
+<tr><th>ãƒãƒ¼ãƒ‰ç¨®åˆ¥</th><th>èª¬æ˜</th></tr>
+<tr><td>0</td><td>ãƒ«ãƒ¼ãƒˆãƒãƒ¼ãƒ‰ã€‚ä»¥ä¸‹ã®ä½•ã‚Œã‹ã®åç§°ã‚’æŒã¤ãƒãƒ¼ãƒ‰ã¨ãªã‚‹ã€‚<br>
 <ul>
-<li>ƒWƒ‡ƒu’è‹`
-<li>ƒWƒ‡ƒuÀs
-<li>ƒWƒ‡ƒuÀsŒ‹‰Ê
+<li>ã‚¸ãƒ§ãƒ–å®šç¾©
+<li>ã‚¸ãƒ§ãƒ–å®Ÿè¡Œ
+<li>ã‚¸ãƒ§ãƒ–å®Ÿè¡Œçµæœ
 </ul>
 </td>
 </table>
@@ -55,3 +59,6 @@ PostƒŠƒNƒGƒXƒg—pƒoƒbƒtƒ@ƒTƒCƒY = 24,000(ƒoƒCƒg) * 120(%) = 28,800(ƒoƒCƒg)<br>
 
 </div>
 </BODY>
+
+</html>
+
