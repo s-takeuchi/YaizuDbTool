@@ -69,6 +69,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_174D497C893E4276ABD853070B21CF95"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_178EA461EEC043C4B29C153B2D4B5452"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -423,6 +429,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_8189083772FB483BACF7343FDFA208E3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_85E2CB912D3E4904ADB8882FFB74E103"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -568,6 +580,12 @@
         "Entry"
         {
         "MsmKey" = "8:_B9AF9F7C21D74CF486C6F2B6C1A7C614"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BCB4A6A7B09A4A08B8B8455CFB0A587E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -887,6 +905,34 @@
             "InstallerClass" = "11:FALSE"
             "CustomActionData" = "8:"
             }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_5C8D1A550878401E993235CCEA3BE1E6"
+            {
+            "Name" = "8:stkwebappcmd.exe"
+            "Condition" = "8:"
+            "Object" = "8:_2C2037B9A5FF43EAA007A64BC19E469C"
+            "FileType" = "3:2"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:inst ProductName=CmdFreak2 WebPort=80 SrvPort=2003"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:2"
+            "Identifier" = "8:_A15C4B1F_3533_4479_A8E3_AADF8B1E68F3"
+            "InstallerClass" = "11:FALSE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_8AEEF4A6AF7E4541828B6C944B47001A"
+            {
+            "Name" = "8:stkwebappcmd.exe"
+            "Condition" = "8:"
+            "Object" = "8:_2C2037B9A5FF43EAA007A64BC19E469C"
+            "FileType" = "3:2"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:uninst ProductName=CmdFreak2"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:2"
+            "Identifier" = "8:_5748201B_37A3_45C8_9CA3_8515CD52794D"
+            "InstallerClass" = "11:FALSE"
+            "CustomActionData" = "8:"
+            }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_F7C599D033EF43A988E6CE5E79BB7538"
             {
             "Name" = "8:prog_add.exe"
@@ -1082,6 +1128,26 @@
             "TargetName" = "8:CHANGES.ru"
             "Tag" = "8:"
             "Folder" = "8:_95954E258A084E619345C2682B243FB8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_174D497C893E4276ABD853070B21CF95"
+            {
+            "SourcePath" = "8:..\\webapp\\stkwebapp.conf"
+            "TargetName" = "8:stkwebapp.conf"
+            "Tag" = "8:"
+            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2276,6 +2342,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8189083772FB483BACF7343FDFA208E3"
+            {
+            "SourcePath" = "8:..\\webapp\\stkwebapp.exe"
+            "TargetName" = "8:stkwebapp.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_85E2CB912D3E4904ADB8882FFB74E103"
             {
             "SourcePath" = "8:..\\webapp\\img\\config_image48c.png"
@@ -2762,6 +2848,26 @@
             "TargetName" = "8:vert-bg.png"
             "Tag" = "8:"
             "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BCB4A6A7B09A4A08B8B8455CFB0A587E"
+            {
+            "SourcePath" = "8:..\\webapp\\stkwebapp.dat"
+            "TargetName" = "8:stkwebapp.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"

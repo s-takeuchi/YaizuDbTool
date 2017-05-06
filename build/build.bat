@@ -41,6 +41,8 @@ echo Building stkdatagui.sln...
 %DEVENV% "..\..\YaizuComLib\src\stkdatagui\stkdatagui.sln" /rebuild Release
 echo Building srvcmd.sln...
 %DEVENV% "..\src\srvcmd\srvcmd.sln" /rebuild Release
+echo Building sample.sln...
+%DEVENV% "..\src\restapi\sample.sln" /rebuild Release
 echo Building stkwebappcmd.sln...
 %DEVENV% "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.sln" /rebuild Release
 
@@ -61,6 +63,8 @@ echo Checking "prog_del.exe" existence...
 if not exist "..\src\prog_del\Release\prog_del.exe" goto FILENOTEXIST
 echo Checking "nginx-1.10.3.zip" existence...
 if not exist "..\..\YaizuComLib\src\stkwebapp\nginx-1.10.3.zip" goto FILENOTEXIST
+echo Checking "stkwebapp.exe" existence...
+if not exist "..\src\restapi\Release\stkwebapp.exe" goto FILENOTEXIST
 echo Checking "stkwebappcmd.exe" existence...
 if not exist "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" goto FILENOTEXIST
 
@@ -84,6 +88,9 @@ copy "..\src\prog_del\Release\prog_del.exe" setup
 copy "..\doc\man\eng\*.*" webapp\manual\eng
 copy "..\doc\man\jpn\*.*" webapp\manual\jpn
 xcopy /y /q /s "..\src\etc\*.*" webapp
+copy "..\src\restapi\Release\stkwebapp.exe" webapp
+copy "..\src\restapi\stkwebapp.conf" webapp
+copy "..\src\restapi\stkwebapp.dat" webapp
 copy "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" webapp
 
 mkdir webapp\nginx
