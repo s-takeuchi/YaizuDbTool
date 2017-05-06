@@ -41,6 +41,8 @@ echo Building stkdatagui.sln...
 %DEVENV% "..\..\YaizuComLib\src\stkdatagui\stkdatagui.sln" /rebuild Release
 echo Building srvcmd.sln...
 %DEVENV% "..\src\srvcmd\srvcmd.sln" /rebuild Release
+echo Building stkwebappcmd.sln...
+%DEVENV% "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.sln" /rebuild Release
 
 
 rem ########## Checking file existence ##########
@@ -57,6 +59,10 @@ echo Checking "prog_add.exe" existence...
 if not exist "..\src\prog_add\Release\prog_add.exe" goto FILENOTEXIST
 echo Checking "prog_del.exe" existence...
 if not exist "..\src\prog_del\Release\prog_del.exe" goto FILENOTEXIST
+echo Checking "nginx-1.10.3.zip" existence...
+if not exist "..\..\YaizuComLib\src\stkwebapp\nginx-1.10.3.zip" goto FILENOTEXIST
+echo Checking "stkwebappcmd.exe" existence...
+if not exist "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" goto FILENOTEXIST
 
 
 rem ########## Deployment of files and folders ##########
@@ -78,6 +84,15 @@ copy "..\src\prog_del\Release\prog_del.exe" setup
 copy "..\doc\man\eng\*.*" webapp\manual\eng
 copy "..\doc\man\jpn\*.*" webapp\manual\jpn
 xcopy /y /q /s "..\src\etc\*.*" webapp
+copy "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" webapp
+
+mkdir webapp\nginx
+copy "..\..\YaizuComLib\src\stkwebapp\nginx-1.10.3.zip" webapp\nginx
+pushd webapp\nginx
+%SEVENZIP% x "nginx-1.10.3.zip"
+popd
+xcopy /y /q /i /s /e "webapp\nginx\nginx-1.10.3" webapp
+if exist webapp\nginx rmdir /S /Q webapp\nginx
 
 
 rem ########## Making installer ##########
