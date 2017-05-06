@@ -12,14 +12,8 @@
 <div id="container">
 <H1>2. 内部処理</H1>
 
-<H2 ID="2.1">2.1 インストール時の内部処理</H2>
+<H2 ID="2.1">2.1 REST API仕様</H2>
 <div class="topic">
-<u>AppCmd.exeによる自動登録方法:</u><br>
-%windir%\system32\inetsrv\appcmd set config /section:isapiCgiRestriction /+"[path='C:\inetpub\wwwroot\bbb.exe',description='TakeUrl CGI',allowed='True']"<p>
-%windir%\system32\inetsrv\appcmd set config /section:handlers /+"[name='TakeUrlHandler',path='/aaa',verb='GET,HEAD,POST',modules='CgiModule',scriptProcessor='C:\inetpub\wwwroot\bbb.exe']"<p>
-<u>AppCmd.exeによる自動解除方法:</u><br>
-%windir%\system32\inetsrv\appcmd set config /section:isapiCgiRestriction /-"[path='C:\inetpub\wwwroot\bbb.exe',description='TakeUrl CGI',allowed='True']"<p>
-%windir%\system32\inetsrv\appcmd set config /section:handlers /-"[name='TakeUrlHandler']"<p>
 </div><p>
 
 
