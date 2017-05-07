@@ -1,0 +1,595 @@
+﻿<!doctype html>
+<html>
+<head>
+<title>CmdFreak</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="pragma" content="non-cache" />
+<meta http-equiv="cache-control" content="non-cache" />
+<meta http-equiv="expires" content="0" />
+<link rel="stylesheet" href="./lib/jquery/jquery-ui.min.css" />
+<script src="./lib/jquery/jquery-1.9.1.min.js"></script>
+<script src="./lib/jquery/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="./lib/grid/pqgrid.min.css" />
+<script src="./lib/grid/pqgrid.min.js"></script>
+<link rel="stylesheet" href="./lib/grid/themes/office/pqgrid.css" />
+<link rel="stylesheet" href="./style.css" />
+
+<script type="text/javascript">
+
+var currentTablename = "";
+var currentDbmsname = "";
+var columnData = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+window.onload = function() {
+    $('#adialog').dialog({autoOpen:false});
+    displaySheet();
+    boxResize();
+    document.getElementById('mainarea').style.display='block';
+    displayToolBar(0);
+    var testResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+    if (sendRequestToWebServer('test', testResponse) != 0) {
+        return;
+    }
+    initializeCurrentTablename();
+    showTable(currentTablename);
+}
+
+function boxResize() {
+    var box_info = document.getElementById('box_info');
+    var box_cont = document.getElementById('container');
+    var boxHeight = getshowHeight();
+    var boxWidth  = getshowWidth();
+    if (boxHeight < 440) {
+        boxHeight = 440;
+    }
+    if (boxWidth < 580) {
+        boxWidth = 580;
+    }
+    box_info.style.height = boxHeight - 20 + 'px';
+    box_info.style.width  = boxWidth  + 'px';
+    box_cont.style.height = boxHeight + 'px';
+    box_cont.style.width  = boxWidth  + 'px';
+    $(function () {
+        $('#grid_array').pqGrid('option', 'width', boxWidth - 2);
+        $('#grid_array').pqGrid('option', 'height', boxHeight - 62);
+    });
+}
+
+function getshowHeight() {
+    if (window.innerHeight)
+        return window.innerHeight;
+    if (document.body.parentNode.clientHeight)
+        return document.body.parentNode.clientHeight;
+    if (document.body.clientHeight)
+        return document.body.clientHeight;
+}
+
+function getshowWidth() {
+    if (window.innerWidth)
+        return window.innerWidth;
+    if (document.body.parentNode.clientWidth)
+        return document.body.parentNode.clientWidth;
+    if (document.body.clientWidth)
+        return document.body.clientWidth;
+}
+
+function displayToolBar(type) {
+    $('#mainarea').empty();
+    var buttons = [
+        ['mainarea', 'img/config_image32s.png', 'img/config_image32c.png', 'ODBC接続', 100],
+        ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
+        ['mainarea', 'img/table_image32s.png', 'img/table_image32c.png', 'テーブル情報', 200],
+        ['mainarea', 'img/refresh_image32s.png', 'img/refresh_image32c.png', 'テーブル一覧更新', 400],
+        ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
+        ['mainarea', 'img/filter_image32s.png', 'img/filter_image32c.png', 'フィルタリング', 300],
+        ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
+        ['mainarea', 'img/info_image32s.png', 'img/info_image32c.png', '情報', 600]
+    ];
+    for (var Loop = 0; Loop < 8; Loop++) {
+        displayButton(buttons[Loop][0], buttons[Loop][1], buttons[Loop][2], buttons[Loop][3], buttons[Loop][4]);
+        if (Loop == 0) {
+            var connstrResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+            if (sendRequestToWebServer('get-connstr', connstrResponse) != 0) {
+                return;
+            }
+            if (connstrResponse.data.DbmsType == 0) {
+                $('#mainarea').append('MySQL/MariaDB');
+            } else {
+                $('#mainarea').append('PostgreSQL');
+            }
+        }
+        if (Loop == 2) {
+            $('#mainarea').append('<select id="tableselector" style="width:150px" onchange="eventTableSelected()" align="middle">');
+            $('#mainarea').append('</select>');
+            refreshTableNameList();
+        }
+        if (Loop == 5) {
+            var filterswResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+            if (sendRequestToWebServer('getfiltersw', filterswResponse) != 0) {
+                return;
+            }
+            var switchflag = '';
+            if (filterswResponse.data.switchon == true) {
+                switchflag = 'checked';
+            }
+            $('#mainarea').append('<input type="checkbox" id="filteringonoff" value="filteringOn" align="middle" onclick="eventFilterOn(this)" ' + switchflag + '>On');
+        }
+    }
+    appendBr('mainarea');
+}
+
+function displayButton(target, mouseOutIcon, mouseOverIcon, toolTip, actionType) {
+    var element = document.createElement('img');
+    element.src=mouseOutIcon;
+    element.border='0';
+    element.align='middle';
+    if (actionType != -1) {
+        element.title=toolTip;
+        element.style.cursor='hand';
+        element.onmouseover = function(){
+            element.src=mouseOverIcon;
+        }
+        element.onmouseout = function(){
+            element.src=mouseOutIcon;
+        }
+        element.onclick = function(){
+            onMenuAction(actionType);
+        }
+    }
+    var parentElem = document.getElementById(target);
+    parentElem.appendChild(element);
+}
+
+function appendBr(target) {
+    var element = document.createElement('br');
+    var parentElem = document.getElementById(target);
+    parentElem.appendChild(element);
+}
+
+function displaySheet() {
+    var obj = { width:300, height:300, title:'', resizable:false, draggable:false, freezeCols:0 };
+    var data = [];
+    obj.colModel = [{ title: '', width: 10, dataType: 'integer' }];
+    obj.dataModel = { data: data, paging: 'local', rPPOptions:[100, 200, 400], rPP:100 };
+    $('#grid_array').pqGrid(obj);
+}
+
+function showMessageDialog(title, message, actionType, width, height, icon, buttonType) {
+    $('#adialog').dialog({ autoOpen:true, title:title, modal:true, position:'center', draggable:true, resizable: false, height:height, width:width });
+    $('#adialog-icon').empty();
+    $('#adialog-msg').empty();
+    $('#adialog-content').empty();
+    $('#adialog-button').empty();
+    $('#adialog-icon').append('<img src="' + icon + '"/>');
+    $('#adialog-msg').append(message);
+    displayButton('adialog-button', 'img/ok_image32s.png', 'img/ok_image32c.png', 'OK', actionType + 1);
+    if (buttonType == 1) {
+        displayButton('adialog-button', 'img/ng_image32s.png', 'img/ng_image32c.png', 'ｷｬﾝｾﾙ', actionType + 2);
+    }
+}
+
+function sendRequestToWebServer(operation, response) {
+    var resultcode = 0;
+    $.ajax({
+        type: 'POST',
+        contentType: 'multipart/form-data',
+        url: '',
+        cache: false,
+        dataType: 'json',
+        data: 'operation=' + operation,
+        async: false,
+        success: function(msg){
+            resultcode = msg.resultcode;
+            response.operation = operation;
+            response.resultcode = msg.resultcode;
+            response.data = msg.data;
+        }
+    });
+    if (resultcode == 1100) {
+        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', 1100, 512, 230, 'img/error_image48c.png', 0);
+        $('#adialog-content').append('予期しないエラーが発生しました。このエラーはWebブラウザからのリクエストが解析できなかったときに発生する場合があります。<br>');
+    }
+    if (resultcode == 1110) {
+        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', 1110, 512, 290, 'img/error_image48c.png', 0);
+        $('#adialog-content').append('CmdFreakサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) CmdFreakサービスが開始されていない。<br>(2) CmdFreakサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [bbb.conf, cmdfrksrv.conf] が不正。<br>(4) CmdFreakの内部処理で異常が発生している。<br>');
+    }
+    if (resultcode == 1120) {
+        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', 1120, 512, 290, 'img/error_image48c.png', 0);
+        $('#adialog-content').append('DBMSとの接続に失敗しました。<br>次の要因が考えられます。<br>- DBMSが適切に起動していない。<br>- ODBCドライバがインストールされていない。<br>- ODBCの接続文字列が不正。<br>- DBMSとの接続経路に何らかの問題がある。<br>');
+    }
+    if (resultcode == 1130) {
+        showMessageDialog('ようこそ，CmdFreakのページです！', 'ようこそ，CmdFreakのページです！', 1130, 512, 290, 'img/cristal_image48c.png', 0);
+        $('#adialog-content').append('本ソフトウェアを使用してデータベースのデータを参照するには，まずはじめにODBC接続の設定を行ってください。');
+    }
+    if (resultcode == 1140) {
+        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', 1140, 512, 230, 'img/error_image48c.png', 0);
+        $('#adialog-content').append('対象テーブルのレコード数がCmdFreakで操作可能な上限を超えました。');
+    }
+    if (resultcode == 1150) {
+        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', 1140, 512, 230, 'img/error_image48c.png', 0);
+        $('#adialog-content').append('ODBCの接続文字列で指定可能な長さの上限を超えました。');
+    }
+    if (resultcode == 1160) {
+        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', 1140, 512, 230, 'img/error_image48c.png', 0);
+        $('#adialog-content').append('フィルタリングの条件が指定可能な上限を超えました。');
+    }
+    return resultcode;
+}
+
+function refreshTableNameList() {
+    var tablenameResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+    if (sendRequestToWebServer('get-tablenames', tablenameResponse) != 0) {
+        return;
+    }
+    $('#tableselector').empty();
+    for (var tableIndex = 0; tableIndex < tablenameResponse.data.length; tableIndex++) {
+        var tn = tablenameResponse.data[tableIndex].name;
+        var tnReplaced = tn;
+        tnReplaced = tnReplaced.replace(/&lt;/g, "<");
+        tnReplaced = tnReplaced.replace(/&gt;/g, ">");
+        tnReplaced = tnReplaced.replace(/&amp;/g, "&");
+        tnReplaced = tnReplaced.replace(/&quot;/g, "\"");
+        var seld = '';
+        if (tableIndex == 0 && currentTablename == "") {
+            currentTablename = tnReplaced;
+        }
+        if (tnReplaced == currentTablename) {
+            seld = 'selected';
+        }
+        $('#tableselector').append('<option value="' + tn + '" ' + seld + '>' + tn + '</option>');
+    }
+}
+
+function eventTableSelected() {
+    var selectedTableName = $('#tableselector').val();
+    currentTablename = selectedTableName;
+    showTable(currentTablename);
+}
+
+function eventFilterOn(checkboxObj) {
+    var filterswResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+    if (checkboxObj.checked == true) {
+        if (sendRequestToWebServer('filtersw_on', filterswResponse) != 0) {
+            return;
+        }
+        showTable(currentTablename);
+    } else {
+        if (sendRequestToWebServer('filtersw_off', filterswResponse) != 0) {
+            return;
+        }
+        showTable(currentTablename);
+    }
+}
+
+function eventDbmsSelected() {
+    var selectedDbmsName = $('#dbmsselector').val();
+    currentDbmsname = selectedDbmsName;
+    var defconnstrResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+    if (sendRequestToWebServer('get-defconnstr&dbmstype=' + selectedDbmsName, defconnstrResponse) != 0) {
+        return;
+    }
+    $('#connstr').empty();
+    $('#connstr').append(defconnstrResponse.data.defconnstr);
+}
+
+function eventParamColChanged(selectObj) {
+    var valstr = selectObj.options[selectObj.selectedIndex].value;
+    var fetchedId = selectObj.id.substring(8, 9);
+    if (selectObj.selectedIndex == 0) {
+        $('#paramOpe' + fetchedId).attr('disabled', 'disabled');
+        $('#paramVal' + fetchedId).attr('disabled', 'disabled');
+        return;
+    }
+    $('#paramOpe' + fetchedId).removeAttr('disabled');
+    $('#paramVal' + fetchedId).removeAttr('disabled');
+    var paramOpe = '#paramOpe' + fetchedId;
+    $(paramOpe).empty();
+    $(paramOpe).append('<option value="equals">=</option>');
+    $(paramOpe).append('<option value="notequal">!=</option>');
+    if (columnData.data[selectObj.selectedIndex - 1].dataType == 'integer' ||
+        columnData.data[selectObj.selectedIndex - 1].dataType == 'float') {
+        $(paramOpe).append('<option value="equalslesserthan">&lt;=</option>');
+        $(paramOpe).append('<option value="lesserthan">&lt;</option>');
+        $(paramOpe).append('<option value="equalsgreaterthan">&gt;=</option>');
+        $(paramOpe).append('<option value="greaterthan">&gt;</option>');
+    }
+    if (columnData.data[selectObj.selectedIndex - 1].dataType == 'string') {
+        $(paramOpe).append('<option value="contains">contains</option>');
+        $(paramOpe).append('<option value="notcontain">does not contain</option>');
+    }
+    $(paramOpe).append('<option value="null">is NULL</option>');
+    $(paramOpe).append('<option value="notnull">is not NULL</option>');
+}
+
+function eventParamOpeChanged(selectObj) {
+    var fetchedId = selectObj.id.substring(8, 9);
+    if (selectObj.options[selectObj.selectedIndex].value == "notnull" ||
+        selectObj.options[selectObj.selectedIndex].value == "null") {
+        $('#paramVal' + fetchedId).attr('disabled', 'disabled');
+    } else {
+        $('#paramVal' + fetchedId).removeAttr('disabled');
+    }
+}
+
+function showTable(tableName) {
+    if (tableName != "") {
+        var columnResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+        var recordResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+        if (sendRequestToWebServer('get-columns&tablename=' + tableName, columnResponse) != 0) {
+            return;
+        }
+        if (sendRequestToWebServer('get-records&tablename=' + tableName, recordResponse) != 0) {
+            return;
+        }
+        var obj = { title: tableName, editable: false };
+        $('#grid_array').pqGrid({colModel: columnResponse.data});
+        obj.dataModel = { data: recordResponse.data, dataType: 'JSON', paging: 'local', rPPOptions:[100, 200, 400], rPP:100, curPage:1 };
+        $('#grid_array').pqGrid(obj);
+    }
+}
+
+function initializeCurrentTablename() {
+    var selectedTableName = $('#tableselector').val();
+    if (selectedTableName == null) {
+        currentTablename = "";
+    } else {
+        currentTablename = selectedTableName;
+    }
+}
+
+function onMenuAction(actionType) {
+    if (actionType == 100) {
+        showMessageDialog('ODBC接続', 'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。オペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>', actionType, 600, 440, 'img/config_image48c.png', 1);
+        $('#adialog-content').append('DBMSの選択 : ');
+        $('#adialog-content').append('<select id="dbmsselector" style="width:250px" onchange="eventDbmsSelected()">');
+        $('#adialog-content').append('</select><p>');
+        var connstrResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+        if (sendRequestToWebServer('get-connstr', connstrResponse) != 0) {
+            return;
+        }
+        if (connstrResponse.data.DbmsType == 0) {
+            $('#dbmsselector').append('<option value="mariadb" selected>MySQL/MariaDB</option>');
+            currentDbmsname = 'mariadb';
+        } else {
+            $('#dbmsselector').append('<option value="mariadb">MySQL/MariaDB</option>');
+        }
+        if (connstrResponse.data.DbmsType == 1) {
+            $('#dbmsselector').append('<option value="postgresql" selected>PostgreSQL</option>');
+            currentDbmsname = 'postgresql';
+        } else {
+            $('#dbmsselector').append('<option value="postgresql">PostgreSQL</option>');
+        }
+        $('#adialog-content').append('接続文字列の指定 : <br>');
+        $('#adialog-content').append('<textarea id="connstr" name="connstr" style="width:560px;height:150px" spellcheck="false"/><p>');
+        $('#connstr').append(connstrResponse.data.ConnStr);
+        return;
+    }
+    if (actionType == 101) {
+        var DbmsType = 0;
+        var tmpstr = $('#connstr').val().replace(/[\n\r]/g, '');
+        if (currentDbmsname == 'postgresql') DbmsType = 1;
+        var connstrResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+        if (sendRequestToWebServer('set-connstr&dbmstype=' + DbmsType + '&connstr=' + tmpstr, connstrResponse) != 0) {
+            return;
+        }
+        $('#adialog').dialog('close');
+        currentTablename = "";
+        displaySheet();
+        boxResize();
+        displayToolBar(0);
+        var testResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+        if (sendRequestToWebServer('test', testResponse) != 0) {
+            return;
+        }
+        initializeCurrentTablename();
+        showTable(currentTablename);
+        return;
+    }
+    if (actionType == 200) {
+        if (currentTablename == "") {
+            showMessageDialog('テーブル情報', '以下に指定されたテーブルの詳細情報を表示します。', actionType, 600, 270, 'img/table_image48c.png', 0);
+            $('#adialog-content').empty();
+            $('#adialog-content').append('<br>表示対象のテーブルが存在しないため操作を継続できません。<br>');
+            return;
+        }
+        showMessageDialog('テーブル情報', '以下に指定されたテーブルの詳細情報を表示します。', actionType, 600, 440, 'img/table_image48c.png', 0);
+        $('#adialog-content').append('対象テーブル: ' + currentTablename + '<br>');
+        $('#adialog-content').append('<table class="tblstyle">');
+        $('.tblstyle').append('<tr><th>Column name</th><th>Column type</th><th>Is nullable</th></tr>');
+        var columnResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+        if (sendRequestToWebServer('get-columns&tablename=' + currentTablename, columnResponse) != 0) {
+            return;
+        }
+        for (var ColLoop = 0; ColLoop < columnResponse.data.length; ColLoop++) {
+            $('.tblstyle').append('<tr><td>' + columnResponse.data[ColLoop].title + '</td><td>' + columnResponse.data[ColLoop].coltype + '</td><td>' + columnResponse.data[ColLoop].isnull + '</td></tr>');
+        }
+        $('#adialog-content').append('</table>');
+        return;
+    }
+    if (actionType == 300) {
+        if (currentTablename == "") {
+            showMessageDialog('フィルタリング', 'ここではフィルタリングの設定を行うことができます。<br>指定した条件でレコード情報がフィルタリングされます。<br>フィルタリング項目は最大5件を指定することができます。<br>各フィルタリング項目間は論理積[AND]で結合されます。', actionType, 600, 270, 'img/filter_image48c.png', 0);
+            $('#adialog-content').empty();
+            $('#adialog-content').append('<br>フィルタリングの対象となるテーブルが存在しないため操作を継続できません。<br>');
+            return;
+        }
+        showMessageDialog('フィルタリング', 'ここではフィルタリングの設定を行うことができます。<br>指定した条件でレコード情報がフィルタリングされます。<br>フィルタリング項目は最大5件を指定することができます。<br>各フィルタリング項目間は論理積[AND]で結合されます。', actionType, 600, 440, 'img/filter_image48c.png', 1);
+        for (var Loop = 1; Loop <= 5; Loop++) {
+            $('#adialog-content').append('' + Loop + ': ');
+            var paramCol = document.createElement('select');
+            paramCol.id = 'paramCol' + Loop;
+            paramCol.style.width = '130px';
+            paramCol.align = 'middle';
+            paramCol.onchange = function() {;
+                eventParamColChanged(this);
+            }
+            $('#adialog-content').append(paramCol);
+            $('#adialog-content').append(' ');
+            var paramOpe = document.createElement('select');
+            paramOpe.id = 'paramOpe' + Loop;
+            paramOpe.style.width = '140px';
+            paramOpe.align = 'middle';
+            paramOpe.onchange = function() {;
+                eventParamOpeChanged(this);
+            }
+            $('#adialog-content').append(paramOpe);
+            $('#adialog-content').append(' ');
+            var paramVal = document.createElement('input');
+            paramVal.id = 'paramVal' + Loop;
+            paramVal.type = 'text';
+            paramVal.size = '30';
+            paramVal.align = 'middle';
+            $('#adialog-content').append(paramVal);
+            $('#adialog-content').append('<p>');
+        }
+        if (sendRequestToWebServer('get-columns&tablename=' + currentTablename, columnData) != 0) {
+            return;
+        }
+        var filtercdResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+        if (sendRequestToWebServer('getfiltercd', filtercdResponse) != 0) {
+            return;
+        }
+        for (var LoopCol = 1; LoopCol <= 5; LoopCol++) {
+            $('#paramOpe' + LoopCol).attr('disabled', 'disabled');
+            $('#paramVal' + LoopCol).attr('disabled', 'disabled');
+            $('#paramCol' + LoopCol).append('<option value="*">未指定</option>');
+            var filFndFlag = false;
+            for (var Loop in columnData.data) {
+                var seld = '';
+                if (columnData.data[Loop].title == filtercdResponse.data[LoopCol - 1].columnname) {
+                    seld = 'selected';
+                    filFndFlag = true;
+                }
+                $('#paramCol' + LoopCol).append('<option value="' + columnData.data[Loop].title + '" ' + seld + '>' + columnData.data[Loop].title + '</option>');
+            }
+            if (filFndFlag == false && filtercdResponse.data[LoopCol - 1].columnname != '*') {
+                $('#adialog-content').empty();
+                $('#adialog-content').append('<br>設定されているフィルタリング条件は現在のテーブルのスキーマと一致していません。<br>フィルタリング条件をクリアしてよいですか？<br>');
+                return;
+            }
+            eventParamColChanged($('#paramCol' + LoopCol).get(0));
+            switch (filtercdResponse.data[LoopCol - 1].opetype) {
+                case 1  : $('#paramOpe' + LoopCol).val('equals'); break;
+                case 2  : $('#paramOpe' + LoopCol).val('notequal'); break;
+                case 3  : $('#paramOpe' + LoopCol).val('equalslesserthan'); break;
+                case 4  : $('#paramOpe' + LoopCol).val('lesserthan'); break;
+                case 5  : $('#paramOpe' + LoopCol).val('equalsgreaterthan'); break;
+                case 6  : $('#paramOpe' + LoopCol).val('greaterthan'); break;
+                case 10 : $('#paramOpe' + LoopCol).val('contains'); break;
+                case 11 : $('#paramOpe' + LoopCol).val('notcontain'); break;
+                case 20 : $('#paramOpe' + LoopCol).val('null'); $('#paramVal' + LoopCol).attr('disabled', 'disabled'); break;
+                case 21 : $('#paramOpe' + LoopCol).val('notnull'); $('#paramVal' + LoopCol).attr('disabled', 'disabled'); break;
+            }
+            $('#paramVal' + LoopCol).val(filtercdResponse.data[LoopCol - 1].value);
+        }
+        return;
+    }
+    if (actionType == 301) {
+        if (currentTablename == "") {
+            $('#adialog').dialog('close');
+            return;
+        }
+        for (var Loop = 1; Loop <= 5; Loop++) {
+            var paramCol = $('#paramCol' + Loop + ' option:selected').val();
+            var paramOpe = $('#paramOpe' + Loop + ' option:selected').val();
+            var paramVal = $('#paramVal' + Loop).val();
+            var paramOpeInt = 0;
+            if (typeof paramCol === 'undefined' || typeof paramOpe === 'undefined' || typeof paramVal === 'undefined') {
+                paramCol = '*';
+                paramVal = '';
+            } else {;
+                switch (paramOpe) {
+                    case 'equals'            : paramOpeInt = 1; break;
+                    case 'notequal'          : paramOpeInt = 2; break;
+                    case 'equalslesserthan'  : paramOpeInt = 3; break;
+                    case 'lesserthan'        : paramOpeInt = 4; break;
+                    case 'equalsgreaterthan' : paramOpeInt = 5; break;
+                    case 'greaterthan'       : paramOpeInt = 6; break;
+                    case 'contains'          : paramOpeInt = 10; break;
+                    case 'notcontain'        : paramOpeInt = 11; break;
+                    case 'null'              : paramOpeInt = 20; break;
+                    case 'notnull'           : paramOpeInt = 21; break;
+                }
+            }
+            var filterResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+            if (sendRequestToWebServer('setfiltercd&paramidx=' + Loop + '&paramcol=' + paramCol + '&paramope=' + paramOpeInt + '&paramval=' + paramVal, filterResponse) != 0) {
+                return;
+            }
+        }
+        showTable(currentTablename);
+        $('#adialog').dialog('close');
+        return;
+    }
+    if (actionType == 400) {
+        displayToolBar(0);
+        initializeCurrentTablename();
+        showTable(currentTablename);
+    }
+    if (actionType == 600) {
+        showMessageDialog('情報', 'CmdFreak Version 1.0.0<br/>Copyright (C) 2014 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
+        $('#adialog-content').append('このソフトウェアは次の技術を取り込んでいます。<br/>- Mongoose 3.7 (Released as MIT License)<br/>- JQuery 1.9.1 (Released as MIT License)<br/>- JQuery UI 1.10.3 (Released as MIT License)<br/>- ParamQuery Grid 1.1.2 (Released as MIT License)<br/>');
+        $('#adialog-content').append('<p>');
+        $('#adialog-content').append('<a href="manual/jpn/index.htm" target="manual">オンラインマニュアルを開く</a><p>');
+        var timeResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+        if (sendRequestToWebServer('config-time', timeResponse) != 0) {
+            return;
+        }
+        $('#adialog-content').append('Build Time = ' + timeResponse.data.buildtime + '<br/>');
+        $('#adialog-content').append('Service Start Time = ' + timeResponse.data.starttime + '<br/>');
+        $('#adialog-content').append('<br/>');
+        var logResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+        if (sendRequestToWebServer('config-checklog', logResponse) != 0) {
+            return;
+        }
+        $('#adialog-content').append('以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。');
+        $('#adialog-content').append('' + logResponse.data.log + '<br/>');
+        return;
+    }
+    if (actionType == 1100) {
+        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', actionType, 512, 230, 'img/error_image48c.png', 0);
+        $('#adialog-content').append('予期しないエラーが発生しました。このエラーはWebブラウザからのリクエストが解析できなかったときに発生する場合があります。<br>');
+        return;
+    }
+    if (actionType % 10 == 1 || actionType % 10 == 2) {
+        $('#adialog').dialog('close');
+        return;
+    }
+}
+
+</script>
+</head>
+
+
+<body style="overflow: hidden;" onresize="boxResize()">
+<div id="container"><div class="spc">
+<div class="headtailbar">
+    <table class="ttblstyle" width="100%"><tr>
+        <td align="left"><b>CmdFreak</b></td>
+        <td align="right">Optimized for <img src="img/browser_ie.png">8,9,10 & <img src="img/browser_ff.png">3,10,17 </td>
+    </tr></table>
+</div>
+
+<div id="box_info">
+    <noscript>
+        JavaScriptが無効です。<br>ブラウザの設定を変更してJavaScriptを有効後，ページをリフレッシュしてください。<br>
+    </noscript>
+
+    <div id="mainarea" style="display:none">
+        <div id="adialog">
+            <table class="ttblstyle" width="100%"><tr>
+            <td id="adialog-icon" width="60px"></td><td id="adialog-msg"></td>
+            </tr></table><p>
+            <div id="adialog-content" align="left"></div>
+            <hr/>
+            <div id="adialog-button" align="right"></div>
+        </div>
+    </div>
+    <div id="grid_array">
+    </div>
+</div>
+
+</div></div>
+</body>
+
+</html>
