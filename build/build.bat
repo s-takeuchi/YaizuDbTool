@@ -80,6 +80,7 @@ mkdir webapp\manual\jpn
 copy "..\src\resource\*.*" webapp
 copy "..\src\resource\img\*.*" webapp\img
 copy "..\src\bbb\Release\bbb.exe" webapp
+copy "..\src\bbb\index.html" webapp
 copy "..\src\cmdfrksrv\Release\cmdfrksrv.exe" webapp
 copy "..\..\YaizuComLib\src\stkdatagui\Release\stkdatagui.exe" webapp
 copy "..\src\srvcmd\Release\srvcmd.exe" webapp
