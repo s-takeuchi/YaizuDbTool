@@ -14,23 +14,51 @@
 
 <H2 ID="2.1">2.1 REST API仕様</H2>
 <div class="topic">
+CmdFreakのREST APIは，以下の一覧に示すAPIをクライアント提供する。
+<table class="tblstyle">
+<tr><td>GET /api/system/</td><td>CmdFreakのサーバ情報(Build Time, Server Start Time, Number of Worker Thread)を取得する。</td></tr>
+<tr><td>GET /api/logs/</td><td>イベントログを取得する。</td></tr>
+<tr><td>POST /api/logs/</td><td>イベントログを追加する。</td></tr>
+<tr><td>DELETE /api/logs/12/</td><td>イベントログを削除する。</td></tr>
+</table>
 </div><p>
 
 
 
-<H2 ID="2.2">2.2 入力されたTextareaのメッセージに関する内部予約バッファサイズ</H2>
+<H2 ID="2.2">2.2 Get /api/system/</H2>
 <div class="topic">
-入力されたTextareaのメッセージに関する内部予約バッファサイズ(最悪値)を以下に示す。<br>
+CmdFreakのサーバ情報(プログラム名称, バージョン, ビルド時刻, 起動時刻, 動作スレッド数)を取得する。
+<ul>
+<li>リクエスト
+<p>なし</p>
+</li>
+<li>レスポンス
+<pre>
+"Res":{
+  "Code":1234,
+  "MsgEng":"abc",
+  "MsgJpn":"あいう",
+  "Data" : {
+    "ProductName" : "CmdFreak",
+    "Version" : "1.1.0",
+    "BuildTime" : "Sun, 04 Jan 2004 16:06:23 GMT",
+    "StartTime" : "Sun, 04 Jan 2004 16:06:23 GMT",
+    "NumOfThreads" : 4
+  }
+}
+</pre>
 <table class="tblstyle">
-<tr><th></th><th>半角文字入力</th><th>全角文字入力</th></tr>
-<tr><td>Textareに入力された文字数(文字)</td><td>2,000</td><td>2,000</td></tr>
-<tr><td>UrlEncode後のバイト数(バイト)</td><td>6,000<br>改行コード等は%文字化</td><td>24,000<br>%文字化+UTF8化</td></tr>
-<tr><td>UrlDecode後のバイト数(バイト)</td><td>2,000</td><td>8,000<br>UTF8化</td></tr>
-<tr><td>UTF8→WideChar後のバイト数(バイト)</td><td>4,000<br>WideChar化</td><td>4,000<br>WideChar化</td></tr>
-<tr><td>HTML escape後のバイト数(バイト)</td><td>24,000<br>Spaceは6倍に</td><td>4,000</td></tr>
-</table><p>
-Postリクエスト用バッファサイズ = 24,000(バイト) * 120(%) = 28,800(バイト)<br>
-データベース格納サイズ = 24,000(バイト) * 120(%) = 28,800(バイト)<br>
+<tr><td>Code</td><td>Integer</td><td>結果コード。0:成功</td></tr>
+<tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>ProductName</td><td>String</td><td>プログラム名称。"CmdFreak"</td></tr>
+<tr><td>Version</td><td>String</td><td>バージョン番号。</td></tr>
+<tr><td>BuildTime</td><td>String</td><td>プログラムをビルドした時間。RFC822形式。</td></tr>
+<tr><td>StartTime</td><td>String</td><td>サービスを起動した時間。RFC822形式。</td></tr>
+<tr><td>NumOfThreads</td><td>Integer</td><td>動作しているワーカースレッドの数。</td></tr>
+</table>
+</li>
+</ul>
 </div><p>
 
 
