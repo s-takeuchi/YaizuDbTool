@@ -14,6 +14,11 @@ void Sample_Elem1::GetLocalTimeWStr()
 	wsprintf(LocalTimeStr, _T("%s %d %d %02d:%02d:%02d"), Mon[Systime.wMonth - 1], Systime.wDay, Systime.wYear, Systime.wHour, Systime.wMinute, Systime.wSecond);
 }
 
+void Sample_Elem1::SetNumOfThreads(int Num)
+{
+	NumOfThreads = Num;
+}
+
 StkObject* Sample_Elem1::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode)
 {
 	StkObject* ResObj = new StkObject(_T("Res"));
@@ -27,6 +32,7 @@ StkObject* Sample_Elem1::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[12
 	wsprintf(BuildDate, _T("%S %S"), __DATE__, __TIME__);
 	DatObj->AppendChildElement(new StkObject(_T("BuildTime"), BuildDate));
 	DatObj->AppendChildElement(new StkObject(_T("StartTime"), LocalTimeStr));
+	DatObj->AppendChildElement(new StkObject(_T("NumOfThreads"), NumOfThreads));
 	ResObj->AppendChildElement(DatObj);
 
 	return ResObj;

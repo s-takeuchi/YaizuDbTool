@@ -19,7 +19,8 @@ void Sample(TCHAR* IpAddr, int Port)
 	StkWebApp* Soc = new StkWebApp(Ids, 3, IpAddr, Port);
 
 	Sample_Elem1* Test1Hndl = new Sample_Elem1();
-	int Add1 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/server/"), (StkWebAppExec*)Test1Hndl);
+	int Add1 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/system/"), (StkWebAppExec*)Test1Hndl);
+	Test1Hndl->SetNumOfThreads(3);
 	Sample_Elem2* Test2Hndl = new Sample_Elem2();
 	int Add2 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/aaa/xxx/"), (StkWebAppExec*)Test2Hndl);
 	Sample_Elem3* Test3Hndl = new Sample_Elem3();
@@ -29,7 +30,7 @@ void Sample(TCHAR* IpAddr, int Port)
 	Soc->TheLoop();
 	////////// Main logic ends
 
-	int Del1 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/server/"));
+	int Del1 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/system/"));
 	int Del2 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/aaa/xxx/"));
 	int Del3 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/bbb/$/"));
 
