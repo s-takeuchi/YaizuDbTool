@@ -21,7 +21,7 @@ void Sample_Elem1::SetNumOfThreads(int Num)
 
 StkObject* Sample_Elem1::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode)
 {
-	StkObject* ResObj = new StkObject(_T("Res"));
+	StkObject* ResObj = new StkObject(_T(""));
 	ResObj->AppendChildElement(new StkObject(_T("Code"), 0));
 	ResObj->AppendChildElement(new StkObject(_T("MsgEng"), _T("")));
 	ResObj->AppendChildElement(new StkObject(_T("MsgJpn"), _T("")));
@@ -34,6 +34,7 @@ StkObject* Sample_Elem1::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[12
 	DatObj->AppendChildElement(new StkObject(_T("StartTime"), LocalTimeStr));
 	DatObj->AppendChildElement(new StkObject(_T("NumOfThreads"), NumOfThreads));
 	ResObj->AppendChildElement(DatObj);
+	*ResultCode = 200;
 
 	return ResObj;
 }

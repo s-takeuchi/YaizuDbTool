@@ -169,6 +169,25 @@ function showMessageDialog(title, message, actionType, width, height, icon, butt
     }
 }
 
+    function sendRequestRecvResponse(url, request, response) {
+        var resultcode = 0;
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: url,
+            data: request,
+            async: false,
+            success: function(msg, textStatus, xhr) {
+                resultcode = xhr.status;
+                $.extend(response, msg);
+            },
+            error: function() {
+                resultcode = -1;
+            }
+        });
+        return resultcode;
+    }
+
 function sendRequestToWebServer(operation, response) {
     var resultcode = 0;
     $.ajax({
@@ -527,6 +546,10 @@ function onMenuAction(actionType) {
         showTable(currentTablename);
     }
     if (actionType == 600) {
+        var respdata = {};
+
+        sendRequestRecvResponse('./api/system/', null, respdata);
+
         showMessageDialog('情報', 'CmdFreak Version 1.0.0<br/>Copyright (C) 2014 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
         $('#adialog-content').append('このソフトウェアは次の技術を取り込んでいます。<br/>- Mongoose 3.7 (Released as MIT License)<br/>- JQuery 1.9.1 (Released as MIT License)<br/>- JQuery UI 1.10.3 (Released as MIT License)<br/>- ParamQuery Grid 1.1.2 (Released as MIT License)<br/>');
         $('#adialog-content').append('<p>');
