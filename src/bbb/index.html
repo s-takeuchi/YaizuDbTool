@@ -21,12 +21,26 @@
 var currentTablename = "";
 var currentDbmsname = "";
 var columnData = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+var buildTime = "";
+var startTime = "";
+var version = "";
+
 window.onload = function() {
     $('#adialog').dialog({autoOpen:false});
     displaySheet();
     boxResize();
     document.getElementById('mainarea').style.display='block';
     displayToolBar(0);
+
+    var respdata = {};
+    var resultStatus = sendRequestRecvResponse('./api/system/', null, respdata);
+    if (resultStatus == 200) {
+        buildTime = respdata.Data.BuildTime;
+        startTime = respdata.Data.StartTime;
+        productName = respdata.Data.ProductName;
+        version = respdata.Data.Version;
+    }
+
     var testResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
     if (sendRequestToWebServer('test', testResponse) != 0) {
         return;
@@ -546,11 +560,7 @@ function onMenuAction(actionType) {
         showTable(currentTablename);
     }
     if (actionType == 600) {
-        var respdata = {};
-
-        sendRequestRecvResponse('./api/system/', null, respdata);
-
-        showMessageDialog('情報', 'CmdFreak Version 1.0.0<br/>Copyright (C) 2014 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
+        showMessageDialog('情報', '' + productName + ' ' + version + '<br/>Copyright (C) 2014 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
         $('#adialog-content').append('このソフトウェアは次の技術を取り込んでいます。<br/>- Mongoose 3.7 (Released as MIT License)<br/>- JQuery 1.9.1 (Released as MIT License)<br/>- JQuery UI 1.10.3 (Released as MIT License)<br/>- ParamQuery Grid 1.1.2 (Released as MIT License)<br/>');
         $('#adialog-content').append('<p>');
         $('#adialog-content').append('<a href="manual/jpn/index.htm" target="manual">オンラインマニュアルを開く</a><p>');
@@ -558,8 +568,8 @@ function onMenuAction(actionType) {
         if (sendRequestToWebServer('config-time', timeResponse) != 0) {
             return;
         }
-        $('#adialog-content').append('Build Time = ' + timeResponse.data.buildtime + '<br/>');
-        $('#adialog-content').append('Service Start Time = ' + timeResponse.data.starttime + '<br/>');
+        $('#adialog-content').append('Build Time = ' + buildTime + '<br/>');
+        $('#adialog-content').append('Service Start Time = ' + startTime + '<br/>');
         $('#adialog-content').append('<br/>');
         var logResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
         if (sendRequestToWebServer('config-checklog', logResponse) != 0) {
