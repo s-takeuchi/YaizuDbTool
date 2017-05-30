@@ -1,7 +1,7 @@
 #pragma once
-#include "..\..\..\YaizuComLib\src\stkwebapp\StkWebAppExec.h"
+#include "ApiBase.h"
 
-class Sample_Elem1 : StkWebAppExec
+class Sample_Elem1 : ApiBase
 {
 private:
 	TCHAR LocalTimeStr[32];
