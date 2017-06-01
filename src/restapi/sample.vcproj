@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Ws2_32.lib shlwapi.lib Psapi.lib Debug\commonfunc.lib Debug\stkthread.lib Debug\stksocket.lib Debug\stkwebapp.lib"
+				AdditionalDependencies="Ws2_32.lib shlwapi.lib Psapi.lib Debug\commonfunc.lib Debug\stkthread.lib Debug\stksocket.lib Debug\stkwebapp.lib Debug\stkdata.lib"
 				OutputFile="$(OutDir)\stkwebapp.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
@@ -138,7 +138,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Ws2_32.lib shlwapi.lib Psapi.lib Release\commonfunc.lib Release\stkthread.lib Release\stksocket.lib Release\stkwebapp.lib"
+				AdditionalDependencies="Ws2_32.lib shlwapi.lib Psapi.lib Release\commonfunc.lib Release\stkthread.lib Release\stksocket.lib Release\stkwebapp.lib Release\stkdata.lib"
 				OutputFile="$(OutDir)\stkwebapp.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -188,6 +188,14 @@
 			</File>
 			<File
 				RelativePath=".\ApiBase.h"
+				>
+			</File>
+			<File
+				RelativePath=".\dataaccess.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dataaccess.h"
 				>
 			</File>
 			<File
