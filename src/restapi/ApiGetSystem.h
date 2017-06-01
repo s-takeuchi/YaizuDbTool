@@ -1,7 +1,7 @@
 #pragma once
 #include "ApiBase.h"
 
-class Sample_Elem1 : ApiBase
+class ApiGetSystem : ApiBase
 {
 private:
 	TCHAR LocalTimeStr[32];
@@ -10,7 +10,7 @@ private:
 	void GetLocalTimeWStr();
 
 public:
-	Sample_Elem1();
+	ApiGetSystem();
 	void SetNumOfThreads(int);
 	StkObject* Execute(StkObject*, int, TCHAR[128], int*);
 };

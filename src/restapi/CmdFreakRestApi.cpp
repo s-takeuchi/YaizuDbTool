@@ -8,19 +8,20 @@
 #include "..\..\..\YaizuComLib\src\stkthread\stkthread.h"
 #include "..\..\..\YaizuComLib\src\stksocket\stksocket.h"
 #include "..\..\..\YaizuComLib\src\stkwebapp\StkWebApp.h"
-#include "sample_elem1.h"
+#include "ApiGetSystem.h"
 #include "sample_elem2.h"
 #include "sample_elem3.h"
+#include "dataaccess.h"
 
-void Sample(TCHAR* IpAddr, int Port)
+void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 {
 	int Ids[7] = {11, 12, 13, 14, 15, 16, 17};
 
-	StkWebApp* Soc = new StkWebApp(Ids, 3, IpAddr, Port);
+	StkWebApp* Soc = new StkWebApp(Ids, 7, IpAddr, Port);
 
-	Sample_Elem1* Test1Hndl = new Sample_Elem1();
-	int Add1 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/system/"), (StkWebAppExec*)Test1Hndl);
-	Test1Hndl->SetNumOfThreads(3);
+	ApiGetSystem* ApiGetSystemObj = new ApiGetSystem();
+	int Add1 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/system/"), (StkWebAppExec*)ApiGetSystemObj);
+	ApiGetSystemObj->SetNumOfThreads(7);
 	Sample_Elem2* Test2Hndl = new Sample_Elem2();
 	int Add2 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/aaa/xxx/"), (StkWebAppExec*)Test2Hndl);
 	Sample_Elem3* Test3Hndl = new Sample_Elem3();
@@ -68,7 +69,16 @@ int main(int Argc, char* Argv[])
 		return -1;
 	}
 
-	Sample(IpAddr, Port);
+	// DataAccess instance
+	DataAccess* DatAc = DataAccess::GetInstance();
+
+	// Initialize data tables
+	if (DatAc->CreateCmdFreakTables() != 0) {
+		printf("data file does not found.\r\n");
+		return -1;
+	}
+
+	CmdFreakRestApi(IpAddr, Port);
 
 	return 0;
 }

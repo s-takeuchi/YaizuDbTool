@@ -1,12 +1,12 @@
 #include <tchar.h>
-#include "Sample_Elem1.h"
+#include "ApiGetSystem.h"
 
-Sample_Elem1::Sample_Elem1()
+ApiGetSystem::ApiGetSystem()
 {
 	GetLocalTimeWStr();
 }
 
-void Sample_Elem1::GetLocalTimeWStr()
+void ApiGetSystem::GetLocalTimeWStr()
 {
 	SYSTEMTIME Systime;
 	GetLocalTime(&Systime);
@@ -14,12 +14,12 @@ void Sample_Elem1::GetLocalTimeWStr()
 	wsprintf(LocalTimeStr, _T("%s %d %d %02d:%02d:%02d"), Mon[Systime.wMonth - 1], Systime.wDay, Systime.wYear, Systime.wHour, Systime.wMinute, Systime.wSecond);
 }
 
-void Sample_Elem1::SetNumOfThreads(int Num)
+void ApiGetSystem::SetNumOfThreads(int Num)
 {
 	NumOfThreads = Num;
 }
 
-StkObject* Sample_Elem1::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode)
+StkObject* ApiGetSystem::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode)
 {
 	StkObject* ResObj = new StkObject(_T(""));
 	ResObj->AppendChildElement(new StkObject(_T("Code"), 0));
