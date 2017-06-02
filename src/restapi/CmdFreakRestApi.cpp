@@ -47,12 +47,13 @@ int main(int Argc, char* Argv[])
 	SetCurrentDirectory(Buf);
 	printf("Current Directory = %S\r\n", Buf);
 
-	char IpAddrTmp[256];
 	TCHAR IpAddr[256];
 	int Port;
-	StkProperties *Prop = new StkProperties();
 	
+	// Load properties
+	StkProperties *Prop = new StkProperties();
 	if (Prop->GetProperties(_T("stkwebapp.conf")) == 0) {
+		char IpAddrTmp[256];
 		if (Prop->GetPropertyStr("servicehost", IpAddrTmp) != 0) {
 			printf("servicehost property is not found.\r\n");
 			return -1;
@@ -72,13 +73,17 @@ int main(int Argc, char* Argv[])
 	// DataAccess instance
 	DataAccess* DatAc = DataAccess::GetInstance();
 
-	// Initialize data tables
+	// Initialize data tables and start AutoSave
 	if (DatAc->CreateCmdFreakTables() != 0) {
 		printf("data file does not found.\r\n");
 		return -1;
 	}
 
+	// Exec rest api
 	CmdFreakRestApi(IpAddr, Port);
+
+	// Stop AutoSave
+	DatAc->StopAutoSave();
 
 	return 0;
 }

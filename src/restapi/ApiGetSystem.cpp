@@ -22,9 +22,7 @@ void ApiGetSystem::SetNumOfThreads(int Num)
 StkObject* ApiGetSystem::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode)
 {
 	StkObject* ResObj = new StkObject(_T(""));
-	ResObj->AppendChildElement(new StkObject(_T("Code"), 0));
-	ResObj->AppendChildElement(new StkObject(_T("MsgEng"), _T("")));
-	ResObj->AppendChildElement(new StkObject(_T("MsgJpn"), _T("")));
+	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
 	StkObject* DatObj = new StkObject(_T("Data"));
 	DatObj->AppendChildElement(new StkObject(_T("ProductName"), _T("CmdFreak")));
 	DatObj->AppendChildElement(new StkObject(_T("Version"), _T("1.1.0")));

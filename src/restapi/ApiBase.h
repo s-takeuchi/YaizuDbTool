@@ -3,4 +3,6 @@
 
 class ApiBase : StkWebAppExec
 {
+protected:
+	void AddCodeAndMsg(StkObject*, int, TCHAR*, TCHAR*);
 };
