@@ -8,10 +8,11 @@
 #include "..\..\..\YaizuComLib\src\stkthread\stkthread.h"
 #include "..\..\..\YaizuComLib\src\stksocket\stksocket.h"
 #include "..\..\..\YaizuComLib\src\stkwebapp\StkWebApp.h"
+#include "dataaccess.h"
+#include "MyMsgProc.h"
 #include "ApiGetSystem.h"
 #include "sample_elem2.h"
 #include "sample_elem3.h"
-#include "dataaccess.h"
 
 void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 {
@@ -40,6 +41,13 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 
 int main(int Argc, char* Argv[])
 {
+	// Initialize messages
+	MyMsgProc::AddMsg();
+
+	// Display product name
+	printf_s("%s\r\n", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CMDFRKSRV));
+
+	// Acquire current path
 	TCHAR Buf[256];
 	GetModuleFileName(NULL, Buf, 255);
 	LPTSTR Addr = StrStr(Buf, _T("\\stkwebapp.exe"));
@@ -49,24 +57,24 @@ int main(int Argc, char* Argv[])
 
 	TCHAR IpAddr[256];
 	int Port;
-	
+
 	// Load properties
 	StkProperties *Prop = new StkProperties();
 	if (Prop->GetProperties(_T("stkwebapp.conf")) == 0) {
 		char IpAddrTmp[256];
 		if (Prop->GetPropertyStr("servicehost", IpAddrTmp) != 0) {
-			printf("servicehost property is not found.\r\n");
+			printf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_SERVICEHOST_NOT_FOUND));
 			return -1;
 		}
 		printf("servicehost property = %s\r\n", IpAddrTmp);
 		wsprintf(IpAddr, _T("%S"), IpAddrTmp);
 		if (Prop->GetPropertyInt("serviceport", &Port) != 0) {
-			printf("serviceport property is not found.\r\n");
+			printf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_SERVICEPORT_NOT_FOUND));
 			return -1;
 		}
 		printf("serviceport property = %d\r\n", Port);
 	} else {
-		printf("stkwebapp.conf is not found.\r\n");
+		printf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CONF_NOT_FOUND));
 		return -1;
 	}
 
@@ -75,7 +83,7 @@ int main(int Argc, char* Argv[])
 
 	// Initialize data tables and start AutoSave
 	if (DatAc->CreateCmdFreakTables() != 0) {
-		printf("data file does not found.\r\n");
+		printf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_NOT_FOUND));
 		return -1;
 	}
 

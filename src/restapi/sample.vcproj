@@ -211,6 +211,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MyMsgProc.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MyMsgProc.h"
+				>
+			</File>
+			<File
 				RelativePath=".\sample_elem2.cpp"
 				>
 			</File>
