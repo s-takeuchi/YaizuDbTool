@@ -3,5 +3,5 @@
 
 class Sample_Elem3 : ApiBase
 {
-	StkObject* Execute(StkObject*, int, TCHAR[128], int*);
+	StkObject* Execute(StkObject*, int, TCHAR[128], int*, TCHAR[3]);
 };
