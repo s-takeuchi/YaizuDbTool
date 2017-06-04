@@ -66,6 +66,7 @@ CmdFreakのサーバ情報(プログラム名称, バージョン, ビルド時�
 <div class="topic">
 クライアント（ブラウザ）の最優先の言語を取得する。<br/>
 具体的には，クライアント・リクエストのHTTPヘッダのAccept-Languageに指定した言語のうち，先頭に指定した言語（2文字）を取得する。<br/>
+Code要素が0ではないとき，Data要素は返されません。
 <ul>
 <li>リクエスト
 <p>なし</p>
@@ -76,14 +77,14 @@ CmdFreakのサーバ情報(プログラム名称, バージョン, ビルド時�
   "MsgEng":"abc",
   "MsgJpn":"あいう",
   "Data" : {
-    "ClientLanguage" : "jn",
+    "ClientLanguage" : "ja",
   }
 </pre>
 <table class="tblstyle">
-<tr><td>Code</td><td>Integer</td><td>結果コード。0:成功</td></tr>
+<tr><td>Code</td><td>Integer</td><td>結果コード。0:成功, 3120:クライアントのロケールを検知できなかったとき。</td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
-<tr><td>ClientLanguage</td><td>String</td><td>クライアント（ブラウザ）の最優先の言語(2文字)。日本語="jn"，英語="en"</td></tr>
+<tr><td>ClientLanguage</td><td>String</td><td>クライアント（ブラウザ）の最優先の言語(2文字; 日本語="ja"，英語="en")。</td></tr>
 </table>
 </li>
 </ul>

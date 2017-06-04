@@ -1,4 +1,5 @@
 #pragma once
+#include <windows.h>
 
 class MyMsgProc
 {
@@ -8,6 +9,7 @@ public:
 	static const int CMDFRK_DAT_NOT_FOUND = 3112;
 	static const int CMDFRK_DAT_SERVICEHOST_NOT_FOUND = 3113;
 	static const int CMDFRK_DAT_SERVICEPORT_NOT_FOUND = 3114;
+	static const int CMDFRK_NO_CLIENTLOCALE = 3120;
 	static const int CMDFRK_LOG_DBMSCHANGE = 3126;
 	static const int CMDFRK_FILTERINGCOND_UPDATE = 3129;
 	static const int CMDFRK_SVCSTART = 3146;
