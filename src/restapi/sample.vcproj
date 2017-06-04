@@ -191,6 +191,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ApiGetLanguage.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ApiGetLanguage.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ApiGetSystem.cpp"
 				>
 			</File>
@@ -216,14 +224,6 @@
 			</File>
 			<File
 				RelativePath=".\MyMsgProc.h"
-				>
-			</File>
-			<File
-				RelativePath=".\sample_elem2.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\sample_elem2.h"
 				>
 			</File>
 			<File

@@ -11,7 +11,7 @@
 #include "dataaccess.h"
 #include "MyMsgProc.h"
 #include "ApiGetSystem.h"
-#include "sample_elem2.h"
+#include "ApiGetLanguage.h"
 #include "sample_elem3.h"
 
 void CmdFreakRestApi(TCHAR* IpAddr, int Port)
@@ -23,8 +23,8 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 	ApiGetSystem* ApiGetSystemObj = new ApiGetSystem();
 	int Add1 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/system/"), (StkWebAppExec*)ApiGetSystemObj);
 	ApiGetSystemObj->SetNumOfThreads(7);
-	Sample_Elem2* Test2Hndl = new Sample_Elem2();
-	int Add2 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/aaa/xxx/"), (StkWebAppExec*)Test2Hndl);
+	ApiGetLanguage* ApiGetLanguageObj = new ApiGetLanguage();
+	int Add2 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/language/"), (StkWebAppExec*)ApiGetLanguageObj);
 	Sample_Elem3* Test3Hndl = new Sample_Elem3();
 	int Add3 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/bbb/$/"), (StkWebAppExec*)Test3Hndl);
 
@@ -33,7 +33,7 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 	////////// Main logic ends
 
 	int Del1 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/system/"));
-	int Del2 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/aaa/xxx/"));
+	int Del2 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/language/"));
 	int Del3 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/bbb/$/"));
 
 	delete Soc;

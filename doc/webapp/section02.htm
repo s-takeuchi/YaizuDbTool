@@ -62,19 +62,31 @@ CmdFreakのサーバ情報(プログラム名称, バージョン, ビルド時�
 </div><p>
 
 
-
-<H2 ID="2.3">2.3 ツリーノード種別について</H2>
+<H2 ID="2.3">2.3 Get /api/language/</H2>
 <div class="topic">
-<table class="tblstyle">
-<tr><th>ノード種別</th><th>説明</th></tr>
-<tr><td>0</td><td>ルートノード。以下の何れかの名称を持つノードとなる。<br>
+クライアント（ブラウザ）の最優先の言語を取得する。<br/>
+具体的には，クライアント・リクエストのHTTPヘッダのAccept-Languageに指定した言語のうち，先頭に指定した言語（2文字）を取得する。<br/>
 <ul>
-<li>ジョブ定義
-<li>ジョブ実行
-<li>ジョブ実行結果
-</ul>
-</td>
+<li>リクエスト
+<p>なし</p>
+</li>
+<li>レスポンス
+<pre>
+  "Code":1234,
+  "MsgEng":"abc",
+  "MsgJpn":"あいう",
+  "Data" : {
+    "ClientLanguage" : "jn",
+  }
+</pre>
+<table class="tblstyle">
+<tr><td>Code</td><td>Integer</td><td>結果コード。0:成功</td></tr>
+<tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>ClientLanguage</td><td>String</td><td>クライアント（ブラウザ）の最優先の言語(2文字)。日本語="jn"，英語="en"</td></tr>
 </table>
+</li>
+</ul>
 </div><p>
 
 
