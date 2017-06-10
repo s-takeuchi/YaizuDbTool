@@ -23,12 +23,20 @@ var currentDbmsname = "";
 var columnData = {'operation' : '', 'resultcode' : 0, 'data' : {}};
 
 var myLanguage = 0;
-var myMsg = [['ODBC Connections', 'ODBC接続'], //0
-             ['Table Information', 'テーブル情報'], //1
-             ['Refresh Table List', 'テーブル一覧更新'], //2
-             ['Filtering', 'フィルタリング'], //3
-             ['Information', '情報'], //4
-             ['ccc', 'ううう']
+
+const CLIMSG_LABEL_ODBCCONNECTION    = 2101;
+const CLIMSG_LABEL_TABLEINFO         = 2102;
+const CLIMSG_LABEL_REFRSHTABLE       = 2103;
+const CLIMSG_LABEL_FILTERING         = 2104;
+const CLIMSG_LABEL_INFORMATION       = 2105;
+const CLIMSG_LABEL_RESERVED          = 2106;
+
+var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en:':'ODBC Connections', 'ja':'ODBC接続'},
+              {'code':CLIMSG_LABEL_TABLEINFO, 'en':'Table Information', 'ja':'テーブル情報'},
+              {'code':CLIMSG_LABEL_REFRSHTABLE, 'en':'Refresh Table List', 'ja':'テーブル一覧更新'},
+              {'code':CLIMSG_LABEL_FILTERING, 'en':'Filtering', 'ja':'フィルタリング'},
+              {'code':CLIMSG_LABEL_INFORMATION, 'en':'Information', 'ja':'情報'},
+              {'code':CLIMSG_LABEL_RESERVED, 'en':'ccc', 'ja':'ううう'}
 ];
 
 window.onload = function() {
@@ -53,6 +61,18 @@ window.onload = function() {
     }
     initializeCurrentTablename();
     showTable(currentTablename);
+}
+
+function getCliMsg(msgCode) {
+    for (var currentIt of cliMsg) {
+        if (currentIt.code == msgCode) {
+            if (myLanguage == 1) {
+                return currentIt.ja;
+            } else {
+                return currentIt.en;
+            }
+        }
+    }
 }
 
 function boxResize() {
@@ -97,14 +117,14 @@ function getshowWidth() {
 function displayToolBar(type) {
     $('#mainarea').empty();
     var buttons = [
-        ['mainarea', 'img/config_image32s.png', 'img/config_image32c.png', myMsg[0][myLanguage], 100],
+        ['mainarea', 'img/config_image32s.png', 'img/config_image32c.png', getCliMsg(CLIMSG_LABEL_ODBCCONNECTION), 100],
         ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
-        ['mainarea', 'img/table_image32s.png', 'img/table_image32c.png', myMsg[1][myLanguage], 200],
-        ['mainarea', 'img/refresh_image32s.png', 'img/refresh_image32c.png', myMsg[2][myLanguage], 400],
+        ['mainarea', 'img/table_image32s.png', 'img/table_image32c.png', getCliMsg(CLIMSG_LABEL_TABLEINFO), 200],
+        ['mainarea', 'img/refresh_image32s.png', 'img/refresh_image32c.png', getCliMsg(CLIMSG_LABEL_REFRSHTABLE), 400],
         ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
-        ['mainarea', 'img/filter_image32s.png', 'img/filter_image32c.png', myMsg[3][myLanguage], 300],
+        ['mainarea', 'img/filter_image32s.png', 'img/filter_image32c.png', getCliMsg(CLIMSG_LABEL_FILTERING), 300],
         ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
-        ['mainarea', 'img/info_image32s.png', 'img/info_image32c.png', myMsg[4][myLanguage], 600]
+        ['mainarea', 'img/info_image32s.png', 'img/info_image32c.png', getCliMsg(CLIMSG_LABEL_INFORMATION), 600]
     ];
     for (var Loop = 0; Loop < 8; Loop++) {
         displayButton(buttons[Loop][0], buttons[Loop][1], buttons[Loop][2], buttons[Loop][3], buttons[Loop][4]);
