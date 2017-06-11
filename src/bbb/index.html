@@ -29,36 +29,39 @@ const CLIMSG_LABEL_TABLEINFO         = 2102;
 const CLIMSG_LABEL_REFRSHTABLE       = 2103;
 const CLIMSG_LABEL_FILTERING         = 2104;
 const CLIMSG_LABEL_INFORMATION       = 2105;
-const CLIMSG_LABEL_RESERVED          = 2106;
+const CLIMSG_WAITFORALITTLE          = 2110;
+
+const API_GETLANGUAGE      = 101;
+const API_GETSYSTEM        = 102;
 
 var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en:':'ODBC Connections', 'ja':'ODBC接続'},
               {'code':CLIMSG_LABEL_TABLEINFO, 'en':'Table Information', 'ja':'テーブル情報'},
               {'code':CLIMSG_LABEL_REFRSHTABLE, 'en':'Refresh Table List', 'ja':'テーブル一覧更新'},
               {'code':CLIMSG_LABEL_FILTERING, 'en':'Filtering', 'ja':'フィルタリング'},
               {'code':CLIMSG_LABEL_INFORMATION, 'en':'Information', 'ja':'情報'},
-              {'code':CLIMSG_LABEL_RESERVED, 'en':'ccc', 'ja':'ううう'}
+              {'code':CLIMSG_WAITFORALITTLE, 'en':'Now loading... Please wait for a little.', 'ja':'読み込み中です。しばらくお待ちください。'}
 ];
+
+var underComm = false;
+var statusCode = 0;
+var responseData = {};
 
 window.onload = function() {
     $('#adialog').dialog({autoOpen:false});
+    $('#wdialog').dialog({autoOpen:false});
+
+    sendRequestRecvResponse('./api/language/', null);
+    showWaitingDialog(API_GETLANGUAGE);
+
+    refreshMainScreen();
+}
+
+function refreshMainScreen()
+{
     displaySheet();
     boxResize();
     document.getElementById('mainarea').style.display='block';
-
-    var respdata = {};
-    var resultStatus = sendRequestRecvResponse('./api/language/', null, respdata);
-    if (resultStatus == 200) {
-        if (respdata.Data.ClientLanguage == 'ja') {
-            myLanguage = 1;
-        }
-    }
-
     displayToolBar(0);
-
-    var testResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-    if (sendRequestToWebServer('test', testResponse) != 0) {
-        return;
-    }
     initializeCurrentTablename();
     showTable(currentTablename);
 }
@@ -195,6 +198,81 @@ function displaySheet() {
     $('#grid_array').pqGrid(obj);
 }
 
+function closeWaitingDialog(actionMode) {
+    if (underComm == false) {
+        $('#wdialog').dialog('close');
+
+        //
+        //
+        if (actionMode == API_GETLANGUAGE) {
+            if (statusCode == 200) {
+                if (responseData.Data.ClientLanguage == 'ja') {
+                    myLanguage = 1;
+                }
+            }
+            refreshMainScreen();
+            return;
+        }
+        //
+        //
+        if (actionMode == API_GETSYSTEM) {
+            var buildTime = "";
+            var startTime = "";
+            var productName = "";
+            var version = "";
+            if (statusCode == 200) {
+                buildTime = responseData.Data.BuildTime;
+                startTime = responseData.Data.StartTime;
+                productName = responseData.Data.ProductName;
+                version = responseData.Data.Version;
+            }
+            showMessageDialog('情報', '' + productName + ' ' + version + '<br/>Copyright (C) 2017 Shinya Takeuchi<br/>All Rights Reserved.', 600, 600, 440, 'img/info_image48c.png', 0);
+            $('#adialog-content').append('このソフトウェアは次の技術を取り込んでいます。<br/>- Mongoose 3.7 (Released as MIT License)<br/>- JQuery 1.9.1 (Released as MIT License)<br/>- JQuery UI 1.10.3 (Released as MIT License)<br/>- ParamQuery Grid 1.1.2 (Released as MIT License)<br/>');
+            $('#adialog-content').append('<p>');
+            $('#adialog-content').append('<a href="manual/jpn/index.htm" target="manual">オンラインマニュアルを開く</a><p>');
+            var timeResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+            if (sendRequestToWebServer('config-time', timeResponse) != 0) {
+                return;
+            }
+            $('#adialog-content').append('Build Time = ' + buildTime + '<br/>');
+            $('#adialog-content').append('Service Start Time = ' + startTime + '<br/>');
+            $('#adialog-content').append('<br/>');
+            var logResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+            if (sendRequestToWebServer('config-checklog', logResponse) != 0) {
+                return;
+            }
+            $('#adialog-content').append('以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。');
+            $('#adialog-content').append('' + logResponse.data.log + '<br/>');
+
+        } else {
+            setTimeout(function(actionMode) {closeWaitingDialog();}, 500);
+        }
+    }
+}
+
+function showWaitingDialog(actionMode) {
+    $('#wdialog').dialog({
+        autoOpen:true,
+        modal:true,
+        position:'center',
+        draggable:false,
+        resizable: false,
+        height:80,
+        width:400,
+        open : function(event, ui) {
+            $('.ui-dialog-titlebar').hide();
+            $(".ui-dialog-titlebar-close").hide();
+        },
+        close : function(event, ui) {
+            $('.ui-dialog-titlebar').show();
+            $(".ui-dialog-titlebar-close").show();
+        }
+    });
+    $('#wdialog-content').empty();
+    $('#wdialog-content').append(getCliMsg(CLIMSG_WAITFORALITTLE));
+    setTimeout(function() {closeWaitingDialog(actionMode);}, 500);
+}
+
 function showMessageDialog(title, message, actionType, width, height, icon, buttonType) {
     $('#adialog').dialog({ autoOpen:true, title:title, modal:true, position:'center', draggable:true, resizable: false, height:height, width:width });
     $('#adialog-icon').empty();
@@ -209,23 +287,26 @@ function showMessageDialog(title, message, actionType, width, height, icon, butt
     }
 }
 
-function sendRequestRecvResponse(url, request, response) {
-    var resultcode = 0;
+function sendRequestRecvResponse(url, request) {
+    underComm = true;
     $.ajax({
         type: 'GET',
         dataType: 'json',
         url: url,
         data: request,
-        async: false,
+        async: true,
+        timeout: 7000,
         success: function(msg, textStatus, xhr) {
-            resultcode = xhr.status;
-            $.extend(response, msg);
+            statusCode = xhr.status;
+            $.extend(responseData, msg);
+            underComm = false;
         },
         error: function() {
-            resultcode = -1;
-        }
+            statusCode = -1;
+            underComm = false;
+        },
     });
-    return resultcode;
+    return;
 }
 
 function sendRequestToWebServer(operation, response) {
@@ -587,36 +668,8 @@ function onMenuAction(actionType) {
     }
     if (actionType == 600) {
 
-        var buildTime = "";
-        var startTime = "";
-        var productName = "";
-        var version = "";
-        var respdata = {};
-        var resultStatus = sendRequestRecvResponse('./api/system/', null, respdata);
-        if (resultStatus == 200) {
-            buildTime = respdata.Data.BuildTime;
-            startTime = respdata.Data.StartTime;
-            productName = respdata.Data.ProductName;
-            version = respdata.Data.Version;
-        }
-
-        showMessageDialog('情報', '' + productName + ' ' + version + '<br/>Copyright (C) 2014 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
-        $('#adialog-content').append('このソフトウェアは次の技術を取り込んでいます。<br/>- Mongoose 3.7 (Released as MIT License)<br/>- JQuery 1.9.1 (Released as MIT License)<br/>- JQuery UI 1.10.3 (Released as MIT License)<br/>- ParamQuery Grid 1.1.2 (Released as MIT License)<br/>');
-        $('#adialog-content').append('<p>');
-        $('#adialog-content').append('<a href="manual/jpn/index.htm" target="manual">オンラインマニュアルを開く</a><p>');
-        var timeResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-        if (sendRequestToWebServer('config-time', timeResponse) != 0) {
-            return;
-        }
-        $('#adialog-content').append('Build Time = ' + buildTime + '<br/>');
-        $('#adialog-content').append('Service Start Time = ' + startTime + '<br/>');
-        $('#adialog-content').append('<br/>');
-        var logResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-        if (sendRequestToWebServer('config-checklog', logResponse) != 0) {
-            return;
-        }
-        $('#adialog-content').append('以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。');
-        $('#adialog-content').append('' + logResponse.data.log + '<br/>');
+        sendRequestRecvResponse('./api/system/', null);
+        showWaitingDialog(API_GETSYSTEM);
         return;
     }
     if (actionType == 1100) {
@@ -656,6 +709,9 @@ function onMenuAction(actionType) {
             <div id="adialog-content" align="left"></div>
             <hr/>
             <div id="adialog-button" align="right"></div>
+        </div>
+        <div id="wdialog">
+            <div id="wdialog-content" align="center"></div>
         </div>
     </div>
     <div id="grid_array">
