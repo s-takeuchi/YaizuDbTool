@@ -243,11 +243,10 @@ function closeWaitingDialog(actionMode) {
             }
             $('#adialog-content').append('以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。');
             $('#adialog-content').append('' + logResponse.data.log + '<br/>');
-
-        } else {
-            setTimeout(function(actionMode) {closeWaitingDialog();}, 500);
+            return;
         }
     }
+    setTimeout(function() {closeWaitingDialog(actionMode);}, 500);
 }
 
 function showWaitingDialog(actionMode) {
@@ -304,7 +303,7 @@ function sendRequestRecvResponse(url, request) {
         error: function() {
             statusCode = -1;
             underComm = false;
-        },
+        }
     });
     return;
 }
