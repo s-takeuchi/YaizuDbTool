@@ -31,20 +31,21 @@ const CLIMSG_LABEL_FILTERING         = 2104;
 const CLIMSG_LABEL_INFORMATION       = 2105;
 const CLIMSG_WAITFORALITTLE          = 2110;
 
-const API_GETLANGUAGE      = 101;
-const API_GETSYSTEM        = 102;
-
 var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en:':'ODBC Connections', 'ja':'ODBC接続'},
               {'code':CLIMSG_LABEL_TABLEINFO, 'en':'Table Information', 'ja':'テーブル情報'},
               {'code':CLIMSG_LABEL_REFRSHTABLE, 'en':'Refresh Table List', 'ja':'テーブル一覧更新'},
               {'code':CLIMSG_LABEL_FILTERING, 'en':'Filtering', 'ja':'フィルタリング'},
               {'code':CLIMSG_LABEL_INFORMATION, 'en':'Information', 'ja':'情報'},
-              {'code':CLIMSG_WAITFORALITTLE, 'en':'Now loading... Please wait for a little.', 'ja':'読み込み中です。しばらくお待ちください。'}
+              {'code':CLIMSG_WAITFORALITTLE, 'en':'Now loading... Please wait for a while.', 'ja':'読み込み中です。しばらくお待ちください。'}
 ];
 
-var underComm = false;
-var statusCode = 0;
-var responseData = {};
+const API_GETLANGUAGE      = 101;
+const API_GETSYSTEM        = 102;
+
+// underComm = 0 : No communication state, >= 1 : Communication state
+var underComm = 0;
+var statusCode = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var responseData = [{},{},{},{},{},{},{},{},{},{}];
 
 window.onload = function() {
     $('#adialog').dialog({autoOpen:false});
@@ -199,16 +200,19 @@ function displaySheet() {
 }
 
 function closeWaitingDialog(actionMode) {
-    if (underComm == false) {
+    if (underComm == 0) {
         $('#wdialog').dialog('close');
 
         //
         //
         if (actionMode == API_GETLANGUAGE) {
-            if (statusCode == 200) {
-                if (responseData.Data.ClientLanguage == 'ja') {
+            if (statusCode[underComm] == 200) {
+                if (responseData[underComm].Data.ClientLanguage == 'ja') {
                     myLanguage = 1;
                 }
+            } else {
+                // Nothing to do.
+                // Should not occur an error.
             }
             refreshMainScreen();
             return;
@@ -220,12 +224,13 @@ function closeWaitingDialog(actionMode) {
             var startTime = "";
             var productName = "";
             var version = "";
-            if (statusCode == 200) {
-                buildTime = responseData.Data.BuildTime;
-                startTime = responseData.Data.StartTime;
-                productName = responseData.Data.ProductName;
-                version = responseData.Data.Version;
+            if (statusCode[underComm] == 200) {
+                buildTime = responseData[underComm].Data.BuildTime;
+                startTime = responseData[underComm].Data.StartTime;
+                productName = responseData[underComm].Data.ProductName;
+                version = responseData[underComm].Data.Version;
             }
+
             showMessageDialog('情報', '' + productName + ' ' + version + '<br/>Copyright (C) 2017 Shinya Takeuchi<br/>All Rights Reserved.', 600, 600, 440, 'img/info_image48c.png', 0);
             $('#adialog-content').append('このソフトウェアは次の技術を取り込んでいます。<br/>- Mongoose 3.7 (Released as MIT License)<br/>- JQuery 1.9.1 (Released as MIT License)<br/>- JQuery UI 1.10.3 (Released as MIT License)<br/>- ParamQuery Grid 1.1.2 (Released as MIT License)<br/>');
             $('#adialog-content').append('<p>');
@@ -256,7 +261,7 @@ function showWaitingDialog(actionMode) {
         position:'center',
         draggable:false,
         resizable: false,
-        height:80,
+        height:85,
         width:400,
         open : function(event, ui) {
             $('.ui-dialog-titlebar').hide();
@@ -287,7 +292,7 @@ function showMessageDialog(title, message, actionType, width, height, icon, butt
 }
 
 function sendRequestRecvResponse(url, request) {
-    underComm = true;
+    underComm++;
     $.ajax({
         type: 'GET',
         dataType: 'json',
@@ -296,13 +301,13 @@ function sendRequestRecvResponse(url, request) {
         async: true,
         timeout: 7000,
         success: function(msg, textStatus, xhr) {
-            statusCode = xhr.status;
-            $.extend(responseData, msg);
-            underComm = false;
+            statusCode[underComm - 1] = xhr.status;
+            $.extend(responseData[underComm - 1], msg);
+            underComm--;
         },
         error: function() {
-            statusCode = -1;
-            underComm = false;
+            statusCode[underComm - 1] = -1;
+            underComm--;
         }
     });
     return;
