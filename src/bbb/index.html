@@ -30,13 +30,23 @@ const CLIMSG_LABEL_REFRSHTABLE       = 2103;
 const CLIMSG_LABEL_FILTERING         = 2104;
 const CLIMSG_LABEL_INFORMATION       = 2105;
 const CLIMSG_WAITFORALITTLE          = 2110;
+const CLIMSG_FAITALERROR             = 2500;
+const CLIMSG_FAITALERROR_OCCURRED    = 2501;
+const CLIMSG_COMMUNICATIONERROR      = 2530;
 
-var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en:':'ODBC Connections', 'ja':'ODBC接続'},
+var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja':'ODBC接続'},
               {'code':CLIMSG_LABEL_TABLEINFO, 'en':'Table Information', 'ja':'テーブル情報'},
               {'code':CLIMSG_LABEL_REFRSHTABLE, 'en':'Refresh Table List', 'ja':'テーブル一覧更新'},
               {'code':CLIMSG_LABEL_FILTERING, 'en':'Filtering', 'ja':'フィルタリング'},
               {'code':CLIMSG_LABEL_INFORMATION, 'en':'Information', 'ja':'情報'},
-              {'code':CLIMSG_WAITFORALITTLE, 'en':'Now loading... Please wait for a while.', 'ja':'読み込み中です。しばらくお待ちください。'}
+              {'code':CLIMSG_WAITFORALITTLE, 'en':'Now loading... Please wait for a while.', 'ja':'読み込み中です。しばらくお待ちください。'},
+              {'code':CLIMSG_FAITALERROR, 'en':'Faital Error', 'ja':'致命的エラー'},
+              {'code':CLIMSG_FAITALERROR_OCCURRED, 'en':'An faital error occurred.', 'ja':'致命的エラーが発生しました。'},
+              {'code':CLIMSG_COMMUNICATIONERROR,
+                 'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A CmdFreak internal process is invalid.<br>',
+                 'ja':'CmdFreakサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) CmdFreakサービスが開始されていない。<br>(2) CmdFreakサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , stkwebapp.conf] が不正。<br>(4) CmdFreakの内部処理で異常が発生している。<br>'
+              }
+
 ];
 
 const API_GETLANGUAGE      = 101;
@@ -51,7 +61,7 @@ window.onload = function() {
     $('#adialog').dialog({autoOpen:false});
     $('#wdialog').dialog({autoOpen:false});
 
-    sendRequestRecvResponse('./api/language/', null);
+    sendRequestRecvResponse('./api/language/', null, 0);
     showWaitingDialog(API_GETLANGUAGE);
 
     refreshMainScreen();
@@ -210,11 +220,11 @@ function closeWaitingDialog(actionMode) {
                 if (responseData[underComm].Data.ClientLanguage == 'ja') {
                     myLanguage = 1;
                 }
+                refreshMainScreen();
             } else {
-                // Nothing to do.
-                // Should not occur an error.
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 330, 'img/error_image48c.png', 0);
+                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
             }
-            refreshMainScreen();
             return;
         }
         //
@@ -224,11 +234,15 @@ function closeWaitingDialog(actionMode) {
             var startTime = "";
             var productName = "";
             var version = "";
-            if (statusCode[underComm] == 200) {
-                buildTime = responseData[underComm].Data.BuildTime;
-                startTime = responseData[underComm].Data.StartTime;
-                productName = responseData[underComm].Data.ProductName;
-                version = responseData[underComm].Data.Version;
+            if (statusCode[0] == 200) {
+                buildTime = responseData[0].Data.BuildTime;
+                startTime = responseData[0].Data.StartTime;
+                productName = responseData[0].Data.ProductName;
+                version = responseData[0].Data.Version;
+            } else {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 330, 'img/error_image48c.png', 0);
+                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                return;
             }
 
             showMessageDialog('情報', '' + productName + ' ' + version + '<br/>Copyright (C) 2017 Shinya Takeuchi<br/>All Rights Reserved.', 600, 600, 440, 'img/info_image48c.png', 0);
@@ -291,7 +305,7 @@ function showMessageDialog(title, message, actionType, width, height, icon, butt
     }
 }
 
-function sendRequestRecvResponse(url, request) {
+function sendRequestRecvResponse(url, request, index) {
     underComm++;
     $.ajax({
         type: 'GET',
@@ -301,12 +315,12 @@ function sendRequestRecvResponse(url, request) {
         async: true,
         timeout: 7000,
         success: function(msg, textStatus, xhr) {
-            statusCode[underComm - 1] = xhr.status;
-            $.extend(responseData[underComm - 1], msg);
+            statusCode[index] = xhr.status;
+            $.extend(responseData[index], msg);
             underComm--;
         },
         error: function() {
-            statusCode[underComm - 1] = -1;
+            statusCode[index] = -1;
             underComm--;
         }
     });
@@ -672,7 +686,8 @@ function onMenuAction(actionType) {
     }
     if (actionType == 600) {
 
-        sendRequestRecvResponse('./api/system/', null);
+        sendRequestRecvResponse('./api/system/', null, 0);
+        sendRequestRecvResponse('./api/language/', null, 1);
         showWaitingDialog(API_GETSYSTEM);
         return;
     }
