@@ -30,9 +30,10 @@ DataAccess* DataAccess::GetInstance()
 }
 
 // Add log message
-// LogMsg [in] : Message which you insert
+// LogMsgEn [in] : Message in English which you want to insert
+// LogMsgJa [in] : Message in Japanese which you want to insert
 // Return : always zero returned.
-int DataAccess::AddLogMsg(TCHAR LogMsg[100])
+int DataAccess::AddLogMsg(TCHAR LogMsgEn[100], TCHAR LogMsgJa[100])
 {
 	static int MaxLogId = 0;
 	if (MaxLogId == 0) {
@@ -50,11 +51,12 @@ int DataAccess::AddLogMsg(TCHAR LogMsg[100])
 	TCHAR LocalTimeBuf[32];
 	StkGeneric::GetInstance()->GetLocalTimeWStr(LocalTimeBuf);
 	// New record information
-	ColumnData *ColDatLog[3];
+	ColumnData *ColDatLog[4];
 	ColDatLog[0] = new ColumnDataInt(_T("Id"), MaxLogId);
 	ColDatLog[1] = new ColumnDataWStr(_T("Time"), LocalTimeBuf);
-	ColDatLog[2] = new ColumnDataWStr(_T("Message"), LogMsg);
-	RecordData* RecDatLog = new RecordData(_T("Log"), ColDatLog, 3);
+	ColDatLog[2] = new ColumnDataWStr(_T("MessageEn"), LogMsgEn);
+	ColDatLog[3] = new ColumnDataWStr(_T("MessageJa"), LogMsgJa);
+	RecordData* RecDatLog = new RecordData(_T("Log"), ColDatLog, 4);
 	// Add record
 	LockTable(_T("Log"), LOCK_EXCLUSIVE);
 	int Ret = InsertRecord(RecDatLog);
@@ -356,11 +358,13 @@ int DataAccess::CreateCmdFreakTables()
 		// Log table
 		ColumnDefInt ColDefLogId(_T("Id"));
 		ColumnDefWStr ColDefLogTime(_T("Time"), 32);
-		ColumnDefWStr ColDefLogMsg(_T("Message"), 100);
+		ColumnDefWStr ColDefLogMsgEn(_T("MessageEn"), 100);
+		ColumnDefWStr ColDefLogMsgJa(_T("MessageJa"), 100);
 		TableDef TabDefLog(_T("Log"), 111);
 		TabDefLog.AddColumnDef(&ColDefLogId);
 		TabDefLog.AddColumnDef(&ColDefLogTime);
-		TabDefLog.AddColumnDef(&ColDefLogMsg);
+		TabDefLog.AddColumnDef(&ColDefLogMsgEn);
+		TabDefLog.AddColumnDef(&ColDefLogMsgJa);
 		if (CreateTable(&TabDefLog) != 0) {
 			return -1;
 		}

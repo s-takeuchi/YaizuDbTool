@@ -17,7 +17,7 @@ public:
 	static DataAccess* GetInstance();
 	int StopAutoSave();
 	int CreateCmdFreakTables();
-	int AddLogMsg(TCHAR[100]);
+	int AddLogMsg(TCHAR[100], TCHAR[100]);
 	int GetMaxLogId();
 	int GetNumOfLogs();
 	int GetLogAsHtml(TCHAR[Global::MAX_PARAM_LENGTH / 2]);

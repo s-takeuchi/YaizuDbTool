@@ -54,6 +54,11 @@ void MyMsgProc::AddMsg()
 
 }
 
+TCHAR* MyMsgProc::GetMsg(int Id)
+{
+	return MessageProc::GetMsg(Id);
+}
+
 BYTE* MyMsgProc::GetMsgSjis(int Id)
 {
 	return MessageProc::GetMsgSjis(Id);

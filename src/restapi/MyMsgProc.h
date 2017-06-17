@@ -18,6 +18,7 @@ public:
 	static const int CMDFRK_LOGGINGMSG = 3227;
 
 	static void AddMsg();
+	static TCHAR* GetMsg(int);
 	static BYTE* GetMsgSjis(int);
 	static TCHAR* GetMsgJpn(int);
 	static TCHAR* GetMsgEng(int);
