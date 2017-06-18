@@ -33,7 +33,7 @@ DataAccess* DataAccess::GetInstance()
 // LogMsgEn [in] : Message in English which you want to insert
 // LogMsgJa [in] : Message in Japanese which you want to insert
 // Return : always zero returned.
-int DataAccess::AddLogMsg(TCHAR LogMsgEn[100], TCHAR LogMsgJa[100])
+int DataAccess::AddLogMsg(TCHAR LogMsgEn[Global::MAXLEN_OF_LOGMSG], TCHAR LogMsgJa[Global::MAXLEN_OF_LOGMSG])
 {
 	static int MaxLogId = 0;
 	if (MaxLogId == 0) {
@@ -106,6 +106,47 @@ int DataAccess::GetNumOfLogs()
 	}
 	delete RecDatLog;
 	return NumOfLogs;
+}
+
+// Get log information
+// LogMsgEn [out] : Acquired log message in English
+// LogMsgJa [out] : Acquired log message in Japan
+// Return : Number of acquired log messages
+int DataAccess::GetLogs(TCHAR LogMsgTime[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGTIME],
+						TCHAR LogMsgEn[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG],
+						TCHAR LogMsgJa[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG])
+{
+	LockTable(_T("Log"), LOCK_EXCLUSIVE);
+	AzSortRecord(_T("Log"), _T("Id"));
+	RecordData* RecDatLog = GetRecord(_T("Log"));
+	UnlockTable(_T("Log"));
+
+	int NumOfRec = 0;
+	RecordData* CurrRecDat = RecDatLog;
+	while (CurrRecDat != NULL) {
+		ColumnDataWStr* ColDatTime = (ColumnDataWStr*)CurrRecDat->GetColumn(1);
+		ColumnDataWStr* ColDatMsgEn = (ColumnDataWStr*)CurrRecDat->GetColumn(2);
+		ColumnDataWStr* ColDatMsgJa = (ColumnDataWStr*)CurrRecDat->GetColumn(3);
+		if (ColDatTime != NULL && ColDatTime->GetValue() != NULL) {
+			lstrcpy(LogMsgTime[NumOfRec], ColDatTime->GetValue());
+		} else {
+			lstrcpy(LogMsgTime[NumOfRec], _T(""));
+		}
+		if (ColDatMsgEn != NULL && ColDatMsgEn->GetValue() != NULL) {
+			lstrcpy(LogMsgEn[NumOfRec], ColDatMsgEn->GetValue());
+		} else {
+			lstrcpy(LogMsgEn[NumOfRec], _T(""));
+		}
+		if (ColDatMsgJa != NULL && ColDatMsgJa->GetValue() != NULL) {
+			lstrcpy(LogMsgJa[NumOfRec], ColDatMsgJa->GetValue());
+		} else {
+			lstrcpy(LogMsgJa[NumOfRec], _T(""));
+		}
+		NumOfRec++;
+		CurrRecDat = CurrRecDat->GetNextRecord();
+	}
+	delete RecDatLog;
+	return NumOfRec;
 }
 
 // Get log information as HTML
@@ -357,10 +398,10 @@ int DataAccess::CreateCmdFreakTables()
 
 		// Log table
 		ColumnDefInt ColDefLogId(_T("Id"));
-		ColumnDefWStr ColDefLogTime(_T("Time"), 32);
-		ColumnDefWStr ColDefLogMsgEn(_T("MessageEn"), 100);
-		ColumnDefWStr ColDefLogMsgJa(_T("MessageJa"), 100);
-		TableDef TabDefLog(_T("Log"), 111);
+		ColumnDefWStr ColDefLogTime(_T("Time"), Global::MAXLEN_OF_LOGTIME);
+		ColumnDefWStr ColDefLogMsgEn(_T("MessageEn"), Global::MAXLEN_OF_LOGMSG);
+		ColumnDefWStr ColDefLogMsgJa(_T("MessageJa"), Global::MAXLEN_OF_LOGMSG);
+		TableDef TabDefLog(_T("Log"), Global::MAXNUM_OF_LOGRECORDS);
 		TabDefLog.AddColumnDef(&ColDefLogId);
 		TabDefLog.AddColumnDef(&ColDefLogTime);
 		TabDefLog.AddColumnDef(&ColDefLogMsgEn);

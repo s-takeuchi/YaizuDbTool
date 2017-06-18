@@ -17,9 +17,10 @@ public:
 	static DataAccess* GetInstance();
 	int StopAutoSave();
 	int CreateCmdFreakTables();
-	int AddLogMsg(TCHAR[100], TCHAR[100]);
+	int AddLogMsg(TCHAR[Global::MAXLEN_OF_LOGMSG], TCHAR[Global::MAXLEN_OF_LOGMSG]);
 	int GetMaxLogId();
 	int GetNumOfLogs();
+	int GetLogs(TCHAR[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGTIME], TCHAR[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG], TCHAR[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG]);
 	int GetLogAsHtml(TCHAR[Global::MAX_PARAM_LENGTH / 2]);
 	int DeleteOldLogs();
 	void SetOdbcConnStr(int, TCHAR[256]);

@@ -219,6 +219,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Global.h"
+				>
+			</File>
+			<File
 				RelativePath=".\MyMsgProc.cpp"
 				>
 			</File>

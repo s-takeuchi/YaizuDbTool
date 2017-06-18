@@ -17,4 +17,8 @@ public:
 	static const int MAXNUM_TABLES = 300;
 	static const int MAXNUM_COLUMNS = 50;
 	static const int MAXNUM_RECORDS = 15000;
+
+	static const int MAXLEN_OF_LOGTIME = 32;
+	static const int MAXLEN_OF_LOGMSG = 100;
+	static const int MAXNUM_OF_LOGRECORDS = 111;
 };
