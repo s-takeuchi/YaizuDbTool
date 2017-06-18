@@ -12,7 +12,7 @@
 #include "MyMsgProc.h"
 #include "ApiGetSystem.h"
 #include "ApiGetLanguage.h"
-#include "sample_elem3.h"
+#include "ApiLogging.h"
 
 void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 {
@@ -25,8 +25,8 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 	ApiGetSystemObj->SetNumOfThreads(7);
 	ApiGetLanguage* ApiGetLanguageObj = new ApiGetLanguage();
 	int Add2 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/language/"), (StkWebAppExec*)ApiGetLanguageObj);
-	Sample_Elem3* Test3Hndl = new Sample_Elem3();
-	int Add3 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/bbb/$/"), (StkWebAppExec*)Test3Hndl);
+	ApiLogging* ApiLoggingObj = new ApiLogging();
+	int Add3 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/bbb/$/"), (StkWebAppExec*)ApiLoggingObj);
 
 	////////// Main logic starts
 	Soc->TheLoop();

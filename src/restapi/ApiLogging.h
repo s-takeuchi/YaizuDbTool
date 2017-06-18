@@ -1,7 +1,7 @@
 #pragma once
 #include "ApiBase.h"
 
-class Sample_Elem3 : ApiBase
+class ApiLogging : ApiBase
 {
 	StkObject* Execute(StkObject*, int, TCHAR[128], int*, TCHAR[3]);
 };

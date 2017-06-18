@@ -207,6 +207,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ApiLogging.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ApiLogging.h"
+				>
+			</File>
+			<File
 				RelativePath=".\CmdFreakRestApi.cpp"
 				>
 			</File>
@@ -228,14 +236,6 @@
 			</File>
 			<File
 				RelativePath=".\MyMsgProc.h"
-				>
-			</File>
-			<File
-				RelativePath=".\sample_elem3.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\sample_elem3.h"
 				>
 			</File>
 		</Filter>
