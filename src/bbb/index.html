@@ -89,6 +89,14 @@ function getCliMsg(msgCode) {
     }
 }
 
+function getSvrMsg(respDat) {
+    if (myLanguage == 1) {
+        return respDat.MsgJpn;
+    } else {
+        return respDat.MsgEng;
+    }
+}
+
 function boxResize() {
     var box_info = document.getElementById('box_info');
     var box_cont = document.getElementById('container');
@@ -221,7 +229,9 @@ function closeWaitingDialog(actionMode) {
                     myLanguage = 1;
                 }
                 refreshMainScreen();
-            } if (statusCode[0] == 406) {
+            } else if (statusCode[0] == 406) {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 200, 'img/error_image48c.png', 0);
+                $('#adialog-content').append(getSvrMsg(responseData[0]));
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
@@ -320,8 +330,13 @@ function sendRequestRecvResponse(url, request, index) {
             $.extend(responseData[index], msg);
             underComm--;
         },
-        error: function() {
-            statusCode[index] = -1;
+        error: function(xhr, textStatus, errorThrown) {
+            if (textStatus === 'timeout') {
+                statusCode[index] = -1;
+            } else {
+                statusCode[index] = xhr.status;
+                $.extend(responseData[index], JSON.parse(xhr.responseText));
+            }
             underComm--;
         }
     });
@@ -686,7 +701,6 @@ function onMenuAction(actionType) {
         showTable(currentTablename);
     }
     if (actionType == 600) {
-
         sendRequestRecvResponse('./api/system/', null, 0);
         sendRequestRecvResponse('./api/language/', null, 1);
         showWaitingDialog(API_GETSYSTEM);
