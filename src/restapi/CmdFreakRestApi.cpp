@@ -26,7 +26,7 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 	ApiGetLanguage* ApiGetLanguageObj = new ApiGetLanguage();
 	int Add2 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/language/"), (StkWebAppExec*)ApiGetLanguageObj);
 	ApiLogging* ApiLoggingObj = new ApiLogging();
-	int Add3 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/bbb/$/"), (StkWebAppExec*)ApiLoggingObj);
+	int Add3 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/logs/"), (StkWebAppExec*)ApiLoggingObj);
 
 	////////// Main logic starts
 	Soc->TheLoop();
@@ -34,7 +34,7 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 
 	int Del1 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/system/"));
 	int Del2 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/language/"));
-	int Del3 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/bbb/$/"));
+	int Del3 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/logs/"));
 
 	delete Soc;
 }

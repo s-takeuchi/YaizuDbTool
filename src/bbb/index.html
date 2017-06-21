@@ -30,6 +30,8 @@ const CLIMSG_LABEL_REFRSHTABLE       = 2103;
 const CLIMSG_LABEL_FILTERING         = 2104;
 const CLIMSG_LABEL_INFORMATION       = 2105;
 const CLIMSG_WAITFORALITTLE          = 2110;
+const CLIMSG_LABEL_LOGTIME           = 2120;
+const CLIMSG_LABEL_LOGMSG            = 2121;
 const CLIMSG_FAITALERROR             = 2500;
 const CLIMSG_FAITALERROR_OCCURRED    = 2501;
 const CLIMSG_COMMUNICATIONERROR      = 2530;
@@ -40,7 +42,9 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               {'code':CLIMSG_LABEL_FILTERING, 'en':'Filtering', 'ja':'フィルタリング'},
               {'code':CLIMSG_LABEL_INFORMATION, 'en':'Information', 'ja':'情報'},
               {'code':CLIMSG_WAITFORALITTLE, 'en':'Now loading... Please wait for a while.', 'ja':'読み込み中です。しばらくお待ちください。'},
-              {'code':CLIMSG_FAITALERROR, 'en':'Faital Error', 'ja':'致命的エラー'},
+              {'code':CLIMSG_LABEL_LOGTIME, 'en':'Logging time', 'ja':'ログ出力時刻'},
+              {'code':CLIMSG_LABEL_LOGMSG, 'en':'Message', 'ja':'メッセージ'},
+              {'code':CLIMSG_FAITALERROR, 'en':'Fatal Error', 'ja':'致命的エラー'},
               {'code':CLIMSG_FAITALERROR_OCCURRED, 'en':'An faital error occurred.', 'ja':'致命的エラーが発生しました。'},
               {'code':CLIMSG_COMMUNICATIONERROR,
                  'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A CmdFreak internal process is invalid.<br>',
@@ -251,7 +255,16 @@ function closeWaitingDialog(actionMode) {
                 productName = responseData[0].Data.ProductName;
                 version = responseData[0].Data.Version;
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 360, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 380, 'img/error_image48c.png', 0);
+                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                return;
+            }
+
+            var Logs = {};
+            if (statusCode[1] == 200) {
+                Logs = responseData[1].Data.Log;
+            } else {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 380, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
             }
@@ -260,19 +273,26 @@ function closeWaitingDialog(actionMode) {
             $('#adialog-content').append('このソフトウェアは次の技術を取り込んでいます。<br/>- Mongoose 3.7 (Released as MIT License)<br/>- JQuery 1.9.1 (Released as MIT License)<br/>- JQuery UI 1.10.3 (Released as MIT License)<br/>- ParamQuery Grid 1.1.2 (Released as MIT License)<br/>');
             $('#adialog-content').append('<p>');
             $('#adialog-content').append('<a href="manual/jpn/index.htm" target="manual">オンラインマニュアルを開く</a><p>');
-            var timeResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-            if (sendRequestToWebServer('config-time', timeResponse) != 0) {
-                return;
-            }
             $('#adialog-content').append('Build Time = ' + buildTime + '<br/>');
             $('#adialog-content').append('Service Start Time = ' + startTime + '<br/>');
             $('#adialog-content').append('<br/>');
-            var logResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-            if (sendRequestToWebServer('config-checklog', logResponse) != 0) {
-                return;
-            }
             $('#adialog-content').append('以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。');
-            $('#adialog-content').append('' + logResponse.data.log + '<br/>');
+            var tmpTbl = $('<table class="tblstyle"><tr><th>' + getCliMsg(CLIMSG_LABEL_LOGTIME) + '</th><th>' + getCliMsg(CLIMSG_LABEL_LOGMSG) + '</th></tr></table>');
+            $('#adialog-content').append(tmpTbl);
+            for (var loop = 0; loop < Logs.length; loop++) {
+                if (myLanguage == 1) {
+                    tmpTbl.append($('<tr></tr>')
+                        .append($('<td></td>').text(Logs[loop].Time))
+                        .append($('<td></td>').text(Logs[loop].MsgJa))
+                    );
+                } else {
+                    tmpTbl.append($('<tr></tr>')
+                        .append($('<td></td>').text(Logs[loop].Time))
+                        .append($('<td></td>').text(Logs[loop].MsgEn))
+                    );
+                }
+            }
+            $('#adialog-content').append('</table><br/>');
             return;
         }
     }
@@ -702,7 +722,7 @@ function onMenuAction(actionType) {
     }
     if (actionType == 600) {
         sendRequestRecvResponse('./api/system/', null, 0);
-        sendRequestRecvResponse('./api/language/', null, 1);
+        sendRequestRecvResponse('./api/logs/', null, 1);
         showWaitingDialog(API_GETSYSTEM);
         return;
     }
