@@ -45,7 +45,7 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               {'code':CLIMSG_LABEL_LOGTIME, 'en':'Logging time', 'ja':'ログ出力時刻'},
               {'code':CLIMSG_LABEL_LOGMSG, 'en':'Message', 'ja':'メッセージ'},
               {'code':CLIMSG_FAITALERROR, 'en':'Fatal Error', 'ja':'致命的エラー'},
-              {'code':CLIMSG_FAITALERROR_OCCURRED, 'en':'An faital error occurred.', 'ja':'致命的エラーが発生しました。'},
+              {'code':CLIMSG_FAITALERROR_OCCURRED, 'en':'A faital error occurred.', 'ja':'致命的エラーが発生しました。'},
               {'code':CLIMSG_COMMUNICATIONERROR,
                  'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A CmdFreak internal process is invalid.<br>',
                  'ja':'CmdFreakサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) CmdFreakサービスが開始されていない。<br>(2) CmdFreakサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , stkwebapp.conf] が不正。<br>(4) CmdFreakの内部処理で異常が発生している。<br>'
@@ -54,7 +54,7 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
 ];
 
 const API_GETLANGUAGE      = 101;
-const API_GETSYSTEM        = 102;
+const API_ABOUT            = 102;
 
 // underComm = 0 : No communication state, >= 1 : Communication state
 var underComm = 0;
@@ -66,7 +66,7 @@ window.onload = function() {
     $('#wdialog').dialog({autoOpen:false});
 
     sendRequestRecvResponse('./api/language/', null, 0);
-    showWaitingDialog(API_GETLANGUAGE);
+    showWaitingDialog(API_GETLANGUAGE, 0);
 
     refreshMainScreen();
 }
@@ -221,7 +221,7 @@ function displaySheet() {
     $('#grid_array').pqGrid(obj);
 }
 
-function closeWaitingDialog(actionMode) {
+function closeWaitingDialogAndExecuteNextAction(actionMode) {
     if (underComm == 0) {
         $('#wdialog').dialog('close');
 
@@ -244,7 +244,7 @@ function closeWaitingDialog(actionMode) {
         }
         //
         //
-        if (actionMode == API_GETSYSTEM) {
+        if (actionMode == API_ABOUT) {
             var buildTime = "";
             var startTime = "";
             var productName = "";
@@ -255,14 +255,18 @@ function closeWaitingDialog(actionMode) {
                 productName = responseData[0].Data.ProductName;
                 version = responseData[0].Data.Version;
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 380, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
             }
 
-            var Logs = {};
+            var Logs = [];
             if (statusCode[1] == 200) {
-                Logs = responseData[1].Data.Log;
+                if (responseData[1].Data.Log instanceof Array) {
+                    Logs = responseData[1].Data.Log;
+                } else if (responseData[1].Data.Log) {
+                    Logs.push(responseData[1].Data.Log);
+                }
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 380, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
@@ -296,10 +300,18 @@ function closeWaitingDialog(actionMode) {
             return;
         }
     }
-    setTimeout(function() {closeWaitingDialog(actionMode);}, 500);
+    setTimeout(function() {closeWaitingDialogAndExecuteNextAction(actionMode);}, 500);
 }
 
-function showWaitingDialog(actionMode) {
+function showWaitingDialog(actionMode, count) {
+    if (count < 10) {
+        if (underComm == 0) {
+            closeWaitingDialogAndExecuteNextAction(actionMode);
+        } else {
+            setTimeout(function() {showWaitingDialog(actionMode, count + 1);}, 50);
+        }
+        return;
+    }
     $('#wdialog').dialog({
         autoOpen:true,
         modal:true,
@@ -319,7 +331,7 @@ function showWaitingDialog(actionMode) {
     });
     $('#wdialog-content').empty();
     $('#wdialog-content').append(getCliMsg(CLIMSG_WAITFORALITTLE));
-    setTimeout(function() {closeWaitingDialog(actionMode);}, 500);
+    setTimeout(function() {closeWaitingDialogAndExecuteNextAction(actionMode);}, 500);
 }
 
 function showMessageDialog(title, message, actionType, width, height, icon, buttonType) {
@@ -723,7 +735,7 @@ function onMenuAction(actionType) {
     if (actionType == 600) {
         sendRequestRecvResponse('./api/system/', null, 0);
         sendRequestRecvResponse('./api/logs/', null, 1);
-        showWaitingDialog(API_GETSYSTEM);
+        showWaitingDialog(API_ABOUT, 0);
         return;
     }
     if (actionType == 1100) {
