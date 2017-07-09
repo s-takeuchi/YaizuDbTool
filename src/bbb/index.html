@@ -53,8 +53,9 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
 
 ];
 
-const API_GETLANGUAGE      = 101;
-const API_ABOUT            = 102;
+const ACTION_LAUNCH        = 50;
+const ACTION_INFO          = 600;
+const ACTION_ERROR         = 1200;
 
 // underComm = 0 : No communication state, >= 1 : Communication state
 var underComm = 0;
@@ -65,8 +66,7 @@ window.onload = function() {
     $('#adialog').dialog({autoOpen:false});
     $('#wdialog').dialog({autoOpen:false});
 
-    sendRequestRecvResponse('./api/language/', null, 0);
-    showWaitingDialog(API_GETLANGUAGE, 0);
+    onXxxAction(ACTION_LAUNCH);
 
     refreshMainScreen();
 }
@@ -150,7 +150,7 @@ function displayToolBar(type) {
         ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
         ['mainarea', 'img/filter_image32s.png', 'img/filter_image32c.png', getCliMsg(CLIMSG_LABEL_FILTERING), 300],
         ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
-        ['mainarea', 'img/info_image32s.png', 'img/info_image32c.png', getCliMsg(CLIMSG_LABEL_INFORMATION), 600]
+        ['mainarea', 'img/info_image32s.png', 'img/info_image32c.png', getCliMsg(CLIMSG_LABEL_INFORMATION), ACTION_INFO]
     ];
     for (var Loop = 0; Loop < 8; Loop++) {
         displayButton(buttons[Loop][0], buttons[Loop][1], buttons[Loop][2], buttons[Loop][3], buttons[Loop][4]);
@@ -200,7 +200,7 @@ function displayButton(target, mouseOutIcon, mouseOverIcon, toolTip, actionType)
             element.src=mouseOutIcon;
         }
         element.onclick = function(){
-            onMenuAction(actionType);
+            onXxxAction(actionType);
         }
     }
     var parentElem = document.getElementById(target);
@@ -221,30 +221,30 @@ function displaySheet() {
     $('#grid_array').pqGrid(obj);
 }
 
-function closeWaitingDialogAndExecuteNextAction(actionMode) {
+function closeWaitingDialogAndExecuteNextAction(actionType) {
     if (underComm == 0) {
         $('#wdialog').dialog('close');
 
         //
         //
-        if (actionMode == API_GETLANGUAGE) {
+        if (actionType == ACTION_LAUNCH) {
             if (statusCode[0] == 200) {
                 if (responseData[0].Data.ClientLanguage == 'ja') {
                     myLanguage = 1;
                 }
                 refreshMainScreen();
             } else if (statusCode[0] == 406) {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 200, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getSvrMsg(responseData[0]));
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 330, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 512, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
             }
             return;
         }
         //
         //
-        if (actionMode == API_ABOUT) {
+        if (actionType == ACTION_INFO) {
             var buildTime = "";
             var startTime = "";
             var productName = "";
@@ -255,7 +255,7 @@ function closeWaitingDialogAndExecuteNextAction(actionMode) {
                 productName = responseData[0].Data.ProductName;
                 version = responseData[0].Data.Version;
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 330, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 512, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
             }
@@ -268,12 +268,12 @@ function closeWaitingDialogAndExecuteNextAction(actionMode) {
                     Logs.push(responseData[1].Data.Log);
                 }
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), 1140, 512, 380, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 512, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
             }
 
-            showMessageDialog('情報', '' + productName + ' ' + version + '<br/>Copyright (C) 2017 Shinya Takeuchi<br/>All Rights Reserved.', 600, 600, 440, 'img/info_image48c.png', 0);
+            showMessageDialog('情報', '' + productName + ' ' + version + '<br/>Copyright (C) 2017 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
             $('#adialog-content').append('このソフトウェアは次の技術を取り込んでいます。<br/>- Mongoose 3.7 (Released as MIT License)<br/>- JQuery 1.9.1 (Released as MIT License)<br/>- JQuery UI 1.10.3 (Released as MIT License)<br/>- ParamQuery Grid 1.1.2 (Released as MIT License)<br/>');
             $('#adialog-content').append('<p>');
             $('#adialog-content').append('<a href="manual/jpn/index.htm" target="manual">オンラインマニュアルを開く</a><p>');
@@ -299,16 +299,18 @@ function closeWaitingDialogAndExecuteNextAction(actionMode) {
             $('#adialog-content').append('</table><br/>');
             return;
         }
+        //
+        //
     }
-    setTimeout(function() {closeWaitingDialogAndExecuteNextAction(actionMode);}, 500);
+    setTimeout(function() {closeWaitingDialogAndExecuteNextAction(actionType);}, 500);
 }
 
-function showWaitingDialog(actionMode, count) {
+function showWaitingDialog(actionType, count) {
     if (count < 10) {
         if (underComm == 0) {
-            closeWaitingDialogAndExecuteNextAction(actionMode);
+            closeWaitingDialogAndExecuteNextAction(actionType);
         } else {
-            setTimeout(function() {showWaitingDialog(actionMode, count + 1);}, 50);
+            setTimeout(function() {showWaitingDialog(actionType, count + 1);}, 50);
         }
         return;
     }
@@ -331,7 +333,7 @@ function showWaitingDialog(actionMode, count) {
     });
     $('#wdialog-content').empty();
     $('#wdialog-content').append(getCliMsg(CLIMSG_WAITFORALITTLE));
-    setTimeout(function() {closeWaitingDialogAndExecuteNextAction(actionMode);}, 500);
+    setTimeout(function() {closeWaitingDialogAndExecuteNextAction(actionType);}, 500);
 }
 
 function showMessageDialog(title, message, actionType, width, height, icon, buttonType) {
@@ -544,7 +546,12 @@ function initializeCurrentTablename() {
     }
 }
 
-function onMenuAction(actionType) {
+function onXxxAction(actionType) {
+    if (actionType == ACTION_LAUNCH) {
+        sendRequestRecvResponse('./api/language/', null, 0);
+        showWaitingDialog(ACTION_LAUNCH, 0);
+        return;
+    }
     if (actionType == 100) {
         showMessageDialog('ODBC接続', 'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。オペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>', actionType, 600, 440, 'img/config_image48c.png', 1);
         $('#adialog-content').append('DBMSの選択 : ');
@@ -732,15 +739,18 @@ function onMenuAction(actionType) {
         initializeCurrentTablename();
         showTable(currentTablename);
     }
-    if (actionType == 600) {
+    if (actionType == ACTION_INFO) {
         sendRequestRecvResponse('./api/system/', null, 0);
         sendRequestRecvResponse('./api/logs/', null, 1);
-        showWaitingDialog(API_ABOUT, 0);
+        showWaitingDialog(actionType, 0);
         return;
     }
     if (actionType == 1100) {
         showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', actionType, 512, 230, 'img/error_image48c.png', 0);
         $('#adialog-content').append('予期しないエラーが発生しました。このエラーはWebブラウザからのリクエストが解析できなかったときに発生する場合があります。<br>');
+        return;
+    }
+    if (actionType == ACTION_ERROR) {
         return;
     }
     if (actionType % 10 == 1 || actionType % 10 == 2) {
