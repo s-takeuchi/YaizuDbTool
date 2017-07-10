@@ -183,6 +183,70 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\CmdFreakRestApi.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dataaccess.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dataaccess.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Global.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MyMsgProc.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MyMsgProc.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Dbms"
+			>
+			<File
+				RelativePath=".\DbAccessor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DbAccessor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DbMariaDbAccessor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DbMariaDbAccessor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DbPostgreSqlAccessor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DbPostgreSqlAccessor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\OdbcManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\OdbcManager.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Api"
+			>
+			<File
 				RelativePath=".\ApiBase .cpp"
 				>
 			</File>
@@ -212,30 +276,6 @@
 			</File>
 			<File
 				RelativePath=".\ApiLogging.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CmdFreakRestApi.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\dataaccess.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\dataaccess.h"
-				>
-			</File>
-			<File
-				RelativePath="..\Global.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MyMsgProc.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MyMsgProc.h"
 				>
 			</File>
 		</Filter>
