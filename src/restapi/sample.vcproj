@@ -278,6 +278,14 @@
 				RelativePath=".\ApiLogging.h"
 				>
 			</File>
+			<File
+				RelativePath=".\ApiOdbcConnStr.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ApiOdbcConnStr.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
