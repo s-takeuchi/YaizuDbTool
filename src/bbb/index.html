@@ -24,17 +24,17 @@ var columnData = {'operation' : '', 'resultcode' : 0, 'data' : {}};
 
 var myLanguage = 0;
 
-const CLIMSG_LABEL_ODBCCONNECTION    = 2101;
-const CLIMSG_LABEL_TABLEINFO         = 2102;
-const CLIMSG_LABEL_REFRSHTABLE       = 2103;
-const CLIMSG_LABEL_FILTERING         = 2104;
-const CLIMSG_LABEL_INFORMATION       = 2105;
-const CLIMSG_WAITFORALITTLE          = 2110;
-const CLIMSG_LABEL_LOGTIME           = 2120;
-const CLIMSG_LABEL_LOGMSG            = 2121;
-const CLIMSG_FAITALERROR             = 2500;
-const CLIMSG_FAITALERROR_OCCURRED    = 2501;
-const CLIMSG_COMMUNICATIONERROR      = 2530;
+var CLIMSG_LABEL_ODBCCONNECTION    = 2101;
+var CLIMSG_LABEL_TABLEINFO         = 2102;
+var CLIMSG_LABEL_REFRSHTABLE       = 2103;
+var CLIMSG_LABEL_FILTERING         = 2104;
+var CLIMSG_LABEL_INFORMATION       = 2105;
+var CLIMSG_WAITFORALITTLE          = 2110;
+var CLIMSG_LABEL_LOGTIME           = 2120;
+var CLIMSG_LABEL_LOGMSG            = 2121;
+var CLIMSG_FAITALERROR             = 2500;
+var CLIMSG_FAITALERROR_OCCURRED    = 2501;
+var CLIMSG_COMMUNICATIONERROR      = 2530;
 
 var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja':'ODBC接続'},
               {'code':CLIMSG_LABEL_TABLEINFO, 'en':'Table Information', 'ja':'テーブル情報'},
@@ -53,9 +53,9 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
 
 ];
 
-const ACTION_LAUNCH        = 50;
-const ACTION_INFO          = 600;
-const ACTION_ERROR         = 1200;
+var ACTION_LAUNCH        = 50;
+var ACTION_INFO          = 600;
+var ACTION_ERROR         = 1200;
 
 // underComm = 0 : No communication state, >= 1 : Communication state
 var underComm = 0;
@@ -82,7 +82,8 @@ function refreshMainScreen()
 }
 
 function getCliMsg(msgCode) {
-    for (var currentIt of cliMsg) {
+    for (var loop = 0; loop < cliMsg.length; loop++) {
+        var currentIt = cliMsg[loop];
         if (currentIt.code == msgCode) {
             if (myLanguage == 1) {
                 return currentIt.ja;
