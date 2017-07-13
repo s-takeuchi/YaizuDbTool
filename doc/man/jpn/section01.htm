@@ -86,16 +86,15 @@ PostgreSQL 9.2 (+ ODBC Driver: PostgreSQL Unicode 9.2)<br>
 
 <H2 ID="1.3">1.3 システム構成</H2>
 <div class="topic">
-CmdFreakのシステム構成を下図に示します。CmdFreakは，同梱する簡易Webサーバ"mongoose"のCGIアプリケーション
+CmdFreakのシステム構成を下図に示します。CmdFreakは，同梱するWebサーバ"nginx"上のWebアプリケーション
 およびWindowsサービスとして動作し，WebブラウザからWebサーバを経由してCmdFreakを利用することができます。<p>
 <img src="systemstructure.gif" alt="System Structure">
 <table class="tblstyle">
 <tr><th>コンポーネント</th><th>説明</th></tr>
-<tr><td>Web Browser</td><td>Internet ExplorerまたはFirefox。</td></tr>
-<tr><td>Web Server</td><td>簡易型Webサーバ"mongoose"。</td></tr>
-<tr><td>CGI</td><td>Web Browserのリクエストを解釈し，CmdFreak Serviceにデータベース参照のための各種リクエストを送ります。</td></tr>
-<tr><td>CmdFreak Service</td><td>CGIからのリクエストを受け付け，データベース情報の取得やCmdFreakの各種制御を行います。</td></tr>
-<tr><td>RDBMS</td><td>ODBCを使用してCmdFreakが接続するデータベース。</td></tr>
+<tr><td>Web Browser</td><td>Microsoft Edge，Internet Explorer，FirefoxおよびChromeをサポートします。</td></tr>
+<tr><td>Web Server</td><td>Webサーバとして"nginx"を使用します。</td></tr>
+<tr><td>CmdFreak Service</td><td>Webサーバ経由でリクエストを受け付け，データベース情報の取得やCmdFreakの各種制御を行います。</td></tr>
+<tr><td>RDBMS</td><td>CmdFreakがODBCを使用して接続するデータベース。</td></tr>
 </table><p>
 上図におけるClient，ServerおよびDB Serverは同一のサーバであっても問題ありません。<br>
 </div><p>
