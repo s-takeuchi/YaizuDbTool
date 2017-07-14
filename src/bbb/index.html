@@ -32,6 +32,10 @@ var CLIMSG_LABEL_INFORMATION       = 2105;
 var CLIMSG_WAITFORALITTLE          = 2110;
 var CLIMSG_LABEL_LOGTIME           = 2120;
 var CLIMSG_LABEL_LOGMSG            = 2121;
+var CLIMSG_TECH_EMBEDDED           = 2130;
+var CLIMSG_OPEN_MANUAL             = 2131;
+var CLIMSG_OPEN_MANUAL_URL         = 2132;
+var CLIMSG_TRACELOG                = 2133;
 var CLIMSG_FAITALERROR             = 2500;
 var CLIMSG_FAITALERROR_OCCURRED    = 2501;
 var CLIMSG_COMMUNICATIONERROR      = 2530;
@@ -44,6 +48,10 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               {'code':CLIMSG_WAITFORALITTLE, 'en':'Now loading... Please wait for a while.', 'ja':'読み込み中です。しばらくお待ちください。'},
               {'code':CLIMSG_LABEL_LOGTIME, 'en':'Logging time', 'ja':'ログ出力時刻'},
               {'code':CLIMSG_LABEL_LOGMSG, 'en':'Message', 'ja':'メッセージ'},
+              {'code':CLIMSG_TECH_EMBEDDED, 'en':'This software has the following technologies embedded:', 'ja':'このソフトウェアは次の技術を取り込んでいます。'},
+              {'code':CLIMSG_OPEN_MANUAL, 'en':'Open online manual', 'ja':'オンラインマニュアルを開く'},
+              {'code':CLIMSG_OPEN_MANUAL_URL, 'en':'manual/eng/index.htm', 'ja':'manual/jpn/index.htm'},
+              {'code':CLIMSG_TRACELOG, 'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.', 'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'},
               {'code':CLIMSG_FAITALERROR, 'en':'Fatal Error', 'ja':'致命的エラー'},
               {'code':CLIMSG_FAITALERROR_OCCURRED, 'en':'A faital error occurred.', 'ja':'致命的エラーが発生しました。'},
               {'code':CLIMSG_COMMUNICATIONERROR,
@@ -275,13 +283,13 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             }
 
             showMessageDialog('情報', '' + productName + ' ' + version + '<br/>Copyright (C) 2017 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
-            $('#adialog-content').append('このソフトウェアは次の技術を取り込んでいます。<br/>- Mongoose 3.7 (Released as MIT License)<br/>- JQuery 1.9.1 (Released as MIT License)<br/>- JQuery UI 1.10.3 (Released as MIT License)<br/>- ParamQuery Grid 1.1.2 (Released as MIT License)<br/>');
+            $('#adialog-content').append('' + getCliMsg(CLIMSG_TECH_EMBEDDED) + '<br/>- Mongoose 3.7 (Released as MIT License)<br/>- JQuery 1.9.1 (Released as MIT License)<br/>- JQuery UI 1.10.3 (Released as MIT License)<br/>- ParamQuery Grid 1.1.2 (Released as MIT License)<br/>');
             $('#adialog-content').append('<p>');
-            $('#adialog-content').append('<a href="manual/jpn/index.htm" target="manual">オンラインマニュアルを開く</a><p>');
+            $('#adialog-content').append('<a href="' + getCliMsg(CLIMSG_OPEN_MANUAL_URL) + '" target="manual">' + getCliMsg(CLIMSG_OPEN_MANUAL) + '</a><p>');
             $('#adialog-content').append('Build Time = ' + buildTime + '<br/>');
             $('#adialog-content').append('Service Start Time = ' + startTime + '<br/>');
             $('#adialog-content').append('<br/>');
-            $('#adialog-content').append('以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。');
+            $('#adialog-content').append('' + getCliMsg(CLIMSG_TRACELOG));
             var tmpTbl = $('<table class="tblstyle"><tr><th>' + getCliMsg(CLIMSG_LABEL_LOGTIME) + '</th><th>' + getCliMsg(CLIMSG_LABEL_LOGMSG) + '</th></tr></table>');
             $('#adialog-content').append(tmpTbl);
             for (var loop = 0; loop < Logs.length; loop++) {
