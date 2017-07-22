@@ -37,7 +37,9 @@ var CLIMSG_OPEN_MANUAL             = 2131;
 var CLIMSG_OPEN_MANUAL_URL         = 2132;
 var CLIMSG_TRACELOG                = 2133;
 var CLIMSG_FAITALERROR             = 2500;
-var CLIMSG_FAITALERROR_OCCURRED    = 2501;
+var CLIMSG_WARNING                 = 2501;
+var CLIMSG_FAITALERROR_OCCURRED    = 2502;
+var CLIMSG_UNEXPECTED_REQUEST      = 2503;
 var CLIMSG_COMMUNICATIONERROR      = 2530;
 
 var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja':'ODBC接続'},
@@ -53,7 +55,9 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               {'code':CLIMSG_OPEN_MANUAL_URL, 'en':'manual/eng/index.htm', 'ja':'manual/jpn/index.htm'},
               {'code':CLIMSG_TRACELOG, 'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.', 'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'},
               {'code':CLIMSG_FAITALERROR, 'en':'Fatal Error', 'ja':'致命的エラー'},
+              {'code':CLIMSG_WARNING, 'en':'Warning', 'ja':'警告'},
               {'code':CLIMSG_FAITALERROR_OCCURRED, 'en':'A faital error occurred.', 'ja':'致命的エラーが発生しました。'},
+              {'code':CLIMSG_UNEXPECTED_REQUEST, 'en':'CmdFreak service has received the unexpected request.', 'ja':'CmdFreakサービスは予期しない要求を受信しました。'},
               {'code':CLIMSG_COMMUNICATIONERROR,
                  'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A CmdFreak internal process is invalid.<br>',
                  'ja':'CmdFreakサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) CmdFreakサービスが開始されていない。<br>(2) CmdFreakサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , stkwebapp.conf] が不正。<br>(4) CmdFreakの内部処理で異常が発生している。<br>'
@@ -243,7 +247,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 }
                 refreshMainScreen();
             } else if (statusCode[0] == 406) {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_WARNING), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getSvrMsg(responseData[0]));
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 512, 330, 'img/error_image48c.png', 0);
