@@ -279,11 +279,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ApiOdbcConnStr.cpp"
+				RelativePath=".\ApiOdbcInfos.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ApiOdbcConnStr.h"
+				RelativePath=".\ApiOdbcInfos.h"
 				>
 			</File>
 		</Filter>

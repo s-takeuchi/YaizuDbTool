@@ -133,6 +133,36 @@ Code要素が0ではないとき，Data要素は返されません。
 </div><p>
 
 
+<H2 ID="2.5">2.5 Get /api/odbcinfos/</H2>
+<div class="topic">
+ODBCの情報を取得します。<br/>
+<ul>
+<li>リクエスト
+<p>なし</p>
+</li>
+<li>レスポンス
+<pre>
+  "Code":1234,
+  "MsgEng":"abc",
+  "MsgJpn":"あいう",
+  "Data" : {
+    "OdbcInfo" : [
+      {
+        "DbType" : "PostgreSQL",
+        "ConnStr" : "xxx",
+      },
+      {
+        "DbType" : "MySQL",
+        "ConnStr" : "xxx",
+      }
+    ]
+  }
+</pre>
+</li>
+</ul>
+</div><p>
+
+
 
 </div>
 </BODY>
