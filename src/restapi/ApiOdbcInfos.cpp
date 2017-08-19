@@ -24,6 +24,16 @@ StkObject* ApiOdbcInfos::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[12
 
 	StkObject* ResObj = new StkObject(_T(""));
 	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
+	StkObject* DatObj = new StkObject(_T("Data"));
+	StkObject* DatObjPostgreSql = new StkObject(_T("OdbcInfo"));
+	DatObjPostgreSql->AppendChildElement(new StkObject(_T("DbType"), _T("PostgreSQL")));
+	DatObjPostgreSql->AppendChildElement(new StkObject(_T("ConnStr"), ConnStrPostgreSql));
+	StkObject* DatObjMariaDbSql = new StkObject(_T("OdbcInfo"));
+	DatObjMariaDbSql->AppendChildElement(new StkObject(_T("DbType"), _T("MariaDB")));
+	DatObjMariaDbSql->AppendChildElement(new StkObject(_T("ConnStr"), ConnStrMariaDb));
+	DatObj->AppendChildElement(DatObjPostgreSql);
+	DatObj->AppendChildElement(DatObjMariaDbSql);
+	ResObj->AppendChildElement(DatObj);
 
 	*ResultCode = 200;
 
