@@ -4,6 +4,7 @@
 #include "DbAccessor.h"
 #include "DbPostgreSqlAccessor.h"
 #include "DbMariaDbAccessor.h"
+#include "DbMySqlAccessor.h"
 
 OdbcManager* OdbcManager::ThisInstance;
 
@@ -31,8 +32,11 @@ DbAccessor* OdbcManager::CreateAccessorObject(int Type)
 	if (Type == POSTGRESQL_ACCESSOR) {
 		return new DbPostgreSqlAccessor();
 	}
-	if (Type ==MARIADB_ACCESSOR) {
+	if (Type == MARIADB_ACCESSOR) {
 		return new DbMariaDbAccessor();
+	}
+	if (Type == MYSQL_ACCESSOR) {
+		return new DbMySqlAccessor();
 	}
 	return NULL;
 }

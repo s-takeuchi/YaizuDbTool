@@ -16,7 +16,7 @@ private:
 public:
 	static const int MARIADB_ACCESSOR = 0;
 	static const int POSTGRESQL_ACCESSOR = 1;
-	static const int HIRDB_ACCESSOR = 2;
+	static const int MYSQL_ACCESSOR = 2;
 
 public:
 	~OdbcManager();

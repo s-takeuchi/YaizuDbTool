@@ -227,6 +227,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DbMySqlAccessor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DbMySqlAccessor.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DbPostgreSqlAccessor.cpp"
 				>
 			</File>
