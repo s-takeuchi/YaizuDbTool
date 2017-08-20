@@ -36,8 +36,11 @@ var CLIMSG_TECH_EMBEDDED           = 2130;
 var CLIMSG_OPEN_MANUAL             = 2131;
 var CLIMSG_OPEN_MANUAL_URL         = 2132;
 var CLIMSG_TRACELOG                = 2133;
+var CLIMSG_INFO                    = 2134;
 var CLIMSG_ODBCCONNSTR_GUIDE       = 2140;
 var CLIMSG_ODBCCONNTITLE           = 2141;
+var CLIMSG_ODBCSELECTION           = 2142;
+var CLIMSG_ODBCCONNSTR_SPECIFY     = 2143;
 var CLIMSG_FAITALERROR             = 2500;
 var CLIMSG_WARNING                 = 2501;
 var CLIMSG_FAITALERROR_OCCURRED    = 2502;
@@ -58,10 +61,13 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               {'code':CLIMSG_TRACELOG, 
                   'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.', 
                   'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'},
+              {'code':CLIMSG_INFO, 'en':'Information', 'ja':'情報'},
               {'code':CLIMSG_ODBCCONNSTR_GUIDE,
                   'en':'Configure ODBC connection.<br>Select the connection target DBMS and specify the ODBC connection string.<br>As this is 32-bit application software, this string should be specified for the use of a 32-bit ODBC driver. As a prerequisite, a 32-bit ODBC driver needs to be installed on the operating system.<br>',
                   'ja':'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。オペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>'},
               {'code':CLIMSG_ODBCCONNTITLE, 'en':'ODBC Connections', 'ja':'ODBC接続'},
+              {'code':CLIMSG_ODBCSELECTION, 'en':'Select DBMS : ', 'ja':'DBMSの選択 : '},
+              {'code':CLIMSG_ODBCCONNSTR_SPECIFY, 'en':'Specify connection string : <br/>', 'ja':'接続文字列の指定 : <br/>'},
               {'code':CLIMSG_FAITALERROR, 'en':'Fatal Error', 'ja':'致命的エラー'},
               {'code':CLIMSG_WARNING, 'en':'Warning', 'ja':'警告'},
               {'code':CLIMSG_FAITALERROR_OCCURRED, 'en':'A faital error occurred.', 'ja':'致命的エラーが発生しました。'},
@@ -267,7 +273,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         if (actionType == ACTION_GETODBCCONNSTR) {
             showMessageDialog(getCliMsg(CLIMSG_ODBCCONNTITLE), getCliMsg(CLIMSG_ODBCCONNSTR_GUIDE), actionType, 600, 440, 'img/config_image48c.png', 1);
-            $('#adialog-content').append('DBMSの選択 : ');
+            $('#adialog-content').append(getCliMsg(CLIMSG_ODBCSELECTION));
             $('#adialog-content').append('<select id="dbmsselector" style="width:250px" onchange="eventDbmsSelected()">');
             $('#adialog-content').append('</select><p>');
             var connstrResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
@@ -286,7 +292,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             } else {
                 $('#dbmsselector').append('<option value="postgresql">PostgreSQL</option>');
             }
-            $('#adialog-content').append('接続文字列の指定 : <br>');
+            $('#adialog-content').append(getCliMsg(CLIMSG_ODBCCONNSTR_SPECIFY));
             $('#adialog-content').append('<textarea id="connstr" name="connstr" style="width:560px;height:150px" spellcheck="false"/><p>');
             $('#connstr').append(connstrResponse.data.ConnStr);
             return;
@@ -322,7 +328,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 return;
             }
 
-            showMessageDialog('情報', '' + productName + ' ' + version + '<br/>Copyright (C) 2017 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
+            showMessageDialog(getCliMsg(CLIMSG_INFO), '' + productName + ' ' + version + '<br/>Copyright (C) 2017 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
             $('#adialog-content').append('' + getCliMsg(CLIMSG_TECH_EMBEDDED) + '<br/>- Mongoose 3.7 (Released as MIT License)<br/>- JQuery 1.9.1 (Released as MIT License)<br/>- JQuery UI 1.10.3 (Released as MIT License)<br/>- ParamQuery Grid 1.1.2 (Released as MIT License)<br/>');
             $('#adialog-content').append('<p>');
             $('#adialog-content').append('<a href="' + getCliMsg(CLIMSG_OPEN_MANUAL_URL) + '" target="manual">' + getCliMsg(CLIMSG_OPEN_MANUAL) + '</a><p>');
