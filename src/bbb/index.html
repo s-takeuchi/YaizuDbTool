@@ -36,6 +36,8 @@ var CLIMSG_TECH_EMBEDDED           = 2130;
 var CLIMSG_OPEN_MANUAL             = 2131;
 var CLIMSG_OPEN_MANUAL_URL         = 2132;
 var CLIMSG_TRACELOG                = 2133;
+var CLIMSG_ODBCCONNSTR_GUIDE       = 2140;
+var CLIMSG_ODBCCONNTITLE           = 2141;
 var CLIMSG_FAITALERROR             = 2500;
 var CLIMSG_WARNING                 = 2501;
 var CLIMSG_FAITALERROR_OCCURRED    = 2502;
@@ -53,21 +55,27 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               {'code':CLIMSG_TECH_EMBEDDED, 'en':'This software has the following technologies embedded:', 'ja':'このソフトウェアは次の技術を取り込んでいます。'},
               {'code':CLIMSG_OPEN_MANUAL, 'en':'Open online manual', 'ja':'オンラインマニュアルを開く'},
               {'code':CLIMSG_OPEN_MANUAL_URL, 'en':'manual/eng/index.htm', 'ja':'manual/jpn/index.htm'},
-              {'code':CLIMSG_TRACELOG, 'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.', 'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'},
+              {'code':CLIMSG_TRACELOG, 
+                  'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.', 
+                  'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'},
+              {'code':CLIMSG_ODBCCONNSTR_GUIDE,
+                  'en':'Configure ODBC connection.<br>Select the connection target DBMS and specify the ODBC connection string.<br>As this is 32-bit application software, this string should be specified for the use of a 32-bit ODBC driver. As a prerequisite, a 32-bit ODBC driver needs to be installed on the operating system.<br>',
+                  'ja':'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。オペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>'},
+              {'code':CLIMSG_ODBCCONNTITLE, 'en':'ODBC Connections', 'ja':'ODBC接続'},
               {'code':CLIMSG_FAITALERROR, 'en':'Fatal Error', 'ja':'致命的エラー'},
               {'code':CLIMSG_WARNING, 'en':'Warning', 'ja':'警告'},
               {'code':CLIMSG_FAITALERROR_OCCURRED, 'en':'A faital error occurred.', 'ja':'致命的エラーが発生しました。'},
               {'code':CLIMSG_UNEXPECTED_REQUEST, 'en':'CmdFreak service has received an unexpected request.', 'ja':'CmdFreakサービスは予期しない要求を受信しました。'},
               {'code':CLIMSG_COMMUNICATIONERROR,
-                 'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A CmdFreak internal process is invalid.<br>',
-                 'ja':'CmdFreakサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) CmdFreakサービスが開始されていない。<br>(2) CmdFreakサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , stkwebapp.conf] が不正。<br>(4) CmdFreakの内部処理で異常が発生している。<br>'
+                  'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A CmdFreak internal process is invalid.<br>',
+                  'ja':'CmdFreakサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) CmdFreakサービスが開始されていない。<br>(2) CmdFreakサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , stkwebapp.conf] が不正。<br>(4) CmdFreakの内部処理で異常が発生している。<br>'
               }
-
 ];
 
-var ACTION_LAUNCH        = 50;
-var ACTION_INFO          = 600;
-var ACTION_ERROR         = 1200;
+var ACTION_LAUNCH         = 50;
+var ACTION_GETODBCCONNSTR = 100;
+var ACTION_INFO           = 600;
+var ACTION_ERROR          = 1200;
 
 // underComm = 0 : No communication state, >= 1 : Communication state
 var underComm = 0;
@@ -156,7 +164,7 @@ function getshowWidth() {
 function displayToolBar(type) {
     $('#mainarea').empty();
     var buttons = [
-        ['mainarea', 'img/config_image32s.png', 'img/config_image32c.png', getCliMsg(CLIMSG_LABEL_ODBCCONNECTION), 100],
+        ['mainarea', 'img/config_image32s.png', 'img/config_image32c.png', getCliMsg(CLIMSG_LABEL_ODBCCONNECTION), ACTION_GETODBCCONNSTR],
         ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
         ['mainarea', 'img/table_image32s.png', 'img/table_image32c.png', getCliMsg(CLIMSG_LABEL_TABLEINFO), 200],
         ['mainarea', 'img/refresh_image32s.png', 'img/refresh_image32c.png', getCliMsg(CLIMSG_LABEL_REFRSHTABLE), 400],
@@ -253,6 +261,34 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 544, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
             }
+            return;
+        }
+        //
+        //
+        if (actionType == ACTION_GETODBCCONNSTR) {
+            showMessageDialog(getCliMsg(CLIMSG_ODBCCONNTITLE), getCliMsg(CLIMSG_ODBCCONNSTR_GUIDE), actionType, 600, 440, 'img/config_image48c.png', 1);
+            $('#adialog-content').append('DBMSの選択 : ');
+            $('#adialog-content').append('<select id="dbmsselector" style="width:250px" onchange="eventDbmsSelected()">');
+            $('#adialog-content').append('</select><p>');
+            var connstrResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+            if (sendRequestToWebServer('get-connstr', connstrResponse) != 0) {
+                return;
+            }
+            if (connstrResponse.data.DbmsType == 0) {
+                $('#dbmsselector').append('<option value="mariadb" selected>MySQL/MariaDB</option>');
+                currentDbmsname = 'mariadb';
+            } else {
+                $('#dbmsselector').append('<option value="mariadb">MySQL/MariaDB</option>');
+            }
+            if (connstrResponse.data.DbmsType == 1) {
+                $('#dbmsselector').append('<option value="postgresql" selected>PostgreSQL</option>');
+                currentDbmsname = 'postgresql';
+            } else {
+                $('#dbmsselector').append('<option value="postgresql">PostgreSQL</option>');
+            }
+            $('#adialog-content').append('接続文字列の指定 : <br>');
+            $('#adialog-content').append('<textarea id="connstr" name="connstr" style="width:560px;height:150px" spellcheck="false"/><p>');
+            $('#connstr').append(connstrResponse.data.ConnStr);
             return;
         }
         //
@@ -565,30 +601,9 @@ function onXxxAction(actionType) {
         showWaitingDialog(ACTION_LAUNCH, 0);
         return;
     }
-    if (actionType == 100) {
-        showMessageDialog('ODBC接続', 'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。オペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>', actionType, 600, 440, 'img/config_image48c.png', 1);
-        $('#adialog-content').append('DBMSの選択 : ');
-        $('#adialog-content').append('<select id="dbmsselector" style="width:250px" onchange="eventDbmsSelected()">');
-        $('#adialog-content').append('</select><p>');
-        var connstrResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-        if (sendRequestToWebServer('get-connstr', connstrResponse) != 0) {
-            return;
-        }
-        if (connstrResponse.data.DbmsType == 0) {
-            $('#dbmsselector').append('<option value="mariadb" selected>MySQL/MariaDB</option>');
-            currentDbmsname = 'mariadb';
-        } else {
-            $('#dbmsselector').append('<option value="mariadb">MySQL/MariaDB</option>');
-        }
-        if (connstrResponse.data.DbmsType == 1) {
-            $('#dbmsselector').append('<option value="postgresql" selected>PostgreSQL</option>');
-            currentDbmsname = 'postgresql';
-        } else {
-            $('#dbmsselector').append('<option value="postgresql">PostgreSQL</option>');
-        }
-        $('#adialog-content').append('接続文字列の指定 : <br>');
-        $('#adialog-content').append('<textarea id="connstr" name="connstr" style="width:560px;height:150px" spellcheck="false"/><p>');
-        $('#connstr').append(connstrResponse.data.ConnStr);
+    if (actionType == ACTION_GETODBCCONNSTR) {
+        sendRequestRecvResponse('./api/odbcinfos/', null, 0);
+        showWaitingDialog(ACTION_GETODBCCONNSTR, 0);
         return;
     }
     if (actionType == 101) {
