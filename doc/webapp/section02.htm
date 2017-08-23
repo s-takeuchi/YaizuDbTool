@@ -74,12 +74,14 @@ Code要素が0ではないとき，Data要素は返されません。
 </li>
 <li>レスポンス
 <pre>
+{
   "Code":1234,
   "MsgEng":"abc",
   "MsgJpn":"あいう",
   "Data" : {
     "ClientLanguage" : "ja",
   }
+}
 </pre>
 <table class="tblstyle">
 <tr><td>Code</td><td>Integer</td><td>結果コード。0:成功, 3120:クライアントのロケールを検知できなかったとき。</td></tr>
@@ -102,6 +104,7 @@ Code要素が0ではないとき，Data要素は返されません。
 </li>
 <li>レスポンス
 <pre>
+{
   "Code":1234,
   "MsgEng":"abc",
   "MsgJpn":"あいう",
@@ -119,6 +122,7 @@ Code要素が0ではないとき，Data要素は返されません。
       }
     ]
   }
+}
 </pre>
 <table class="tblstyle">
 <tr><td>Code</td><td>Integer</td><td>結果コード。0:成功</td></tr>
@@ -142,6 +146,7 @@ ODBCの情報を取得します。<br/>
 </li>
 <li>レスポンス
 <pre>
+{
   "Code":1234,
   "MsgEng":"abc",
   "MsgJpn":"あいう",
@@ -157,6 +162,7 @@ ODBCの情報を取得します。<br/>
       }
     ]
   }
+}
 </pre>
 </li>
 </ul>

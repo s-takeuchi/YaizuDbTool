@@ -272,6 +272,17 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         //
         if (actionType == ACTION_GETODBCCONNSTR) {
+            if (statusCode[0] != 200) {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 544, 330, 'img/error_image48c.png', 0);
+                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                return;
+            }
+            var connStrs = [];
+            if (responseData[0].Data.OdbcInfo instanceof Array) {
+                connStrs = responseData[0].Data.OdbcInfo;
+            } else if (responseData[0].Data.OdbcInfo) {
+                connStrs.push(responseData[0].Data.OdbcInfo);
+            }
             showMessageDialog(getCliMsg(CLIMSG_ODBCCONNTITLE), getCliMsg(CLIMSG_ODBCCONNSTR_GUIDE), actionType, 600, 440, 'img/config_image48c.png', 1);
             $('#adialog-content').append(getCliMsg(CLIMSG_ODBCSELECTION));
             $('#adialog-content').append('<select id="dbmsselector" style="width:250px" onchange="eventDbmsSelected()">');
@@ -294,7 +305,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             }
             $('#adialog-content').append(getCliMsg(CLIMSG_ODBCCONNSTR_SPECIFY));
             $('#adialog-content').append('<textarea id="connstr" name="connstr" style="width:560px;height:150px" spellcheck="false"/><p>');
-            $('#connstr').append(connstrResponse.data.ConnStr);
+            $('#connstr').append(connStrs[0].ConnStr);
             return;
         }
         //
