@@ -36,9 +36,9 @@ CmdFreakのサーバ情報(プログラム名称, バージョン, ビルド時�
 <li>レスポンス
 <pre>
 {
-  "Code":1234,
-  "MsgEng":"abc",
-  "MsgJpn":"あいう",
+  "Code" : 1234,
+  "MsgEng" : "abc",
+  "MsgJpn" : "あいう",
   "Data" : {
     "ProductName" : "CmdFreak",
     "Version" : "1.1.0",
@@ -75,9 +75,9 @@ Code要素が0ではないとき，Data要素は返されません。
 <li>レスポンス
 <pre>
 {
-  "Code":1234,
-  "MsgEng":"abc",
-  "MsgJpn":"あいう",
+  "Code" : 1234,
+  "MsgEng" : "abc",
+  "MsgJpn" : "あいう",
   "Data" : {
     "ClientLanguage" : "ja",
   }
@@ -105,9 +105,9 @@ Code要素が0ではないとき，Data要素は返されません。
 <li>レスポンス
 <pre>
 {
-  "Code":1234,
-  "MsgEng":"abc",
-  "MsgJpn":"あいう",
+  "Code" : 1234,
+  "MsgEng" : "abc",
+  "MsgJpn" : "あいう",
   "Data" : {
     "Log" : [
       {
@@ -142,14 +142,21 @@ Code要素が0ではないとき，Data要素は返されません。
 ODBCの情報を取得します。<br/>
 <ul>
 <li>リクエスト
-<p>なし</p>
+<pre>
+{
+  "Type" : "Default",
+}
+</pre>
+<table class="tblstyle">
+<tr><td>Type</td><td>Integer</td><td>Default:デフォルト接続文字列を取得したい場合。Configured:設定済の接続文字列を取得したい場合。</td></tr>
+</table><br/>
 </li>
 <li>レスポンス
 <pre>
 {
-  "Code":1234,
-  "MsgEng":"abc",
-  "MsgJpn":"あいう",
+  "Code" : 1234,
+  "MsgEng" : "abc",
+  "MsgJpn" : "あいう",
   "Data" : {
     "OdbcInfo" : [
       {
@@ -164,6 +171,13 @@ ODBCの情報を取得します。<br/>
   }
 }
 </pre>
+<table class="tblstyle">
+<tr><td>Code</td><td>Integer</td><td>結果コード。0:成功</td></tr>
+<tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>DbType</td><td>String</td><td>DBMSの種別。"PostgreSQL", "MySQL", "MariaDB"の何れか。</td></tr>
+<tr><td>ConnStr</td><td>String</td><td>接続文字列。</td></tr>
+</table>
 </li>
 </ul>
 </div><p>
