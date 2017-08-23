@@ -416,10 +416,10 @@ function showMessageDialog(title, message, actionType, width, height, icon, butt
     }
 }
 
-function sendRequestRecvResponse(url, request, index) {
+function sendRequestRecvResponse(method, url, request, index) {
     underComm++;
     $.ajax({
-        type: 'GET',
+        type: method,
         dataType: 'json',
         url: url,
         data: request,
@@ -614,12 +614,12 @@ function initializeCurrentTablename() {
 
 function onXxxAction(actionType) {
     if (actionType == ACTION_LAUNCH) {
-        sendRequestRecvResponse('./api/language/', null, 0);
+        sendRequestRecvResponse('GET', './api/language/', null, 0);
         showWaitingDialog(ACTION_LAUNCH, 0);
         return;
     }
     if (actionType == ACTION_GETODBCCONNSTR) {
-        sendRequestRecvResponse('./api/odbcinfos/', null, 0);
+        sendRequestRecvResponse('GET', './api/odbcinfos/', null, 0);
         showWaitingDialog(ACTION_GETODBCCONNSTR, 0);
         return;
     }
@@ -785,8 +785,8 @@ function onXxxAction(actionType) {
         showTable(currentTablename);
     }
     if (actionType == ACTION_INFO) {
-        sendRequestRecvResponse('./api/system/', null, 0);
-        sendRequestRecvResponse('./api/logs/', null, 1);
+        sendRequestRecvResponse('GET', './api/system/', null, 0);
+        sendRequestRecvResponse('GET', './api/logs/', null, 1);
         showWaitingDialog(actionType, 0);
         return;
     }
