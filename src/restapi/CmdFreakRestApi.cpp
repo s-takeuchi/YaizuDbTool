@@ -29,7 +29,7 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 	ApiLogging* ApiLoggingObj = new ApiLogging();
 	int Add3 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/logs/"), (StkWebAppExec*)ApiLoggingObj);
 	ApiOdbcInfos* ApiOdbcInfoObj = new ApiOdbcInfos();
-	int Add4 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/odbcinfos/"), (StkWebAppExec*)ApiOdbcInfoObj);
+	int Add4 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/odbcinfos/$"), (StkWebAppExec*)ApiOdbcInfoObj);
 
 	////////// Main logic starts
 	Soc->TheLoop();

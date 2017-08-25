@@ -418,28 +418,54 @@ function showMessageDialog(title, message, actionType, width, height, icon, butt
 
 function sendRequestRecvResponse(method, url, request, index) {
     underComm++;
-    $.ajax({
-        type: method,
-        dataType: 'json',
-        url: url,
-        data: request,
-        async: true,
-        timeout: 7000,
-        success: function(msg, textStatus, xhr) {
-            statusCode[index] = xhr.status;
-            $.extend(responseData[index], msg);
-            underComm--;
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            if (textStatus === 'timeout') {
-                statusCode[index] = -1;
-            } else {
+    if (method === 'GET') {
+        $.ajax({
+            type: method,
+            dataType: 'json',
+            url: url,
+            data: request,
+            async: true,
+            timeout: 7000,
+            success: function(msg, textStatus, xhr) {
                 statusCode[index] = xhr.status;
-                $.extend(responseData[index], JSON.parse(xhr.responseText));
+                $.extend(responseData[index], msg);
+                underComm--;
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                if (textStatus === 'timeout') {
+                    statusCode[index] = -1;
+                } else {
+                    statusCode[index] = xhr.status;
+                    $.extend(responseData[index], JSON.parse(xhr.responseText));
+                }
+                underComm--;
             }
-            underComm--;
-        }
-    });
+        });
+    } else {
+        $.ajax({
+            type: method,
+            dataType: 'json',
+            url: url,
+            data: JSON.stringify(request),
+            contentType: 'application/json',
+            async: true,
+            timeout: 7000,
+            success: function(msg, textStatus, xhr) {
+                statusCode[index] = xhr.status;
+                $.extend(responseData[index], msg);
+                underComm--;
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                if (textStatus === 'timeout') {
+                    statusCode[index] = -1;
+                } else {
+                    statusCode[index] = xhr.status;
+                    $.extend(responseData[index], JSON.parse(xhr.responseText));
+                }
+                underComm--;
+            }
+        });
+    }
     return;
 }
 
@@ -619,7 +645,8 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_GETODBCCONNSTR) {
-        sendRequestRecvResponse('GET', './api/odbcinfos/', null, 0);
+        var reqDat = {'query' : 'default' };
+        sendRequestRecvResponse('GET', './api/odbcinfos/', reqDat, 0);
         showWaitingDialog(ACTION_GETODBCCONNSTR, 0);
         return;
     }
