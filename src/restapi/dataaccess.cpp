@@ -242,8 +242,8 @@ void DataAccess::SetOdbcConnStr(int DbmsType, TCHAR ConnStr[256])
 
 // Acuqire ODBC configuration
 // ConnStr [out] : Acquired connection string
-// Init [out] : Init flag
-// Return : Type of DBMS (0:MariaDB, 1:PostgreSQL)
+// Init [out] : Init flag (1:After installation, 0:After connection string is configured)
+// Return : Type of DBMS (0:MariaDB, 1:PostgreSQL, 2:MySQL, -1:Connection string does not exist)
 int DataAccess::GetOdbcConfing(TCHAR ConnStr[256], int* Init)
 {
 	LockTable(_T("OdbcConfig"), LOCK_SHARE);

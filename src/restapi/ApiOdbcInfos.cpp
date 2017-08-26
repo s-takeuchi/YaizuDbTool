@@ -18,31 +18,31 @@ StkObject* ApiOdbcInfos::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[12
 		SQLTCHAR ConnStrMariaDb[Global::MAX_PARAM_LENGTH];
 		SQLTCHAR ConnStrMySql[Global::MAX_PARAM_LENGTH];
 
-		DbAccessor* DaPostgreSql = NULL;
 		DbAccessor* DaMariaDb    = NULL;
+		DbAccessor* DaPostgreSql = NULL;
 		DbAccessor* DaMySql      = NULL;
 
-		DaPostgreSql = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::POSTGRESQL_ACCESSOR);
 		DaMariaDb    = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::MARIADB_ACCESSOR);
+		DaPostgreSql = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::POSTGRESQL_ACCESSOR);
 		DaMySql      = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::MYSQL_ACCESSOR);
 
-		DaPostgreSql->GetDefaultConnStr(ConnStrPostgreSql);
 		DaMariaDb->GetDefaultConnStr(ConnStrMariaDb);
+		DaPostgreSql->GetDefaultConnStr(ConnStrPostgreSql);
 		DaMySql->GetDefaultConnStr(ConnStrMySql);
 
-		OdbcManager::GetInstance()->DeleteAccessorObject(DaPostgreSql);
 		OdbcManager::GetInstance()->DeleteAccessorObject(DaMariaDb);
+		OdbcManager::GetInstance()->DeleteAccessorObject(DaPostgreSql);
 		OdbcManager::GetInstance()->DeleteAccessorObject(DaMySql);
+
+		StkObject* DatObjMariaDb = new StkObject(_T("OdbcInfo"));
+		DatObjMariaDb->AppendChildElement(new StkObject(_T("DbType"), _T("MariaDB")));
+		DatObjMariaDb->AppendChildElement(new StkObject(_T("ConnStr"), ConnStrMariaDb));
+		DatObj->AppendChildElement(DatObjMariaDb);
 
 		StkObject* DatObjPostgreSql = new StkObject(_T("OdbcInfo"));
 		DatObjPostgreSql->AppendChildElement(new StkObject(_T("DbType"), _T("PostgreSQL")));
 		DatObjPostgreSql->AppendChildElement(new StkObject(_T("ConnStr"), ConnStrPostgreSql));
 		DatObj->AppendChildElement(DatObjPostgreSql);
-
-		StkObject* DatObjMariaDbSql = new StkObject(_T("OdbcInfo"));
-		DatObjMariaDbSql->AppendChildElement(new StkObject(_T("DbType"), _T("MariaDB")));
-		DatObjMariaDbSql->AppendChildElement(new StkObject(_T("ConnStr"), ConnStrMariaDb));
-		DatObj->AppendChildElement(DatObjMariaDbSql);
 
 		StkObject* DatObjMySql = new StkObject(_T("OdbcInfo"));
 		DatObjMySql->AppendChildElement(new StkObject(_T("DbType"), _T("MySQL")));
@@ -50,6 +50,24 @@ StkObject* ApiOdbcInfos::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[12
 		DatObj->AppendChildElement(DatObjMySql);
 	}
 	if (StrStr(UrlPath, _T("?query=configured"))) {
+		TCHAR ConnStr[256];
+		int Init;
+		int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
+		TCHAR DbmsTypeStr[16];
+		if (Init == 1) {
+			lstrcpy(DbmsTypeStr, _T("Init"));
+		} else if (DbmsType == OdbcManager::MARIADB_ACCESSOR) {
+			lstrcpy(DbmsTypeStr, _T("MariaDB"));
+		} else if (DbmsType == OdbcManager::POSTGRESQL_ACCESSOR) {
+			lstrcpy(DbmsTypeStr, _T("PostgreSQL"));
+		} else if (DbmsType == OdbcManager::MYSQL_ACCESSOR) {
+			lstrcpy(DbmsTypeStr, _T("MySQL"));
+		} else {
+		}
+		StkObject* DatObjDb = new StkObject(_T("OdbcInfo"));
+		DatObjDb->AppendChildElement(new StkObject(_T("DbType"), DbmsTypeStr));
+		DatObjDb->AppendChildElement(new StkObject(_T("ConnStr"), ConnStr));
+		DatObj->AppendChildElement(DatObjDb);
 	}
 
 	ResObj->AppendChildElement(DatObj);
