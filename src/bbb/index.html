@@ -272,40 +272,50 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         //
         if (actionType == ACTION_GETODBCCONNSTR) {
-            if (statusCode[0] != 200) {
+            if (statusCode[0] != 200 || statusCode[1] != 200) {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 544, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
             }
-            var connStrs = [];
+            var odbcInfos = [];
             if (responseData[0].Data.OdbcInfo instanceof Array) {
-                connStrs = responseData[0].Data.OdbcInfo;
+                odbcInfos = responseData[0].Data.OdbcInfo;
             } else if (responseData[0].Data.OdbcInfo) {
-                connStrs.push(responseData[0].Data.OdbcInfo);
+                odbcInfos.push(responseData[0].Data.OdbcInfo);
             }
+            var odbcInfoConfigured = responseData[1].Data.OdbcInfo;
+
             showMessageDialog(getCliMsg(CLIMSG_ODBCCONNTITLE), getCliMsg(CLIMSG_ODBCCONNSTR_GUIDE), actionType, 600, 440, 'img/config_image48c.png', 1);
             $('#adialog-content').append(getCliMsg(CLIMSG_ODBCSELECTION));
             $('#adialog-content').append('<select id="dbmsselector" style="width:250px" onchange="eventDbmsSelected()">');
             $('#adialog-content').append('</select><p>');
-            var connstrResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-            if (sendRequestToWebServer('get-connstr', connstrResponse) != 0) {
-                return;
-            }
-            if (connstrResponse.data.DbmsType == 0) {
-                $('#dbmsselector').append('<option value="mariadb" selected>MySQL/MariaDB</option>');
-                currentDbmsname = 'mariadb';
+
+            if (odbcInfoConfigured.DbType === 'MariaDB') {
+                $('#dbmsselector').append('<option value="MariaDB" selected>MariaDB</option>');
+                currentDbmsname = 'MariaDB';
             } else {
-                $('#dbmsselector').append('<option value="mariadb">MySQL/MariaDB</option>');
+                $('#dbmsselector').append('<option value="MariaDB">MariaDB</option>');
             }
-            if (connstrResponse.data.DbmsType == 1) {
-                $('#dbmsselector').append('<option value="postgresql" selected>PostgreSQL</option>');
-                currentDbmsname = 'postgresql';
+            if (odbcInfoConfigured.DbType === 'PostgreSQL' || odbcInfoConfigured.DbType === 'Init') {
+                $('#dbmsselector').append('<option value="PostgreSQL" selected>PostgreSQL</option>');
+                currentDbmsname = 'PostgreSQL';
             } else {
-                $('#dbmsselector').append('<option value="postgresql">PostgreSQL</option>');
+                $('#dbmsselector').append('<option value="PostgreSQL">PostgreSQL</option>');
             }
+            if (odbcInfoConfigured.DbType === 'MySQL') {
+                $('#dbmsselector').append('<option value="MySQL" selected>MySQL</option>');
+                currentDbmsname = 'MySQL';
+            } else {
+                $('#dbmsselector').append('<option value="MySQL">MySQL</option>');
+            }
+
             $('#adialog-content').append(getCliMsg(CLIMSG_ODBCCONNSTR_SPECIFY));
-            $('#adialog-content').append('<textarea id="connstr" name="connstr" style="width:560px;height:150px" spellcheck="false"/><p>');
-            $('#connstr').append(connStrs[0].ConnStr);
+            $('#adialog-content').append('<textarea id="connstr" name="connstr" style="width:560px;height:100px" spellcheck="false"/><p>');
+            if (odbcInfoConfigured.DbType === 'Init') {
+                $('#connstr').append(odbcInfos[1].ConnStr);
+            } else {
+                $('#connstr').append(odbcInfoConfigured.ConnStr);
+            }
             return;
         }
         //
@@ -565,12 +575,20 @@ function eventFilterOn(checkboxObj) {
 function eventDbmsSelected() {
     var selectedDbmsName = $('#dbmsselector').val();
     currentDbmsname = selectedDbmsName;
-    var defconnstrResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-    if (sendRequestToWebServer('get-defconnstr&dbmstype=' + selectedDbmsName, defconnstrResponse) != 0) {
-        return;
+
+    var odbcInfos = [];
+    if (responseData[0].Data.OdbcInfo instanceof Array) {
+        odbcInfos = responseData[0].Data.OdbcInfo;
+    } else if (responseData[0].Data.OdbcInfo) {
+        odbcInfos.push(responseData[0].Data.OdbcInfo);
     }
+
     $('#connstr').empty();
-    $('#connstr').append(defconnstrResponse.data.defconnstr);
+    for (var loop = 0; loop < odbcInfos.length; loop++) {
+        if (currentDbmsname === odbcInfos[loop].DbType) {
+            $('#connstr').append(odbcInfos[loop].ConnStr);
+        }
+    }
 }
 
 function eventParamColChanged(selectObj) {
@@ -645,8 +663,10 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_GETODBCCONNSTR) {
-        var reqDat = {'query' : 'default' };
-        sendRequestRecvResponse('GET', './api/odbcinfos/', reqDat, 0);
+        var reqDatDf = {'query' : 'default' };
+        sendRequestRecvResponse('GET', './api/odbcinfos/', reqDatDf, 0);
+        var reqDatCf = {'query' : 'configured' };
+        sendRequestRecvResponse('GET', './api/odbcinfos/', reqDatCf, 1);
         showWaitingDialog(ACTION_GETODBCCONNSTR, 0);
         return;
     }
@@ -810,6 +830,7 @@ function onXxxAction(actionType) {
         displayToolBar(0);
         initializeCurrentTablename();
         showTable(currentTablename);
+        return;
     }
     if (actionType == ACTION_INFO) {
         sendRequestRecvResponse('GET', './api/system/', null, 0);
