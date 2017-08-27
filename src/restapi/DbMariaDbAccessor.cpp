@@ -13,7 +13,7 @@ DbMariaDbAccessor::~DbMariaDbAccessor()
 
 void DbMariaDbAccessor::GetDefaultConnStr(SQLTCHAR DefConnStr[Global::MAX_PARAM_LENGTH])
 {
-	lstrcpy(DefConnStr, _T("Driver={MariaDB ODBC 2.0 Driver};Server=localhost;UID=UID;PWD=PWD;DB=DATABASE_NAME;Port=3306;"));
+	lstrcpy(DefConnStr, _T("Driver={MySQL ODBC 5.2 Unicode Driver};Server=localhost;Port=3306;Option=131072;Stmt=;Database=DATABASE_NAME;Uid=UID;Pwd=PWD;"));
 }
 
 int DbMariaDbAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)

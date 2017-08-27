@@ -438,7 +438,7 @@ int DataAccess::CreateCmdFreakTables()
 		ColumnData *ColDatOdbcConfig[4];
 		ColDatOdbcConfig[0] = new ColumnDataInt(_T("OdbcId"), 0);
 		ColDatOdbcConfig[1] = new ColumnDataInt(_T("DbmsType"), 0);
-		ColDatOdbcConfig[2] = new ColumnDataWStr(_T("ConnStr"), _T(""));
+		ColDatOdbcConfig[2] = new ColumnDataWStr(_T("ConnStr"), _T("Driver={MySQL ODBC 5.2 Unicode Driver};Server=localhost;Port=3306;Option=131072;Stmt=;Database=DATABASE_NAME;Uid=UID;Pwd=PWD;"));
 		ColDatOdbcConfig[3] = new ColumnDataInt(_T("Init"), 1);
 		RecordData* RecDatOdbcConfig = new RecordData(_T("OdbcConfig"), ColDatOdbcConfig, 4);
 		LockTable(_T("OdbcConfig"), LOCK_EXCLUSIVE);
