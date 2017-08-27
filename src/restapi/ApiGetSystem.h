@@ -1,7 +1,7 @@
 #pragma once
 #include "ApiBase.h"
 
-class ApiGetSystem : ApiBase
+class ApiGetSystem : public ApiBase
 {
 private:
 	TCHAR LocalTimeStr[32];

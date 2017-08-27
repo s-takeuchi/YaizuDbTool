@@ -7,7 +7,7 @@
 #include "OdbcManager.h"
 #include "DbAccessor.h"
 
-StkObject* ApiOdbcInfos::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiOdbcInfos::GetOdbcInfos(TCHAR UrlPath[128], int* ResultCode)
 {
 	StkObject* ResObj = new StkObject(_T(""));
 	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
@@ -75,4 +75,16 @@ StkObject* ApiOdbcInfos::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[12
 	*ResultCode = 200;
 
 	return ResObj;
+}
+
+void ApiOdbcInfos::PostOdbcInfos(StkObject*, int* ResultCode)
+{
+}
+
+StkObject* ApiOdbcInfos::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+{
+	if (Method & STKWEBAPP_METHOD_GET) {
+		return GetOdbcInfos(UrlPath, ResultCode);
+	}
+	return NULL;
 }

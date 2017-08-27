@@ -8,6 +8,7 @@
 #include "..\..\..\YaizuComLib\src\stkthread\stkthread.h"
 #include "..\..\..\YaizuComLib\src\stksocket\stksocket.h"
 #include "..\..\..\YaizuComLib\src\stkwebapp\StkWebApp.h"
+#include "..\..\..\YaizuComLib\src\stkwebapp\StkWebAppExec.h"
 #include "dataaccess.h"
 #include "MyMsgProc.h"
 #include "ApiGetSystem.h"
@@ -22,23 +23,23 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 	StkWebApp* Soc = new StkWebApp(Ids, 7, IpAddr, Port);
 
 	ApiGetSystem* ApiGetSystemObj = new ApiGetSystem();
-	int Add1 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/system/"), (StkWebAppExec*)ApiGetSystemObj);
+	int Add1 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/system/"), (StkWebAppExec*)ApiGetSystemObj);
 	ApiGetSystemObj->SetNumOfThreads(7);
 	ApiGetLanguage* ApiGetLanguageObj = new ApiGetLanguage();
-	int Add2 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/language/"), (StkWebAppExec*)ApiGetLanguageObj);
+	int Add2 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/language/"), (StkWebAppExec*)ApiGetLanguageObj);
 	ApiLogging* ApiLoggingObj = new ApiLogging();
-	int Add3 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/logs/"), (StkWebAppExec*)ApiLoggingObj);
+	int Add3 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/logs/"), (StkWebAppExec*)ApiLoggingObj);
 	ApiOdbcInfos* ApiOdbcInfoObj = new ApiOdbcInfos();
-	int Add4 = Soc->AddReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/odbcinfos/$"), (StkWebAppExec*)ApiOdbcInfoObj);
+	int Add4 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET | StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/odbcinfos/$"), (StkWebAppExec*)ApiOdbcInfoObj);
 
 	////////// Main logic starts
 	Soc->TheLoop();
 	////////// Main logic ends
 
-	int Del1 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/system/"));
-	int Del2 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/language/"));
-	int Del3 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/logs/"));
-	int Del4 = Soc->DeleteReqHandler(StkWebApp::STKWEBAPP_METHOD_GET, _T("/api/odbcinfos/"));
+	int Del1 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/system/"));
+	int Del2 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/language/"));
+	int Del3 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/logs/"));
+	int Del4 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/odbcinfos/"));
 
 	delete Soc;
 }
