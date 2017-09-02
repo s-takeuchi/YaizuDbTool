@@ -78,14 +78,42 @@ StkObject* ApiOdbcInfos::GetOdbcInfos(TCHAR UrlPath[128], int* ResultCode)
 	return ResObj;
 }
 
-void ApiOdbcInfos::PostOdbcInfos(StkObject*, int* ResultCode)
+StkObject* ApiOdbcInfos::PostOdbcInfos(StkObject* ReqObj, int* ResultCode)
 {
+	int DbmsType = -1;
+	SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH] = _T("");
+
+	StkObject* ResObj = new StkObject(_T(""));
+	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
+
+	StkObject* Elem = ReqObj->GetFirstChildElement();
+	while (Elem) {
+		if (!lstrcmp(Elem->GetName(), _T("DbType")) && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
+			if (!lstrcmp(Elem->GetStringValue(), _T("MariaDB"))) {
+				DbmsType = OdbcManager::MARIADB_ACCESSOR;
+			} else
+			if (!lstrcmp(Elem->GetStringValue(), _T("PostgreSQL"))) {
+				DbmsType = OdbcManager::POSTGRESQL_ACCESSOR;
+			} else
+			if (!lstrcmp(Elem->GetStringValue(), _T("MySQL"))) {
+				DbmsType = OdbcManager::MYSQL_ACCESSOR;
+			}
+		}
+		if (!lstrcmp(Elem->GetName(), _T("ConnStr")) && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
+			lstrcpy(ConnStr, Elem->GetStringValue());
+		}
+		Elem = Elem->GetNext();
+	}
+	return ResObj;
 }
 
 StkObject* ApiOdbcInfos::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
 {
 	if (Method & STKWEBAPP_METHOD_GET) {
 		return GetOdbcInfos(UrlPath, ResultCode);
+	} else
+	if (Method & STKWEBAPP_METHOD_POST) {
+		return PostOdbcInfos(ReqObj, ResultCode);
 	}
 	return NULL;
 }

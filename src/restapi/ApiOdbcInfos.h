@@ -5,7 +5,7 @@ class ApiOdbcInfos : public ApiBase
 {
 private:
 	StkObject* GetOdbcInfos(TCHAR[128], int*);
-	void PostOdbcInfos(StkObject*, int*);
+	StkObject* PostOdbcInfos(StkObject*, int*);
 
 public:
 	StkObject* Execute(StkObject*, int, TCHAR[128], int*, TCHAR[3]);

@@ -78,10 +78,11 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               }
 ];
 
-var ACTION_LAUNCH         = 50;
-var ACTION_GETODBCCONNSTR = 100;
-var ACTION_INFO           = 600;
-var ACTION_ERROR          = 1200;
+var ACTION_LAUNCH          = 50;
+var ACTION_GETODBCCONNSTR  = 100;
+var ACTION_POSTODBCCONNSTR = 101;
+var ACTION_INFO            = 600;
+var ACTION_ERROR           = 1200;
 
 // underComm = 0 : No communication state, >= 1 : Communication state
 var underComm = 0;
@@ -670,23 +671,21 @@ function onXxxAction(actionType) {
         showWaitingDialog(ACTION_GETODBCCONNSTR, 0);
         return;
     }
-    if (actionType == 101) {
-        var DbmsType = 0;
+    if (actionType == ACTION_POSTODBCCONNSTR) {
         var tmpstr = $('#connstr').val().replace(/[\n\r]/g, '');
-        if (currentDbmsname == 'postgresql') DbmsType = 1;
-        var connstrResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-        if (sendRequestToWebServer('set-connstr&dbmstype=' + DbmsType + '&connstr=' + tmpstr, connstrResponse) != 0) {
-            return;
-        }
+
+        var reqDatDf = {'DbType' : currentDbmsname, 'ConnStr' : tmpstr};
+        sendRequestRecvResponse('POST', './api/odbcinfos/', reqDatDf, 0);
+
         $('#adialog').dialog('close');
         currentTablename = "";
         displaySheet();
         boxResize();
         displayToolBar(0);
         var testResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-        if (sendRequestToWebServer('test', testResponse) != 0) {
-            return;
-        }
+        //if (sendRequestToWebServer('test', testResponse) != 0) {
+        //    return;
+        //}
         initializeCurrentTablename();
         showTable(currentTablename);
         return;
