@@ -48,7 +48,7 @@ StkObject* ApiOdbcInfos::GetOdbcInfos(TCHAR UrlPath[128], int* ResultCode)
 		DatObjMySql->AppendChildElement(new StkObject(_T("DbType"), _T("MySQL")));
 		DatObjMySql->AppendChildElement(new StkObject(_T("ConnStr"), ConnStrMySql));
 		DatObj->AppendChildElement(DatObjMySql);
-	}
+	} else 
 	if (StrStr(UrlPath, _T("?query=configured"))) {
 		TCHAR ConnStr[256];
 		int Init;
@@ -68,6 +68,7 @@ StkObject* ApiOdbcInfos::GetOdbcInfos(TCHAR UrlPath[128], int* ResultCode)
 		DatObjDb->AppendChildElement(new StkObject(_T("DbType"), DbmsTypeStr));
 		DatObjDb->AppendChildElement(new StkObject(_T("ConnStr"), ConnStr));
 		DatObj->AppendChildElement(DatObjDb);
+	} else {
 	}
 
 	ResObj->AppendChildElement(DatObj);
