@@ -273,7 +273,18 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         //
         if (actionType == ACTION_GETODBCCONNSTR) {
-            if (statusCode[0] != 200 || statusCode[1] != 200) {
+            if (statusCode[0] == 200 && statusCode[1] == 200) {
+                // Nothing to do
+            } else if (statusCode[0] == 400 || statusCode[1] == 400) {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
+                if (statusCode[0] == 400) {
+                    $('#adialog-content').append(getCliMsg(responseData[0]));
+                }
+                if (statusCode[1] == 400) {
+                    $('#adialog-content').append(getCliMsg(responseData[1]));
+                }
+                return;
+            } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 544, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
@@ -672,12 +683,12 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_POSTODBCCONNSTR) {
-        var tmpstr = $('#connstr').val().replace(/[\n\r]/g, '');
+        $('#adialog').dialog('close');
 
+        var tmpstr = $('#connstr').val().replace(/[\n\r]/g, '');
         var reqDatDf = {'DbType' : currentDbmsname, 'ConnStr' : tmpstr};
         sendRequestRecvResponse('POST', './api/odbcinfos/', reqDatDf, 0);
 
-        $('#adialog').dialog('close');
         currentTablename = "";
         displaySheet();
         boxResize();

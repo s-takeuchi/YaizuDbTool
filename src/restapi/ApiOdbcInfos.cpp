@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <shlwapi.h>
 #include <tchar.h>
+#include "MyMsgProc.h"
 #include "ApiOdbcInfos.h"
 #include "dataaccess.h"
 #include "..\Global.h"
@@ -10,10 +11,11 @@
 StkObject* ApiOdbcInfos::GetOdbcInfos(TCHAR UrlPath[128], int* ResultCode)
 {
 	StkObject* ResObj = new StkObject(_T(""));
-	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
-	StkObject* DatObj = new StkObject(_T("Data"));
 
 	if (StrStr(UrlPath, _T("?query=default"))) {
+		AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
+		StkObject* DatObj = new StkObject(_T("Data"));
+
 		SQLTCHAR ConnStrPostgreSql[Global::MAX_PARAM_LENGTH];
 		SQLTCHAR ConnStrMariaDb[Global::MAX_PARAM_LENGTH];
 		SQLTCHAR ConnStrMySql[Global::MAX_PARAM_LENGTH];
@@ -48,8 +50,13 @@ StkObject* ApiOdbcInfos::GetOdbcInfos(TCHAR UrlPath[128], int* ResultCode)
 		DatObjMySql->AppendChildElement(new StkObject(_T("DbType"), _T("MySQL")));
 		DatObjMySql->AppendChildElement(new StkObject(_T("ConnStr"), ConnStrMySql));
 		DatObj->AppendChildElement(DatObjMySql);
+		ResObj->AppendChildElement(DatObj);
+		*ResultCode = 200;
 	} else 
 	if (StrStr(UrlPath, _T("?query=configured"))) {
+		AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
+		StkObject* DatObj = new StkObject(_T("Data"));
+
 		TCHAR ConnStr[256];
 		int Init;
 		int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
@@ -68,12 +75,12 @@ StkObject* ApiOdbcInfos::GetOdbcInfos(TCHAR UrlPath[128], int* ResultCode)
 		DatObjDb->AppendChildElement(new StkObject(_T("DbType"), DbmsTypeStr));
 		DatObjDb->AppendChildElement(new StkObject(_T("ConnStr"), ConnStr));
 		DatObj->AppendChildElement(DatObjDb);
+		ResObj->AppendChildElement(DatObj);
+		*ResultCode = 200;
 	} else {
+		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT),  MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
+		*ResultCode = 400;
 	}
-
-	ResObj->AppendChildElement(DatObj);
-
-	*ResultCode = 200;
 
 	return ResObj;
 }

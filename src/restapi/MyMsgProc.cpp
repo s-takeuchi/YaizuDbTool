@@ -28,6 +28,10 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddJpn(CMDFRK_NO_CLIENTLOCALE, _T("クライアントのロケールを検知できません。"));
 	MessageProc::AddEng(CMDFRK_NO_CLIENTLOCALE, _T("Client locale cannot be detected."));
 
+	//3121 (★)
+	MessageProc::AddJpn(CMDFRK_REQ_NOT_SUFFICIENT, _T("必要なパラメータがリクエストに含まれていません。"));
+	MessageProc::AddEng(CMDFRK_REQ_NOT_SUFFICIENT, _T("The necessary parameter(s) is/are not contained in the request."));
+
 	//3126 (NC6)
 	MessageProc::AddJpn(CMDFRK_LOG_DBMSCHANGE, _T("ODBC接続の設定を変更しました。"));
 	MessageProc::AddEng(CMDFRK_LOG_DBMSCHANGE, _T("The ODBC connection configuration has been changed."));
