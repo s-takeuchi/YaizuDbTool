@@ -91,7 +91,6 @@ StkObject* ApiOdbcInfos::PostOdbcInfos(StkObject* ReqObj, int* ResultCode)
 	SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH] = _T("");
 
 	StkObject* ResObj = new StkObject(_T(""));
-	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
 
 	StkObject* Elem = ReqObj->GetFirstChildElement();
 	while (Elem) {
@@ -111,6 +110,14 @@ StkObject* ApiOdbcInfos::PostOdbcInfos(StkObject* ReqObj, int* ResultCode)
 		}
 		Elem = Elem->GetNext();
 	}
+	if (DbmsType == -1 || lstrcmp(ConnStr, _T(""))) {
+		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT),  MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
+		*ResultCode = 400;
+	} else {
+		AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
+		*ResultCode = 200;
+	}
+
 	return ResObj;
 }
 

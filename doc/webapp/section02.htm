@@ -87,7 +87,7 @@ Code要素が0ではないとき，Data要素は返されません。
 <tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200), 3120:クライアントのロケールを検知できなかった(HTTPステータスコード=406)。</td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
-<tr><td>ClientLanguage</td><td>String</td><td>クライアント（ブラウザ）の最優先の言語(2文字; 日本語="ja"，英語="en")。</td></tr>
+<tr><td>ClientLanguage</td><td>String</td><td>クライアント（ブラウザ）の最優先の言語(2文字; 日本語="ja"，英語="en")。結果コードが0でないとき，この要素は返却されない。</td></tr>
 </table><br/>
 </li>
 </ul>
@@ -173,8 +173,8 @@ ODBCの情報を取得します。<br/>
 <tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200)，3121:リクエストがquery=default, query=configuredの何れでもない(HTTPステータスコード=400)。</td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
-<tr><td>DbType</td><td>String</td><td>DBMSの種別。"PostgreSQL", "MySQL", "MariaDB"の何れか。</td></tr>
-<tr><td>ConnStr</td><td>String</td><td>接続文字列。</td></tr>
+<tr><td>DbType</td><td>String</td><td>DBMSの種別。"PostgreSQL", "MySQL", "MariaDB"の何れか。結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>ConnStr</td><td>String</td><td>接続文字列。結果コードが0でないとき，この要素は返却されない。</td></tr>
 </table><br/>
 </li>
 </ul>
@@ -206,7 +206,7 @@ ODBCの情報を設定します。<br/>
 }
 </pre>
 <table class="tblstyle">
-<tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200)。</td></tr>
+<tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200)，3121:リクエストにDbType，ConnStrが含まれていない(HTTPステータスコード=400)。</td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 </table><br/>
