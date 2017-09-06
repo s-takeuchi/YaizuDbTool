@@ -110,10 +110,11 @@ StkObject* ApiOdbcInfos::PostOdbcInfos(StkObject* ReqObj, int* ResultCode)
 		}
 		Elem = Elem->GetNext();
 	}
-	if (DbmsType == -1 || lstrcmp(ConnStr, _T(""))) {
+	if (DbmsType == -1 || lstrcmp(ConnStr, _T("")) == 0) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT),  MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
 		*ResultCode = 400;
 	} else {
+		DataAccess::GetInstance()->SetOdbcConnStr(DbmsType, (TCHAR*)ConnStr);
 		AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
 		*ResultCode = 200;
 	}
