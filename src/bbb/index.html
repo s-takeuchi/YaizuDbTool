@@ -265,7 +265,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 showMessageDialog(getCliMsg(CLIMSG_WARNING), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getSvrMsg(responseData[0]));
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 544, 330, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
             }
             return;
@@ -285,7 +285,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 }
                 return;
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 544, 330, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
             }
@@ -342,10 +342,20 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 }
                 return;
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 544, 330, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
             }
+            currentTablename = "";
+            displaySheet();
+            boxResize();
+            displayToolBar(0);
+            var testResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+            //if (sendRequestToWebServer('test', testResponse) != 0) {
+            //    return;
+            //}
+            initializeCurrentTablename();
+            showTable(currentTablename);
             return;
         }
         //
@@ -361,7 +371,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 productName = responseData[0].Data.ProductName;
                 version = responseData[0].Data.Version;
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 544, 330, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
             }
@@ -374,7 +384,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                     Logs.push(responseData[1].Data.Log);
                 }
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 544, 330, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
             }
@@ -707,17 +717,6 @@ function onXxxAction(actionType) {
         var reqDatDf = {'DbType' : currentDbmsname, 'ConnStr' : tmpstr};
         sendRequestRecvResponse('POST', './api/odbcinfos/', reqDatDf, 0);
         showWaitingDialog(ACTION_POSTODBCCONNSTR, 0);
-
-        currentTablename = "";
-        displaySheet();
-        boxResize();
-        displayToolBar(0);
-        var testResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-        //if (sendRequestToWebServer('test', testResponse) != 0) {
-        //    return;
-        //}
-        initializeCurrentTablename();
-        showTable(currentTablename);
         return;
     }
     if (actionType == 200) {
