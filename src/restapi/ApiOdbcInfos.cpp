@@ -127,6 +127,18 @@ StkObject* ApiOdbcInfos::PostOdbcInfos(StkObject* ReqObj, int* ResultCode)
 	} else {
 		DataAccess::GetInstance()->SetOdbcConnStr(DbmsType, (TCHAR*)ConnStr);
 		AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
+		StkObject* DatObj = new StkObject(_T("Data"));
+		StkObject* DatObjDb = new StkObject(_T("OdbcInfo"));
+		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
+		int Ret = Da->Test(ConnStr);
+		if (Ret == SQL_SUCCESS) {
+			DatObjDb->AppendChildElement(new StkObject(_T("Status"), _T("connectable")));
+		} else {
+			DatObjDb->AppendChildElement(new StkObject(_T("Status"), _T("unconnectable")));
+		}
+		OdbcManager::GetInstance()->DeleteAccessorObject(Da);
+		DatObj->AppendChildElement(DatObjDb);
+		ResObj->AppendChildElement(DatObj);
 		*ResultCode = 200;
 	}
 

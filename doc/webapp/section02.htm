@@ -52,7 +52,7 @@ CmdFreakのサーバ情報(プログラム名称, バージョン, ビルド時�
 <tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200)。</td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
-<tr><td>Data</td><td>Element</td><td></td></tr>
+<tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
 <tr><td>ProductName</td><td>String</td><td>プログラム名称。"CmdFreak"</td></tr>
 <tr><td>Version</td><td>String</td><td>バージョン番号。</td></tr>
 <tr><td>BuildTime</td><td>String</td><td>プログラムをビルドした時間。</td></tr>
@@ -130,8 +130,8 @@ Code要素が0ではないとき，Data要素は返されません。
 <tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200)。</td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
-<tr><td>Data</td><td>Element</td><td></td></tr>
-<tr><td>Log</td><td>Element</td><td></td></tr>
+<tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>Log</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
 <tr><td>Time</td><td>String</td><td>イベントログが登録された時刻。"Month Day Year HH:MM:SS" 形式で返却される。</td></tr>
 <tr><td>MsgEn</td><td>String</td><td>イベントログの英語メッセージ。</td></tr>
 <tr><td>MsgJa</td><td>String</td><td>イベントログの日本語メッセージ。</td></tr>
@@ -228,12 +228,22 @@ ODBCの情報を設定します。<br/>
   "Code" : 1234,
   "MsgEng" : "abc",
   "MsgJpn" : "あいう",
+  "Data" : {
+    "OdbcInfo" : {
+      {
+        "Status" : "connectable"
+      }
+    }
+  }
 }
 </pre>
 <table class="tblstyle">
 <tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200)，3121:リクエストにDbType，ConnStrが含まれていない(HTTPステータスコード=400)。</td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>OdbcInfo</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>Status</td><td>String</td><td>DBMSへの接続可否。connectable:接続可能, unconnectable:接続不可能。結果コードが0でないとき，この要素は返却されない。</td></tr>
 </table><br/>
 </li>
 </ul>

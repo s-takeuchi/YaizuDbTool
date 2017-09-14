@@ -337,14 +337,15 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 // Nothing to do
             } else if (statusCode[0] == 400) {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
-                if (statusCode[0] == 400) {
-                    $('#adialog-content').append(getCliMsg(responseData[0]));
-                }
+                $('#adialog-content').append(getCliMsg(responseData[0]));
                 return;
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
+            }
+            if (responseData[0].Data.OdbcInfo.Status === 'unconnectable') {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
             }
             currentTablename = "";
             displaySheet();
