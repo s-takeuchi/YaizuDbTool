@@ -71,9 +71,20 @@ StkObject* ApiOdbcInfos::GetOdbcInfos(TCHAR UrlPath[128], int* ResultCode)
 			lstrcpy(DbmsTypeStr, _T("MySQL"));
 		} else {
 		}
+
 		StkObject* DatObjDb = new StkObject(_T("OdbcInfo"));
 		DatObjDb->AppendChildElement(new StkObject(_T("DbType"), DbmsTypeStr));
 		DatObjDb->AppendChildElement(new StkObject(_T("ConnStr"), ConnStr));
+
+		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
+		int Ret = Da->Test(ConnStr);
+		if (Ret == SQL_SUCCESS) {
+			DatObjDb->AppendChildElement(new StkObject(_T("Status"), _T("connectable")));
+		} else {
+			DatObjDb->AppendChildElement(new StkObject(_T("Status"), _T("unconnectable")));
+		}
+		OdbcManager::GetInstance()->DeleteAccessorObject(Da);
+
 		DatObj->AppendChildElement(DatObjDb);
 		ResObj->AppendChildElement(DatObj);
 		*ResultCode = 200;
