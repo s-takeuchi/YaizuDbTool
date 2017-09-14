@@ -43,8 +43,10 @@ var CLIMSG_ODBCSELECTION           = 2142;
 var CLIMSG_ODBCCONNSTR_SPECIFY     = 2143;
 var CLIMSG_FAITALERROR             = 2500;
 var CLIMSG_WARNING                 = 2501;
-var CLIMSG_FAITALERROR_OCCURRED    = 2502;
-var CLIMSG_UNEXPECTED_REQUEST      = 2503;
+var CLIMSG_ERROR                   = 2502;
+var CLIMSG_FAITALERROR_OCCURRED    = 2510;
+var CLIMSG_UNEXPECTED_REQUEST      = 2511;
+var CLIMSG_DBMSCONFAILURE          = 2520;
 var CLIMSG_COMMUNICATIONERROR      = 2530;
 
 var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja':'ODBC接続'},
@@ -60,18 +62,25 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               {'code':CLIMSG_OPEN_MANUAL_URL, 'en':'manual/eng/index.htm', 'ja':'manual/jpn/index.htm'},
               {'code':CLIMSG_TRACELOG, 
                   'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.', 
-                  'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'},
+                  'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'
+              },
               {'code':CLIMSG_INFO, 'en':'Information', 'ja':'情報'},
               {'code':CLIMSG_ODBCCONNSTR_GUIDE,
                   'en':'Configure ODBC connection.<br>Select the connection target DBMS and specify the ODBC connection string.<br>As this is 32-bit application software, this string should be specified for the use of a 32-bit ODBC driver. As a prerequisite, a 32-bit ODBC driver needs to be installed on the operating system.<br>',
-                  'ja':'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。オペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>'},
+                  'ja':'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。オペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>'
+              },
               {'code':CLIMSG_ODBCCONNTITLE, 'en':'ODBC Connections', 'ja':'ODBC接続'},
               {'code':CLIMSG_ODBCSELECTION, 'en':'Select DBMS : ', 'ja':'DBMSの選択 : '},
               {'code':CLIMSG_ODBCCONNSTR_SPECIFY, 'en':'Specify connection string : <br/>', 'ja':'接続文字列の指定 : <br/>'},
               {'code':CLIMSG_FAITALERROR, 'en':'Fatal Error', 'ja':'致命的エラー'},
               {'code':CLIMSG_WARNING, 'en':'Warning', 'ja':'警告'},
+              {'code':CLIMSG_ERROR, 'en':'Error', 'ja':'エラー'},
               {'code':CLIMSG_FAITALERROR_OCCURRED, 'en':'A faital error occurred.', 'ja':'致命的エラーが発生しました。'},
               {'code':CLIMSG_UNEXPECTED_REQUEST, 'en':'CmdFreak service has received an unexpected request.', 'ja':'CmdFreakサービスは予期しない要求を受信しました。'},
+              {'code':CLIMSG_DBMSCONFAILURE,
+                  'en':'DBMS connection failed.<br>This may be caused by one of the following issues:<br>- The DBMS is not working properly.<br>- No ODBC driver is installed.<br>- The ODBC connection string is invalid.<br>- There are issues with the DBMS on the network.<br>',
+                  'ja':'DBMSとの接続に失敗しました。<br>次の要因が考えられます。<br>- DBMSが適切に起動していない。<br>- ODBCドライバがインストールされていない。<br>- ODBCの接続文字列が不正。<br>- DBMSとの接続経路に何らかの問題がある。<br>'
+              },
               {'code':CLIMSG_COMMUNICATIONERROR,
                   'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A CmdFreak internal process is invalid.<br>',
                   'ja':'CmdFreakサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) CmdFreakサービスが開始されていない。<br>(2) CmdFreakサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , stkwebapp.conf] が不正。<br>(4) CmdFreakの内部処理で異常が発生している。<br>'
@@ -345,7 +354,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 return;
             }
             if (responseData[0].Data.OdbcInfo.Status === 'unconnectable') {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_DBMSCONFAILURE), ACTION_ERROR, 512, 280, 'img/error_image48c.png', 0);
             }
             currentTablename = "";
             displaySheet();
