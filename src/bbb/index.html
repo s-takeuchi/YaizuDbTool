@@ -354,7 +354,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 return;
             }
             if (responseData[0].Data.OdbcInfo.Status === 'unconnectable') {
-                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_DBMSCONFAILURE), ACTION_ERROR, 512, 280, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_DBMSCONFAILURE), ACTION_ERROR, 512, 270, 'img/error_image48c.png', 0);
             }
             currentTablename = "";
             displaySheet();
