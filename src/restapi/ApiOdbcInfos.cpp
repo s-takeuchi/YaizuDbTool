@@ -139,6 +139,9 @@ StkObject* ApiOdbcInfos::PostOdbcInfos(StkObject* ReqObj, int* ResultCode)
 		OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 		DatObj->AppendChildElement(DatObjDb);
 		ResObj->AppendChildElement(DatObj);
+
+		DataAccess::GetInstance()->AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_DBMSCHANGE));
+
 		*ResultCode = 200;
 	}
 
