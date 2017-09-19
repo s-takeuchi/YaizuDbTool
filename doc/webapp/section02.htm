@@ -25,8 +25,36 @@ CmdFreakのREST APIは，以下の一覧に示すAPIをクライアント提供�
 </div><p>
 
 
+<H2 ID="2.2">2.2 共通エラー</H2>
+<div class="topic">
+特定のAPIに依存せず共通で発生し得るエラーは以下の3種類です。<br/>
+<table class="tblstyle">
+<tr><td>1001</td><td>クライアントからのリクエストに対応するAPIが定義されていない。</td></tr>
+<tr><td>1002</td><td>リクエストがJSONではないデータを含んでいるかHTTPヘッダのContent-Typeがapplication/jsonではない。</td></tr>
+<tr><td>1005</td><td>リクエストが壊れている。</td></tr>
+</table><p>
+上記のエラーは以下のレスポンスで返却されます。<br/>
 
-<H2 ID="2.2">2.2 Get /api/system/</H2>
+<ul>
+<li>レスポンス
+<pre>
+{
+  "Code" : 1234,
+  "MsgEng" : "abc",
+  "MsgJpn" : "あいう",
+}
+</pre>
+<table class="tblstyle">
+<tr><td>Code</td><td>Integer</td><td>結果コード。1001(HTTPステータスコード=404)，1002(HTTPステータスコード=400)，1005(HTTPステータスコード=400)。</td></tr>
+<tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+</table><br/>
+</li>
+</ul>
+</div><p>
+
+
+<H2 ID="2.3">2.3 Get /api/system/</H2>
 <div class="topic">
 CmdFreakのサーバ情報(プログラム名称, バージョン, ビルド時刻, 起動時刻, 動作スレッド数)を取得します。
 <ul>
@@ -64,7 +92,7 @@ CmdFreakのサーバ情報(プログラム名称, バージョン, ビルド時�
 </div><p>
 
 
-<H2 ID="2.3">2.3 Get /api/language/</H2>
+<H2 ID="2.4">2.4 Get /api/language/</H2>
 <div class="topic">
 クライアント（ブラウザ）の最優先の言語を取得します。<br/>
 具体的には，クライアント・リクエストのHTTPヘッダのAccept-Languageに指定した言語のうち，先頭に指定した言語（2文字）を取得します。<br/>
@@ -96,7 +124,7 @@ Code要素が0ではないとき，Data要素は返されません。
 </div><p>
 
 
-<H2 ID="2.4">2.4 Get /api/logs/</H2>
+<H2 ID="2.5">2.5 Get /api/logs/</H2>
 <div class="topic">
 イベントログを取得します。<br/>
 イベントログが複数あるときは配列形式のデータが返却されます。イベントログがひとつしかないときはオブジェクトが返却されます。
@@ -141,7 +169,7 @@ Code要素が0ではないとき，Data要素は返されません。
 </div><p>
 
 
-<H2 ID="2.5">2.5 Get /api/odbcinfos/</H2>
+<H2 ID="2.6">2.6 Get /api/odbcinfos/</H2>
 <div class="topic">
 ODBCの情報を取得します。<br/>
 <ul>
@@ -206,7 +234,7 @@ ODBCの情報を取得します。<br/>
 </div><p>
 
 
-<H2 ID="2.6">2.6 Post /api/odbcinfos/</H2>
+<H2 ID="2.7">2.7 Post /api/odbcinfos/</H2>
 <div class="topic">
 ODBCの情報を設定します。<br/>
 <ul>
