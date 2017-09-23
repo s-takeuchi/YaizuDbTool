@@ -29,9 +29,10 @@ CmdFreakのREST APIは，以下の一覧に示すAPIをクライアント提供�
 <div class="topic">
 特定のAPIに依存せず共通で発生し得るエラーは以下の3種類です。<br/>
 <table class="tblstyle">
-<tr><td>1001</td><td>クライアントからのリクエストに対応するAPIが定義されていない。</td></tr>
-<tr><td>1002</td><td>リクエストがJSONではないデータを含んでいるかHTTPヘッダのContent-Typeがapplication/jsonではない。</td></tr>
-<tr><td>1005</td><td>リクエストが壊れている。</td></tr>
+<tr><th>ステータスコード</th><th>レスポンスコード</th><th>説明</th></tr>
+<tr><td>404</td><td>1001</td><td>クライアントからのリクエストに対応するAPIが定義されていない。</td></tr>
+<tr><td>400</td><td>1002</td><td>リクエストがJSONではないデータを含んでいるかHTTPヘッダのContent-Typeがapplication/jsonではない。</td></tr>
+<tr><td>400</td><td>1005</td><td>リクエストが壊れている。</td></tr>
 </table><p>
 上記のエラーは以下のレスポンスで返却されます。<br/>
 
