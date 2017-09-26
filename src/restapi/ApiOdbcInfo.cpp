@@ -8,7 +8,7 @@
 #include "OdbcManager.h"
 #include "DbAccessor.h"
 
-StkObject* ApiOdbcInfos::GetOdbcInfos(TCHAR UrlPath[128], int* ResultCode)
+StkObject* ApiOdbcInfo::GetOdbcInfo(TCHAR UrlPath[128], int* ResultCode)
 {
 	StkObject* ResObj = new StkObject(_T(""));
 
@@ -96,7 +96,7 @@ StkObject* ApiOdbcInfos::GetOdbcInfos(TCHAR UrlPath[128], int* ResultCode)
 	return ResObj;
 }
 
-StkObject* ApiOdbcInfos::PostOdbcInfos(StkObject* ReqObj, int* ResultCode)
+StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode)
 {
 	int DbmsType = -1;
 	SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH] = _T("");
@@ -148,13 +148,13 @@ StkObject* ApiOdbcInfos::PostOdbcInfos(StkObject* ReqObj, int* ResultCode)
 	return ResObj;
 }
 
-StkObject* ApiOdbcInfos::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiOdbcInfo::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
 {
 	if (Method & STKWEBAPP_METHOD_GET) {
-		return GetOdbcInfos(UrlPath, ResultCode);
+		return GetOdbcInfo(UrlPath, ResultCode);
 	} else
 	if (Method & STKWEBAPP_METHOD_POST) {
-		return PostOdbcInfos(ReqObj, ResultCode);
+		return PostOdbcInfo(ReqObj, ResultCode);
 	}
 	return NULL;
 }

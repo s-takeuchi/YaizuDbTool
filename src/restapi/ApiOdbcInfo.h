@@ -1,11 +1,11 @@
 #pragma once
 #include "ApiBase.h"
 
-class ApiOdbcInfos : public ApiBase
+class ApiOdbcInfo : public ApiBase
 {
 private:
-	StkObject* GetOdbcInfos(TCHAR[128], int*);
-	StkObject* PostOdbcInfos(StkObject*, int*);
+	StkObject* GetOdbcInfo(TCHAR[128], int*);
+	StkObject* PostOdbcInfo(StkObject*, int*);
 
 public:
 	StkObject* Execute(StkObject*, int, TCHAR[128], int*, TCHAR[3]);

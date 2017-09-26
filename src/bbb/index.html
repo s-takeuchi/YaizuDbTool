@@ -714,9 +714,9 @@ function onXxxAction(actionType) {
     }
     if (actionType == ACTION_GETODBCCONNSTR) {
         var reqDatDf = {'query' : 'default' };
-        sendRequestRecvResponse('GET', './api/odbcinfos/', reqDatDf, 0);
+        sendRequestRecvResponse('GET', './api/odbcinfo/', reqDatDf, 0);
         var reqDatCf = {'query' : 'configured' };
-        sendRequestRecvResponse('GET', './api/odbcinfos/', reqDatCf, 1);
+        sendRequestRecvResponse('GET', './api/odbcinfo/', reqDatCf, 1);
         showWaitingDialog(ACTION_GETODBCCONNSTR, 0);
         return;
     }
@@ -725,7 +725,7 @@ function onXxxAction(actionType) {
 
         var tmpstr = $('#connstr').val().replace(/[\n\r]/g, '');
         var reqDatDf = {'DbType' : currentDbmsname, 'ConnStr' : tmpstr};
-        sendRequestRecvResponse('POST', './api/odbcinfos/', reqDatDf, 0);
+        sendRequestRecvResponse('POST', './api/odbcinfo/', reqDatDf, 0);
         showWaitingDialog(ACTION_POSTODBCCONNSTR, 0);
         return;
     }

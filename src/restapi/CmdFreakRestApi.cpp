@@ -29,10 +29,10 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 	int Add2 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/language/"), (StkWebAppExec*)ApiGetLanguageObj);
 	ApiLogging* ApiLoggingObj = new ApiLogging();
 	int Add3 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/logs/"), (StkWebAppExec*)ApiLoggingObj);
-	ApiOdbcInfos* ApiGetOdbcInfoObj = new ApiOdbcInfos();
-	int Add4 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/odbcinfos/$"), (StkWebAppExec*)ApiGetOdbcInfoObj);
-	ApiOdbcInfos* ApiPostOdbcInfoObj = new ApiOdbcInfos();
-	int Add5 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/odbcinfos/"), (StkWebAppExec*)ApiPostOdbcInfoObj);
+	ApiOdbcInfo* ApiGetOdbcInfoObj = new ApiOdbcInfo();
+	int Add4 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/odbcinfo/$"), (StkWebAppExec*)ApiGetOdbcInfoObj);
+	ApiOdbcInfo* ApiPostOdbcInfoObj = new ApiOdbcInfo();
+	int Add5 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/odbcinfo/"), (StkWebAppExec*)ApiPostOdbcInfoObj);
 
 	////////// Main logic starts
 	Soc->TheLoop();
@@ -41,8 +41,8 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 	int Del1 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/system/"));
 	int Del2 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/language/"));
 	int Del3 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/logs/"));
-	int Del4 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/odbcinfos/"));
-	int Del5 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/odbcinfos/"));
+	int Del4 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/odbcinfo/$"));
+	int Del5 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/odbcinfo/"));
 
 	delete Soc;
 }
