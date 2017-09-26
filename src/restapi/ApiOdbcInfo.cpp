@@ -2,7 +2,7 @@
 #include <shlwapi.h>
 #include <tchar.h>
 #include "MyMsgProc.h"
-#include "ApiOdbcInfos.h"
+#include "ApiOdbcInfo.h"
 #include "dataaccess.h"
 #include "..\Global.h"
 #include "OdbcManager.h"

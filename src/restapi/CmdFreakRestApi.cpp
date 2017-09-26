@@ -14,7 +14,7 @@
 #include "ApiGetSystem.h"
 #include "ApiGetLanguage.h"
 #include "ApiLogging.h"
-#include "ApiOdbcInfos.h"
+#include "ApiOdbcInfo.h"
 
 void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 {

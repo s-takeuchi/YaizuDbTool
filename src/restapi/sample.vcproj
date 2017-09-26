@@ -287,11 +287,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ApiOdbcInfos.cpp"
+				RelativePath=".\ApiOdbcInfo.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ApiOdbcInfos.h"
+				RelativePath=".\ApiOdbcInfo.h"
 				>
 			</File>
 		</Filter>

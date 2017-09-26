@@ -19,8 +19,8 @@ CmdFreakのREST APIは，以下の一覧に示すAPIをクライアント提供�
 <tr><td>GET /api/system/</td><td>CmdFreakのサーバ情報(Build Time, Server Start Time, Number of Worker Thread)を取得する。</td></tr>
 <tr><td>GET /api/language/</td><td>クライアント（ブラウザ）の最優先の言語を取得する。</td></tr>
 <tr><td>GET /api/logs/</td><td>イベントログを取得する。</td></tr>
-<tr><td>GET /api/odbcinfos/</td><td>ODBCの情報を取得する。</td></tr>
-<tr><td>POST /api/odbcinfos/</td><td>ODBCの情報を設定する。</td></tr>
+<tr><td>GET /api/odbcinfo/</td><td>ODBCの情報を取得する。</td></tr>
+<tr><td>POST /api/odbcinfo/</td><td>ODBCの情報を設定する。</td></tr>
 <tr><td>GET /api/tableinfo/</td><td>テーブル情報を取得する。</td></tr>
 </table>
 </div><p>
@@ -171,7 +171,7 @@ Code要素が0ではないとき，Data要素は返されません。
 </div><p>
 
 
-<H2 ID="2.6">2.6 Get /api/odbcinfos/</H2>
+<H2 ID="2.6">2.6 Get /api/odbcinfo/</H2>
 <div class="topic">
 ODBCの情報を取得します。<br/>
 <ul>
@@ -236,7 +236,7 @@ ODBCの情報を取得します。<br/>
 </div><p>
 
 
-<H2 ID="2.7">2.7 Post /api/odbcinfos/</H2>
+<H2 ID="2.7">2.7 Post /api/odbcinfo/</H2>
 <div class="topic">
 ODBCの情報を設定します。<br/>
 <ul>
