@@ -294,6 +294,14 @@
 				RelativePath=".\ApiOdbcInfo.h"
 				>
 			</File>
+			<File
+				RelativePath=".\ApiTableInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ApiTableInfo.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
