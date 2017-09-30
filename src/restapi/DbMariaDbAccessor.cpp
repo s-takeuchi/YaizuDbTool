@@ -27,7 +27,7 @@ int DbMariaDbAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg[10
 	return Ret;
 }
 
-SQLRETURN DbMariaDbAccessor::GetTables(SQLTCHAR* OutJson, int SizeOfOutJson, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+SQLRETURN DbMariaDbAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLRETURN Ret = 0;
 
@@ -36,10 +36,9 @@ SQLRETURN DbMariaDbAccessor::GetTables(SQLTCHAR* OutJson, int SizeOfOutJson, SQL
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg, MsgLen);
 	if (Ret != SQL_SUCCESS) {
-		lstrcpy(OutJson, _T("[]"));
 		return Ret;
 	}
-	Ret = GetTablesCommon(_T("show tables;"), OutJson, SizeOfOutJson, StateMsg, Msg, MsgLen);
+	Ret = GetTablesCommon(_T("show tables;"), Obj, StateMsg, Msg, MsgLen);
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
 
 	return Ret;

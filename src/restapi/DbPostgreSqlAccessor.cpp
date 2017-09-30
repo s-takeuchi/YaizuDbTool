@@ -27,7 +27,7 @@ int DbPostgreSqlAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg
 	return Ret;
 }
 
-SQLRETURN DbPostgreSqlAccessor::GetTables(SQLTCHAR* OutJson, int SizeOfOutJson, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+SQLRETURN DbPostgreSqlAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLRETURN Ret = 0;
 
@@ -36,10 +36,9 @@ SQLRETURN DbPostgreSqlAccessor::GetTables(SQLTCHAR* OutJson, int SizeOfOutJson, 
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg, MsgLen);
 	if (Ret != SQL_SUCCESS) {
-		lstrcpy(OutJson, _T("[]"));
 		return Ret;
 	}
-	Ret = GetTablesCommon(_T("select relname as TABLE_NAME from pg_stat_user_tables;"), OutJson, SizeOfOutJson, StateMsg, Msg, MsgLen);
+	Ret = GetTablesCommon(_T("select relname as TABLE_NAME from pg_stat_user_tables;"), Obj, StateMsg, Msg, MsgLen);
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
 
 	return Ret;

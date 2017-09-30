@@ -3,6 +3,7 @@
 #include "..\Global.h"
 #include "dataaccess.h"
 #include "..\..\..\YaizuComLib\src\commonfunc\StkGeneric.h"
+#include "..\..\..\YaizuComLib\src\commonfunc\StkObject.h"
 
 DbAccessor::DbAccessor()
 {
@@ -28,7 +29,7 @@ int DbAccessor::Test(TCHAR ConnStr[Global::MAX_PARAM_LENGTH])
 	return SQL_SUCCESS;
 }
 
-SQLRETURN DbAccessor::GetTablesCommon(SQLTCHAR* Query, SQLTCHAR* OutJson, int SizeOfOutJson, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+SQLRETURN DbAccessor::GetTablesCommon(SQLTCHAR* Query, StkObject* Obj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
@@ -41,11 +42,8 @@ SQLRETURN DbAccessor::GetTablesCommon(SQLTCHAR* Query, SQLTCHAR* OutJson, int Si
 		return Ret;
 	}
 	SQLTCHAR TableName[Global::TABLENAME_LENGTH];
-	SQLTCHAR TableNameTmp[Global::TABLENAME_LENGTH * 5];
-	SQLTCHAR TableNameTmp2[Global::TABLENAME_LENGTH * 5];
 	SQLBindCol(Hstmt, 1, SQL_C_WCHAR, TableName, Global::TABLENAME_LENGTH * sizeof(SQLTCHAR), NULL);
 
-	_snwprintf_s(OutJson, Global::MAX_PARAM_LENGTH, _TRUNCATE, _T("["));
 	BOOL InitFlag = TRUE;
 	int Loop = 0;
 	for (;;) {
@@ -55,22 +53,12 @@ SQLRETURN DbAccessor::GetTablesCommon(SQLTCHAR* Query, SQLTCHAR* OutJson, int Si
 			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 			return Ret;
 		}
-		StkGeneric::GetInstance()->HtmlEncode(TableName, TableNameTmp2, Global::TABLENAME_LENGTH * 5);
-		StkGeneric::GetInstance()->JsonEncode(TableNameTmp2, TableNameTmp, Global::TABLENAME_LENGTH * 5);
-		TCHAR TempBuf[1024];
-		if (InitFlag == TRUE) {
-			swprintf(TempBuf, 1024, _T("{\"name\" : \"%s\"}"), TableNameTmp);
-			InitFlag = FALSE;
-		} else {
-			swprintf(TempBuf, 1024, _T(",{\"name\" : \"%s\"}"), TableNameTmp);
-		}
-		lstrcat(OutJson, TempBuf);
+		Obj->AppendChildElement(new StkObject(_T("Name"), (TCHAR*)TableName));
 		Loop++;
 		if (Loop >= Global::MAXNUM_TABLES) {
 			break;
 		}
 	}
-	lstrcat(OutJson, _T("]"));
 
 	return Ret;
 }

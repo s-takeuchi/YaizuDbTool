@@ -3,6 +3,7 @@
 #include <tchar.h>
 #include <sql.h>
 #include <sqlext.h>
+#include "..\..\..\YaizuComLib\src\commonfunc\StkObject.h"
 #include "..\Global.h"
 
 class DbAccessor
@@ -16,7 +17,7 @@ protected:
 	SQLRETURN OpenDatabase(SQLTCHAR*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
 	SQLRETURN CloseDatabase(SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
 
-	SQLRETURN GetTablesCommon(SQLTCHAR*, SQLTCHAR*, int, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
+	SQLRETURN GetTablesCommon(SQLTCHAR*, StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
 
 	virtual int GetRecordsByTableNameCommon(SQLTCHAR*, int,
 		SQLTCHAR*, int,
@@ -32,7 +33,7 @@ public:
 	virtual int GetNumOfRecords(SQLTCHAR*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT) = 0;
 	int GetNumOfRecordsCommon(SQLTCHAR*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
 
-	virtual SQLRETURN GetTables(SQLTCHAR*, int, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT) = 0;
+	virtual SQLRETURN GetTables(StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT) = 0;
 
 	virtual int GetColumnInfoByTableName(SQLTCHAR*, 
 		SQLTCHAR[Global::MAXNUM_COLUMNS][Global::COLUMNNAME_LENGTH],
