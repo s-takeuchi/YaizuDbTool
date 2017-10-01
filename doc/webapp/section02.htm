@@ -119,7 +119,7 @@ Code要素が0ではないとき，Data要素は返されません。
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
-<tr><td>ClientLanguage</td><td>String</td><td>クライアント（ブラウザ）の最優先の言語(2文字; 日本語="ja"，英語="en")。結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>ClientLanguage</td><td>String</td><td>クライアント（ブラウザ）の最優先の言語(2文字; 日本語="ja"，英語="en")。</td></tr>
 </table><br/>
 </li>
 </ul>
@@ -161,7 +161,7 @@ Code要素が0ではないとき，Data要素は返されません。
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
-<tr><td>Log</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>Log</td><td>Element</td><td></td></tr>
 <tr><td>Time</td><td>String</td><td>イベントログが登録された時刻。"Month Day Year HH:MM:SS" 形式で返却される。</td></tr>
 <tr><td>MsgEn</td><td>String</td><td>イベントログの英語メッセージ。</td></tr>
 <tr><td>MsgJa</td><td>String</td><td>イベントログの日本語メッセージ。</td></tr>
@@ -226,10 +226,10 @@ ODBCの情報を取得します。<br/>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
-<tr><td>OdbcInfo</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
-<tr><td>DbType</td><td>String</td><td>DBMSの種別。"PostgreSQL", "MySQL", "MariaDB"の何れか。結果コードが0でないとき，この要素は返却されない。</td></tr>
-<tr><td>ConnStr</td><td>String</td><td>接続文字列。結果コードが0でないとき，この要素は返却されない。</td></tr>
-<tr><td>Status</td><td>String</td><td>DBMSへの接続可否。connectable:接続可能, unconnectable:接続不可能。query=configuredでない，または結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>OdbcInfo</td><td>Element</td><td></td></tr>
+<tr><td>DbType</td><td>String</td><td>DBMSの種別。"PostgreSQL", "MySQL", "MariaDB"の何れか。</td></tr>
+<tr><td>ConnStr</td><td>String</td><td>接続文字列。</td></tr>
+<tr><td>Status</td><td>String</td><td>DBMSへの接続可否。connectable:接続可能, unconnectable:接続不可能。query=configuredが指定されなかったとき，この要素は返却されない。</td></tr>
 </table><br/>
 </li>
 </ul>
@@ -272,8 +272,8 @@ ODBCの情報を設定します。<br/>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
-<tr><td>OdbcInfo</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
-<tr><td>Status</td><td>String</td><td>DBMSへの接続可否。connectable:接続可能, unconnectable:接続不可能。結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>OdbcInfo</td><td>Element</td><td></td></tr>
+<tr><td>Status</td><td>String</td><td>DBMSへの接続可否。connectable:接続可能, unconnectable:接続不可能。</td></tr>
 </table><br/>
 </li>
 </ul>
@@ -313,7 +313,7 @@ ODBCの情報を設定します。<br/>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
-<tr><td>TableInfo</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>TableInfo</td><td>Element</td><td></td></tr>
 <tr><td>Name</td><td>String</td><td>テーブル名称。</td></tr>
 </table><br/>
 </li>

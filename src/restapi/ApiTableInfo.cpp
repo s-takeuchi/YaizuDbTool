@@ -11,17 +11,15 @@ StkObject* ApiTableInfo::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[12
 	SQLTCHAR Msg[1024];
 
 	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
+	StkObject* DatObj = new StkObject(_T("Data"));
 
-	StkObject* TableInfoObj = new StkObject(_T("TableInfo"));
 	TCHAR ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
-	Da->GetTables(TableInfoObj, StateMsg, Msg, 1024);
+	Da->GetTables(DatObj, StateMsg, Msg, 1024);
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);
-	if (TableInfoObj->GetFirstChildElement() != NULL) {
-		ResObj->AppendChildElement(TableInfoObj);
-	}
+	ResObj->AppendChildElement(DatObj);
 
 	*ResultCode = 200;
 

@@ -88,6 +88,7 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
 ];
 
 var ACTION_LAUNCH          = 50;
+var ACTION_GETTABLEINFO    = 60;
 var ACTION_GETODBCCONNSTR  = 100;
 var ACTION_POSTODBCCONNSTR = 101;
 var ACTION_INFO            = 600;
@@ -710,6 +711,11 @@ function onXxxAction(actionType) {
     if (actionType == ACTION_LAUNCH) {
         sendRequestRecvResponse('GET', './api/language/', null, 0);
         showWaitingDialog(ACTION_LAUNCH, 0);
+        return;
+    }
+    if (actionType == ACTION_GETTABLEINFO) {
+        sendRequestRecvResponse('GET', './api/tableinfo/', null, 0);
+        showWaitingDialog(ACTION_GETTABLEINFO, 0);
         return;
     }
     if (actionType == ACTION_GETODBCCONNSTR) {

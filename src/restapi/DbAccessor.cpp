@@ -53,7 +53,9 @@ SQLRETURN DbAccessor::GetTablesCommon(SQLTCHAR* Query, StkObject* Obj, SQLTCHAR 
 			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 			return Ret;
 		}
-		Obj->AppendChildElement(new StkObject(_T("Name"), (TCHAR*)TableName));
+		StkObject* TblInfObj = new StkObject(_T("TableInfo"));
+		TblInfObj->AppendChildElement(new StkObject(_T("Name"), (TCHAR*)TableName));
+		Obj->AppendChildElement(TblInfObj);
 		Loop++;
 		if (Loop >= Global::MAXNUM_TABLES) {
 			break;
