@@ -282,6 +282,44 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         }
         //
         //
+        if (actionType == ACTION_GETTABLEINFO) {
+            $('#tableselector').empty();
+
+            if (statusCode[0] == 200) {
+                // Nothing to do
+            } else {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
+                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                return;
+            }
+
+            var tableInfos = [];
+            if (responseData[0].Data.TableInfo instanceof Array) {
+                tableInfos = responseData[0].Data.TableInfo;
+            } else if (responseData[0].Data.TableInfo) {
+                tableInfos.push(responseData[0].Data.TableInfo);
+            }
+            for (var tableIndex = 0; tableIndex < tableInfos.length; tableIndex++) {
+                var tn = tableInfos[tableIndex].Name;
+                var tnReplaced = tn;
+                tnReplaced = tnReplaced.replace(/&lt;/g, "<");
+                tnReplaced = tnReplaced.replace(/&gt;/g, ">");
+                tnReplaced = tnReplaced.replace(/&amp;/g, "&");
+                tnReplaced = tnReplaced.replace(/&quot;/g, "\"");
+                var seld = '';
+                if (tableIndex == 0 && currentTablename == "") {
+                    currentTablename = tnReplaced;
+                }
+                if (tnReplaced == currentTablename) {
+                    seld = 'selected';
+                }
+                $('#tableselector').append('<option value="' + tn + '" ' + seld + '>' + tn + '</option>');
+            }
+
+            return;
+        }
+        //
+        //
         if (actionType == ACTION_GETODBCCONNSTR) {
             if (statusCode[0] == 200 && statusCode[1] == 200) {
                 // Nothing to do
@@ -579,27 +617,7 @@ function sendRequestToWebServer(operation, response) {
 }
 
 function refreshTableNameList() {
-    var tablenameResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-    if (sendRequestToWebServer('get-tablenames', tablenameResponse) != 0) {
-        return;
-    }
-    $('#tableselector').empty();
-    for (var tableIndex = 0; tableIndex < tablenameResponse.data.length; tableIndex++) {
-        var tn = tablenameResponse.data[tableIndex].name;
-        var tnReplaced = tn;
-        tnReplaced = tnReplaced.replace(/&lt;/g, "<");
-        tnReplaced = tnReplaced.replace(/&gt;/g, ">");
-        tnReplaced = tnReplaced.replace(/&amp;/g, "&");
-        tnReplaced = tnReplaced.replace(/&quot;/g, "\"");
-        var seld = '';
-        if (tableIndex == 0 && currentTablename == "") {
-            currentTablename = tnReplaced;
-        }
-        if (tnReplaced == currentTablename) {
-            seld = 'selected';
-        }
-        $('#tableselector').append('<option value="' + tn + '" ' + seld + '>' + tn + '</option>');
-    }
+    onXxxAction(ACTION_GETTABLEINFO);
 }
 
 function eventTableSelected() {
