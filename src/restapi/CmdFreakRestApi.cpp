@@ -15,7 +15,7 @@
 #include "ApiGetLanguage.h"
 #include "ApiLogging.h"
 #include "ApiOdbcInfo.h"
-#include "ApiTableInfo.h"
+#include "ApiGetTableInfo.h"
 
 void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 {
@@ -34,7 +34,7 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 	int Add4 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/odbcinfo/$"), (StkWebAppExec*)ApiGetOdbcInfoObj);
 	ApiOdbcInfo* ApiPostOdbcInfoObj = new ApiOdbcInfo();
 	int Add5 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/odbcinfo/"), (StkWebAppExec*)ApiPostOdbcInfoObj);
-	ApiTableInfo* ApiGetTableInfoObj = new ApiTableInfo();
+	ApiGetTableInfo* ApiGetTableInfoObj = new ApiGetTableInfo();
 	int Add6 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/tableinfo/"), (StkWebAppExec*)ApiGetTableInfoObj);
 
 	////////// Main logic starts

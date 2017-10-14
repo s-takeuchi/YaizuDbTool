@@ -1,10 +1,10 @@
 #include <tchar.h>
-#include "ApiTableInfo.h"
+#include "ApiGetTableInfo.h"
 #include "dataaccess.h"
 #include "DbAccessor.h"
 #include "OdbcManager.h"
 
-StkObject* ApiTableInfo::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiGetTableInfo::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
 {
 	StkObject* ResObj = new StkObject(_T(""));
 	SQLTCHAR StateMsg[10];
