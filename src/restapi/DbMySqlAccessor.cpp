@@ -44,6 +44,56 @@ SQLRETURN DbMySqlAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10], SQLT
 	return Ret;
 }
 
+int DbMySqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* Obj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+{
+	SQLINTEGER Native; // This will not be refered from anywhere
+	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
+	SQLRETURN Ret = 0;
+
+	TCHAR ConnStr[256];
+	int Init;
+	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
+	Ret = OpenDatabase(ConnStr, StateMsg, Msg, MsgLen);
+	if (Ret != SQL_SUCCESS) {
+		return 0;
+	}
+
+	int LenOfTableName = lstrlen((TCHAR*)TableName);
+	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
+	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
+
+	SQLTCHAR SqlBuf[1024];
+	_snwprintf_s(SqlBuf, 1024, _TRUNCATE, _T("show full columns from %s;"), EcdTableName);
+	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
+	delete EcdTableName;
+	if (Ret != SQL_SUCCESS) {
+		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		return 0;
+	}
+	SQLTCHAR TmpColumneName[Global::COLUMNNAME_LENGTH];
+	SQLTCHAR TmpColumneType[Global::COLUMNTYPE_LENGTH];
+	SQLTCHAR TmpIsNull[10];
+	SQLBindCol(Hstmt, 1, SQL_C_WCHAR, TmpColumneName, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), NULL);
+	SQLBindCol(Hstmt, 2, SQL_C_WCHAR, TmpColumneType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), NULL);
+	SQLBindCol(Hstmt, 4, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLTCHAR), NULL);
+
+	int Loop = 0;
+	for (; Loop < Global::MAXNUM_COLUMNS; Loop++) {
+		Ret = SQLFetch(Hstmt);
+		if (Ret == SQL_NO_DATA_FOUND) break;
+		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO) {
+			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+			return 0;
+		}
+		//lstrcpy(ColumnName[Loop], TmpColumneName);
+		//lstrcpy(ColumnType[Loop], TmpColumneType);
+		//lstrcpy(IsNull[Loop], TmpIsNull);
+	}
+	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
+
+	return Loop;
+}
+
 int DbMySqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName,
 	SQLTCHAR ColumnName[Global::MAXNUM_COLUMNS][Global::COLUMNNAME_LENGTH],
 	SQLTCHAR ColumnType[Global::MAXNUM_COLUMNS][Global::COLUMNTYPE_LENGTH],

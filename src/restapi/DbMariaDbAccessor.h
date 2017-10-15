@@ -20,6 +20,7 @@ public:
 	virtual void GetDefaultConnStr(SQLTCHAR[Global::MAX_PARAM_LENGTH]);
 	virtual int GetNumOfRecords(SQLTCHAR*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
 	virtual SQLRETURN GetTables(StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
+	virtual int GetColumnInfoByTableName(SQLTCHAR*,	StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
 	virtual int GetColumnInfoByTableName(SQLTCHAR*,
 		SQLTCHAR[Global::MAXNUM_COLUMNS][Global::COLUMNNAME_LENGTH],
 		SQLTCHAR[Global::MAXNUM_COLUMNS][Global::COLUMNTYPE_LENGTH],
