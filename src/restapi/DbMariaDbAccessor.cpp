@@ -44,7 +44,7 @@ SQLRETURN DbMariaDbAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10], SQ
 	return Ret;
 }
 
-int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* Obj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* TblObj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
@@ -77,10 +77,6 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 	SQLBindCol(Hstmt, 2, SQL_C_WCHAR, TmpColumneType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), NULL);
 	SQLBindCol(Hstmt, 4, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLTCHAR), NULL);
 
-	StkObject* SchObj = new StkObject(_T("TableInfo"));
-	SchObj->AppendChildElement(new StkObject(_T("Name"), TableName));
-	StkObject* TgtObj = Obj->Contains(SchObj);
-
 	int Loop = 0;
 	for (; Loop < Global::MAXNUM_COLUMNS; Loop++) {
 		Ret = SQLFetch(Hstmt);
@@ -89,6 +85,8 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 			return 0;
 		}
+		StkObject* ClmObj = new StkObject(_T("ColumnInfo"));
+		TblObj->AppendChildElement(ClmObj);
 		//lstrcpy(ColumnName[Loop], TmpColumneName);
 		//lstrcpy(ColumnType[Loop], TmpColumneType);
 		//lstrcpy(IsNull[Loop], TmpIsNull);

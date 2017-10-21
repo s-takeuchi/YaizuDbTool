@@ -44,7 +44,7 @@ SQLRETURN DbPostgreSqlAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10],
 	return Ret;
 }
 
-int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* Obj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* TblObj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
@@ -88,6 +88,8 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 			return 0;
 		}
+		StkObject* ClmObj = new StkObject(_T("ColumnInfo"));
+		TblObj->AppendChildElement(ClmObj);
 		//lstrcpy(ColumnName[Loop], TmpColumneName);
 		if (ColumneMaxLen != SQL_NULL_DATA) {
 			//_snwprintf_s(ColumnType[Loop], Global::COLUMNTYPE_LENGTH, _TRUNCATE, _T("%s(%d)"), TmpColumneType, TmpColumnMaxLen);

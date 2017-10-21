@@ -18,6 +18,21 @@ StkObject* ApiGetTableInfo::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 	Da->GetTables(DatObj, StateMsg, Msg, 1024);
+
+	StkObject* TblObj = DatObj->GetFirstChildElement();
+	while (TblObj) {
+		if (lstrcmp(TblObj->GetName(), _T("TableInfo")) == 0) {
+			StkObject* TblNameObj = TblObj->GetFirstChildElement();
+			while (TblNameObj) {
+				if (lstrcmp(TblNameObj->GetName(), _T("Name")) == 0) {
+					Da->GetColumnInfoByTableName(TblNameObj->GetStringValue(), TblObj, StateMsg, Msg, 1024);
+				}
+				TblNameObj = TblNameObj->GetNext();
+			}
+		};
+		TblObj = TblObj->GetNext();
+	}
+
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 	ResObj->AppendChildElement(DatObj);
 
