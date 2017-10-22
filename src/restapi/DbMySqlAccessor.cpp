@@ -70,11 +70,12 @@ int DbMySqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* Tb
 		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return 0;
 	}
-	SQLTCHAR TmpColumneName[Global::COLUMNNAME_LENGTH];
-	SQLTCHAR TmpColumneType[Global::COLUMNTYPE_LENGTH];
+	SQLTCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
+	SQLTCHAR TmpColumnType[Global::COLUMNTYPE_LENGTH];
+	SQLTCHAR ColTypeCnv[Global::COLUMNTYPE_LENGTH];
 	SQLTCHAR TmpIsNull[10];
-	SQLBindCol(Hstmt, 1, SQL_C_WCHAR, TmpColumneName, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), NULL);
-	SQLBindCol(Hstmt, 2, SQL_C_WCHAR, TmpColumneType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), NULL);
+	SQLBindCol(Hstmt, 1, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), NULL);
+	SQLBindCol(Hstmt, 2, SQL_C_WCHAR, TmpColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), NULL);
 	SQLBindCol(Hstmt, 4, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLTCHAR), NULL);
 
 	int Loop = 0;
@@ -85,11 +86,15 @@ int DbMySqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* Tb
 			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 			return 0;
 		}
+		ConvertAttrType(TmpColumnType, ColTypeCnv);
 		StkObject* ClmObj = new StkObject(_T("ColumnInfo"));
+		ClmObj->AppendChildElement(new StkObject(_T("title"), TmpColumnName));
+		ClmObj->AppendChildElement(new StkObject(_T("width"), 100));
+		ClmObj->AppendChildElement(new StkObject(_T("datatype"), ColTypeCnv));
+		ClmObj->AppendChildElement(new StkObject(_T("dataIndx"), Loop));
+		ClmObj->AppendChildElement(new StkObject(_T("coltype"), TmpColumnType));
+		ClmObj->AppendChildElement(new StkObject(_T("isnull"), TmpIsNull));
 		TblObj->AppendChildElement(ClmObj);
-		//lstrcpy(ColumnName[Loop], TmpColumneName);
-		//lstrcpy(ColumnType[Loop], TmpColumneType);
-		//lstrcpy(IsNull[Loop], TmpIsNull);
 	}
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
 

@@ -70,14 +70,16 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return 0;
 	}
-	SQLTCHAR TmpColumneName[Global::COLUMNNAME_LENGTH];
-	SQLTCHAR TmpColumneType[Global::COLUMNTYPE_LENGTH];
+	SQLTCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
+	SQLTCHAR TmpColumnType[Global::COLUMNTYPE_LENGTH];
+	SQLTCHAR ColumnType[Global::COLUMNTYPE_LENGTH];
+	SQLTCHAR ColTypeCnv[Global::COLUMNTYPE_LENGTH];
 	SQLTCHAR TmpIsNull[10];
 	int TmpColumnMaxLen;
 	SQLINTEGER ColumneNameLen, ColumneTypeLen, ColumneMaxLen, IsNullLen;
-	SQLBindCol(Hstmt, 4, SQL_C_WCHAR, TmpColumneName, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), &ColumneNameLen);
+	SQLBindCol(Hstmt, 4, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), &ColumneNameLen);
 	SQLBindCol(Hstmt, 7, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLTCHAR), &IsNullLen);
-	SQLBindCol(Hstmt, 8, SQL_C_WCHAR, TmpColumneType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), &ColumneTypeLen);
+	SQLBindCol(Hstmt, 8, SQL_C_WCHAR, ColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), &ColumneTypeLen);
 	SQLBindCol(Hstmt, 9, SQL_C_SLONG, &TmpColumnMaxLen, 0, &ColumneMaxLen);
 
 	int Loop = 0;
@@ -88,15 +90,20 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 			return 0;
 		}
-		StkObject* ClmObj = new StkObject(_T("ColumnInfo"));
-		TblObj->AppendChildElement(ClmObj);
-		//lstrcpy(ColumnName[Loop], TmpColumneName);
 		if (ColumneMaxLen != SQL_NULL_DATA) {
-			//_snwprintf_s(ColumnType[Loop], Global::COLUMNTYPE_LENGTH, _TRUNCATE, _T("%s(%d)"), TmpColumneType, TmpColumnMaxLen);
+			_snwprintf_s(TmpColumnType, Global::COLUMNTYPE_LENGTH, _TRUNCATE, _T("%s(%d)"), ColumnType, TmpColumnMaxLen);
 		} else {
-			//lstrcpy(ColumnType[Loop], TmpColumneType);
+			lstrcpy(TmpColumnType, ColumnType);
 		}
-		//lstrcpy(IsNull[Loop], TmpIsNull);
+		ConvertAttrType(TmpColumnType, ColTypeCnv);
+		StkObject* ClmObj = new StkObject(_T("ColumnInfo"));
+		ClmObj->AppendChildElement(new StkObject(_T("title"), TmpColumnName));
+		ClmObj->AppendChildElement(new StkObject(_T("width"), 100));
+		ClmObj->AppendChildElement(new StkObject(_T("datatype"), ColTypeCnv));
+		ClmObj->AppendChildElement(new StkObject(_T("dataIndx"), Loop));
+		ClmObj->AppendChildElement(new StkObject(_T("coltype"), TmpColumnType));
+		ClmObj->AppendChildElement(new StkObject(_T("isnull"), TmpIsNull));
+		TblObj->AppendChildElement(ClmObj);
 	}
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
 
