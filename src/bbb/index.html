@@ -417,12 +417,37 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         //
         if (actionType == ACTION_SHOWTABLEINFO) {
+            if (statusCode[0] == 200) {
+                // Nothing to do
+            } else {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
+                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                return;
+            }
             if (currentTablename == "") {
                 showMessageDialog(getCliMsg(CLIMSG_LABEL_TABLEINFO), getCliMsg(CLIMSG_TABLEINFOSHOWN), actionType, 600, 270, 'img/table_image48c.png', 0);
                 $('#adialog-content').empty();
                 $('#adialog-content').append('<br>' + getCliMsg(TABLENOTEXIST) + '<br>');
                 return;
             }
+
+            var tableInfos = [];
+            if (responseData[0].Data.TableInfo instanceof Array) {
+                tableInfos = responseData[0].Data.TableInfo;
+            } else if (responseData[0].Data.TableInfo) {
+                tableInfos.push(responseData[0].Data.TableInfo);
+            }
+            var columnInfos = [];
+            for (var tableIndex = 0; tableIndex < tableInfos.length; tableIndex++) {
+                if (tableInfos[tableIndex].Name === currentTablename) {
+                    if (tableInfos[tableIndex].ColumnInfo instanceof Array) {
+                        columnInfos = tableInfos[tableIndex].ColumnInfo;
+                    } else if (tableInfos[tableIndex].ColumnInfo) {
+                        columnInfos.push(tableInfos[tableIndex].ColumnInfo);
+                    }
+                }
+            }
+
             showMessageDialog(getCliMsg(CLIMSG_LABEL_TABLEINFO), getCliMsg(CLIMSG_TABLEINFOSHOWN), actionType, 600, 440, 'img/table_image48c.png', 0);
             $('#adialog-content').append(getCliMsg(CLIMSG_LABEL_TARGETTABLE) + currentTablename + '<br>');
             $('#adialog-content').append('<table class="tblstyle">');
