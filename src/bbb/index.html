@@ -445,6 +445,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                     } else if (tableInfos[tableIndex].ColumnInfo) {
                         columnInfos.push(tableInfos[tableIndex].ColumnInfo);
                     }
+                    break;
                 }
             }
 
@@ -452,12 +453,8 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             $('#adialog-content').append(getCliMsg(CLIMSG_LABEL_TARGETTABLE) + currentTablename + '<br>');
             $('#adialog-content').append('<table class="tblstyle">');
             $('.tblstyle').append('<tr><th>Column name</th><th>Column type</th><th>Is nullable</th></tr>');
-            var columnResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-            if (sendRequestToWebServer('get-columns&tablename=' + currentTablename, columnResponse) != 0) {
-                return;
-            }
-            for (var ColLoop = 0; ColLoop < columnResponse.data.length; ColLoop++) {
-                $('.tblstyle').append('<tr><td>' + columnResponse.data[ColLoop].title + '</td><td>' + columnResponse.data[ColLoop].coltype + '</td><td>' + columnResponse.data[ColLoop].isnull + '</td></tr>');
+            for (var ColLoop = 0; ColLoop < columnInfos.length; ColLoop++) {
+                $('.tblstyle').append('<tr><td>' + columnInfos[ColLoop].title + '</td><td>' + columnInfos[ColLoop].coltype + '</td><td>' + columnInfos[ColLoop].isnull + '</td></tr>');
             }
             $('#adialog-content').append('</table>');
             return;
