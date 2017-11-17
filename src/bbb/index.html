@@ -101,8 +101,18 @@ var ACTION_SHOWTABLEINFO   = 200;
 var ACTION_INFO            = 600;
 var ACTION_ERROR           = 1200;
 
+var API_GET_LANGUAGE            = 0;
+var API_GET_SYSTEM              = 1;
+var API_GET_LOGS                = 2;
+var API_GET_TABLEINFO           = 3;
+var API_GET_ODBCINFO_DEFAULT    = 4;
+var API_GET_ODBCINFO_CONFIGURED = 5;
+var API_POST_ODBCINFO           = 6;
+
 // underComm = 0 : No communication state, >= 1 : Communication state
 var underComm = 0;
+
+// [0] : for API_GET_LANGUAGE, [1] : for API_GET_SYSTEM, [2] : for API_GET_LOGS, ...
 var statusCode = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var responseData = [{},{},{},{},{},{},{},{},{},{}];
 
@@ -273,14 +283,14 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         //
         if (actionType == ACTION_LAUNCH) {
-            if (statusCode[0] == 200) {
-                if (responseData[0].Data.ClientLanguage == 'ja') {
+            if (statusCode[API_GET_LANGUAGE] == 200) {
+                if (responseData[API_GET_LANGUAGE].Data.ClientLanguage == 'ja') {
                     myLanguage = 1;
                 }
                 refreshMainScreen();
-            } else if (statusCode[0] == 406) {
+            } else if (statusCode[API_GET_LANGUAGE] == 406) {
                 showMessageDialog(getCliMsg(CLIMSG_WARNING), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getSvrMsg(responseData[0]));
+                $('#adialog-content').append(getSvrMsg(responseData[API_GET_LANGUAGE]));
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
@@ -292,7 +302,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         if (actionType == ACTION_GETTABLEINFO) {
             $('#tableselector').empty();
 
-            if (statusCode[0] == 200) {
+            if (statusCode[API_GET_TABLEINFO] == 200) {
                 // Nothing to do
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
@@ -301,10 +311,10 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             }
 
             var tableInfos = [];
-            if (responseData[0].Data.TableInfo instanceof Array) {
-                tableInfos = responseData[0].Data.TableInfo;
-            } else if (responseData[0].Data.TableInfo) {
-                tableInfos.push(responseData[0].Data.TableInfo);
+            if (responseData[API_GET_TABLEINFO].Data.TableInfo instanceof Array) {
+                tableInfos = responseData[API_GET_TABLEINFO].Data.TableInfo;
+            } else if (responseData[API_GET_TABLEINFO].Data.TableInfo) {
+                tableInfos.push(responseData[API_GET_TABLEINFO].Data.TableInfo);
             }
             for (var tableIndex = 0; tableIndex < tableInfos.length; tableIndex++) {
                 var tn = tableInfos[tableIndex].Name;
@@ -328,15 +338,15 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         //
         if (actionType == ACTION_GETODBCCONNSTR) {
-            if (statusCode[0] == 200 && statusCode[1] == 200) {
+            if (statusCode[API_GET_ODBCINFO_DEFAULT] == 200 && statusCode[API_GET_ODBCINFO_CONFIGURED] == 200) {
                 // Nothing to do
-            } else if (statusCode[0] == 400 || statusCode[1] == 400) {
+            } else if (statusCode[API_GET_ODBCINFO_DEFAULT] == 400 || statusCode[API_GET_ODBCINFO_CONFIGURED] == 400) {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
-                if (statusCode[0] == 400) {
-                    $('#adialog-content').append(getCliMsg(responseData[0]));
+                if (statusCode[API_GET_ODBCINFO_DEFAULT] == 400) {
+                    $('#adialog-content').append(getCliMsg(responseData[API_GET_ODBCINFO_DEFAULT]));
                 }
-                if (statusCode[1] == 400) {
-                    $('#adialog-content').append(getCliMsg(responseData[1]));
+                if (statusCode[API_GET_ODBCINFO_CONFIGURED] == 400) {
+                    $('#adialog-content').append(getCliMsg(responseData[API_GET_ODBCINFO_CONFIGURED]));
                 }
                 return;
             } else {
@@ -345,12 +355,12 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 return;
             }
             var odbcInfos = [];
-            if (responseData[0].Data.OdbcInfo instanceof Array) {
-                odbcInfos = responseData[0].Data.OdbcInfo;
-            } else if (responseData[0].Data.OdbcInfo) {
-                odbcInfos.push(responseData[0].Data.OdbcInfo);
+            if (responseData[API_GET_ODBCINFO_DEFAULT].Data.OdbcInfo instanceof Array) {
+                odbcInfos = responseData[API_GET_ODBCINFO_DEFAULT].Data.OdbcInfo;
+            } else if (responseData[API_GET_ODBCINFO_DEFAULT].Data.OdbcInfo) {
+                odbcInfos.push(responseData[API_GET_ODBCINFO_DEFAULT].Data.OdbcInfo);
             }
-            var odbcInfoConfigured = responseData[1].Data.OdbcInfo;
+            var odbcInfoConfigured = responseData[API_GET_ODBCINFO_CONFIGURED].Data.OdbcInfo;
 
             showMessageDialog(getCliMsg(CLIMSG_ODBCCONNTITLE), getCliMsg(CLIMSG_ODBCCONNSTR_GUIDE), actionType, 600, 440, 'img/config_image48c.png', 1);
             $('#adialog-content').append(getCliMsg(CLIMSG_ODBCSELECTION));
@@ -379,7 +389,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             $('#adialog-content').append(getCliMsg(CLIMSG_ODBCCONNSTR_SPECIFY));
             $('#adialog-content').append('<textarea id="connstr" name="connstr" style="width:560px;height:100px" spellcheck="false"/><p>');
             if (odbcInfoConfigured.DbType === 'Init') {
-                $('#connstr').append(odbcInfos[1].ConnStr);
+                $('#connstr').append(odbcInfos[API_GET_ODBCINFO_CONFIGURED].ConnStr);
             } else {
                 $('#connstr').append(odbcInfoConfigured.ConnStr);
             }
@@ -388,18 +398,18 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         //
         if (actionType == ACTION_POSTODBCCONNSTR) {
-            if (statusCode[0] == 200) {
+            if (statusCode[API_POST_ODBCINFO] == 200) {
                 // Nothing to do
-            } else if (statusCode[0] == 400) {
+            } else if (statusCode[API_POST_ODBCINFO] == 400) {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getCliMsg(responseData[0]));
+                $('#adialog-content').append(getCliMsg(responseData[API_POST_ODBCINFO]));
                 return;
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
             }
-            if (responseData[0].Data.OdbcInfo.Status === 'unconnectable') {
+            if (responseData[API_POST_ODBCINFO].Data.OdbcInfo.Status === 'unconnectable') {
                 showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_DBMSCONFAILURE), ACTION_ERROR, 512, 270, 'img/error_image48c.png', 0);
             }
             currentTablename = "";
@@ -407,9 +417,6 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             boxResize();
             displayToolBar(0);
             var testResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-            //if (sendRequestToWebServer('test', testResponse) != 0) {
-            //    return;
-            //}
             initializeCurrentTablename();
             showTable(currentTablename);
             return;
@@ -417,7 +424,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         //
         if (actionType == ACTION_SHOWTABLEINFO) {
-            if (statusCode[0] == 200) {
+            if (statusCode[API_GET_TABLEINFO] == 200) {
                 // Nothing to do
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
@@ -432,10 +439,10 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             }
 
             var tableInfos = [];
-            if (responseData[0].Data.TableInfo instanceof Array) {
-                tableInfos = responseData[0].Data.TableInfo;
-            } else if (responseData[0].Data.TableInfo) {
-                tableInfos.push(responseData[0].Data.TableInfo);
+            if (responseData[API_GET_TABLEINFO].Data.TableInfo instanceof Array) {
+                tableInfos = responseData[API_GET_TABLEINFO].Data.TableInfo;
+            } else if (responseData[API_GET_TABLEINFO].Data.TableInfo) {
+                tableInfos.push(responseData[API_GET_TABLEINFO].Data.TableInfo);
             }
             var columnInfos = [];
             for (var tableIndex = 0; tableIndex < tableInfos.length; tableIndex++) {
@@ -466,11 +473,11 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             var startTime = "";
             var productName = "";
             var version = "";
-            if (statusCode[0] == 200) {
-                buildTime = responseData[0].Data.BuildTime;
-                startTime = responseData[0].Data.StartTime;
-                productName = responseData[0].Data.ProductName;
-                version = responseData[0].Data.Version;
+            if (statusCode[API_GET_SYSTEM] == 200) {
+                buildTime = responseData[API_GET_SYSTEM].Data.BuildTime;
+                startTime = responseData[API_GET_SYSTEM].Data.StartTime;
+                productName = responseData[API_GET_SYSTEM].Data.ProductName;
+                version = responseData[API_GET_SYSTEM].Data.Version;
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
@@ -478,11 +485,11 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             }
 
             var Logs = [];
-            if (statusCode[1] == 200) {
-                if (responseData[1].Data.Log instanceof Array) {
-                    Logs = responseData[1].Data.Log;
-                } else if (responseData[1].Data.Log) {
-                    Logs.push(responseData[1].Data.Log);
+            if (statusCode[API_GET_LOGS] == 200) {
+                if (responseData[API_GET_LOGS].Data.Log instanceof Array) {
+                    Logs = responseData[API_GET_LOGS].Data.Log;
+                } else if (responseData[API_GET_LOGS].Data.Log) {
+                    Logs.push(responseData[API_GET_LOGS].Data.Log);
                 }
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
@@ -698,10 +705,10 @@ function eventDbmsSelected() {
     currentDbmsname = selectedDbmsName;
 
     var odbcInfos = [];
-    if (responseData[0].Data.OdbcInfo instanceof Array) {
-        odbcInfos = responseData[0].Data.OdbcInfo;
-    } else if (responseData[0].Data.OdbcInfo) {
-        odbcInfos.push(responseData[0].Data.OdbcInfo);
+    if (responseData[API_GET_ODBCINFO_DEFAULT].Data.OdbcInfo instanceof Array) {
+        odbcInfos = responseData[API_GET_ODBCINFO_DEFAULT].Data.OdbcInfo;
+    } else if (responseData[API_GET_ODBCINFO_DEFAULT].Data.OdbcInfo) {
+        odbcInfos.push(responseData[API_GET_ODBCINFO_DEFAULT].Data.OdbcInfo);
     }
 
     $('#connstr').empty();
@@ -779,20 +786,20 @@ function initializeCurrentTablename() {
 
 function onXxxAction(actionType) {
     if (actionType == ACTION_LAUNCH) {
-        sendRequestRecvResponse('GET', './api/language/', null, 0);
+        sendRequestRecvResponse('GET', './api/language/', null, API_GET_LANGUAGE);
         showWaitingDialog(ACTION_LAUNCH, 0);
         return;
     }
     if (actionType == ACTION_GETTABLEINFO) {
-        sendRequestRecvResponse('GET', './api/tableinfo/', null, 0);
+        sendRequestRecvResponse('GET', './api/tableinfo/', null, API_GET_TABLEINFO);
         showWaitingDialog(ACTION_GETTABLEINFO, 0);
         return;
     }
     if (actionType == ACTION_GETODBCCONNSTR) {
         var reqDatDf = {'query' : 'default' };
-        sendRequestRecvResponse('GET', './api/odbcinfo/', reqDatDf, 0);
+        sendRequestRecvResponse('GET', './api/odbcinfo/', reqDatDf, API_GET_ODBCINFO_DEFAULT);
         var reqDatCf = {'query' : 'configured' };
-        sendRequestRecvResponse('GET', './api/odbcinfo/', reqDatCf, 1);
+        sendRequestRecvResponse('GET', './api/odbcinfo/', reqDatCf, API_GET_ODBCINFO_CONFIGURED);
         showWaitingDialog(ACTION_GETODBCCONNSTR, 0);
         return;
     }
@@ -801,12 +808,12 @@ function onXxxAction(actionType) {
 
         var tmpstr = $('#connstr').val().replace(/[\n\r]/g, '');
         var reqDatDf = {'DbType' : currentDbmsname, 'ConnStr' : tmpstr};
-        sendRequestRecvResponse('POST', './api/odbcinfo/', reqDatDf, 0);
+        sendRequestRecvResponse('POST', './api/odbcinfo/', reqDatDf, API_POST_ODBCINFO);
         showWaitingDialog(ACTION_POSTODBCCONNSTR, 0);
         return;
     }
     if (actionType == ACTION_SHOWTABLEINFO) {
-        sendRequestRecvResponse('GET', './api/tableinfo/', null, 0);
+        sendRequestRecvResponse('GET', './api/tableinfo/', null, API_GET_TABLEINFO);
         showWaitingDialog(ACTION_SHOWTABLEINFO, 0);
         return;
     }
@@ -931,8 +938,8 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_INFO) {
-        sendRequestRecvResponse('GET', './api/system/', null, 0);
-        sendRequestRecvResponse('GET', './api/logs/', null, 1);
+        sendRequestRecvResponse('GET', './api/system/', null, API_GET_SYSTEM);
+        sendRequestRecvResponse('GET', './api/logs/', null, API_GET_LOGS);
         showWaitingDialog(actionType, 0);
         return;
     }
