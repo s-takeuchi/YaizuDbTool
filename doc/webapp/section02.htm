@@ -297,12 +297,38 @@ ODBCの情報を設定します。<br/>
     "TableInfo" : [
       {
         "Name" : "Aaa"
+        "ColumnInfo" : [
+          {
+            "title" : "aaa",
+            "width" : 100,
+            "datatype" : "integer",
+            "dataIndx" : 0,
+            "coltype" : "int(11)",
+            "isnull" : "YES"
+          },
+          {
+            "title" : "bbb",
+            "width" : 100,
+            "datatype" : "string",
+            "dataIndx" : 1,
+            "coltype" : "text",
+            "isnull" : "YES"
+          }
+        ]
       },
       {
         "Name" : "Bbb"
       },
       {
         "Name" : "Ccc"
+        "ColumnInfo" : {
+          "title" : "aaa",
+          "width" : 100,
+          "datatype" : "integer",
+          "dataIndx" : 0,
+          "coltype" : "integer",
+          "isnull" : "YES"
+        }
       }
     ]
   }
@@ -313,8 +339,15 @@ ODBCの情報を設定します。<br/>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
-<tr><td>TableInfo</td><td>Element</td><td></td></tr>
+<tr><td>TableInfo</td><td>Element</td><td>テーブル情報が存在しないとき，この要素は返却されない。</td></tr>
 <tr><td>Name</td><td>String</td><td>テーブル名称。</td></tr>
+<tr><td>ColumnInfo</td><td>Element</td><td>カラム情報が存在しないとき，この要素は返却されない。</td></tr>
+<tr><td>title</td><td>String</td><td>カラム名</td></tr>
+<tr><td>width</td><td>Integer</td><td>pqgrid用表示幅</td></tr>
+<tr><td>datatype</td><td>String</td><td>pqgrid用データ種別</td></tr>
+<tr><td>dataIndx</td><td>String</td><td>pqgrid用インデックス値(0からはじまる通し番号)</td></tr>
+<tr><td>coltype</td><td>String</td><td>カラム種別</td></tr>
+<tr><td>isnull</td><td>String</td><td>NULLを許容するか(YES/NO)</td></tr>
 </table><br/>
 </li>
 </ul>
