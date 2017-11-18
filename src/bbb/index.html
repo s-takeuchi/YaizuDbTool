@@ -785,6 +785,11 @@ function initializeCurrentTablename() {
 }
 
 function onXxxAction(actionType) {
+    // If this method is called by an operation on adialog, close the dialog firstly.
+    if (actionType % 10 == 1 || actionType % 10 == 2) {
+        $('#adialog').dialog('close');
+    }
+
     if (actionType == ACTION_LAUNCH) {
         sendRequestRecvResponse('GET', './api/language/', null, API_GET_LANGUAGE);
         showWaitingDialog(ACTION_LAUNCH, 0);
@@ -804,8 +809,6 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_POSTODBCCONNSTR) {
-        $('#adialog').dialog('close');
-
         var tmpstr = $('#connstr').val().replace(/[\n\r]/g, '');
         var reqDatDf = {'DbType' : currentDbmsname, 'ConnStr' : tmpstr};
         sendRequestRecvResponse('POST', './api/odbcinfo/', reqDatDf, API_POST_ODBCINFO);
@@ -949,10 +952,6 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_ERROR) {
-        return;
-    }
-    if (actionType % 10 == 1 || actionType % 10 == 2) {
-        $('#adialog').dialog('close');
         return;
     }
 }
