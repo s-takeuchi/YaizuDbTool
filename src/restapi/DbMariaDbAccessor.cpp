@@ -70,12 +70,16 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return 0;
 	}
+	SQLTCHAR TmpColumnNameTmp[Global::COLUMNNAME_LENGTH * 2]; // For adaptation to the bug of MariaDB ODBC connector
+	SQLTCHAR TmpColumnTypeTmp[Global::COLUMNTYPE_LENGTH * 2]; // For adaptation to the bug of MariaDB ODBC connector
 	SQLTCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
 	SQLTCHAR TmpColumnType[Global::COLUMNTYPE_LENGTH];
 	SQLTCHAR ColTypeCnv[Global::COLUMNTYPE_LENGTH];
 	SQLTCHAR TmpIsNull[10];
-	SQLBindCol(Hstmt, 1, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), NULL);
-	SQLBindCol(Hstmt, 2, SQL_C_WCHAR, TmpColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), NULL);
+	SQLINTEGER ColumneNameLen = 0;
+	SQLINTEGER ColumneTypeLen = 0;
+	SQLBindCol(Hstmt, 1, SQL_C_WCHAR, TmpColumnNameTmp, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), &ColumneNameLen);
+	SQLBindCol(Hstmt, 2, SQL_C_WCHAR, TmpColumnTypeTmp, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), &ColumneTypeLen);
 	SQLBindCol(Hstmt, 4, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLTCHAR), NULL);
 
 	int Loop = 0;
@@ -86,6 +90,8 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 			return 0;
 		}
+		lstrcpyn(TmpColumnName, TmpColumnNameTmp, Global::COLUMNNAME_LENGTH); // For adaptation to the bug of MariaDB ODBC connector
+		lstrcpyn(TmpColumnType, TmpColumnTypeTmp, Global::COLUMNTYPE_LENGTH); // For adaptation to the bug of MariaDB ODBC connector
 		ConvertAttrType(TmpColumnType, ColTypeCnv);
 		StkObject* ClmObj = new StkObject(_T("ColumnInfo"));
 		ClmObj->AppendChildElement(new StkObject(_T("title"), TmpColumnName));
