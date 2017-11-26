@@ -432,9 +432,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 return;
             }
             if (currentTablename == "") {
-                showMessageDialog(getCliMsg(CLIMSG_LABEL_TABLEINFO), getCliMsg(CLIMSG_TABLEINFOSHOWN), actionType, 600, 270, 'img/table_image48c.png', 0);
-                $('#adialog-content').empty();
-                $('#adialog-content').append('<br>' + getCliMsg(TABLENOTEXIST) + '<br>');
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_TABLENOTEXIST), actionType, 550, 200, 'img/error_image48c.png', 0);
                 return;
             }
 
@@ -453,6 +451,10 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                         columnInfos.push(tableInfos[tableIndex].ColumnInfo);
                     }
                     break;
+                }
+                if (tableIndex == tableInfos.length - 1) {
+                    showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_TABLENOTEXIST), actionType, 550, 200, 'img/error_image48c.png', 0);
+                    return;
                 }
             }
 
