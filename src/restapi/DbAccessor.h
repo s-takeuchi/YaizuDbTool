@@ -36,11 +36,6 @@ public:
 	virtual SQLRETURN GetTables(StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT) = 0;
 
 	virtual int GetColumnInfoByTableName(SQLTCHAR*,	StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT) = 0;
-	virtual int GetColumnInfoByTableName(SQLTCHAR*, 
-		SQLTCHAR[Global::MAXNUM_COLUMNS][Global::COLUMNNAME_LENGTH],
-		SQLTCHAR[Global::MAXNUM_COLUMNS][Global::COLUMNTYPE_LENGTH],
-		SQLTCHAR[Global::MAXNUM_COLUMNS][10],
-		SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT) = 0;
 
 	virtual int GetRecordsByTableName(SQLTCHAR*, int,
 		SQLTCHAR*, int,
