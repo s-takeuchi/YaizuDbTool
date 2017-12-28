@@ -22,6 +22,7 @@ CmdFreakのREST APIは，以下の一覧に示すAPIをクライアント提供�
 <tr><td>GET /api/odbcinfo/</td><td>ODBCの情報を取得する。</td></tr>
 <tr><td>POST /api/odbcinfo/</td><td>ODBCの情報を設定する。</td></tr>
 <tr><td>GET /api/tableinfo/</td><td>テーブル情報を取得する。</td></tr>
+<tr><td>GET /api/records/</td><td>指定されたテーブルのレコードを取得する。</td></tr>
 </table>
 </div><p>
 
@@ -351,6 +352,56 @@ ODBCの情報を設定します。<br/>
 </table><br/>
 </li>
 </ul>
+</div><p>
+
+
+<H2 ID="2.9">2.9 Get /api/records/</H2>
+<div class="topic">
+指定されたテーブルのレコードを取得します。<br/>
+<ul>
+<li>リクエスト
+<pre>
+?query=tablename
+</pre>
+<table class="tblstyle">
+<tr><td>query</td><td>String</td><td>レコードの取得対象となるテーブル名。</td></tr>
+</table><br/>
+</li>
+<li>レスポンス
+<pre>
+{
+  "Code" : 1234,
+  "MsgEng" : "abc",
+  "MsgJpn" : "あいう",
+  "Data" : {
+    "Record" : [
+      {
+        "1" : "Aaa",
+        "2" : "Baa",
+        "3" : "Ccc"
+      },
+      {
+        "1" : "Xxx",
+        "2" : "Yyy",
+        "3" : "Zzz"
+      }
+    ]
+  }
+}
+</pre>
+<table class="tblstyle">
+<tr><td>Code</td><td>Integer</td><td>結果コード。
+0:成功(HTTPステータスコード=200), 
+3121:リクエストにテーブル名が含まれていない(HTTPステータスコード=400), 
+3122:指定したテーブルが存在しない(HTTPステータスコード=404)。
+</td></tr>
+<tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>Record</td><td>Element</td><td>レコードが存在しないとき，この要素は返却されない。</td></tr>
+<tr><td>n</td><td>String</td><td>n(n=1,2,3,...)番目のカラム値。</td></tr>
+</table><br/>
+</li></ul>
 </div><p>
 
 
