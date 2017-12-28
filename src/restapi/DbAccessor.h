@@ -23,6 +23,10 @@ protected:
 		SQLTCHAR*, int,
 		TCHAR[5][Global::COLUMNNAME_LENGTH * 4 + 2], int[5], TCHAR[5][Global::COLUMNVAL_LENGTH * 4 + 2],
 		SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
+	virtual int GetRecordsByTableNameCommon(SQLTCHAR*, int, StkObject* RecObj,
+		TCHAR[5][Global::COLUMNNAME_LENGTH * 4 + 2], int[5], TCHAR[5][Global::COLUMNVAL_LENGTH * 4 + 2],
+		SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
+
 
 public:
 	DbAccessor();

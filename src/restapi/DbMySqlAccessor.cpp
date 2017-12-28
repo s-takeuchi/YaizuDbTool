@@ -133,6 +133,11 @@ int DbMySqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName,
 	}
 
 	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, Record, NumOfRecords, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg, MsgLen);
+
+	StkObject* ResObj = new StkObject(_T("Sample"));
+	int NumOfRecs2 = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, ResObj, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg, MsgLen);
+	delete ResObj;
+
 	delete EcdTableName;
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
 	return NumOfRecs;

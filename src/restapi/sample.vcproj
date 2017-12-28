@@ -271,6 +271,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ApiGetRecord.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ApiGetRecord.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ApiGetSystem.cpp"
 				>
 			</File>

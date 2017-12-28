@@ -98,6 +98,95 @@ int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, SQLTCHAR StateMsg[10]
 }
 
 int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
+	int NumOfCols, StkObject* Obj,
+	TCHAR ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], TCHAR Value[5][Global::COLUMNVAL_LENGTH * 4 + 2],
+	SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+{
+	SQLINTEGER Native; // This will not be refered from anywhere
+	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
+	SQLRETURN Ret = 0;
+
+	BOOL FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
+
+	SQLTCHAR SqlBuf[1024];
+	_snwprintf_s(SqlBuf, 1024, _TRUNCATE, _T("select * from %s"), TableName);
+	BOOL FirstCond = TRUE;
+	if (FilterSwitch) {
+		for (int Loop = 1; Loop <= 5; Loop++) {
+			if (lstrcmp(ColumnNameCnv[Loop - 1], _T("\"*\"")) == 0 || lstrcmp(ColumnNameCnv[Loop - 1], _T("`*`")) == 0 || OpeType[Loop - 1] == 0) {
+				continue;
+			}
+			if (FirstCond == TRUE) {
+				lstrcat(SqlBuf, _T(" where "));
+				FirstCond = FALSE;
+			} else {
+				lstrcat(SqlBuf, _T(" and "));
+			}
+			lstrcat(SqlBuf, ColumnNameCnv[Loop - 1]);
+			switch (OpeType[Loop - 1]) {
+			case 1:  lstrcat(SqlBuf, _T(" = ")); break;
+			case 2:  lstrcat(SqlBuf, _T(" <> ")); break;
+			case 3:  lstrcat(SqlBuf, _T(" <= ")); break;
+			case 4:  lstrcat(SqlBuf, _T(" < ")); break;
+			case 5:  lstrcat(SqlBuf, _T(" >= ")); break;
+			case 6:  lstrcat(SqlBuf, _T(" > ")); break;
+			case 10: lstrcat(SqlBuf, _T(" like ")); break;
+			case 11: lstrcat(SqlBuf, _T(" not like ")); break;
+			case 20: lstrcat(SqlBuf, _T(" is null ")); break;
+			case 21: lstrcat(SqlBuf, _T(" is not null ")); break;
+			}
+			if (OpeType[Loop - 1] != 20 && OpeType[Loop - 1] != 21) {
+				lstrcat(SqlBuf, _T("'"));
+				if (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11) {
+					lstrcat(SqlBuf, _T("%"));
+				}
+				lstrcat(SqlBuf, Value[Loop - 1]);
+				if (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11) {
+					lstrcat(SqlBuf, _T("%"));
+				}
+				lstrcat(SqlBuf, _T("'"));
+			}
+		}
+	}
+	lstrcat(SqlBuf, _T(";"));
+	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
+	if (Ret != SQL_SUCCESS) {
+		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		return 0;
+	}
+
+	SQLTCHAR TmpRecord[Global::MAXNUM_COLUMNS][Global::COLUMNVAL_LENGTH];
+	SQLLEN ValLen[Global::MAXNUM_COLUMNS];
+	for (int LoopCol = 0; LoopCol < NumOfCols; LoopCol++) {
+		SQLBindCol(Hstmt, LoopCol + 1, SQL_C_WCHAR, TmpRecord[LoopCol], Global::COLUMNVAL_LENGTH * sizeof(SQLTCHAR), &ValLen[LoopCol]);
+	}
+	int LoopRec = 0;
+	for (;;) {
+		Ret = SQLFetch(Hstmt);
+		if (Ret == SQL_NO_DATA_FOUND) break;
+		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO) {
+			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+			return 0;
+		}
+		StkObject* RecObj = new StkObject(_T("Record"));
+		for (int LoopCol = 0; LoopCol < NumOfCols; LoopCol++) {
+			TCHAR IndStr[5];
+			_snwprintf_s(IndStr, 5, _TRUNCATE, _T("%d"), LoopCol + 1);
+			if (ValLen[LoopCol] == -1) {
+				RecObj->AppendChildElement(new StkObject(IndStr, _T("")));
+			} else {
+				RecObj->AppendChildElement(new StkObject(IndStr, TmpRecord[LoopCol]));
+			}
+		}
+		LoopRec++;
+		if (LoopRec >= Global::MAXNUM_RECORDS) {
+			break;
+		}
+	}
+	return LoopRec;
+}
+
+int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 	int NumOfCols,
 	SQLTCHAR* Record, int NumOfRecords,
 	TCHAR ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], TCHAR Value[5][Global::COLUMNVAL_LENGTH * 4 + 2],
