@@ -33,7 +33,7 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddEng(CMDFRK_REQ_NOT_SUFFICIENT, _T("The necessary parameter(s) is/are not contained in the request."));
 
 	//3122 (★)
-	MessageProc::AddJpn(CMDFRK_TABLE_NOT_EXIST, _T("指定したターブルが存在しません。"));
+	MessageProc::AddJpn(CMDFRK_TABLE_NOT_EXIST, _T("指定したテーブルが存在しません。"));
 	MessageProc::AddEng(CMDFRK_TABLE_NOT_EXIST, _T("The specified table does not exist."));
 
 	//3126 (NC6)
