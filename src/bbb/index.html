@@ -98,6 +98,7 @@ var ACTION_GETTABLEINFO    = 60;
 var ACTION_GETODBCCONNSTR  = 100;
 var ACTION_POSTODBCCONNSTR = 101;
 var ACTION_SHOWTABLEINFO   = 200;
+var ACTION_SHOWTABLE       = 500;
 var ACTION_INFO            = 600;
 var ACTION_ERROR           = 1200;
 
@@ -108,6 +109,7 @@ var API_GET_TABLEINFO           = 3;
 var API_GET_ODBCINFO_DEFAULT    = 4;
 var API_GET_ODBCINFO_CONFIGURED = 5;
 var API_POST_ODBCINFO           = 6;
+var API_GET_RECORDS             = 7;
 
 // underComm = 0 : No communication state, >= 1 : Communication state
 var underComm = 0;
@@ -343,10 +345,10 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             } else if (statusCode[API_GET_ODBCINFO_DEFAULT] == 400 || statusCode[API_GET_ODBCINFO_CONFIGURED] == 400) {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 if (statusCode[API_GET_ODBCINFO_DEFAULT] == 400) {
-                    $('#adialog-content').append(getCliMsg(responseData[API_GET_ODBCINFO_DEFAULT]));
+                    $('#adialog-content').append(getSvrMsg(responseData[API_GET_ODBCINFO_DEFAULT]));
                 }
                 if (statusCode[API_GET_ODBCINFO_CONFIGURED] == 400) {
-                    $('#adialog-content').append(getCliMsg(responseData[API_GET_ODBCINFO_CONFIGURED]));
+                    $('#adialog-content').append(getSvrMsg(responseData[API_GET_ODBCINFO_CONFIGURED]));
                 }
                 return;
             } else {
@@ -402,7 +404,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 // Nothing to do
             } else if (statusCode[API_POST_ODBCINFO] == 400) {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getCliMsg(responseData[API_POST_ODBCINFO]));
+                $('#adialog-content').append(getSvrMsg(responseData[API_POST_ODBCINFO]));
                 return;
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
@@ -466,6 +468,26 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 $('.tblstyle').append('<tr><td>' + columnInfos[ColLoop].title + '</td><td>' + columnInfos[ColLoop].coltype + '</td><td>' + columnInfos[ColLoop].isnull + '</td></tr>');
             }
             $('#adialog-content').append('</table>');
+            return;
+        }
+        //
+        //
+        if (actionType == ACTION_SHOWTABLE) {
+            if (statusCode[API_GET_TABLEINFO] == 200 && statusCode[API_GET_RECORDS] == 200) {
+                // Nothing to do
+            } else if (statusCode[API_GET_RECORDS] == 400) {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
+                $('#adialog-content').append(getSvrMsg(responseData[API_GET_RECORDS]));
+                return;
+            } else {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
+                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                return;
+            }
+            var obj = { title: currentTablename, editable: false };
+            $('#grid_array').pqGrid({colModel: responseData[API_GET_TABLEINFO].Data.TableInfo[0].ColumnInfo});
+            //obj.dataModel = { data: recordResponse.data, dataType: 'JSON', paging: 'local', rPPOptions:[100, 200, 400], rPP:100, curPage:1 };
+            $('#grid_array').pqGrid(obj);
             return;
         }
         //
@@ -761,6 +783,7 @@ function eventParamOpeChanged(selectObj) {
 }
 
 function showTable(tableName) {
+    onXxxAction(ACTION_SHOWTABLE);
     if (tableName != "") {
         var columnResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
         var recordResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
@@ -942,10 +965,16 @@ function onXxxAction(actionType) {
         showTable(currentTablename);
         return;
     }
+    if (actionType == ACTION_SHOWTABLE) {
+        sendRequestRecvResponse('GET', './api/tableinfo/', null, API_GET_TABLEINFO);
+        sendRequestRecvResponse('GET', './api/records/?query=' + currentTablename, null, API_GET_RECORDS);
+        showWaitingDialog(ACTION_SHOWTABLE, 0);
+        return;
+    }
     if (actionType == ACTION_INFO) {
         sendRequestRecvResponse('GET', './api/system/', null, API_GET_SYSTEM);
         sendRequestRecvResponse('GET', './api/logs/', null, API_GET_LOGS);
-        showWaitingDialog(actionType, 0);
+        showWaitingDialog(ACTION_INFO, 0);
         return;
     }
     if (actionType == 1100) {
