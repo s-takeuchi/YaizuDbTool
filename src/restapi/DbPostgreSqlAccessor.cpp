@@ -110,10 +110,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 	return Loop;
 }
 
-int DbPostgreSqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName,
-	int NumOfCols,
-	SQLTCHAR* Record, int NumOfRecords,
-	SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+int DbPostgreSqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, StkObject* DatObj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLRETURN Ret = 0;
 	TCHAR ConnStr[256];
@@ -141,11 +138,7 @@ int DbPostgreSqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName,
 		}
 	}
 
-	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, Record, NumOfRecords, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg, MsgLen);
-
-	StkObject* ResObj = new StkObject(_T("Sample"));
-	int NumOfRecs2 = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, ResObj, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg, MsgLen);
-	delete ResObj;
+	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg, MsgLen);
 
 	delete EcdTableName;
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);

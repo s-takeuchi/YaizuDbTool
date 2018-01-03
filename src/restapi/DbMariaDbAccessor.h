@@ -21,9 +21,7 @@ public:
 	virtual int GetNumOfRecords(SQLTCHAR*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
 	virtual SQLRETURN GetTables(StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
 	virtual int GetColumnInfoByTableName(SQLTCHAR*,	StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
-	virtual int GetRecordsByTableName(SQLTCHAR*, int,
-		SQLTCHAR*, int,
-		SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
+	virtual int GetRecordsByTableName(SQLTCHAR*, int, StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
 	virtual int ConvertAttrType(SQLTCHAR[Global::COLUMNTYPE_LENGTH], SQLTCHAR[Global::COLUMNTYPE_LENGTH]);
 	virtual void SqlEncoding(SQLTCHAR*, SQLTCHAR*, int);
 };

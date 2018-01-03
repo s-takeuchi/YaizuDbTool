@@ -41,9 +41,7 @@ public:
 
 	virtual int GetColumnInfoByTableName(SQLTCHAR*,	StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT) = 0;
 
-	virtual int GetRecordsByTableName(SQLTCHAR*, int,
-		SQLTCHAR*, int,
-		SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT) = 0;
+	virtual int GetRecordsByTableName(SQLTCHAR*, int, StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT) = 0;
 
 	virtual int ConvertAttrType(SQLTCHAR[Global::COLUMNTYPE_LENGTH], SQLTCHAR[Global::COLUMNTYPE_LENGTH]) = 0;
 
