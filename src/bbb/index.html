@@ -136,7 +136,7 @@ function refreshMainScreen()
     document.getElementById('mainarea').style.display='block';
     displayToolBar(0);
     initializeCurrentTablename();
-    showTable(currentTablename);
+    showTable();
 }
 
 function getCliMsg(msgCode) {
@@ -422,7 +422,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             displayToolBar(0);
             var testResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
             initializeCurrentTablename();
-            showTable(currentTablename);
+            showTable();
             return;
         }
         //
@@ -720,7 +720,7 @@ function refreshTableNameList() {
 function eventTableSelected() {
     var selectedTableName = $('#tableselector').val();
     currentTablename = selectedTableName;
-    showTable(currentTablename);
+    showTable();
 }
 
 function eventFilterOn(checkboxObj) {
@@ -729,12 +729,12 @@ function eventFilterOn(checkboxObj) {
         if (sendRequestToWebServer('filtersw_on', filterswResponse) != 0) {
             return;
         }
-        showTable(currentTablename);
+        showTable();
     } else {
         if (sendRequestToWebServer('filtersw_off', filterswResponse) != 0) {
             return;
         }
-        showTable(currentTablename);
+        showTable();
     }
 }
 
@@ -796,22 +796,8 @@ function eventParamOpeChanged(selectObj) {
     }
 }
 
-function showTable(tableName) {
+function showTable() {
     onXxxAction(ACTION_SHOWTABLE);
-    if (tableName != "") {
-        var columnResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-        var recordResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-        if (sendRequestToWebServer('get-columns&tablename=' + tableName, columnResponse) != 0) {
-            return;
-        }
-        if (sendRequestToWebServer('get-records&tablename=' + tableName, recordResponse) != 0) {
-            return;
-        }
-        var obj = { title: tableName, editable: false };
-        $('#grid_array').pqGrid({colModel: columnResponse.data});
-        obj.dataModel = { data: recordResponse.data, dataType: 'JSON', paging: 'local', rPPOptions:[100, 200, 400], rPP:100, curPage:1 };
-        $('#grid_array').pqGrid(obj);
-    }
 }
 
 function initializeCurrentTablename() {
@@ -969,14 +955,14 @@ function onXxxAction(actionType) {
                 return;
             }
         }
-        showTable(currentTablename);
+        showTable();
         $('#adialog').dialog('close');
         return;
     }
     if (actionType == 400) {
         displayToolBar(0);
         initializeCurrentTablename();
-        showTable(currentTablename);
+        showTable();
         return;
     }
     if (actionType == ACTION_SHOWTABLE) {
