@@ -11,6 +11,8 @@
 
 StkObject* ApiGetRecord::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
 {
+	PrintRequest(Method, UrlPath);
+
 	StkObject* ResObj = new StkObject(_T(""));
 
 	if (!StrStr(UrlPath, _T("?query="))) {

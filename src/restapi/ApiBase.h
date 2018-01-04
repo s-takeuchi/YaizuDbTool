@@ -5,4 +5,5 @@ class ApiBase : public StkWebAppExec
 {
 protected:
 	void AddCodeAndMsg(StkObject*, int, TCHAR*, TCHAR*);
+	void PrintRequest(int, TCHAR[128]);
 };
