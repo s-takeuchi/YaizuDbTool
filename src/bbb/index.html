@@ -49,6 +49,7 @@ var CLIMSG_WARNING                 = 2501;
 var CLIMSG_ERROR                   = 2502;
 var CLIMSG_FAITALERROR_OCCURRED    = 2510;
 var CLIMSG_UNEXPECTED_REQUEST      = 2511;
+var CLIMSG_SERVER_ERROR            = 2512;
 var CLIMSG_DBMSCONFAILURE          = 2520;
 var CLIMSG_COMMUNICATIONERROR      = 2530;
 
@@ -83,6 +84,7 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               {'code':CLIMSG_ERROR, 'en':'Error', 'ja':'エラー'},
               {'code':CLIMSG_FAITALERROR_OCCURRED, 'en':'A faital error occurred.', 'ja':'致命的エラーが発生しました。'},
               {'code':CLIMSG_UNEXPECTED_REQUEST, 'en':'CmdFreak service has received an unexpected request.', 'ja':'CmdFreakサービスは予期しない要求を受信しました。'},
+              {'code':CLIMSG_SERVER_ERROR, 'en':'An error occurred at server side.', 'ja':'サーバ側でエラーが発生しました。'},
               {'code':CLIMSG_DBMSCONFAILURE,
                   'en':'DBMS connection failed.<br>This may be caused by one of the following issues:<br>- The DBMS is not working properly.<br>- No ODBC driver is installed.<br>- The ODBC connection string is invalid.<br>- There are issues with the DBMS on the network.<br>',
                   'ja':'DBMSとの接続に失敗しました。<br>次の要因が考えられます。<br>- DBMSが適切に起動していない。<br>- ODBCドライバがインストールされていない。<br>- ODBCの接続文字列が不正。<br>- DBMSとの接続経路に何らかの問題がある。<br>'
@@ -343,7 +345,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             if (statusCode[API_GET_ODBCINFO_DEFAULT] == 200 && statusCode[API_GET_ODBCINFO_CONFIGURED] == 200) {
                 // Nothing to do
             } else if (statusCode[API_GET_ODBCINFO_DEFAULT] == 400 || statusCode[API_GET_ODBCINFO_CONFIGURED] == 400) {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 if (statusCode[API_GET_ODBCINFO_DEFAULT] == 400) {
                     $('#adialog-content').append(getSvrMsg(responseData[API_GET_ODBCINFO_DEFAULT]));
                 }
@@ -403,7 +405,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             if (statusCode[API_POST_ODBCINFO] == 200) {
                 // Nothing to do
             } else if (statusCode[API_POST_ODBCINFO] == 400) {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getSvrMsg(responseData[API_POST_ODBCINFO]));
                 return;
             } else {
@@ -476,7 +478,11 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             if (statusCode[API_GET_TABLEINFO] == 200 && statusCode[API_GET_RECORDS] == 200) {
                 // Nothing to do
             } else if (statusCode[API_GET_RECORDS] == 400) {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
+                $('#adialog-content').append(getSvrMsg(responseData[API_GET_RECORDS]));
+                return;
+            } else if (statusCode[API_GET_RECORDS] == 404) {
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_SERVER_ERROR), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getSvrMsg(responseData[API_GET_RECORDS]));
                 return;
             } else {
@@ -484,9 +490,17 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
                 return;
             }
+
+            var targetTable = {};
+            for (var loop = 0; responseData[API_GET_TABLEINFO].Data.TableInfo.length; loop++) {
+                if (responseData[API_GET_TABLEINFO].Data.TableInfo[loop].Name === currentTablename) {
+                    targetTable = responseData[API_GET_TABLEINFO].Data.TableInfo[loop];
+                    break;
+                }
+            }
             var obj = { title: currentTablename, editable: false };
-            $('#grid_array').pqGrid({colModel: responseData[API_GET_TABLEINFO].Data.TableInfo[0].ColumnInfo});
-            //obj.dataModel = { data: recordResponse.data, dataType: 'JSON', paging: 'local', rPPOptions:[100, 200, 400], rPP:100, curPage:1 };
+            $('#grid_array').pqGrid({colModel: targetTable.ColumnInfo});
+            obj.dataModel = { data: responseData[API_GET_RECORDS].Data.Record, dataType: 'JSON', paging: 'local', rPPOptions:[100, 200, 400], rPP:100, curPage:1 };
             $('#grid_array').pqGrid(obj);
             return;
         }

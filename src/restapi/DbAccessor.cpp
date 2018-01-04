@@ -171,7 +171,7 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 		StkObject* RecObj = new StkObject(_T("Record"));
 		for (int LoopCol = 0; LoopCol < NumOfCols; LoopCol++) {
 			TCHAR IndStr[5];
-			_snwprintf_s(IndStr, 5, _TRUNCATE, _T("%d"), LoopCol + 1);
+			_snwprintf_s(IndStr, 5, _TRUNCATE, _T("%d"), LoopCol);
 			if (ValLen[LoopCol] == -1) {
 				RecObj->AppendChildElement(new StkObject(IndStr, _T("")));
 			} else {
