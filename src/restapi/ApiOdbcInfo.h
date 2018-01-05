@@ -7,6 +7,6 @@ private:
 	StkObject* GetOdbcInfo(TCHAR[128], int*);
 	StkObject* PostOdbcInfo(StkObject*, int*);
 
-public:
-	StkObject* Execute(StkObject*, int, TCHAR[128], int*, TCHAR[3]);
+protected:
+	StkObject* ExecuteImpl(StkObject*, int, TCHAR[128], int*, TCHAR[3]);
 };

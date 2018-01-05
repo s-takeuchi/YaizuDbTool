@@ -4,10 +4,8 @@
 #include "DbAccessor.h"
 #include "OdbcManager.h"
 
-StkObject* ApiGetTableInfo::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
 {
-	PrintRequest(Method, UrlPath);
-
 	StkObject* ResObj = new StkObject(_T(""));
 	SQLTCHAR StateMsg[10];
 	SQLTCHAR Msg[1024];

@@ -9,7 +9,7 @@ void ApiBase::AddCodeAndMsg(StkObject* StkObj, int Code, TCHAR* MsgEng, TCHAR* M
 	StkObj->AppendChildElement(new StkObject(_T("MsgJpn"), MsgJpn));
 }
 
-void ApiBase::PrintRequest(int Method, TCHAR UrlPath[128])
+int ApiBase::PrintRequest(int Method, TCHAR UrlPath[128])
 {
 	TCHAR StrMethod[32];
 	switch (Method) {
@@ -28,5 +28,34 @@ void ApiBase::PrintRequest(int Method, TCHAR UrlPath[128])
 	default:
 		lstrcpy(StrMethod, _T("Invalid")); break;
 	}
-	wprintf(_T("%s %s\r\n"), StrMethod, UrlPath);
+	static int SeqNum = 0;
+	wprintf(_T("%s %s   [Seq#=%06d]\r\n"), StrMethod, UrlPath, SeqNum);
+	return SeqNum++;
+}
+
+void ApiBase::PrintResponse(int ResultCode, int SeqNum)
+{
+	wprintf(_T("%d   [Seq#=%06d]\r\n"), ResultCode, SeqNum++);
+}
+
+StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+{
+	static CRITICAL_SECTION CritSect;
+	static BOOL InitFlag = TRUE;
+	if (InitFlag == TRUE) {
+		InitFlag = FALSE;
+		InitializeCriticalSection(&CritSect);
+	}
+
+	EnterCriticalSection(&CritSect);
+	int SeqNum = PrintRequest(Method, UrlPath);
+	LeaveCriticalSection(&CritSect);
+
+	StkObject* RetObj = ExecuteImpl(ReqObj, Method, UrlPath, ResultCode, Locale);
+
+	EnterCriticalSection(&CritSect);
+	PrintResponse(*ResultCode, SeqNum);
+	LeaveCriticalSection(&CritSect);
+
+	return RetObj;
 }

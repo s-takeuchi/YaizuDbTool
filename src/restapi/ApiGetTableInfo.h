@@ -3,5 +3,6 @@
 
 class ApiGetTableInfo : public ApiBase
 {
-	StkObject* Execute(StkObject*, int, TCHAR[128], int*, TCHAR[3]);
+protected:
+	StkObject* ExecuteImpl(StkObject*, int, TCHAR[128], int*, TCHAR[3]);
 };

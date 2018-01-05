@@ -148,10 +148,8 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode)
 	return ResObj;
 }
 
-StkObject* ApiOdbcInfo::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiOdbcInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
 {
-	PrintRequest(Method, UrlPath);
-
 	if (Method & STKWEBAPP_METHOD_GET) {
 		return GetOdbcInfo(UrlPath, ResultCode);
 	} else
