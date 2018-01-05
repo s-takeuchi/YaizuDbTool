@@ -126,7 +126,7 @@ window.onload = function() {
 
     onXxxAction(ACTION_LAUNCH);
 
-    refreshMainScreen();
+    //refreshMainScreen();
 }
 
 function refreshMainScreen()
@@ -491,15 +491,8 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 return;
             }
 
-            var targetTable = {};
-            for (var loop = 0; responseData[API_GET_TABLEINFO].Data.TableInfo.length; loop++) {
-                if (responseData[API_GET_TABLEINFO].Data.TableInfo[loop].Name === currentTablename) {
-                    targetTable = responseData[API_GET_TABLEINFO].Data.TableInfo[loop];
-                    break;
-                }
-            }
             var obj = { title: currentTablename, editable: false };
-            $('#grid_array').pqGrid({colModel: targetTable.ColumnInfo});
+            $('#grid_array').pqGrid({colModel: responseData[API_GET_TABLEINFO].Data.TableInfo.ColumnInfo});
             obj.dataModel = { data: responseData[API_GET_RECORDS].Data.Record, dataType: 'JSON', paging: 'local', rPPOptions:[100, 200, 400], rPP:100, curPage:1 };
             $('#grid_array').pqGrid(obj);
             return;
@@ -841,7 +834,7 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_SHOWTABLEINFO) {
-        sendRequestRecvResponse('GET', './api/tableinfo/', null, API_GET_TABLEINFO);
+        sendRequestRecvResponse('GET', './api/tableinfo/?query=' + currentTablename, null, API_GET_TABLEINFO);
         showWaitingDialog(ACTION_SHOWTABLEINFO, 0);
         return;
     }
@@ -966,7 +959,7 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_SHOWTABLE) {
-        sendRequestRecvResponse('GET', './api/tableinfo/', null, API_GET_TABLEINFO);
+        sendRequestRecvResponse('GET', './api/tableinfo/?query=' + currentTablename, null, API_GET_TABLEINFO);
         sendRequestRecvResponse('GET', './api/records/?query=' + currentTablename, null, API_GET_RECORDS);
         showWaitingDialog(ACTION_SHOWTABLE, 0);
         return;
