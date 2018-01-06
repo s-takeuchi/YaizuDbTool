@@ -18,7 +18,6 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR Url
 	SQLTCHAR StateMsg[10];
 	SQLTCHAR Msg[1024];
 
-	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
 	StkObject* DatObj = new StkObject(_T("Data"));
 
 	TCHAR ConnStr[256];
@@ -27,8 +26,8 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR Url
 	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 	Da->GetTables(DatObj, StateMsg, Msg, 1024);
 
-	// If ?query=TableName is specified...
 	if (lstrcmp(TableName, _T("")) != 0) {
+		// If ?query=TableName is specified...
 		StkObject* SearchTgtObj = new StkObject(_T("Name"), TableName);
 		if (DatObj->Contains(SearchTgtObj)) {
 			StkObject* TblInfObj = new StkObject(_T("TableInfo"));
@@ -38,30 +37,24 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR Url
 			DatObj2->AppendChildElement(TblInfObj);
 
 			Da->GetColumnInfoByTableName(TableName, TblInfObj, StateMsg, Msg, 1024);
+
+			*ResultCode = 200;
+			AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
 			ResObj->AppendChildElement(DatObj2);
 		} else {
+			// The specified table is not found.
+			*ResultCode = 200;
+			AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
 			delete SearchTgtObj;
 		}
 		delete DatObj;
 	} else {
-		StkObject* TblObj = DatObj->GetFirstChildElement();
-		while (TblObj) {
-			if (lstrcmp(TblObj->GetName(), _T("TableInfo")) == 0) {
-				StkObject* TblNameObj = TblObj->GetFirstChildElement();
-				while (TblNameObj) {
-					if (lstrcmp(TblNameObj->GetName(), _T("Name")) == 0) {
-						Da->GetColumnInfoByTableName(TblNameObj->GetStringValue(), TblObj, StateMsg, Msg, 1024);
-					}
-					TblNameObj = TblNameObj->GetNext();
-				}
-			};
-			TblObj = TblObj->GetNext();
-		}
+		// If ?query=TableName is not specified...
+		*ResultCode = 200;
+		AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
 		ResObj->AppendChildElement(DatObj);
 	}
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);
-
-	*ResultCode = 200;
 
 	return ResObj;
 }
