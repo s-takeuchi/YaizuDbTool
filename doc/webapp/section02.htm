@@ -23,6 +23,8 @@ CmdFreakのREST APIは，以下の一覧に示すAPIをクライアント提供�
 <tr><td>POST /api/odbcinfo/</td><td>ODBCの情報を設定する。</td></tr>
 <tr><td>GET /api/tableinfo/</td><td>テーブル情報を取得する。</td></tr>
 <tr><td>GET /api/records/</td><td>指定されたテーブルのレコードを取得する。</td></tr>
+<tr><td>GET /api/filterinfo/</td><td>フィルタ情報を取得する。</td></tr>
+<tr><td>POST /api/filterinfo/</td><td>フィルタ情報を設定する。</td></tr>
 </table>
 </div><p>
 
@@ -213,11 +215,9 @@ ODBCの情報を取得します。<br/>
   "MsgJpn" : "あいう",
   "Data" : {
     "OdbcInfo" : {
-      {
-        "DbType" : "PostgreSQL",
-        "ConnStr" : "xxx",
-        "Status" : "connectable"
-      }
+      "DbType" : "PostgreSQL",
+      "ConnStr" : "xxx",
+      "Status" : "connectable"
     }
   }
 }
@@ -261,9 +261,7 @@ ODBCの情報を設定します。<br/>
   "MsgJpn" : "あいう",
   "Data" : {
     "OdbcInfo" : {
-      {
-        "Status" : "connectable"
-      }
+      "Status" : "connectable"
     }
   }
 }
@@ -321,7 +319,7 @@ ODBCの情報を設定します。<br/>
 }
 </pre>
 <pre>
-<b><u>&lt;query=aaa&gt;</u></b>
+<b><u>&lt;query指定あり&gt;</u></b>
 {
   "Code" : 1234,
   "MsgEng" : "abc",
@@ -358,7 +356,7 @@ ODBCの情報を設定します。<br/>
 <tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
 <tr><td>TableInfo</td><td>Element</td><td>テーブル情報が存在しないとき，この要素は返却されない。</td></tr>
 <tr><td>Name</td><td>String</td><td>テーブル名称。</td></tr>
-<tr><td>ColumnInfo</td><td>Element</td><td>queryで特定のテーブルを指定していないとき，またはカラム情報が存在しないとき，この要素は返却されない。</td></tr>
+<tr><td>ColumnInfo</td><td>Element</td><td>queryでテーブルを指定していないとき，またはカラム情報が存在しないとき，この要素は返却されない。</td></tr>
 <tr><td>title</td><td>String</td><td>カラム名</td></tr>
 <tr><td>width</td><td>Integer</td><td>pqgrid用表示幅</td></tr>
 <tr><td>datatype</td><td>String</td><td>pqgrid用データ種別</td></tr>
@@ -417,7 +415,33 @@ ODBCの情報を設定します。<br/>
 <tr><td>Record</td><td>Element</td><td>レコードが存在しないとき，この要素は返却されない。</td></tr>
 <tr><td>n</td><td>String</td><td>n(n=0,1,2,...)番目のカラム値。</td></tr>
 </table><br/>
-</li></ul>
+</li>
+</ul>
+</div><p>
+
+
+<H2 ID="2.10">2.10 Get /api/filterinfo/</H2>
+<div class="topic">
+フィルタ情報を取得します。<br/>
+<ul>
+<li>リクエスト
+<p>なし</p>
+</li>
+<li>レスポンス
+</li>
+</ul>
+</div><p>
+
+
+<H2 ID="2.11">2.11 Post /api/filterinfo/</H2>
+<div class="topic">
+フィルタ情報を設定します。<br/>
+<ul>
+<li>リクエスト
+</li>
+<li>レスポンス
+</li>
+</ul>
 </div><p>
 
 

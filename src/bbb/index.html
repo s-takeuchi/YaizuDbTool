@@ -100,6 +100,8 @@ var ACTION_GETTABLEINFO    = 60;
 var ACTION_GETODBCCONNSTR  = 100;
 var ACTION_POSTODBCCONNSTR = 101;
 var ACTION_SHOWTABLEINFO   = 200;
+var ACTION_GETFILTERINFO   = 300;
+var ACTION_POSTFILTERINFO  = 301;
 var ACTION_REFRESH         = 400;
 var ACTION_SHOWTABLE       = 500;
 var ACTION_INFO            = 600;
@@ -211,7 +213,7 @@ function showTableWithToolBar() {
         ['mainarea', 'img/table_image32s.png', 'img/table_image32c.png', getCliMsg(CLIMSG_LABEL_TABLEINFO), ACTION_SHOWTABLEINFO],
         ['mainarea', 'img/refresh_image32s.png', 'img/refresh_image32c.png', getCliMsg(CLIMSG_LABEL_REFRSHTABLE), ACTION_REFRESH],
         ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
-        ['mainarea', 'img/filter_image32s.png', 'img/filter_image32c.png', getCliMsg(CLIMSG_LABEL_FILTERING), 300],
+        ['mainarea', 'img/filter_image32s.png', 'img/filter_image32c.png', getCliMsg(CLIMSG_LABEL_FILTERING), ACTION_GETFILTERINFO],
         ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
         ['mainarea', 'img/info_image32s.png', 'img/info_image32c.png', getCliMsg(CLIMSG_LABEL_INFORMATION), ACTION_INFO]
     ];
@@ -342,7 +344,9 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             }
 
             initializeCurrentTablename();
-            showTable();
+            if (currentTablename !== "") {
+                showTable();
+            }
 
             return;
         }
@@ -834,7 +838,7 @@ function onXxxAction(actionType) {
         showWaitingDialog(ACTION_SHOWTABLEINFO, 0);
         return;
     }
-    if (actionType == 300) {
+    if (actionType == ACTION_GETFILTERINFO) {
         if (currentTablename == "") {
             showMessageDialog('フィルタリング', 'ここではフィルタリングの設定を行うことができます。<br>指定した条件でレコード情報がフィルタリングされます。<br>フィルタリング項目は最大5件を指定することができます。<br>各フィルタリング項目間は論理積[AND]で結合されます。', actionType, 600, 270, 'img/filter_image48c.png', 0);
             $('#adialog-content').empty();
@@ -912,7 +916,7 @@ function onXxxAction(actionType) {
         }
         return;
     }
-    if (actionType == 301) {
+    if (actionType == ACTION_POSTFILTERINFO) {
         if (currentTablename == "") {
             $('#adialog').dialog('close');
             return;
