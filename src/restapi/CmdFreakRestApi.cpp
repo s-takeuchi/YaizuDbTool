@@ -96,6 +96,7 @@ int main(int Argc, char* Argv[])
 		printf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CONF_NOT_FOUND));
 		return -1;
 	}
+	printf("\r\n", Port);
 
 	// DataAccess instance
 	DataAccess* DatAc = DataAccess::GetInstance();

@@ -9,6 +9,14 @@ void ApiBase::AddCodeAndMsg(StkObject* StkObj, int Code, TCHAR* MsgEng, TCHAR* M
 	StkObj->AppendChildElement(new StkObject(_T("MsgJpn"), MsgJpn));
 }
 
+void ApiBase::GetLocalTimeWStr(TCHAR LocalTimeStr[32])
+{
+	SYSTEMTIME Systime;
+	GetLocalTime(&Systime);
+	TCHAR *Mon[] = {_T("Jan"), _T("Feb"), _T("Mar"), _T("Apr"), _T("May"), _T("Jun"), _T("Jul"), _T("Aug"), _T("Sep"), _T("Oct"), _T("Nov"), _T("Dec")};
+	wsprintf(LocalTimeStr, _T("%s %d %d %02d:%02d:%02d.%03d"), Mon[Systime.wMonth - 1], Systime.wDay, Systime.wYear, Systime.wHour, Systime.wMinute, Systime.wSecond, Systime.wMilliseconds);
+}
+
 int ApiBase::PrintRequest(int Method, TCHAR UrlPath[128])
 {
 	TCHAR StrMethod[32];
@@ -28,14 +36,18 @@ int ApiBase::PrintRequest(int Method, TCHAR UrlPath[128])
 	default:
 		lstrcpy(StrMethod, _T("Invalid")); break;
 	}
+	TCHAR LocalTimeStr[32];
+	GetLocalTimeWStr(LocalTimeStr);
 	static int SeqNum = 0;
-	wprintf(_T("%s %s   [Seq#=%06d]\r\n"), StrMethod, UrlPath, SeqNum);
+	wprintf(_T("%s   %s %s   [Seq#=%06d]\r\n"), LocalTimeStr, StrMethod, UrlPath, SeqNum);
 	return SeqNum++;
 }
 
 void ApiBase::PrintResponse(int ResultCode, int SeqNum)
 {
-	wprintf(_T("%d   [Seq#=%06d]\r\n"), ResultCode, SeqNum++);
+	TCHAR LocalTimeStr[32];
+	GetLocalTimeWStr(LocalTimeStr);
+	wprintf(_T("%s   %d   [Seq#=%06d]\r\n"), LocalTimeStr, ResultCode, SeqNum++);
 }
 
 StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
