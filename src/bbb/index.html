@@ -126,7 +126,11 @@ window.onload = function() {
 
     onXxxAction(ACTION_LAUNCH);
 
-    //refreshMainScreen();
+    // Steps below is required in case no connection with server is established.
+    // If following steps are not presented, a connection error dialog is displayed on the layout broken page.
+    displaySheet();
+    boxResize();
+    document.getElementById('mainarea').style.display='block';
 }
 
 function refreshMainScreen()
@@ -134,9 +138,7 @@ function refreshMainScreen()
     displaySheet();
     boxResize();
     document.getElementById('mainarea').style.display='block';
-    displayToolBar(0);
-    initializeCurrentTablename();
-    showTable();
+    showTableWithToolBar();
 }
 
 function getCliMsg(msgCode) {
@@ -199,7 +201,7 @@ function getshowWidth() {
         return document.body.clientWidth;
 }
 
-function displayToolBar(type) {
+function showTableWithToolBar() {
     $('#mainarea').empty();
     var buttons = [
         ['mainarea', 'img/config_image32s.png', 'img/config_image32c.png', getCliMsg(CLIMSG_LABEL_ODBCCONNECTION), ACTION_GETODBCCONNSTR],
@@ -337,6 +339,9 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 $('#tableselector').append('<option value="' + tn + '" ' + seld + '>' + tn + '</option>');
             }
 
+            initializeCurrentTablename();
+            showTable();
+
             return;
         }
         //
@@ -419,10 +424,8 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             currentTablename = "";
             displaySheet();
             boxResize();
-            displayToolBar(0);
-            var testResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-            initializeCurrentTablename();
-            showTable();
+            showTableWithToolBar();
+
             return;
         }
         //
@@ -953,9 +956,7 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == 400) {
-        displayToolBar(0);
-        initializeCurrentTablename();
-        showTable();
+        showTableWithToolBar();
         return;
     }
     if (actionType == ACTION_SHOWTABLE) {
