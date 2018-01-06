@@ -1,5 +1,6 @@
 #include <tchar.h>
 #include <shlwapi.h>
+#include "MyMsgProc.h"
 #include "ApiGetTableInfo.h"
 #include "dataaccess.h"
 #include "DbAccessor.h"
@@ -43,8 +44,8 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR Url
 			ResObj->AppendChildElement(DatObj2);
 		} else {
 			// The specified table is not found.
-			*ResultCode = 200;
-			AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
+			*ResultCode = 404;
+			AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_TABLE_NOT_EXIST, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_TABLE_NOT_EXIST),  MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_TABLE_NOT_EXIST));
 			delete SearchTgtObj;
 		}
 		delete DatObj;

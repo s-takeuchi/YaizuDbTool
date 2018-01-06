@@ -100,6 +100,7 @@ var ACTION_GETTABLEINFO    = 60;
 var ACTION_GETODBCCONNSTR  = 100;
 var ACTION_POSTODBCCONNSTR = 101;
 var ACTION_SHOWTABLEINFO   = 200;
+var ACTION_REFRESH         = 400;
 var ACTION_SHOWTABLE       = 500;
 var ACTION_INFO            = 600;
 var ACTION_ERROR           = 1200;
@@ -108,10 +109,11 @@ var API_GET_LANGUAGE            = 0;
 var API_GET_SYSTEM              = 1;
 var API_GET_LOGS                = 2;
 var API_GET_TABLEINFO           = 3;
-var API_GET_ODBCINFO_DEFAULT    = 4;
-var API_GET_ODBCINFO_CONFIGURED = 5;
-var API_POST_ODBCINFO           = 6;
-var API_GET_RECORDS             = 7;
+var API_GET_TABLEINFO_WITH_COL  = 4;
+var API_GET_ODBCINFO_DEFAULT    = 5;
+var API_GET_ODBCINFO_CONFIGURED = 6;
+var API_POST_ODBCINFO           = 7;
+var API_GET_RECORDS             = 8;
 
 // underComm = 0 : No communication state, >= 1 : Communication state
 var underComm = 0;
@@ -207,7 +209,7 @@ function showTableWithToolBar() {
         ['mainarea', 'img/config_image32s.png', 'img/config_image32c.png', getCliMsg(CLIMSG_LABEL_ODBCCONNECTION), ACTION_GETODBCCONNSTR],
         ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
         ['mainarea', 'img/table_image32s.png', 'img/table_image32c.png', getCliMsg(CLIMSG_LABEL_TABLEINFO), ACTION_SHOWTABLEINFO],
-        ['mainarea', 'img/refresh_image32s.png', 'img/refresh_image32c.png', getCliMsg(CLIMSG_LABEL_REFRSHTABLE), 400],
+        ['mainarea', 'img/refresh_image32s.png', 'img/refresh_image32c.png', getCliMsg(CLIMSG_LABEL_REFRSHTABLE), ACTION_REFRESH],
         ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
         ['mainarea', 'img/filter_image32s.png', 'img/filter_image32c.png', getCliMsg(CLIMSG_LABEL_FILTERING), 300],
         ['mainarea', 'img/sep32.png', 'img/sep32.png', '', -1],
@@ -431,7 +433,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         //
         if (actionType == ACTION_SHOWTABLEINFO) {
-            if (statusCode[API_GET_TABLEINFO] == 200) {
+            if (statusCode[API_GET_TABLEINFO_WITH_COL] == 200) {
                 // Nothing to do
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
@@ -443,26 +445,17 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 return;
             }
 
-            var tableInfos = [];
-            if (responseData[API_GET_TABLEINFO].Data.TableInfo instanceof Array) {
-                tableInfos = responseData[API_GET_TABLEINFO].Data.TableInfo;
-            } else if (responseData[API_GET_TABLEINFO].Data.TableInfo) {
-                tableInfos.push(responseData[API_GET_TABLEINFO].Data.TableInfo);
-            }
+            var tableInfo = responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo;
             var columnInfos = [];
-            for (var tableIndex = 0; tableIndex < tableInfos.length; tableIndex++) {
-                if (tableInfos[tableIndex].Name === currentTablename) {
-                    if (tableInfos[tableIndex].ColumnInfo instanceof Array) {
-                        columnInfos = tableInfos[tableIndex].ColumnInfo;
-                    } else if (tableInfos[tableIndex].ColumnInfo) {
-                        columnInfos.push(tableInfos[tableIndex].ColumnInfo);
-                    }
-                    break;
+            if (tableInfo.Name === currentTablename) {
+                if (tableInfo.ColumnInfo instanceof Array) {
+                    columnInfos = tableInfo.ColumnInfo;
+                } else if (tableInfo.ColumnInfo) {
+                    columnInfos.push(tableInfo.ColumnInfo);
                 }
-                if (tableIndex == tableInfos.length - 1) {
-                    showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_TABLENOTEXIST), actionType, 550, 200, 'img/error_image48c.png', 0);
-                    return;
-                }
+            } else {
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_TABLENOTEXIST), actionType, 550, 200, 'img/error_image48c.png', 0);
+                return;
             }
 
             showMessageDialog(getCliMsg(CLIMSG_LABEL_TABLEINFO), getCliMsg(CLIMSG_TABLEINFOSHOWN), actionType, 600, 440, 'img/table_image48c.png', 0);
@@ -478,7 +471,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         //
         if (actionType == ACTION_SHOWTABLE) {
-            if (statusCode[API_GET_TABLEINFO] == 200 && statusCode[API_GET_RECORDS] == 200) {
+            if (statusCode[API_GET_TABLEINFO_WITH_COL] == 200 && statusCode[API_GET_RECORDS] == 200) {
                 // Nothing to do
             } else if (statusCode[API_GET_RECORDS] == 400) {
                 showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
@@ -495,7 +488,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             }
 
             var obj = { title: currentTablename, editable: false };
-            $('#grid_array').pqGrid({colModel: responseData[API_GET_TABLEINFO].Data.TableInfo.ColumnInfo});
+            $('#grid_array').pqGrid({colModel: responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo});
             obj.dataModel = { data: responseData[API_GET_RECORDS].Data.Record, dataType: 'JSON', paging: 'local', rPPOptions:[100, 200, 400], rPP:100, curPage:1 };
             $('#grid_array').pqGrid(obj);
             return;
@@ -837,7 +830,7 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_SHOWTABLEINFO) {
-        sendRequestRecvResponse('GET', './api/tableinfo/?query=' + currentTablename, null, API_GET_TABLEINFO);
+        sendRequestRecvResponse('GET', './api/tableinfo/?query=' + currentTablename, null, API_GET_TABLEINFO_WITH_COL);
         showWaitingDialog(ACTION_SHOWTABLEINFO, 0);
         return;
     }
@@ -955,12 +948,12 @@ function onXxxAction(actionType) {
         $('#adialog').dialog('close');
         return;
     }
-    if (actionType == 400) {
+    if (actionType == ACTION_REFRESH) {
         showTableWithToolBar();
         return;
     }
     if (actionType == ACTION_SHOWTABLE) {
-        sendRequestRecvResponse('GET', './api/tableinfo/?query=' + currentTablename, null, API_GET_TABLEINFO);
+        sendRequestRecvResponse('GET', './api/tableinfo/?query=' + currentTablename, null, API_GET_TABLEINFO_WITH_COL);
         sendRequestRecvResponse('GET', './api/records/?query=' + currentTablename, null, API_GET_RECORDS);
         showWaitingDialog(ACTION_SHOWTABLE, 0);
         return;

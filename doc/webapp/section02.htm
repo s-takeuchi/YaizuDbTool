@@ -352,7 +352,7 @@ ODBCの情報を設定します。<br/>
 }
 </pre>
 <table class="tblstyle">
-<tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200)。</td></tr>
+<tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200), 3122:指定したテーブルが存在しない(HTTPステータスコード=404)。</td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
@@ -408,7 +408,7 @@ ODBCの情報を設定します。<br/>
 <table class="tblstyle">
 <tr><td>Code</td><td>Integer</td><td>結果コード。
 0:成功(HTTPステータスコード=200), 
-3121:リクエストにテーブル名が含まれていない(HTTPステータスコード=400), 
+3121:リクエストに?query=が含まれていない(HTTPステータスコード=400), 
 3122:指定したテーブルが存在しない(HTTPステータスコード=404)。
 </td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
