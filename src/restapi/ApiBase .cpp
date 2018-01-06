@@ -17,7 +17,7 @@ void ApiBase::GetLocalTimeWStr(TCHAR LocalTimeStr[32])
 	wsprintf(LocalTimeStr, _T("%s %d %d %02d:%02d:%02d.%03d"), Mon[Systime.wMonth - 1], Systime.wDay, Systime.wYear, Systime.wHour, Systime.wMinute, Systime.wSecond, Systime.wMilliseconds);
 }
 
-int ApiBase::PrintRequest(int Method, TCHAR UrlPath[128])
+void ApiBase::PrintRequest(int Method, TCHAR UrlPath[128])
 {
 	TCHAR StrMethod[32];
 	switch (Method) {
@@ -38,36 +38,25 @@ int ApiBase::PrintRequest(int Method, TCHAR UrlPath[128])
 	}
 	TCHAR LocalTimeStr[32];
 	GetLocalTimeWStr(LocalTimeStr);
-	static int SeqNum = 0;
-	wprintf(_T("%s   %s %s   [Seq#=%06d]\r\n"), LocalTimeStr, StrMethod, UrlPath, SeqNum);
-	return SeqNum++;
+	DWORD ThId = GetCurrentThreadId();
+	wprintf(_T("%s  [%06x]  %s %s\r\n"), LocalTimeStr, ThId, StrMethod, UrlPath);
 }
 
-void ApiBase::PrintResponse(int ResultCode, int SeqNum)
+void ApiBase::PrintResponse(int ResultCode)
 {
 	TCHAR LocalTimeStr[32];
 	GetLocalTimeWStr(LocalTimeStr);
-	wprintf(_T("%s   %d   [Seq#=%06d]\r\n"), LocalTimeStr, ResultCode, SeqNum++);
+	DWORD ThId = GetCurrentThreadId();
+	wprintf(_T("%s  [%06x]  %d\r\n"), LocalTimeStr, ThId, ResultCode);
 }
 
 StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
 {
-	static CRITICAL_SECTION CritSect;
-	static BOOL InitFlag = TRUE;
-	if (InitFlag == TRUE) {
-		InitFlag = FALSE;
-		InitializeCriticalSection(&CritSect);
-	}
-
-	EnterCriticalSection(&CritSect);
-	int SeqNum = PrintRequest(Method, UrlPath);
-	LeaveCriticalSection(&CritSect);
+	PrintRequest(Method, UrlPath);
 
 	StkObject* RetObj = ExecuteImpl(ReqObj, Method, UrlPath, ResultCode, Locale);
 
-	EnterCriticalSection(&CritSect);
-	PrintResponse(*ResultCode, SeqNum);
-	LeaveCriticalSection(&CritSect);
+	PrintResponse(*ResultCode);
 
 	return RetObj;
 }

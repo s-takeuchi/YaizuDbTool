@@ -6,8 +6,8 @@ class ApiBase : public StkWebAppExec
 protected:
 	void AddCodeAndMsg(StkObject*, int, TCHAR*, TCHAR*);
 	void ApiBase::GetLocalTimeWStr(TCHAR[32]);
-	int PrintRequest(int, TCHAR[128]);
-	void PrintResponse(int, int);
+	void PrintRequest(int, TCHAR[128]);
+	void PrintResponse(int);
 	virtual StkObject* ExecuteImpl(StkObject*, int, TCHAR[128], int*, TCHAR[3]) = 0;
 
 public:
