@@ -28,8 +28,11 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR Url
 	Da->GetTables(DatObj, StateMsg, Msg, 1024);
 
 	if (lstrcmp(TableName, _T("")) != 0) {
+		TCHAR TableNameAc[256];
+		DecodeURL(TableName, TableNameAc);
+
 		// If ?query=TableName is specified...
-		StkObject* SearchTgtObj = new StkObject(_T("Name"), TableName);
+		StkObject* SearchTgtObj = new StkObject(_T("Name"), TableNameAc);
 		if (DatObj->Contains(SearchTgtObj)) {
 			StkObject* TblInfObj = new StkObject(_T("TableInfo"));
 			TblInfObj->AppendChildElement(SearchTgtObj);
@@ -37,7 +40,7 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR Url
 			StkObject* DatObj2 = new StkObject(_T("Data"));
 			DatObj2->AppendChildElement(TblInfObj);
 
-			Da->GetColumnInfoByTableName(TableName, TblInfObj, StateMsg, Msg, 1024);
+			Da->GetColumnInfoByTableName(TableNameAc, TblInfObj, StateMsg, Msg, 1024);
 
 			*ResultCode = 200;
 			AddCodeAndMsg(ResObj, 0, _T(""), _T(""));

@@ -50,6 +50,46 @@ void ApiBase::PrintResponse(int ResultCode)
 	wprintf(_T("%s  [%06x]  %d\r\n"), LocalTimeStr, ThId, ResultCode);
 }
 
+void ApiBase::DecodeURL(TCHAR UrlIn[128], TCHAR UrlOut[128])
+{
+	char TmpUrlBc[128] = "";
+	BYTE TmpUrlAc[128];
+	sprintf_s(TmpUrlBc, 128, "%S", UrlIn);
+	int TmpUrlBcLen = strlen(TmpUrlBc);
+	int AcIndex = 0;
+	for (int BcIndex = 0; BcIndex < TmpUrlBcLen; BcIndex++) {
+		if (TmpUrlBc[BcIndex] == '%' && BcIndex + 2 < TmpUrlBcLen) {
+			char Val = 0;
+			if (TmpUrlBc[BcIndex + 1] >= '0' && TmpUrlBc[BcIndex + 1] <= '9') {
+				Val += (TmpUrlBc[BcIndex + 1] - '0') * 16;
+			}
+			if (TmpUrlBc[BcIndex + 1] >= 'a' && TmpUrlBc[BcIndex + 1] <= 'f') {
+				Val += (TmpUrlBc[BcIndex + 1] - 'a' + 10) * 16;
+			}
+			if (TmpUrlBc[BcIndex + 1] >= 'A' && TmpUrlBc[BcIndex + 1] <= 'F') {
+				Val += (TmpUrlBc[BcIndex + 1] - 'A' + 10) * 16;
+			}
+			if (TmpUrlBc[BcIndex + 2] >= '0' && TmpUrlBc[BcIndex + 2] <= '9') {
+				Val += (TmpUrlBc[BcIndex + 2] - '0');
+			}
+			if (TmpUrlBc[BcIndex + 2] >= 'a' && TmpUrlBc[BcIndex + 2] <= 'f') {
+				Val += (TmpUrlBc[BcIndex + 2] - 'a' + 10);
+			}
+			if (TmpUrlBc[BcIndex + 2] >= 'A' && TmpUrlBc[BcIndex + 2] <= 'E') {
+				Val += (TmpUrlBc[BcIndex + 2] - 'A' + 10);
+			}
+			TmpUrlAc[AcIndex] = Val;
+			BcIndex += 2;
+		} else {
+			TmpUrlAc[AcIndex] = TmpUrlBc[BcIndex];
+		}
+		AcIndex++;
+	}
+	TmpUrlAc[AcIndex] = '\0';
+	int WcSize = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, (LPCSTR)TmpUrlAc, -1, UrlOut, 128);
+	return;
+}
+
 StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
 {
 	PrintRequest(Method, UrlPath);

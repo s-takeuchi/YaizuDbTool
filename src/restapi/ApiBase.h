@@ -8,6 +8,7 @@ protected:
 	void ApiBase::GetLocalTimeWStr(TCHAR[32]);
 	void PrintRequest(int, TCHAR[128]);
 	void PrintResponse(int);
+	void DecodeURL(TCHAR[128], TCHAR[128]);
 	virtual StkObject* ExecuteImpl(StkObject*, int, TCHAR[128], int*, TCHAR[3]) = 0;
 
 public:

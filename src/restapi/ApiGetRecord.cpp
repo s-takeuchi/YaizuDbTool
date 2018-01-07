@@ -21,6 +21,8 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPat
 	TCHAR Dummy[256];
 	TCHAR TableName[256];
 	StkStringParser::ParseInto2Params(UrlPath, _T("$?query=$"), _T('$'), Dummy, 256, TableName, 256);
+	TCHAR TableNameAc[256];
+	DecodeURL(TableName, TableNameAc);
 
 	TCHAR ConnStr[256];
 	int Init;
@@ -32,7 +34,7 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPat
 	// Get table names
 	DbAccessor* DaTableName = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 	StkObject* TableNameObj = new StkObject(_T("TableName"));
-	StkObject* TargetTableNameObj = new StkObject(_T("Name"), TableName);
+	StkObject* TargetTableNameObj = new StkObject(_T("Name"), TableNameAc);
 	DaTableName->GetTables(TableNameObj, StateMsg, Msg, 1024);
 	BOOL TblFound = FALSE;
 	if (TableNameObj->Contains(TargetTableNameObj) != NULL) {
@@ -50,10 +52,10 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPat
 	// Get records
 	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 	StkObject* ColumnObj = new StkObject(_T("Column"));
-	int NumOfCols = Da->GetColumnInfoByTableName((SQLTCHAR*)TableName, ColumnObj, StateMsg, Msg, 1024);
+	int NumOfCols = Da->GetColumnInfoByTableName((SQLTCHAR*)TableNameAc, ColumnObj, StateMsg, Msg, 1024);
 	delete ColumnObj;
 	StkObject* DatObj = new StkObject(_T("Data"));
-	int NumOfRecs = Da->GetRecordsByTableName(TableName, NumOfCols, DatObj, StateMsg, Msg, 1024);
+	int NumOfRecs = Da->GetRecordsByTableName(TableNameAc, NumOfCols, DatObj, StateMsg, Msg, 1024);
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 
 	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
