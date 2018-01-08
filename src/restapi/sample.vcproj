@@ -263,6 +263,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ApiFilterInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ApiFilterInfo.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ApiGetLanguage.cpp"
 				>
 			</File>
