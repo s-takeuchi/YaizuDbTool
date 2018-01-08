@@ -460,17 +460,18 @@ ODBCの情報を設定します。<br/>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
 <tr><td>FilterInfo</td><td>Element</td><td></td></tr>
-<tr><td>Function</td><td>String</td><td>フィルタリングの状態(有効／無効)を示す。</br>enable:有効</br>disable:無効</td></tr>
+<tr><td>Function</td><td>String</td><td>フィルタリングの状態(有効／無効)を示す。<br/>enable:有効<br/>disable:無効</td></tr>
 <tr><td>Criteria</td><td>Element</td><td>フィルタリング条件。5つの要素が存在する。</td></tr>
 <tr><td>index</td><td>Integer</td><td>n(n=1,2,3,4,5)。全5個存在するフィルタリング条件のインデックス。</td></tr>
-<tr><td>columnname</td><td>String</td><td>フィルタリング対象のカラム名</td></tr>
+<tr><td>columnname</td><td>String</td><td>フィルタリング対象のカラム名。*が返るときは未定義のフィルタリング条件。</td></tr>
 <tr><td>opetype</td><td>Integer</td><td>フィルタリングの比較演算子。<br/>
+0:   未定義<br/>
 1:   = <br/>
-2:   <> <br/>
-3:   <= <br/>
-4:   < <br/>
-5:   >= <br/>
-6:   > <br/>
+2:   &lt;&gt; <br/>
+3:   &lt;= <br/>
+4:   &lt; <br/>
+5:   &gt;= <br/>
+6:   &gt; <br/>
 10:  like <br/>
 11:  not like <br/>
 20:  is null <br/>
@@ -490,6 +491,7 @@ ODBCの情報を設定します。<br/>
 <li>リクエスト
 <pre>
 {
+  "Function" : "enable",
   "Criteria" : {
     "index" : 2,
     "columnname" : "bbb",
@@ -499,16 +501,18 @@ ODBCの情報を設定します。<br/>
 }
 </pre>
 <table class="tblstyle">
+<tr><td>Function</td><td>String</td><td>フィルタリングの状態(有効／無効)を示す。<br/>enable:有効<br/>disable:無効</td></tr>
 <tr><td>Criteria</td><td>Element</td><td>フィルタリング条件。1～5個の要素を指定可能。</td></tr>
 <tr><td>index</td><td>Integer</td><td>n(n=1,2,3,4,5)。変更したいフィルタリング条件のインデックス。</td></tr>
-<tr><td>columnname</td><td>String</td><td>フィルタリング対象のカラム名</td></tr>
+<tr><td>columnname</td><td>String</td><td>フィルタリング対象のカラム名。*を指定したときは未定義。</td></tr>
 <tr><td>opetype</td><td>Integer</td><td>フィルタリングの比較演算子。<br/>
+0:   未定義<br/>
 1:   = <br/>
-2:   <> <br/>
-3:   <= <br/>
-4:   < <br/>
-5:   >= <br/>
-6:   > <br/>
+2:   &lt;&gt; <br/>
+3:   &lt;= <br/>
+4:   &lt; <br/>
+5:   &gt;= <br/>
+6:   &gt; <br/>
 10:  like <br/>
 11:  not like <br/>
 20:  is null <br/>

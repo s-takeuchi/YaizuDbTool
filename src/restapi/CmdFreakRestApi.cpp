@@ -17,6 +17,7 @@
 #include "ApiOdbcInfo.h"
 #include "ApiGetTableInfo.h"
 #include "ApiGetRecord.h"
+#include "ApiFilterInfo.h"
 
 void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 {
@@ -27,20 +28,33 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 	ApiGetSystem* ApiGetSystemObj = new ApiGetSystem();
 	int Add1 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/system/"), (StkWebAppExec*)ApiGetSystemObj);
 	ApiGetSystemObj->SetNumOfThreads(7);
+
 	ApiGetLanguage* ApiGetLanguageObj = new ApiGetLanguage();
 	int Add2 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/language/"), (StkWebAppExec*)ApiGetLanguageObj);
+
 	ApiLogging* ApiLoggingObj = new ApiLogging();
 	int Add3 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/logs/"), (StkWebAppExec*)ApiLoggingObj);
+
 	ApiOdbcInfo* ApiGetOdbcInfoObj = new ApiOdbcInfo();
 	int Add4 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/odbcinfo/$"), (StkWebAppExec*)ApiGetOdbcInfoObj);
+
 	ApiOdbcInfo* ApiPostOdbcInfoObj = new ApiOdbcInfo();
 	int Add5 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/odbcinfo/"), (StkWebAppExec*)ApiPostOdbcInfoObj);
+
 	ApiGetTableInfo* ApiGetTableInfoObj = new ApiGetTableInfo();
 	int Add6 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/tableinfo/"), (StkWebAppExec*)ApiGetTableInfoObj);
+
 	ApiGetTableInfo* ApiGetTableInfoByNameObj = new ApiGetTableInfo();
 	int Add7 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/tableinfo/$"), (StkWebAppExec*)ApiGetTableInfoByNameObj);
+
 	ApiGetRecord* ApiGetRecordObj = new ApiGetRecord();
 	int Add8 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/records/$"), (StkWebAppExec*)ApiGetRecordObj);
+
+	ApiFilterInfo* ApiGetFilterInfoObj = new ApiFilterInfo();
+	int Add9 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/filterinfo/"), (StkWebAppExec*)ApiGetFilterInfoObj);
+
+	ApiFilterInfo* ApiPostFilterInfoObj = new ApiFilterInfo();
+	int Add10 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/filterinfo/"), (StkWebAppExec*)ApiPostFilterInfoObj);
 
 	////////// Main logic starts
 	Soc->TheLoop();
@@ -54,6 +68,8 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port)
 	int Del6 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/tableinfo/"));
 	int Del7 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/tableinfo/$"));
 	int Del8 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/records/$"));
+	int Del9 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/filterinfo/"));
+	int Del10 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/filterinfo/"));
 
 	delete Soc;
 }
