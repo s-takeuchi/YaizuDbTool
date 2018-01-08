@@ -491,9 +491,22 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 return;
             }
 
+            var columnInfo = [];
+            if (responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo instanceof Array) {
+                columnInfo = responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo;
+            } else if (responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo) {
+                columnInfo.push(responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo);
+            }
+            var records = [];
+            if (responseData[API_GET_RECORDS].Data.Record instanceof Array) {
+                records = responseData[API_GET_RECORDS].Data.Record;
+            } else if (responseData[API_GET_RECORDS].Data.Record) {
+                records.push(responseData[API_GET_RECORDS].Data.Record);
+            }
+
             var obj = { title: currentTablename, editable: false };
-            $('#grid_array').pqGrid({colModel: responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo});
-            obj.dataModel = { data: responseData[API_GET_RECORDS].Data.Record, dataType: 'JSON', paging: 'local', rPPOptions:[100, 200, 400], rPP:100, curPage:1 };
+            $('#grid_array').pqGrid({colModel: columnInfo});
+            obj.dataModel = { data: records, dataType: 'JSON', paging: 'local', rPPOptions:[100, 200, 400], rPP:100, curPage:1 };
             $('#grid_array').pqGrid(obj);
             return;
         }
