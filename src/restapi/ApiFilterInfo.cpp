@@ -41,7 +41,48 @@ StkObject* ApiFilterInfo::GetFilterInfo(TCHAR UrlPath[128], int* ResultCode)
 
 StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode)
 {
-	return NULL;
+	StkObject* CurObj = NULL;
+	if (ReqObj != NULL) {
+		CurObj = ReqObj->GetFirstChildElement();
+	}
+	while (CurObj) {
+		if (lstrcmp(CurObj->GetName(), _T("Function")) == 0) {
+			TCHAR* StrFilterSw = CurObj->GetStringValue();
+			if (StrFilterSw != NULL && lstrcmp(StrFilterSw, _T("enable")) == 0) {
+				DataAccess::GetInstance()->SetFilterSwitch(TRUE);
+			}
+			if (StrFilterSw != NULL && lstrcmp(StrFilterSw, _T("disable")) == 0) {
+				DataAccess::GetInstance()->SetFilterSwitch(TRUE);
+			}
+		}
+		if (lstrcmp(CurObj->GetName(), _T("Criteria")) == 0) {
+			StkObject* ChildObj = CurObj->GetFirstChildElement();
+			int ValIndex = 0;
+			TCHAR* PtrColumnname = NULL;
+			int ValOpeType = -1;
+			TCHAR* PtrValue = NULL;
+			for (int Loop = 0; Loop < CurObj->GetChildElementCount(); Loop++) {
+				if (lstrcmp(ChildObj->GetName(), _T("index")) == 0) {
+					ValIndex = ChildObj->GetIntValue();
+				} else if (lstrcmp(ChildObj->GetName(), _T("columnname")) == 0) {
+					PtrColumnname = ChildObj->GetStringValue();
+				} else if (lstrcmp(ChildObj->GetName(), _T("opetype")) == 0) {
+					ValOpeType = ChildObj->GetIntValue();
+				} else if (lstrcmp(ChildObj->GetName(), _T("value")) == 0) {
+					PtrValue = ChildObj->GetStringValue();
+				}
+				ChildObj = ChildObj->GetNext();
+			}
+			if (ValIndex >= 1 && ValIndex <= 5 && ValOpeType != -1 && PtrColumnname != NULL && PtrValue != NULL) {
+				DataAccess::GetInstance()->SetFilterCondition(ValIndex, PtrColumnname, ValOpeType, PtrValue);
+			}
+		}
+		CurObj = CurObj->GetNext();
+	}
+	StkObject* ResObj = new StkObject(_T(""));
+	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
+
+	return ResObj;
 }
 
 StkObject* ApiFilterInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])

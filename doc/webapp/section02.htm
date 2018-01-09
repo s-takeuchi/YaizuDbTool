@@ -502,8 +502,8 @@ ODBCの情報を設定します。<br/>
 </pre>
 <table class="tblstyle">
 <tr><td>Function</td><td>String</td><td>フィルタリングの状態(有効／無効)を示す。<br/>enable:有効<br/>disable:無効</td></tr>
-<tr><td>Criteria</td><td>Element</td><td>フィルタリング条件。1～5個の要素を指定可能。</td></tr>
-<tr><td>index</td><td>Integer</td><td>n(n=1,2,3,4,5)。変更したいフィルタリング条件のインデックス。</td></tr>
+<tr><td>Criteria</td><td>Element</td><td>フィルタリング条件。1～5個の要素を指定可能。index, columnname, opetype, valueのいづれかまたはすべてが指定されていない場合，そのCriteriaの指定は無視される。</td></tr>
+<tr><td>index</td><td>Integer</td><td>n(n=1,2,3,4,5)。変更したいフィルタリング条件のインデックス。n=1,2,3,4,5のいづれでもない場合，そのCriteriaの指定は無視される。</td></tr>
 <tr><td>columnname</td><td>String</td><td>フィルタリング対象のカラム名。*を指定したときは未定義。</td></tr>
 <tr><td>opetype</td><td>Integer</td><td>フィルタリングの比較演算子。<br/>
 0:   未定義<br/>
@@ -530,7 +530,7 @@ ODBCの情報を設定します。<br/>
 }
 </pre>
 <table class="tblstyle">
-<tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200)，3121:リクエストにCriteria，index，columnname，opetypeまたはvalueが含まれていない(HTTPステータスコード=400)</td></tr>
+<tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200)。</td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 </table><br/>
