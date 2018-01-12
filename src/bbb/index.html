@@ -44,6 +44,8 @@ var CLIMSG_ODBCCONNSTR_SPECIFY     = 2143;
 var CLIMSG_TABLEINFOSHOWN          = 2160;
 var CLIMSG_LABEL_TARGETTABLE       = 2161;
 var CLIMSG_TABLENOTEXIST           = 2162;
+var CLIMSG_FILTERING_DESC          = 2170;
+var CLIMSG_FILTERING_NO_TABLE      = 2171;
 var CLIMSG_FAITALERROR             = 2500;
 var CLIMSG_WARNING                 = 2501;
 var CLIMSG_ERROR                   = 2502;
@@ -79,6 +81,11 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               {'code':CLIMSG_TABLEINFOSHOWN, 'en':'Detailed information on the specified table is shown below.', 'ja':'以下に指定されたテーブルの詳細情報を表示します。'},
               {'code':CLIMSG_LABEL_TARGETTABLE, 'en':'The target table: ', 'ja':'対象テーブル: '},
               {'code':CLIMSG_TABLENOTEXIST, 'en':'The operation cannot be performed because the target table for display does not exist.', 'ja':'表示対象のテーブルが存在しないため操作を継続できません。'},
+              {'code':CLIMSG_FILTERING_DESC,
+                  'en':'Filter settings can be specified here.<br>Records are filtered according to the specified criteria.<br>Up to five filter items can be specified.<br>All items are treated as logical AND operators.',
+                  'ja':'ここではフィルタリングの設定を行うことができます。<br>指定した条件でレコード情報がフィルタリングされます。<br>フィルタリング項目は最大5件を指定することができます。<br>各フィルタリング項目間は論理積[AND]で結合されます。'
+              },
+              {'code':CLIMSG_FILTERING_NO_TABLE, 'en':'The operation cannot be performed because the target table for filtering does not exist.', 'ja':'フィルタリングの対象となるテーブルが存在しないため操作を継続できません。'},
               {'code':CLIMSG_FAITALERROR, 'en':'Fatal Error', 'ja':'致命的エラー'},
               {'code':CLIMSG_WARNING, 'en':'Warning', 'ja':'警告'},
               {'code':CLIMSG_ERROR, 'en':'Error', 'ja':'エラー'},
@@ -474,6 +481,93 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         }
         //
         //
+        if (actionType == ACTION_GETFILTERINFO) {
+            if (currentTablename == "") {
+                showMessageDialog(getCliMsg(CLIMSG_LABEL_FILTERING), getCliMsg(CLIMSG_FILTERING_DESC), 0);
+                $('#adialog-content').empty();
+                $('#adialog-content').append('<br>' + getCliMsg(CLIMSG_FILTERING_NO_TABLE) + '<br>');
+                return;
+            }
+            showMessageDialog(getCliMsg(CLIMSG_LABEL_FILTERING), getCliMsg(CLIMSG_FILTERING_DESC), actionType, 600, 440, 'img/filter_image48c.png', 1);
+            for (var Loop = 1; Loop <= 5; Loop++) {
+                $('#adialog-content').append('' + Loop + ': ');
+                var paramCol = document.createElement('select');
+                paramCol.id = 'paramCol' + Loop;
+                paramCol.style.width = '130px';
+                paramCol.align = 'middle';
+                paramCol.onchange = function() {;
+                    eventParamColChanged(this);
+                }
+                $('#adialog-content').append(paramCol);
+                $('#adialog-content').append(' ');
+                var paramOpe = document.createElement('select');
+                paramOpe.id = 'paramOpe' + Loop;
+                paramOpe.style.width = '140px';
+                paramOpe.align = 'middle';
+                paramOpe.onchange = function() {;
+                    eventParamOpeChanged(this);
+                }
+                $('#adialog-content').append(paramOpe);
+                $('#adialog-content').append(' ');
+                var paramVal = document.createElement('input');
+                paramVal.id = 'paramVal' + Loop;
+                paramVal.type = 'text';
+                paramVal.size = '30';
+                paramVal.align = 'middle';
+                $('#adialog-content').append(paramVal);
+                $('#adialog-content').append('<p>');
+            }
+            if (sendRequestToWebServer('get-columns&tablename=' + currentTablename, columnData) != 0) {
+                return;
+            }
+            var filtercdResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+            if (sendRequestToWebServer('getfiltercd', filtercdResponse) != 0) {
+                return;
+            }
+            for (var LoopCol = 1; LoopCol <= 5; LoopCol++) {
+                $('#paramOpe' + LoopCol).attr('disabled', 'disabled');
+                $('#paramVal' + LoopCol).attr('disabled', 'disabled');
+                $('#paramCol' + LoopCol).append('<option value="*">未指定</option>');
+                var filFndFlag = false;
+                for (var Loop in columnData.data) {
+                    var seld = '';
+                    if (columnData.data[Loop].title == filtercdResponse.data[LoopCol - 1].columnname) {
+                        seld = 'selected';
+                        filFndFlag = true;
+                    }
+                    $('#paramCol' + LoopCol).append('<option value="' + columnData.data[Loop].title + '" ' + seld + '>' + columnData.data[Loop].title + '</option>');
+                }
+                if (filFndFlag == false && filtercdResponse.data[LoopCol - 1].columnname != '*') {
+                    $('#adialog-content').empty();
+                    $('#adialog-content').append('<br>設定されているフィルタリング条件は現在のテーブルのスキーマと一致していません。<br>フィルタリング条件をクリアしてよいですか？<br>');
+                    return;
+                }
+                eventParamColChanged($('#paramCol' + LoopCol).get(0));
+                switch (filtercdResponse.data[LoopCol - 1].opetype) {
+                    case 1  : $('#paramOpe' + LoopCol).val('equals'); break;
+                    case 2  : $('#paramOpe' + LoopCol).val('notequal'); break;
+                    case 3  : $('#paramOpe' + LoopCol).val('equalslesserthan'); break;
+                    case 4  : $('#paramOpe' + LoopCol).val('lesserthan'); break;
+                    case 5  : $('#paramOpe' + LoopCol).val('equalsgreaterthan'); break;
+                    case 6  : $('#paramOpe' + LoopCol).val('greaterthan'); break;
+                    case 10 : $('#paramOpe' + LoopCol).val('contains'); break;
+                    case 11 : $('#paramOpe' + LoopCol).val('notcontain'); break;
+                    case 20 : $('#paramOpe' + LoopCol).val('null'); $('#paramVal' + LoopCol).attr('disabled', 'disabled'); break;
+                    case 21 : $('#paramOpe' + LoopCol).val('notnull'); $('#paramVal' + LoopCol).attr('disabled', 'disabled'); break;
+                }
+                $('#paramVal' + LoopCol).val(filtercdResponse.data[LoopCol - 1].value);
+            }
+            return;
+        }
+        //
+        //
+        if (actionType == ACTION_POSTFILTERINFO) {
+            showTable();
+            $('#adialog').dialog('close');
+            return;
+        }
+        //
+        //
         if (actionType == ACTION_SHOWTABLE) {
             if (statusCode[API_GET_TABLEINFO_WITH_COL] == 200 && statusCode[API_GET_RECORDS] == 200) {
                 // Nothing to do
@@ -852,81 +946,7 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_GETFILTERINFO) {
-        if (currentTablename == "") {
-            showMessageDialog('フィルタリング', 'ここではフィルタリングの設定を行うことができます。<br>指定した条件でレコード情報がフィルタリングされます。<br>フィルタリング項目は最大5件を指定することができます。<br>各フィルタリング項目間は論理積[AND]で結合されます。', actionType, 600, 270, 'img/filter_image48c.png', 0);
-            $('#adialog-content').empty();
-            $('#adialog-content').append('<br>フィルタリングの対象となるテーブルが存在しないため操作を継続できません。<br>');
-            return;
-        }
-        showMessageDialog('フィルタリング', 'ここではフィルタリングの設定を行うことができます。<br>指定した条件でレコード情報がフィルタリングされます。<br>フィルタリング項目は最大5件を指定することができます。<br>各フィルタリング項目間は論理積[AND]で結合されます。', actionType, 600, 440, 'img/filter_image48c.png', 1);
-        for (var Loop = 1; Loop <= 5; Loop++) {
-            $('#adialog-content').append('' + Loop + ': ');
-            var paramCol = document.createElement('select');
-            paramCol.id = 'paramCol' + Loop;
-            paramCol.style.width = '130px';
-            paramCol.align = 'middle';
-            paramCol.onchange = function() {;
-                eventParamColChanged(this);
-            }
-            $('#adialog-content').append(paramCol);
-            $('#adialog-content').append(' ');
-            var paramOpe = document.createElement('select');
-            paramOpe.id = 'paramOpe' + Loop;
-            paramOpe.style.width = '140px';
-            paramOpe.align = 'middle';
-            paramOpe.onchange = function() {;
-                eventParamOpeChanged(this);
-            }
-            $('#adialog-content').append(paramOpe);
-            $('#adialog-content').append(' ');
-            var paramVal = document.createElement('input');
-            paramVal.id = 'paramVal' + Loop;
-            paramVal.type = 'text';
-            paramVal.size = '30';
-            paramVal.align = 'middle';
-            $('#adialog-content').append(paramVal);
-            $('#adialog-content').append('<p>');
-        }
-        if (sendRequestToWebServer('get-columns&tablename=' + currentTablename, columnData) != 0) {
-            return;
-        }
-        var filtercdResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-        if (sendRequestToWebServer('getfiltercd', filtercdResponse) != 0) {
-            return;
-        }
-        for (var LoopCol = 1; LoopCol <= 5; LoopCol++) {
-            $('#paramOpe' + LoopCol).attr('disabled', 'disabled');
-            $('#paramVal' + LoopCol).attr('disabled', 'disabled');
-            $('#paramCol' + LoopCol).append('<option value="*">未指定</option>');
-            var filFndFlag = false;
-            for (var Loop in columnData.data) {
-                var seld = '';
-                if (columnData.data[Loop].title == filtercdResponse.data[LoopCol - 1].columnname) {
-                    seld = 'selected';
-                    filFndFlag = true;
-                }
-                $('#paramCol' + LoopCol).append('<option value="' + columnData.data[Loop].title + '" ' + seld + '>' + columnData.data[Loop].title + '</option>');
-            }
-            if (filFndFlag == false && filtercdResponse.data[LoopCol - 1].columnname != '*') {
-                $('#adialog-content').empty();
-                $('#adialog-content').append('<br>設定されているフィルタリング条件は現在のテーブルのスキーマと一致していません。<br>フィルタリング条件をクリアしてよいですか？<br>');
-                return;
-            }
-            eventParamColChanged($('#paramCol' + LoopCol).get(0));
-            switch (filtercdResponse.data[LoopCol - 1].opetype) {
-                case 1  : $('#paramOpe' + LoopCol).val('equals'); break;
-                case 2  : $('#paramOpe' + LoopCol).val('notequal'); break;
-                case 3  : $('#paramOpe' + LoopCol).val('equalslesserthan'); break;
-                case 4  : $('#paramOpe' + LoopCol).val('lesserthan'); break;
-                case 5  : $('#paramOpe' + LoopCol).val('equalsgreaterthan'); break;
-                case 6  : $('#paramOpe' + LoopCol).val('greaterthan'); break;
-                case 10 : $('#paramOpe' + LoopCol).val('contains'); break;
-                case 11 : $('#paramOpe' + LoopCol).val('notcontain'); break;
-                case 20 : $('#paramOpe' + LoopCol).val('null'); $('#paramVal' + LoopCol).attr('disabled', 'disabled'); break;
-                case 21 : $('#paramOpe' + LoopCol).val('notnull'); $('#paramVal' + LoopCol).attr('disabled', 'disabled'); break;
-            }
-            $('#paramVal' + LoopCol).val(filtercdResponse.data[LoopCol - 1].value);
-        }
+        showWaitingDialog(ACTION_GETFILTERINFO, 0);
         return;
     }
     if (actionType == ACTION_POSTFILTERINFO) {
