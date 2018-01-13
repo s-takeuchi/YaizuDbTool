@@ -123,13 +123,15 @@ var API_GET_ODBCINFO_DEFAULT    = 5;
 var API_GET_ODBCINFO_CONFIGURED = 6;
 var API_POST_ODBCINFO           = 7;
 var API_GET_RECORDS             = 8;
+var API_GET_FILTERINFO          = 9;
+var API_POST_FILTERINFO         = 10;
 
 // underComm = 0 : No communication state, >= 1 : Communication state
 var underComm = 0;
 
 // [0] : for API_GET_LANGUAGE, [1] : for API_GET_SYSTEM, [2] : for API_GET_LOGS, ...
-var statusCode = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-var responseData = [{},{},{},{},{},{},{},{},{},{}];
+var statusCode = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var responseData = [{},{},{},{},{},{},{},{},{},{},{},{}];
 
 window.onload = function() {
     $('#adialog').dialog({autoOpen:false});
@@ -517,33 +519,36 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 $('#adialog-content').append(paramVal);
                 $('#adialog-content').append('<p>');
             }
-            if (sendRequestToWebServer('get-columns&tablename=' + currentTablename, columnData) != 0) {
-                return;
+
+            var columnInfos = [];
+            if (responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo instanceof Array) {
+                columnInfos = responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo;
+            } else if (responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo) {
+                columnInfos.push(responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo);
             }
-            var filtercdResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-            if (sendRequestToWebServer('getfiltercd', filtercdResponse) != 0) {
-                return;
-            }
+
+            var filterInfo = responseData[API_GET_FILTERINFO].Data.FilterInfo.Criteria;
+
             for (var LoopCol = 1; LoopCol <= 5; LoopCol++) {
                 $('#paramOpe' + LoopCol).attr('disabled', 'disabled');
                 $('#paramVal' + LoopCol).attr('disabled', 'disabled');
                 $('#paramCol' + LoopCol).append('<option value="*">未指定</option>');
                 var filFndFlag = false;
-                for (var Loop in columnData.data) {
+                for (var Loop in columnInfos) {
                     var seld = '';
-                    if (columnData.data[Loop].title == filtercdResponse.data[LoopCol - 1].columnname) {
+                    if (columnInfos[Loop].title == filterInfo[LoopCol - 1].columnname) {
                         seld = 'selected';
                         filFndFlag = true;
                     }
-                    $('#paramCol' + LoopCol).append('<option value="' + columnData.data[Loop].title + '" ' + seld + '>' + columnData.data[Loop].title + '</option>');
+                    $('#paramCol' + LoopCol).append('<option value="' + columnInfos[Loop].title + '" ' + seld + '>' + columnInfos[Loop].title + '</option>');
                 }
-                if (filFndFlag == false && filtercdResponse.data[LoopCol - 1].columnname != '*') {
+                if (filFndFlag == false && filterInfo[LoopCol - 1].columnname != '*') {
                     $('#adialog-content').empty();
                     $('#adialog-content').append('<br>設定されているフィルタリング条件は現在のテーブルのスキーマと一致していません。<br>フィルタリング条件をクリアしてよいですか？<br>');
                     return;
                 }
                 eventParamColChanged($('#paramCol' + LoopCol).get(0));
-                switch (filtercdResponse.data[LoopCol - 1].opetype) {
+                switch (filterInfo[LoopCol - 1].opetype) {
                     case 1  : $('#paramOpe' + LoopCol).val('equals'); break;
                     case 2  : $('#paramOpe' + LoopCol).val('notequal'); break;
                     case 3  : $('#paramOpe' + LoopCol).val('equalslesserthan'); break;
@@ -555,7 +560,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                     case 20 : $('#paramOpe' + LoopCol).val('null'); $('#paramVal' + LoopCol).attr('disabled', 'disabled'); break;
                     case 21 : $('#paramOpe' + LoopCol).val('notnull'); $('#paramVal' + LoopCol).attr('disabled', 'disabled'); break;
                 }
-                $('#paramVal' + LoopCol).val(filtercdResponse.data[LoopCol - 1].value);
+                $('#paramVal' + LoopCol).val(filterInfo[LoopCol - 1].value);
             }
             return;
         }
@@ -858,6 +863,13 @@ function eventDbmsSelected() {
 }
 
 function eventParamColChanged(selectObj) {
+    var columnInfos = [];
+    if (responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo instanceof Array) {
+        columnInfos = responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo;
+    } else if (responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo) {
+        columnInfos.push(responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo);
+    }
+
     var valstr = selectObj.options[selectObj.selectedIndex].value;
     var fetchedId = selectObj.id.substring(8, 9);
     if (selectObj.selectedIndex == 0) {
@@ -871,14 +883,14 @@ function eventParamColChanged(selectObj) {
     $(paramOpe).empty();
     $(paramOpe).append('<option value="equals">=</option>');
     $(paramOpe).append('<option value="notequal">!=</option>');
-    if (columnData.data[selectObj.selectedIndex - 1].dataType == 'integer' ||
-        columnData.data[selectObj.selectedIndex - 1].dataType == 'float') {
+    if (columnInfos[selectObj.selectedIndex - 1].dataType == 'integer' ||
+        columnInfos[selectObj.selectedIndex - 1].dataType == 'float') {
         $(paramOpe).append('<option value="equalslesserthan">&lt;=</option>');
         $(paramOpe).append('<option value="lesserthan">&lt;</option>');
         $(paramOpe).append('<option value="equalsgreaterthan">&gt;=</option>');
         $(paramOpe).append('<option value="greaterthan">&gt;</option>');
     }
-    if (columnData.data[selectObj.selectedIndex - 1].dataType == 'string') {
+    if (columnInfos[selectObj.selectedIndex - 1].dataType == 'string') {
         $(paramOpe).append('<option value="contains">contains</option>');
         $(paramOpe).append('<option value="notcontain">does not contain</option>');
     }
@@ -946,14 +958,22 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_GETFILTERINFO) {
+        sendRequestRecvResponse('GET', './api/tableinfo/?query=' + currentTablename, null, API_GET_TABLEINFO_WITH_COL);
+        sendRequestRecvResponse('GET', './api/filterinfo/', null, API_GET_FILTERINFO);
         showWaitingDialog(ACTION_GETFILTERINFO, 0);
         return;
     }
     if (actionType == ACTION_POSTFILTERINFO) {
         if (currentTablename == "") {
-            $('#adialog').dialog('close');
             return;
         }
+        var Criteria = [{index : 0, columnname : "", opetype : 0, value : ""},
+                        {index : 0, columnname : "", opetype : 0, value : ""},
+                        {index : 0, columnname : "", opetype : 0, value : ""},
+                        {index : 0, columnname : "", opetype : 0, value : ""},
+                        {index : 0, columnname : "", opetype : 0, value : ""}
+        ];
+
         for (var Loop = 1; Loop <= 5; Loop++) {
             var paramCol = $('#paramCol' + Loop + ' option:selected').val();
             var paramOpe = $('#paramOpe' + Loop + ' option:selected').val();
@@ -976,13 +996,14 @@ function onXxxAction(actionType) {
                     case 'notnull'           : paramOpeInt = 21; break;
                 }
             }
-            var filterResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-            if (sendRequestToWebServer('setfiltercd&paramidx=' + Loop + '&paramcol=' + paramCol + '&paramope=' + paramOpeInt + '&paramval=' + paramVal, filterResponse) != 0) {
-                return;
-            }
+            Criteria[Loop - 1].index = Loop;
+            Criteria[Loop - 1].columnname = JSON.parse(JSON.stringify(paramCol));
+            Criteria[Loop - 1].opetype = paramOpeInt;
+            Criteria[Loop - 1].value = JSON.parse(JSON.stringify(paramVal));
         }
-        showTable();
-        $('#adialog').dialog('close');
+        var reqDatDf = {Criteria};
+        sendRequestRecvResponse('POST', './api/filterinfo/', reqDatDf, API_POST_FILTERINFO);
+        showWaitingDialog(ACTION_POSTFILTERINFO, 0);
         return;
     }
     if (actionType == ACTION_REFRESH) {
