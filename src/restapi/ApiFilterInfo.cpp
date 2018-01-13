@@ -52,7 +52,7 @@ StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode)
 				DataAccess::GetInstance()->SetFilterSwitch(TRUE);
 			}
 			if (StrFilterSw != NULL && lstrcmp(StrFilterSw, _T("disable")) == 0) {
-				DataAccess::GetInstance()->SetFilterSwitch(TRUE);
+				DataAccess::GetInstance()->SetFilterSwitch(FALSE);
 			}
 		}
 		if (lstrcmp(CurObj->GetName(), _T("Criteria")) == 0) {

@@ -102,17 +102,20 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               }
 ];
 
-var ACTION_LAUNCH          = 50;
-var ACTION_GETTABLEINFO    = 60;
-var ACTION_GETODBCCONNSTR  = 100;
-var ACTION_POSTODBCCONNSTR = 101;
-var ACTION_SHOWTABLEINFO   = 200;
-var ACTION_GETFILTERINFO   = 300;
-var ACTION_POSTFILTERINFO  = 301;
-var ACTION_REFRESH         = 400;
-var ACTION_SHOWTABLE       = 500;
-var ACTION_INFO            = 600;
-var ACTION_ERROR           = 1200;
+var ACTION_LAUNCH           = 50;
+var ACTION_GETTABLEINFO     = 60;
+var ACTION_GETODBCCONNSTR   = 100;
+var ACTION_POSTODBCCONNSTR  = 101;
+var ACTION_SHOWTABLEINFO    = 200;
+var ACTION_GETFILTERINFO    = 300;
+var ACTION_POSTFILTERINFO   = 301;
+var ACTION_GETFILTERSW      = 310;
+var ACTION_TURNFILTERSWON   = 320;
+var ACTION_TURNFILTERSWOFF  = 330;
+var ACTION_REFRESH          = 400;
+var ACTION_SHOWTABLE        = 500;
+var ACTION_INFO             = 600;
+var ACTION_ERROR            = 1200;
 
 var API_GET_LANGUAGE            = 0;
 var API_GET_SYSTEM              = 1;
@@ -130,8 +133,8 @@ var API_POST_FILTERINFO         = 10;
 var underComm = 0;
 
 // [0] : for API_GET_LANGUAGE, [1] : for API_GET_SYSTEM, [2] : for API_GET_LOGS, ...
-var statusCode = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-var responseData = [{},{},{},{},{},{},{},{},{},{},{},{}];
+var statusCode = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var responseData = [{},{},{},{},{},{},{},{},{},{},{},{},{},{}];
 
 window.onload = function() {
     $('#adialog').dialog({autoOpen:false});
@@ -245,15 +248,8 @@ function showTableWithToolBar() {
             refreshTableNameList();
         }
         if (Loop == 5) {
-            var filterswResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-            if (sendRequestToWebServer('getfiltersw', filterswResponse) != 0) {
-                return;
-            }
-            var switchflag = '';
-            if (filterswResponse.data.switchon == true) {
-                switchflag = 'checked';
-            }
-            $('#mainarea').append('<input type="checkbox" id="filteringonoff" value="filteringOn" align="middle" onclick="eventFilterOn(this)" ' + switchflag + '>On');
+            $('#mainarea').append('<input type="checkbox" id="filteringonoff" value="filteringOn" align="middle" onclick="eventFilterOn(this)">On');
+            onXxxAction(ACTION_GETFILTERSW);
         }
     }
     appendBr('mainarea');
@@ -573,6 +569,22 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         }
         //
         //
+        if (actionType == ACTION_GETFILTERSW) {
+            var switchflag = '';
+            if (responseData[API_GET_FILTERINFO].Data.FilterInfo.Function === 'enable') {
+                $('#filteringonoff').prop("checked", true);
+            }
+            if (responseData[API_GET_FILTERINFO].Data.FilterInfo.Function === 'disable') {
+                $('#filteringonoff').prop("checked", false);
+            }
+            return;
+        }
+        if (actionType == ACTION_TURNFILTERSWON || actionType == ACTION_TURNFILTERSWOFF) {
+            showTable();
+            return;
+        }
+        //
+        //
         if (actionType == ACTION_SHOWTABLE) {
             if (statusCode[API_GET_TABLEINFO_WITH_COL] == 200 && statusCode[API_GET_RECORDS] == 200) {
                 // Nothing to do
@@ -829,17 +841,10 @@ function eventTableSelected() {
 }
 
 function eventFilterOn(checkboxObj) {
-    var filterswResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
     if (checkboxObj.checked == true) {
-        if (sendRequestToWebServer('filtersw_on', filterswResponse) != 0) {
-            return;
-        }
-        showTable();
+        onXxxAction(ACTION_TURNFILTERSWON);
     } else {
-        if (sendRequestToWebServer('filtersw_off', filterswResponse) != 0) {
-            return;
-        }
-        showTable();
+        onXxxAction(ACTION_TURNFILTERSWOFF);
     }
 }
 
@@ -1005,6 +1010,25 @@ function onXxxAction(actionType) {
         sendRequestRecvResponse('POST', './api/filterinfo/', reqDatDf, API_POST_FILTERINFO);
         showWaitingDialog(ACTION_POSTFILTERINFO, 0);
         return;
+    }
+    if (actionType == ACTION_GETFILTERSW) {
+        sendRequestRecvResponse('GET', './api/filterinfo/', null, API_GET_FILTERINFO);
+        showWaitingDialog(ACTION_GETFILTERSW, 0);
+        return;   
+    }
+    if (actionType == ACTION_TURNFILTERSWON) {
+        var Function = "enable";
+        var reqDatDf = {Function};
+        sendRequestRecvResponse('POST', './api/filterinfo/', reqDatDf, API_POST_FILTERINFO);
+        showWaitingDialog(ACTION_TURNFILTERSWON, 0);
+        return;   
+    }
+    if (actionType == ACTION_TURNFILTERSWOFF) {
+        var Function = "disable";
+        var reqDatDf = {Function};
+        sendRequestRecvResponse('POST', './api/filterinfo/', reqDatDf, API_POST_FILTERINFO);
+        showWaitingDialog(ACTION_TURNFILTERSWOFF, 0);
+        return;   
     }
     if (actionType == ACTION_REFRESH) {
         showTableWithToolBar();
