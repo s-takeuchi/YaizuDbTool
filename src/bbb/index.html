@@ -106,6 +106,7 @@ var ACTION_LAUNCH           = 50;
 var ACTION_GETTABLEINFO     = 60;
 var ACTION_GETODBCCONNSTR   = 100;
 var ACTION_POSTODBCCONNSTR  = 101;
+var ACTION_DISPLAYDBMSTYPE  = 110;
 var ACTION_SHOWTABLEINFO    = 200;
 var ACTION_GETFILTERINFO    = 300;
 var ACTION_POSTFILTERINFO   = 301;
@@ -232,15 +233,8 @@ function showTableWithToolBar() {
     for (var Loop = 0; Loop < 8; Loop++) {
         displayButton(buttons[Loop][0], buttons[Loop][1], buttons[Loop][2], buttons[Loop][3], buttons[Loop][4]);
         if (Loop == 0) {
-            var connstrResponse = {'operation' : '', 'resultcode' : 0, 'data' : {}};
-            if (sendRequestToWebServer('get-connstr', connstrResponse) != 0) {
-                return;
-            }
-            if (connstrResponse.data.DbmsType == 0) {
-                $('#mainarea').append('MySQL/MariaDB');
-            } else {
-                $('#mainarea').append('PostgreSQL');
-            }
+            $('#mainarea').append('<span id="dbmstypeontoolbar"> </span>');
+            onXxxAction(ACTION_DISPLAYDBMSTYPE);
         }
         if (Loop == 2) {
             $('#mainarea').append('<select id="tableselector" style="width:150px" onchange="eventTableSelected()" align="middle">');
@@ -437,6 +431,19 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             boxResize();
             showTableWithToolBar();
 
+            return;
+        }
+        //
+        //
+        if (actionType == ACTION_DISPLAYDBMSTYPE) {
+            if (statusCode[API_GET_ODBCINFO_CONFIGURED] == 200) {
+                // Nothing to do
+            } else {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
+                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                return;
+            }
+            $('#dbmstypeontoolbar').text(responseData[API_GET_ODBCINFO_CONFIGURED].Data.OdbcInfo.DbType);
             return;
         }
         //
@@ -955,6 +962,12 @@ function onXxxAction(actionType) {
         var reqDatDf = {'DbType' : currentDbmsname, 'ConnStr' : tmpstr};
         sendRequestRecvResponse('POST', './api/odbcinfo/', reqDatDf, API_POST_ODBCINFO);
         showWaitingDialog(ACTION_POSTODBCCONNSTR, 0);
+        return;
+    }
+    if (actionType == ACTION_DISPLAYDBMSTYPE) {
+        var reqDatCf = {'query' : 'configured' };
+        sendRequestRecvResponse('GET', './api/odbcinfo/', reqDatCf, API_GET_ODBCINFO_CONFIGURED);
+        showWaitingDialog(ACTION_DISPLAYDBMSTYPE, 0);
         return;
     }
     if (actionType == ACTION_SHOWTABLEINFO) {
