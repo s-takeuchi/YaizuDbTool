@@ -477,12 +477,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_600931B1973747C2BE23C608E33BBD8E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_608AAE84AC5741A79E1BCF223E9D53D5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1029,12 +1023,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_CA43A990F2E7472EB80759574B52E4BA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_CA4AC3C2D9C84B43B3598934E3563F85"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1425,20 +1413,6 @@
     {
         "CustomAction"
         {
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_35DB43CC142442D2BAAC9D82F34ABA87"
-            {
-            "Name" = "8:prog_del.exe"
-            "Condition" = "8:"
-            "Object" = "8:_600931B1973747C2BE23C608E33BBD8E"
-            "FileType" = "3:2"
-            "InstallAction" = "3:4"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:1"
-            "Identifier" = "8:_FAC535CF_BE4F_469A_B28E_1CADA081404C"
-            "InstallerClass" = "11:FALSE"
-            "CustomActionData" = "8:"
-            }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_5C8D1A550878401E993235CCEA3BE1E6"
             {
             "Name" = "8:stkwebappcmd.exe"
@@ -1446,9 +1420,9 @@
             "Object" = "8:_2C2037B9A5FF43EAA007A64BC19E469C"
             "FileType" = "3:2"
             "InstallAction" = "3:2"
-            "Arguments" = "8:inst ProductName=CmdFreak2 WebPort=80 SrvPort=2003"
+            "Arguments" = "8:inst ProductName=CmdFreak WebPort=[EDITA1] SrvPort=[EDITA2]"
             "EntryPoint" = "8:"
-            "Sequence" = "3:2"
+            "Sequence" = "3:1"
             "Identifier" = "8:_A15C4B1F_3533_4479_A8E3_AADF8B1E68F3"
             "InstallerClass" = "11:FALSE"
             "CustomActionData" = "8:"
@@ -1460,24 +1434,10 @@
             "Object" = "8:_2C2037B9A5FF43EAA007A64BC19E469C"
             "FileType" = "3:2"
             "InstallAction" = "3:4"
-            "Arguments" = "8:uninst ProductName=CmdFreak2"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:2"
-            "Identifier" = "8:_5748201B_37A3_45C8_9CA3_8515CD52794D"
-            "InstallerClass" = "11:FALSE"
-            "CustomActionData" = "8:"
-            }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_F7C599D033EF43A988E6CE5E79BB7538"
-            {
-            "Name" = "8:prog_add.exe"
-            "Condition" = "8:"
-            "Object" = "8:_CA43A990F2E7472EB80759574B52E4BA"
-            "FileType" = "3:2"
-            "InstallAction" = "3:2"
-            "Arguments" = "8:[EDITA1] [EDITA2]"
+            "Arguments" = "8:uninst ProductName=CmdFreak"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_0C76E82E_AA1E_42F8_A427_1062AFA516BA"
+            "Identifier" = "8:_5748201B_37A3_45C8_9CA3_8515CD52794D"
             "InstallerClass" = "11:FALSE"
             "CustomActionData" = "8:"
             }
@@ -3022,26 +2982,6 @@
             "TargetName" = "8:ui-bg_inset-hard_100_f5f8f9_1x100.png"
             "Tag" = "8:"
             "Folder" = "8:_DFC729690693485DAA9DA10661DCD217"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_600931B1973747C2BE23C608E33BBD8E"
-            {
-            "SourcePath" = "8:prog_del.exe"
-            "TargetName" = "8:prog_del.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_F61D85E7FA1B426E963D2DB81FBF94BE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4876,26 +4816,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CA43A990F2E7472EB80759574B52E4BA"
-            {
-            "SourcePath" = "8:prog_add.exe"
-            "TargetName" = "8:prog_add.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_F61D85E7FA1B426E963D2DB81FBF94BE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CA4AC3C2D9C84B43B3598934E3563F85"
             {
             "SourcePath" = "8:..\\webapp\\img\\config_image32c.png"
@@ -6463,17 +6383,6 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_233E917D07A14957B656E94603A4EE41"
-                    {
-                    "Name" = "8:CmdFreak"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_22372DF0951844E387E1E0C4D77BC2A7"
-                        "Folders"
-                        {
-                        }
-                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_F7F8277FF120458CA37C518C4ED33338"
@@ -6623,34 +6532,6 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C1A1629A5A3D4FF587E5006A450CF283"
-            {
-            "Name" = "8:Start CmdFreak service"
-            "Arguments" = "8:start"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:101"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_178EA461EEC043C4B29C153B2D4B5452"
-            "Folder" = "8:_233E917D07A14957B656E94603A4EE41"
-            "WorkingFolder" = "8:_F61D85E7FA1B426E963D2DB81FBF94BE"
-            "Icon" = "8:_318C347996414102B737E8D86DF5285B"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C86A5C5011A146B39D541249097891AB"
-            {
-            "Name" = "8:Stop CmdFreak service"
-            "Arguments" = "8:stop"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:101"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_178EA461EEC043C4B29C153B2D4B5452"
-            "Folder" = "8:_233E917D07A14957B656E94603A4EE41"
-            "WorkingFolder" = "8:_F61D85E7FA1B426E963D2DB81FBF94BE"
-            "Icon" = "8:_318C347996414102B737E8D86DF5285B"
-            "Feature" = "8:"
-            }
         }
         "UserInterface"
         {
@@ -6826,7 +6707,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:8008"
+                            "Value" = "8:80"
                             "DefaultValue" = "8:"
                             "UsePlugInResources" = "11:TRUE"
                             }
