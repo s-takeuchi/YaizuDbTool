@@ -29,38 +29,48 @@ var CLIMSG_LABEL_TABLEINFO         = 2102;
 var CLIMSG_LABEL_REFRSHTABLE       = 2103;
 var CLIMSG_LABEL_FILTERING         = 2104;
 var CLIMSG_LABEL_INFORMATION       = 2105;
-var CLIMSG_WAITFORALITTLE          = 2110;
-var CLIMSG_LABEL_LOGTIME           = 2120;
-var CLIMSG_LABEL_LOGMSG            = 2121;
-var CLIMSG_TECH_EMBEDDED           = 2130;
-var CLIMSG_OPEN_MANUAL             = 2131;
-var CLIMSG_OPEN_MANUAL_URL         = 2132;
-var CLIMSG_TRACELOG                = 2133;
-var CLIMSG_INFO                    = 2134;
+///////////////////////////////////////////////
+// Info
+var CLIMSG_LABEL_LOGTIME           = 2130;
+var CLIMSG_LABEL_LOGMSG            = 2131;
+var CLIMSG_TECH_EMBEDDED           = 2132;
+var CLIMSG_OPEN_MANUAL             = 2133;
+var CLIMSG_OPEN_MANUAL_URL         = 2134;
+var CLIMSG_TRACELOG                = 2135;
+///////////////////////////////////////////////
+// ODBC Config
 var CLIMSG_ODBCCONNSTR_GUIDE       = 2140;
-var CLIMSG_ODBCCONNTITLE           = 2141;
 var CLIMSG_ODBCSELECTION           = 2142;
 var CLIMSG_ODBCCONNSTR_SPECIFY     = 2143;
+var CLIMSG_ODBCCONFAILURE          = 2144;
+///////////////////////////////////////////////
+// Table Info
 var CLIMSG_TABLEINFOSHOWN          = 2160;
 var CLIMSG_LABEL_TARGETTABLE       = 2161;
 var CLIMSG_TABLENOTEXIST           = 2162;
+///////////////////////////////////////////////
+// Filtering
 var CLIMSG_FILTERING_DESC          = 2170;
 var CLIMSG_FILTERING_NO_TABLE      = 2171;
+var CLIMSG_FILTERING_UNSPECIFY     = 2172;
+var CLIMSG_FILTERING_INVALID       = 2173;
+///////////////////////////////////////////////
+// Basic
 var CLIMSG_FAITALERROR             = 2500;
 var CLIMSG_WARNING                 = 2501;
 var CLIMSG_ERROR                   = 2502;
-var CLIMSG_FAITALERROR_OCCURRED    = 2510;
 var CLIMSG_UNEXPECTED_REQUEST      = 2511;
 var CLIMSG_SERVER_ERROR            = 2512;
-var CLIMSG_DBMSCONFAILURE          = 2520;
 var CLIMSG_COMMUNICATIONERROR      = 2530;
+var CLIMSG_WAITFORAWHILE           = 2540;
 
 var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja':'ODBC接続'},
               {'code':CLIMSG_LABEL_TABLEINFO, 'en':'Table Information', 'ja':'テーブル情報'},
               {'code':CLIMSG_LABEL_REFRSHTABLE, 'en':'Refresh Table List', 'ja':'テーブル一覧更新'},
               {'code':CLIMSG_LABEL_FILTERING, 'en':'Filtering', 'ja':'フィルタリング'},
               {'code':CLIMSG_LABEL_INFORMATION, 'en':'Information', 'ja':'情報'},
-              {'code':CLIMSG_WAITFORALITTLE, 'en':'Now loading... Please wait for a while.', 'ja':'読み込み中です。しばらくお待ちください。'},
+              ///////////////////////////////////////////////
+              // Info
               {'code':CLIMSG_LABEL_LOGTIME, 'en':'Logging time', 'ja':'ログ出力時刻'},
               {'code':CLIMSG_LABEL_LOGMSG, 'en':'Message', 'ja':'メッセージ'},
               {'code':CLIMSG_TECH_EMBEDDED, 'en':'This software has the following technologies embedded:', 'ja':'このソフトウェアは次の技術を取り込んでいます。'},
@@ -70,36 +80,47 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
                   'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.', 
                   'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'
               },
-              {'code':CLIMSG_INFO, 'en':'Information', 'ja':'情報'},
+              ///////////////////////////////////////////////
+              // ODBC Config
               {'code':CLIMSG_ODBCCONNSTR_GUIDE,
                   'en':'Configure ODBC connection.<br>Select the connection target DBMS and specify the ODBC connection string.<br>As this is 32-bit application software, this string should be specified for the use of a 32-bit ODBC driver. As a prerequisite, a 32-bit ODBC driver needs to be installed on the operating system.<br>',
                   'ja':'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。オペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>'
               },
-              {'code':CLIMSG_ODBCCONNTITLE, 'en':'ODBC Connections', 'ja':'ODBC接続'},
               {'code':CLIMSG_ODBCSELECTION, 'en':'Select DBMS : ', 'ja':'DBMSの選択 : '},
               {'code':CLIMSG_ODBCCONNSTR_SPECIFY, 'en':'Specify connection string : <br/>', 'ja':'接続文字列の指定 : <br/>'},
+              {'code':CLIMSG_ODBCCONFAILURE,
+                  'en':'DBMS connection failed.<br>This may be caused by one of the following issues:<br>- The DBMS is not working properly.<br>- No ODBC driver is installed.<br>- The ODBC connection string is invalid.<br>- There are issues with the DBMS on the network.<br>',
+                  'ja':'DBMSとの接続に失敗しました。<br>次の要因が考えられます。<br>- DBMSが適切に起動していない。<br>- ODBCドライバがインストールされていない。<br>- ODBCの接続文字列が不正。<br>- DBMSとの接続経路に何らかの問題がある。<br>'
+              },
+              ///////////////////////////////////////////////
+              // Table Info
               {'code':CLIMSG_TABLEINFOSHOWN, 'en':'Detailed information on the specified table is shown below.', 'ja':'以下に指定されたテーブルの詳細情報を表示します。'},
               {'code':CLIMSG_LABEL_TARGETTABLE, 'en':'The target table: ', 'ja':'対象テーブル: '},
               {'code':CLIMSG_TABLENOTEXIST, 'en':'The operation cannot be performed because the target table for display does not exist.', 'ja':'表示対象のテーブルが存在しないため操作を継続できません。'},
+              ///////////////////////////////////////////////
+              // Filtering
               {'code':CLIMSG_FILTERING_DESC,
                   'en':'Filter settings can be specified here.<br>Records are filtered according to the specified criteria.<br>Up to five filter items can be specified.<br>All items are treated as logical AND operators.',
                   'ja':'ここではフィルタリングの設定を行うことができます。<br>指定した条件でレコード情報がフィルタリングされます。<br>フィルタリング項目は最大5件を指定することができます。<br>各フィルタリング項目間は論理積[AND]で結合されます。'
               },
               {'code':CLIMSG_FILTERING_NO_TABLE, 'en':'The operation cannot be performed because the target table for filtering does not exist.', 'ja':'フィルタリングの対象となるテーブルが存在しないため操作を継続できません。'},
+              {'code':CLIMSG_FILTERING_UNSPECIFY, 'en':'Unspecified', 'ja':'未指定'},
+              {'code':CLIMSG_FILTERING_INVALID,
+                  'en':'The filter conditions set do not match the current table schema.<br>Do you want to clear the filter conditions?',
+                  'ja':'設定されているフィルタリング条件は現在のテーブルのスキーマと一致していません。<br>フィルタリング条件をクリアしてよいですか？'
+              },
+              ///////////////////////////////////////////////
+              // Basic
               {'code':CLIMSG_FAITALERROR, 'en':'Fatal Error', 'ja':'致命的エラー'},
               {'code':CLIMSG_WARNING, 'en':'Warning', 'ja':'警告'},
               {'code':CLIMSG_ERROR, 'en':'Error', 'ja':'エラー'},
-              {'code':CLIMSG_FAITALERROR_OCCURRED, 'en':'A faital error occurred.', 'ja':'致命的エラーが発生しました。'},
               {'code':CLIMSG_UNEXPECTED_REQUEST, 'en':'CmdFreak service has received an unexpected request.', 'ja':'CmdFreakサービスは予期しない要求を受信しました。'},
               {'code':CLIMSG_SERVER_ERROR, 'en':'An error occurred at server side.', 'ja':'サーバ側でエラーが発生しました。'},
-              {'code':CLIMSG_DBMSCONFAILURE,
-                  'en':'DBMS connection failed.<br>This may be caused by one of the following issues:<br>- The DBMS is not working properly.<br>- No ODBC driver is installed.<br>- The ODBC connection string is invalid.<br>- There are issues with the DBMS on the network.<br>',
-                  'ja':'DBMSとの接続に失敗しました。<br>次の要因が考えられます。<br>- DBMSが適切に起動していない。<br>- ODBCドライバがインストールされていない。<br>- ODBCの接続文字列が不正。<br>- DBMSとの接続経路に何らかの問題がある。<br>'
-              },
               {'code':CLIMSG_COMMUNICATIONERROR,
                   'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A CmdFreak internal process is invalid.<br>',
                   'ja':'CmdFreakサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) CmdFreakサービスが開始されていない。<br>(2) CmdFreakサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , stkwebapp.conf] が不正。<br>(4) CmdFreakの内部処理で異常が発生している。<br>'
-              }
+              },
+              {'code':CLIMSG_WAITFORAWHILE, 'en':'Now loading... Please wait for a while.', 'ja':'読み込み中です。しばらくお待ちください。'}
 ];
 
 var ACTION_LAUNCH           = 50;
@@ -233,7 +254,7 @@ function showTableWithToolBar() {
     for (var Loop = 0; Loop < 8; Loop++) {
         displayButton(buttons[Loop][0], buttons[Loop][1], buttons[Loop][2], buttons[Loop][3], buttons[Loop][4]);
         if (Loop == 0) {
-            $('#mainarea').append('<span id="dbmstypeontoolbar"> </span>');
+            $('#mainarea').append('<span id="dbmstypeontoolbar">' + currentDbmsname + '</span>');
             onXxxAction(ACTION_DISPLAYDBMSTYPE);
         }
         if (Loop == 2) {
@@ -301,8 +322,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 showMessageDialog(getCliMsg(CLIMSG_WARNING), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 $('#adialog-content').append(getSvrMsg(responseData[API_GET_LANGUAGE]));
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
             }
             return;
         }
@@ -314,8 +334,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             if (statusCode[API_GET_TABLEINFO] == 200) {
                 // Nothing to do
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
                 return;
             }
 
@@ -364,8 +383,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 }
                 return;
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
                 return;
             }
             var odbcInfos = [];
@@ -376,26 +394,23 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             }
             var odbcInfoConfigured = responseData[API_GET_ODBCINFO_CONFIGURED].Data.OdbcInfo;
 
-            showMessageDialog(getCliMsg(CLIMSG_ODBCCONNTITLE), getCliMsg(CLIMSG_ODBCCONNSTR_GUIDE), actionType, 600, 440, 'img/config_image48c.png', 1);
+            showMessageDialog(getCliMsg(CLIMSG_LABEL_ODBCCONNECTION), getCliMsg(CLIMSG_ODBCCONNSTR_GUIDE), actionType, 600, 440, 'img/config_image48c.png', 1);
             $('#adialog-content').append(getCliMsg(CLIMSG_ODBCSELECTION));
             $('#adialog-content').append('<select id="dbmsselector" style="width:250px" onchange="eventDbmsSelected()">');
             $('#adialog-content').append('</select><p>');
 
             if (odbcInfoConfigured.DbType === 'MariaDB') {
                 $('#dbmsselector').append('<option value="MariaDB" selected>MariaDB</option>');
-                currentDbmsname = 'MariaDB';
             } else {
                 $('#dbmsselector').append('<option value="MariaDB">MariaDB</option>');
             }
             if (odbcInfoConfigured.DbType === 'PostgreSQL' || odbcInfoConfigured.DbType === 'Init') {
                 $('#dbmsselector').append('<option value="PostgreSQL" selected>PostgreSQL</option>');
-                currentDbmsname = 'PostgreSQL';
             } else {
                 $('#dbmsselector').append('<option value="PostgreSQL">PostgreSQL</option>');
             }
             if (odbcInfoConfigured.DbType === 'MySQL') {
                 $('#dbmsselector').append('<option value="MySQL" selected>MySQL</option>');
-                currentDbmsname = 'MySQL';
             } else {
                 $('#dbmsselector').append('<option value="MySQL">MySQL</option>');
             }
@@ -419,12 +434,11 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 $('#adialog-content').append(getSvrMsg(responseData[API_POST_ODBCINFO]));
                 return;
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
                 return;
             }
             if (responseData[API_POST_ODBCINFO].Data.OdbcInfo.Status === 'unconnectable') {
-                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_DBMSCONFAILURE), ACTION_ERROR, 512, 270, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_ODBCCONFAILURE), ACTION_ERROR, 512, 270, 'img/error_image48c.png', 0);
             }
             currentTablename = "";
             displaySheet();
@@ -439,11 +453,11 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             if (statusCode[API_GET_ODBCINFO_CONFIGURED] == 200) {
                 // Nothing to do
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
                 return;
             }
-            $('#dbmstypeontoolbar').text(responseData[API_GET_ODBCINFO_CONFIGURED].Data.OdbcInfo.DbType);
+            currentDbmsname = responseData[API_GET_ODBCINFO_CONFIGURED].Data.OdbcInfo.DbType;
+            $('#dbmstypeontoolbar').text(currentDbmsname);
             return;
         }
         //
@@ -452,8 +466,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             if (statusCode[API_GET_TABLEINFO_WITH_COL] == 200) {
                 // Nothing to do
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
                 return;
             }
             if (currentTablename == "") {
@@ -488,9 +501,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         if (actionType == ACTION_GETFILTERINFO) {
             if (currentTablename == "") {
-                showMessageDialog(getCliMsg(CLIMSG_LABEL_FILTERING), getCliMsg(CLIMSG_FILTERING_DESC), 0);
-                $('#adialog-content').empty();
-                $('#adialog-content').append('<br>' + getCliMsg(CLIMSG_FILTERING_NO_TABLE) + '<br>');
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_FILTERING_NO_TABLE), actionType, 550, 200, 'img/error_image48c.png', 0);
                 return;
             }
             showMessageDialog(getCliMsg(CLIMSG_LABEL_FILTERING), getCliMsg(CLIMSG_FILTERING_DESC), actionType, 600, 440, 'img/filter_image48c.png', 1);
@@ -535,7 +546,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             for (var LoopCol = 1; LoopCol <= 5; LoopCol++) {
                 $('#paramOpe' + LoopCol).attr('disabled', 'disabled');
                 $('#paramVal' + LoopCol).attr('disabled', 'disabled');
-                $('#paramCol' + LoopCol).append('<option value="*">未指定</option>');
+                $('#paramCol' + LoopCol).append('<option value="*">' + getCliMsg(CLIMSG_FILTERING_UNSPECIFY) + '</option>');
                 var filFndFlag = false;
                 for (var Loop in columnInfos) {
                     var seld = '';
@@ -547,7 +558,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 }
                 if (filFndFlag == false && filterInfo[LoopCol - 1].columnname != '*') {
                     $('#adialog-content').empty();
-                    $('#adialog-content').append('<br>設定されているフィルタリング条件は現在のテーブルのスキーマと一致していません。<br>フィルタリング条件をクリアしてよいですか？<br>');
+                    $('#adialog-content').append('<br>' + getCliMsg(CLIMSG_FILTERING_INVALID) + '<br>');
                     return;
                 }
                 eventParamColChanged($('#paramCol' + LoopCol).get(0));
@@ -604,8 +615,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 $('#adialog-content').append(getSvrMsg(responseData[API_GET_RECORDS]));
                 return;
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
                 return;
             }
 
@@ -641,8 +651,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 productName = responseData[API_GET_SYSTEM].Data.ProductName;
                 version = responseData[API_GET_SYSTEM].Data.Version;
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
                 return;
             }
 
@@ -654,12 +663,11 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                     Logs.push(responseData[API_GET_LOGS].Data.Log);
                 }
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_FAITALERROR_OCCURRED), ACTION_ERROR, 550, 330, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getCliMsg(CLIMSG_COMMUNICATIONERROR));
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
                 return;
             }
 
-            showMessageDialog(getCliMsg(CLIMSG_INFO), '' + productName + ' ' + version + '<br/>Copyright (C) 2017 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
+            showMessageDialog(getCliMsg(CLIMSG_LABEL_INFORMATION), '' + productName + ' ' + version + '<br/>Copyright (C) 2017 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
             $('#adialog-content').append('' + getCliMsg(CLIMSG_TECH_EMBEDDED) + '<br/>- Mongoose 3.7 (Released as MIT License)<br/>- JQuery 1.9.1 (Released as MIT License)<br/>- JQuery UI 1.10.3 (Released as MIT License)<br/>- ParamQuery Grid 1.1.2 (Released as MIT License)<br/>');
             $('#adialog-content').append('<p>');
             $('#adialog-content').append('<a href="' + getCliMsg(CLIMSG_OPEN_MANUAL_URL) + '" target="manual">' + getCliMsg(CLIMSG_OPEN_MANUAL) + '</a><p>');
@@ -718,7 +726,7 @@ function showWaitingDialog(actionType, count) {
         }
     });
     $('#wdialog-content').empty();
-    $('#wdialog-content').append(getCliMsg(CLIMSG_WAITFORALITTLE));
+    $('#wdialog-content').append(getCliMsg(CLIMSG_WAITFORAWHILE));
     setTimeout(function() {closeWaitingDialogAndExecuteNextAction(actionType);}, 500);
 }
 
@@ -857,7 +865,6 @@ function eventFilterOn(checkboxObj) {
 
 function eventDbmsSelected() {
     var selectedDbmsName = $('#dbmsselector').val();
-    currentDbmsname = selectedDbmsName;
 
     var odbcInfos = [];
     if (responseData[API_GET_ODBCINFO_DEFAULT].Data.OdbcInfo instanceof Array) {
@@ -868,7 +875,7 @@ function eventDbmsSelected() {
 
     $('#connstr').empty();
     for (var loop = 0; loop < odbcInfos.length; loop++) {
-        if (currentDbmsname === odbcInfos[loop].DbType) {
+        if (selectedDbmsName === odbcInfos[loop].DbType) {
             $('#connstr').append(odbcInfos[loop].ConnStr);
         }
     }
@@ -958,8 +965,9 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_POSTODBCCONNSTR) {
+        var selectedDbmsName = $('#dbmsselector').val();
         var tmpstr = $('#connstr').val().replace(/[\n\r]/g, '');
-        var reqDatDf = {'DbType' : currentDbmsname, 'ConnStr' : tmpstr};
+        var reqDatDf = {'DbType' : selectedDbmsName, 'ConnStr' : tmpstr};
         sendRequestRecvResponse('POST', './api/odbcinfo/', reqDatDf, API_POST_ODBCINFO);
         showWaitingDialog(ACTION_POSTODBCCONNSTR, 0);
         return;
@@ -1019,7 +1027,7 @@ function onXxxAction(actionType) {
             Criteria[Loop - 1].opetype = paramOpeInt;
             Criteria[Loop - 1].value = JSON.parse(JSON.stringify(paramVal));
         }
-        var reqDatDf = {Criteria};
+        var reqDatDf = {"Criteria":Criteria};
         sendRequestRecvResponse('POST', './api/filterinfo/', reqDatDf, API_POST_FILTERINFO);
         showWaitingDialog(ACTION_POSTFILTERINFO, 0);
         return;
@@ -1030,15 +1038,13 @@ function onXxxAction(actionType) {
         return;   
     }
     if (actionType == ACTION_TURNFILTERSWON) {
-        var Function = "enable";
-        var reqDatDf = {Function};
+        var reqDatDf = {"Function":"enable"};
         sendRequestRecvResponse('POST', './api/filterinfo/', reqDatDf, API_POST_FILTERINFO);
         showWaitingDialog(ACTION_TURNFILTERSWON, 0);
         return;   
     }
     if (actionType == ACTION_TURNFILTERSWOFF) {
-        var Function = "disable";
-        var reqDatDf = {Function};
+        var reqDatDf = {"Function":"disable"};
         sendRequestRecvResponse('POST', './api/filterinfo/', reqDatDf, API_POST_FILTERINFO);
         showWaitingDialog(ACTION_TURNFILTERSWOFF, 0);
         return;   
