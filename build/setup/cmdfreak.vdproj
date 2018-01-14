@@ -21,30 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_01B8D0FE3B734FB2B2A035BBEFBF9975"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_06E74BEE1BBB468786E7245FEAB4C9F2"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_070AFCC8566A44F6AD4EFFCFE872BD16"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0760518766DD457B9338CFABCDEE09EB"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_0773EA790FC5476385A81D77A9B4790C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -63,25 +39,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_09862C6AC25E46D8B4A44840E43D7D8F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_0B4B25A20D624C0E9FCCFAC5218AE8C0"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0D8B5E284257481194B79F060BD3DA9C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0E73A78289024772A9AFC7D4CF91124D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -135,12 +93,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_178EA461EEC043C4B29C153B2D4B5452"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_189E6C51D63E4383A854A853F3F7300A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -171,61 +123,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1DCE27D735734EF4855194EEE7D35C91"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1E39DEF02D344BC1A67061FC51C57C9A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_1FC8039AE17B43EA8D005DB970EB555B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_20517B24DB3A4962840F01CBAEFDF0A5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_24C3CD9E9DFA436692D9E51DD5369DDF"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_262FBDEECBC04E9E93CD1EE9CEBCB398"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_29A4FD15C7214AA584128A6B82B01F8C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2A8FEC66763D49BEAC99F04EADB93A0F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2AD81B28313542E581ACDC8B1AFFD741"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2B3355605BAA4AECB969C370402EB620"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -250,18 +148,6 @@
         "Entry"
         {
         "MsmKey" = "8:_2DFD83A1B07C4F988FF1160EEC6A769D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_312BE22B5211479EB8846C00E9E80072"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_318C347996414102B737E8D86DF5285B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -303,30 +189,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_38871A1E0EA74EE091B59C74D01B7BF6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3A44991823D24B8C8BD7AB60E6C21907"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3B181E03F86E493F8625E5D118C1146C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3D17BAF61D1B43CDBE3F16AEB5A80BFE"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_3EC5CFBD0A974626BA10C9F6AC02AF50"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -334,12 +196,6 @@
         "Entry"
         {
         "MsmKey" = "8:_404250976E6347C7AB271EA2C158B802"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4167F0D382B14B9FA44D31A0F1CA5DDA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -357,19 +213,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_466927A7584943738C02334C3CC625B4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_46B732811ACB426DB98D93F299662EDD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_46DB137CB6D143CC8EF9BBD9E2371C18"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -381,31 +225,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_512CD6860DA44D2A9CABF1A228D3385D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_514B07F6CBAA4A02B07DC13413FC69FB"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_517CC5EAEE64472BB499243B0D18A099"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_53CF71FFED1C4B26AB7D62FC7B6343E5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_55E38C675069437FAAA7378FC77A5AA8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -423,43 +243,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_59641FDA205E48BA8A6F8A4CAD62A0F4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_59F730C09D584AB186825ED3C914035F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5ACF02F15BC347B0ACE737EFCFB72BA8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_5B7CABCBC7C04A3FBC692450270678B2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_5CE83C88E7D4452B9256E65F23D61D6B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_5D447DF5A59D44428BADB734283C5804"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5E210EC7680A4A73B4E9057E17A1C609"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -489,30 +279,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_61B20FF29E0B4DF58E204B816E4C734E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_627E51B19C5F460E8362DF279284CC46"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_631623D2A9BA418F9C2480EA11A4D67B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_665BDEA3306A4B9A91109D33031D68ED"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_66BE592DC236487E8FAA3F65906FC35B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -531,18 +297,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_67DFDD4B4E44403BBE54A2EE05E359D2"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_67EFD21B75DF4904BF09FAA8E9936573"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_6992F90995844C6ABBF46F7E67D31CA9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -555,49 +309,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_6DB7916E4C6E425CA4FA3791310B502B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_6E9A267E54BA431AB6C9EEF9C3C1969E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6ECC63556EC249EFB8534ED2C6F247F6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6FDA14F3FF39454C85BAC30CADF9BE00"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_70E5D0F9FBBF403F99DAD82011FDEB22"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7158A64323814840A5F335A78B8917BB"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_74D25617899A47A4A0B027F9172CC31F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7669307BD4704E2FB65F2E759CBEEB51"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -609,19 +321,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_7A75F1CDD8F04170958A42E4D002705B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_7B70169E89F64B7C8D81F024A6A3ACC2"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7EBE82B1456C47EF9490360C4F6D5506"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -634,12 +334,6 @@
         "Entry"
         {
         "MsmKey" = "8:_807B10BAA8834710AAA5FFAD679FCC4D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_80BCC7492E0C4208896B1E044194935A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -664,12 +358,6 @@
         "Entry"
         {
         "MsmKey" = "8:_85B46D7FF22E4BAE8569EE8AE2518FE4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_85E2CB912D3E4904ADB8882FFB74E103"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -705,12 +393,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_8A8D49C2FDF14813839C6B4D450C72D6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_8D0F882A304446EFB09424D1EE837067"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -729,31 +411,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_93B3BFF6AC054F8EB1BE8A4C9041C633"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9450F6CF8EB94BBE8E9C22451AFA4433"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_94654AE3DCC2420FA7717FF12AE9C5CA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_94E6AC3A5380400B875F272D1367AE5E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_95D4F9FE97C64B5A853592971ABE9956"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -783,18 +447,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9DB4FC72F5BD4BAA8A8567975EF48CD8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9E88901D7A9446B89524AC1F32869D2E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9EC8977DE8D94F6BB87EE4F97B89FD6B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -802,18 +454,6 @@
         "Entry"
         {
         "MsmKey" = "8:_A252687589024910A61600F7966F15E3"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A27D0FE26CFE46A9981A58FDA77C5A5F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A2F2A312092B439C871EFA821B7B032B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -843,49 +483,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_ACF6D92A5196458EAEEAA05FE90478E8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AD20895F8EDC4FEEA61E22AA9E762A9C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_ADE54D59BD604A16BB08A18E427D746F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_AEB6717B3DC44B9EB56C66D56CB105FC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AF6CC556BD7F407A9170EED0BE2ED4EB"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B152546A042F4E869FFFA6F68436515D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_B32DC8949CB64236A369045B4D7DB60F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B38581AA3AC84F31A7FC984BD4336FDB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -909,19 +513,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B9AF9F7C21D74CF486C6F2B6C1A7C614"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_BCB4A6A7B09A4A08B8B8455CFB0A587E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BCEE1FE011DE416294FB255C546670B8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -939,31 +531,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_BF38988DD312431BA70B335F67AEF898"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BF4F56244078451D9433161EE2B291E0"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_C025E32DCC92476F9CCF86BA6ADD72A3"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C13562A01EED4E5492FCFFA9ED5590D7"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C14A8E4884914EE7961766E36EB5A21E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -975,19 +543,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C200903AD37347449F1D2D67ABDFE42E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_C33C8F4E97694606828B38C47FEB4F6B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C3550FE33B4F43E5BE53CD5DB2D1036E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -999,31 +555,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C7072EFA7AE6447BBC4F10E4D52D890E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_C730BEEA64124633B971E0630358F5B3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_CA2B50BC7D1143B58EF365C017AE635B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_CA3431B217AB4CD782F869BB47D1EC18"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CA4AC3C2D9C84B43B3598934E3563F85"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1042,24 +580,6 @@
         "Entry"
         {
         "MsmKey" = "8:_CC1D05101166403686A6BB40B32059FC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CC35F6F33E3F451989D2573563665E57"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CD13D26A7DA54CB7A9B6950B7EF67738"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CDEF79C178F74AD3B4103D487CDAD8E3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1113,12 +633,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_D5F92330B9F342869D96ED174BF29DD3"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_D6BB1549E91B4E9E8C54DFE1C2A7164F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1126,18 +640,6 @@
         "Entry"
         {
         "MsmKey" = "8:_D993E29B557D43AE96BE425983D0E915"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DAE90D1BDE104F61B64C9043E8DF3110"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DB4AF3AD58FA440C8C9FC6A4BB76D704"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1167,12 +669,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_DF09AFDFCA7644289F6F3F8AAC08EBBD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_DFB2D9438CF141BB8EF85A0010ACC3C9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1185,18 +681,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E13B5EBD1A7746059E5E3B51BEC9BB22"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E23F625D161C4CAFACBD94A463A0D0C3"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_E464EB4C75E64D2CA7A22324CFFF2100"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1204,18 +688,6 @@
         "Entry"
         {
         "MsmKey" = "8:_E4BE603D05AE40418065C7D665330BAF"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E60D6592C113405B9D66F19F8F598727"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E746E6F251DF4C7FABED5F7C9549BC6F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1245,12 +717,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_EF7265A905DE40ECA8AA478FBFC11D55"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_EFC6FA58AA7C4ABE8FE455E47204654E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1275,25 +741,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F33A1C97611740A6BE886C008FD121D2"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_F3DE2AC1FB3147C68FEB3C4DF010B54A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F827DC33BAD74E98930937EDF372FB60"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F96716D3A4B741B38093A449959EEA67"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1311,12 +759,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_FBF8E17FEA9F4F0FBD5FBCF20338CD86"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_FC8F4AD2B02A4B7DA42AF218E9CBDDCF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1324,30 +766,6 @@
         "Entry"
         {
         "MsmKey" = "8:_FD9470CC3F08496A94E7CE8975788964"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FE1667F695114E35879CFFCD379FE182"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FE33F70B724841ECA909695237A74CFA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FEAF482D1C55494683AE6DE00C61F06C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FF2AD308CED14DAEB0959F13F2566F6A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1476,86 +894,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_01B8D0FE3B734FB2B2A035BBEFBF9975"
-            {
-            "SourcePath" = "8:..\\webapp\\style.css"
-            "TargetName" = "8:style.css"
-            "Tag" = "8:"
-            "Folder" = "8:_465977CCE7E34FF8BF173778E37DDEDB"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_06E74BEE1BBB468786E7245FEAB4C9F2"
-            {
-            "SourcePath" = "8:..\\webapp\\manual\\eng\\section01.htm"
-            "TargetName" = "8:section01.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_680A092E711F4BEB975E8BFBD8A6E1BF"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_070AFCC8566A44F6AD4EFFCFE872BD16"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\browser_ie.png"
-            "TargetName" = "8:browser_ie.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0760518766DD457B9338CFABCDEE09EB"
-            {
-            "SourcePath" = "8:..\\webapp\\manual\\jpn\\style.css"
-            "TargetName" = "8:style.css"
-            "Tag" = "8:"
-            "Folder" = "8:_540DE28AD2DF4F7082D1147B8CD8AA9A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0773EA790FC5476385A81D77A9B4790C"
             {
             "SourcePath" = "8:..\\webapp\\manual\\jpn\\systemstructure.gif"
@@ -1616,72 +954,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_09862C6AC25E46D8B4A44840E43D7D8F"
-            {
-            "SourcePath" = "8:..\\webapp\\manual\\jpn\\section02.htm"
-            "TargetName" = "8:section02.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_540DE28AD2DF4F7082D1147B8CD8AA9A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0B4B25A20D624C0E9FCCFAC5218AE8C0"
             {
             "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\Refresh.gif"
             "TargetName" = "8:Refresh.gif"
             "Tag" = "8:"
             "Folder" = "8:_192221EFDA62428A9FC7C5C644924C60"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0D8B5E284257481194B79F060BD3DA9C"
-            {
-            "SourcePath" = "8:..\\webapp\\cmdfrksrv.conf"
-            "TargetName" = "8:cmdfrksrv.conf"
-            "Tag" = "8:"
-            "Folder" = "8:_F61D85E7FA1B426E963D2DB81FBF94BE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0E73A78289024772A9AFC7D4CF91124D"
-            {
-            "SourcePath" = "8:..\\webapp\\manual\\eng\\style.css"
-            "TargetName" = "8:style.css"
-            "Tag" = "8:"
-            "Folder" = "8:_680A092E711F4BEB975E8BFBD8A6E1BF"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1856,26 +1134,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_178EA461EEC043C4B29C153B2D4B5452"
-            {
-            "SourcePath" = "8:..\\webapp\\srvcmd.exe"
-            "TargetName" = "8:srvcmd.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_F61D85E7FA1B426E963D2DB81FBF94BE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_189E6C51D63E4383A854A853F3F7300A"
             {
             "SourcePath" = "8:..\\webapp\\img\\edit_image32s.png"
@@ -1976,192 +1234,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1DCE27D735734EF4855194EEE7D35C91"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\cross.png"
-            "TargetName" = "8:cross.png"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1E39DEF02D344BC1A67061FC51C57C9A"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\jquery-ui.min.js"
-            "TargetName" = "8:jquery-ui.min.js"
-            "Tag" = "8:"
-            "Folder" = "8:_B9A50AEE23C7416FA95E173779243066"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1FC8039AE17B43EA8D005DB970EB555B"
             {
             "SourcePath" = "8:..\\webapp\\lib\\jquery\\jquery-ui.min.css"
             "TargetName" = "8:jquery-ui.min.css"
             "Tag" = "8:"
             "Folder" = "8:_777C0E461C414017B63E01EF8BF9A2FC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_20517B24DB3A4962840F01CBAEFDF0A5"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\ok_image32s.png"
-            "TargetName" = "8:ok_image32s.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_24C3CD9E9DFA436692D9E51DD5369DDF"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\edit_image32c.png"
-            "TargetName" = "8:edit_image32c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_262FBDEECBC04E9E93CD1EE9CEBCB398"
-            {
-            "SourcePath" = "8:..\\webapp\\manual\\jpn\\frame_r.htm"
-            "TargetName" = "8:frame_r.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_540DE28AD2DF4F7082D1147B8CD8AA9A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_29A4FD15C7214AA584128A6B82B01F8C"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\table_image32s.png"
-            "TargetName" = "8:table_image32s.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2A8FEC66763D49BEAC99F04EADB93A0F"
-            {
-            "SourcePath" = "8:..\\webapp\\manual\\jpn\\systemstructure.gif"
-            "TargetName" = "8:systemstructure.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_540DE28AD2DF4F7082D1147B8CD8AA9A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2AD81B28313542E581ACDC8B1AFFD741"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\table_image32c.png"
-            "TargetName" = "8:table_image32c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2B3355605BAA4AECB969C370402EB620"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\create_image48c.png"
-            "TargetName" = "8:create_image48c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2249,46 +1327,6 @@
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_312BE22B5211479EB8846C00E9E80072"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\config_image32s.png"
-            "TargetName" = "8:config_image32s.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_318C347996414102B737E8D86DF5285B"
-            {
-            "SourcePath" = "8:..\\webapp\\cmdfrksrv.exe"
-            "TargetName" = "8:cmdfrksrv.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_F61D85E7FA1B426E963D2DB81FBF94BE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:TRUE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
@@ -2416,86 +1454,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_38871A1E0EA74EE091B59C74D01B7BF6"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\jquery-1.9.1.min.js"
-            "TargetName" = "8:jquery-1.9.1.min.js"
-            "Tag" = "8:"
-            "Folder" = "8:_B9A50AEE23C7416FA95E173779243066"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3A44991823D24B8C8BD7AB60E6C21907"
-            {
-            "SourcePath" = "8:..\\webapp\\manual\\eng\\frame_r.htm"
-            "TargetName" = "8:frame_r.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_680A092E711F4BEB975E8BFBD8A6E1BF"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B181E03F86E493F8625E5D118C1146C"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\pqgrid.min.js"
-            "TargetName" = "8:pqgrid.min.js"
-            "Tag" = "8:"
-            "Folder" = "8:_AF46E3FD2CA14FE999E378AE5007CE9C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3D17BAF61D1B43CDBE3F16AEB5A80BFE"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\error_image48c.png"
-            "TargetName" = "8:error_image48c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3EC5CFBD0A974626BA10C9F6AC02AF50"
             {
             "SourcePath" = "8:..\\webapp\\contrib\\vim\\syntax\\nginx.vim"
@@ -2522,26 +1480,6 @@
             "TargetName" = "8:style.css"
             "Tag" = "8:"
             "Folder" = "8:_D344A15A1EAE4C23A77C08670688ED40"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4167F0D382B14B9FA44D31A0F1CA5DDA"
-            {
-            "SourcePath" = "8:..\\webapp\\manual\\eng\\index.htm"
-            "TargetName" = "8:index.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_680A092E711F4BEB975E8BFBD8A6E1BF"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2596,52 +1534,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_466927A7584943738C02334C3CC625B4"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-icons_469bdd_256x240.png"
-            "TargetName" = "8:ui-icons_469bdd_256x240.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_46B732811ACB426DB98D93F299662EDD"
             {
             "SourcePath" = "8:..\\webapp\\img\\ng_image32s.png"
             "TargetName" = "8:ng_image32s.png"
             "Tag" = "8:"
             "Folder" = "8:_FE0CB3C9816E4F4CACA4C1DCBF1AB971"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_46DB137CB6D143CC8EF9BBD9E2371C18"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\localize\\pq-localize-es.js"
-            "TargetName" = "8:pq-localize-es.js"
-            "Tag" = "8:"
-            "Folder" = "8:_F051FD088DDB40A18CC599FC46929B1D"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2676,92 +1574,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_512CD6860DA44D2A9CABF1A228D3385D"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-bg_inset-hard_100_f5f8f9_1x100.png"
-            "TargetName" = "8:ui-bg_inset-hard_100_f5f8f9_1x100.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_514B07F6CBAA4A02B07DC13413FC69FB"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-icons_2e83ff_256x240.png"
-            "TargetName" = "8:ui-icons_2e83ff_256x240.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_517CC5EAEE64472BB499243B0D18A099"
             {
             "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\sprite.png"
             "TargetName" = "8:sprite.png"
             "Tag" = "8:"
             "Folder" = "8:_192221EFDA62428A9FC7C5C644924C60"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_53CF71FFED1C4B26AB7D62FC7B6343E5"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\filter_image32c.png"
-            "TargetName" = "8:filter_image32c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_55E38C675069437FAAA7378FC77A5AA8"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\delete_image48c.png"
-            "TargetName" = "8:delete_image48c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2816,66 +1634,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_59641FDA205E48BA8A6F8A4CAD62A0F4"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-bg_glass_85_dfeffc_1x400.png"
-            "TargetName" = "8:ui-bg_glass_85_dfeffc_1x400.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_59F730C09D584AB186825ED3C914035F"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\create_image32s.png"
-            "TargetName" = "8:create_image32s.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5ACF02F15BC347B0ACE737EFCFB72BA8"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\themes\\Office\\images\\column-header-bg.png"
-            "TargetName" = "8:column-header-bg.png"
-            "Tag" = "8:"
-            "Folder" = "8:_54FCA54755F243A6B906AF0138EFBD82"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5B7CABCBC7C04A3FBC692450270678B2"
             {
             "SourcePath" = "8:..\\webapp\\img\\table_image32s.png"
@@ -2896,52 +1654,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5CE83C88E7D4452B9256E65F23D61D6B"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\jquery-ui.min.css"
-            "TargetName" = "8:jquery-ui.min.css"
-            "Tag" = "8:"
-            "Folder" = "8:_B9A50AEE23C7416FA95E173779243066"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5D447DF5A59D44428BADB734283C5804"
             {
             "SourcePath" = "8:..\\webapp\\lib\\grid\\localize\\pq-localize-ja.js"
             "TargetName" = "8:pq-localize-ja.js"
             "Tag" = "8:"
             "Folder" = "8:_EAC8F4B826DD46EFAEB9C54B0BD63843"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5E210EC7680A4A73B4E9057E17A1C609"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\browser_ff.png"
-            "TargetName" = "8:browser_ff.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3036,86 +1754,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_61B20FF29E0B4DF58E204B816E4C734E"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\localize\\pq-localize-fr.js"
-            "TargetName" = "8:pq-localize-fr.js"
-            "Tag" = "8:"
-            "Folder" = "8:_F051FD088DDB40A18CC599FC46929B1D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_627E51B19C5F460E8362DF279284CC46"
-            {
-            "SourcePath" = "8:..\\webapp\\bbb.exe"
-            "TargetName" = "8:bbb.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_465977CCE7E34FF8BF173778E37DDEDB"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_631623D2A9BA418F9C2480EA11A4D67B"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\table_image48c.png"
-            "TargetName" = "8:table_image48c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_665BDEA3306A4B9A91109D33031D68ED"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\ng_image32s.png"
-            "TargetName" = "8:ng_image32s.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_66BE592DC236487E8FAA3F65906FC35B"
             {
             "SourcePath" = "8:..\\webapp\\contrib\\README"
@@ -3176,46 +1814,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_67DFDD4B4E44403BBE54A2EE05E359D2"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\localize\\pq-localize-zh.js"
-            "TargetName" = "8:pq-localize-zh.js"
-            "Tag" = "8:"
-            "Folder" = "8:_F051FD088DDB40A18CC599FC46929B1D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_67EFD21B75DF4904BF09FAA8E9936573"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-bg_flat_0_aaaaaa_40x100.png"
-            "TargetName" = "8:ui-bg_flat_0_aaaaaa_40x100.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6992F90995844C6ABBF46F7E67D31CA9"
             {
             "SourcePath" = "8:..\\webapp\\license\\paramquery-grid_1.1.2_lic.txt"
@@ -3256,152 +1854,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6DB7916E4C6E425CA4FA3791310B502B"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\animated-overlay.gif"
-            "TargetName" = "8:animated-overlay.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6E9A267E54BA431AB6C9EEF9C3C1969E"
             {
             "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-bg_gloss-wave_55_5c9ccc_500x100.png"
             "TargetName" = "8:ui-bg_gloss-wave_55_5c9ccc_500x100.png"
             "Tag" = "8:"
             "Folder" = "8:_DFC729690693485DAA9DA10661DCD217"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6ECC63556EC249EFB8534ED2C6F247F6"
-            {
-            "SourcePath" = "8:..\\webapp\\mongoose.conf"
-            "TargetName" = "8:mongoose.conf"
-            "Tag" = "8:"
-            "Folder" = "8:_F61D85E7FA1B426E963D2DB81FBF94BE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6FDA14F3FF39454C85BAC30CADF9BE00"
-            {
-            "SourcePath" = "8:..\\webapp\\cmdfrksrv.dat"
-            "TargetName" = "8:cmdfrksrv.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_F61D85E7FA1B426E963D2DB81FBF94BE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_70E5D0F9FBBF403F99DAD82011FDEB22"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\edit_image48c.png"
-            "TargetName" = "8:edit_image48c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7158A64323814840A5F335A78B8917BB"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\sprite.png"
-            "TargetName" = "8:sprite.png"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_74D25617899A47A4A0B027F9172CC31F"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\filter_image48c.png"
-            "TargetName" = "8:filter_image48c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7669307BD4704E2FB65F2E759CBEEB51"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\pqgrid.min.css"
-            "TargetName" = "8:pqgrid.min.css"
-            "Tag" = "8:"
-            "Folder" = "8:_AF46E3FD2CA14FE999E378AE5007CE9C"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3436,52 +1894,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7A75F1CDD8F04170958A42E4D002705B"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\delete_image32s.png"
-            "TargetName" = "8:delete_image32s.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7B70169E89F64B7C8D81F024A6A3ACC2"
             {
             "SourcePath" = "8:..\\webapp\\img\\ok_image32s.png"
             "TargetName" = "8:ok_image32s.png"
             "Tag" = "8:"
             "Folder" = "8:_FE0CB3C9816E4F4CACA4C1DCBF1AB971"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7EBE82B1456C47EF9490360C4F6D5506"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\jquery.ui.theme.css"
-            "TargetName" = "8:jquery.ui.theme.css"
-            "Tag" = "8:"
-            "Folder" = "8:_B9A50AEE23C7416FA95E173779243066"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3522,26 +1940,6 @@
             "TargetName" = "8:jquery_1.9.1_lic.txt"
             "Tag" = "8:"
             "Folder" = "8:_DF4F0E6CC1C249E2996D1D2F35272F3E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_80BCC7492E0C4208896B1E044194935A"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-bg_glass_95_fef1ec_1x400.png"
-            "TargetName" = "8:ui-bg_glass_95_fef1ec_1x400.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3622,26 +2020,6 @@
             "TargetName" = "8:page-last-gray.gif"
             "Tag" = "8:"
             "Folder" = "8:_192221EFDA62428A9FC7C5C644924C60"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_85E2CB912D3E4904ADB8882FFB74E103"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\config_image48c.png"
-            "TargetName" = "8:config_image48c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3756,26 +2134,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8A8D49C2FDF14813839C6B4D450C72D6"
-            {
-            "SourcePath" = "8:..\\webapp\\manual\\jpn\\section03.htm"
-            "TargetName" = "8:section03.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_540DE28AD2DF4F7082D1147B8CD8AA9A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8D0F882A304446EFB09424D1EE837067"
             {
             "SourcePath" = "8:..\\webapp\\img\\config_image48c.png"
@@ -3836,26 +2194,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_93B3BFF6AC054F8EB1BE8A4C9041C633"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\horiz-bg.png"
-            "TargetName" = "8:horiz-bg.png"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9450F6CF8EB94BBE8E9C22451AFA4433"
             {
             "SourcePath" = "8:..\\webapp\\lib\\jquery\\jquery-1.9.1.min.js"
@@ -3876,52 +2214,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_94654AE3DCC2420FA7717FF12AE9C5CA"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\create_image32c.png"
-            "TargetName" = "8:create_image32c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_94E6AC3A5380400B875F272D1367AE5E"
             {
             "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-icons_cd0a0a_256x240.png"
             "TargetName" = "8:ui-icons_cd0a0a_256x240.png"
             "Tag" = "8:"
             "Folder" = "8:_DFC729690693485DAA9DA10661DCD217"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_95D4F9FE97C64B5A853592971ABE9956"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-bg_flat_55_fbec88_40x100.png"
-            "TargetName" = "8:ui-bg_flat_55_fbec88_40x100.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4016,46 +2314,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9DB4FC72F5BD4BAA8A8567975EF48CD8"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\cristal_image48c.png"
-            "TargetName" = "8:cristal_image48c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9E88901D7A9446B89524AC1F32869D2E"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\localize\\pq-localize-ja.js"
-            "TargetName" = "8:pq-localize-ja.js"
-            "Tag" = "8:"
-            "Folder" = "8:_F051FD088DDB40A18CC599FC46929B1D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9EC8977DE8D94F6BB87EE4F97B89FD6B"
             {
             "SourcePath" = "8:..\\webapp\\docs\\OpenSSL.LICENSE"
@@ -4082,46 +2340,6 @@
             "TargetName" = "8:info_image32c.png"
             "Tag" = "8:"
             "Folder" = "8:_FE0CB3C9816E4F4CACA4C1DCBF1AB971"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A27D0FE26CFE46A9981A58FDA77C5A5F"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\tick.png"
-            "TargetName" = "8:tick.png"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A2F2A312092B439C871EFA821B7B032B"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-icons_cd0a0a_256x240.png"
-            "TargetName" = "8:ui-icons_cd0a0a_256x240.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4216,46 +2434,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_ACF6D92A5196458EAEEAA05FE90478E8"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-icons_217bc0_256x240.png"
-            "TargetName" = "8:ui-icons_217bc0_256x240.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AD20895F8EDC4FEEA61E22AA9E762A9C"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\themes\\Office\\pqgrid.css"
-            "TargetName" = "8:pqgrid.css"
-            "Tag" = "8:"
-            "Folder" = "8:_716BD543297344E5954E18CB4705E74D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_ADE54D59BD604A16BB08A18E427D746F"
             {
             "SourcePath" = "8:..\\webapp\\lib\\jquery\\jquery.ui.theme.css"
@@ -4276,92 +2454,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AEB6717B3DC44B9EB56C66D56CB105FC"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\info_image32s.png"
-            "TargetName" = "8:info_image32s.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AF6CC556BD7F407A9170EED0BE2ED4EB"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\sort_desc.gif"
-            "TargetName" = "8:sort_desc.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B152546A042F4E869FFFA6F68436515D"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\page-last-gray.gif"
-            "TargetName" = "8:page-last-gray.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B32DC8949CB64236A369045B4D7DB60F"
             {
             "SourcePath" = "8:..\\webapp\\manual\\jpn\\index.htm"
             "TargetName" = "8:index.htm"
             "Tag" = "8:"
             "Folder" = "8:_D344A15A1EAE4C23A77C08670688ED40"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B38581AA3AC84F31A7FC984BD4336FDB"
-            {
-            "SourcePath" = "8:..\\webapp\\manual\\jpn\\index.htm"
-            "TargetName" = "8:index.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_540DE28AD2DF4F7082D1147B8CD8AA9A"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4436,52 +2534,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B9AF9F7C21D74CF486C6F2B6C1A7C614"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\vert-bg.png"
-            "TargetName" = "8:vert-bg.png"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BCB4A6A7B09A4A08B8B8455CFB0A587E"
             {
             "SourcePath" = "8:..\\webapp\\stkwebapp.dat"
             "TargetName" = "8:stkwebapp.dat"
             "Tag" = "8:"
             "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BCEE1FE011DE416294FB255C546670B8"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\horiz-slider-bg.png"
-            "TargetName" = "8:horiz-slider-bg.png"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4536,92 +2594,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BF38988DD312431BA70B335F67AEF898"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-bg_inset-hard_100_fcfdfd_1x100.png"
-            "TargetName" = "8:ui-bg_inset-hard_100_fcfdfd_1x100.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BF4F56244078451D9433161EE2B291E0"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\themes\\Office\\images\\column-header-over-bg.gif"
-            "TargetName" = "8:column-header-over-bg.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_54FCA54755F243A6B906AF0138EFBD82"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C025E32DCC92476F9CCF86BA6ADD72A3"
             {
             "SourcePath" = "8:..\\webapp\\lib\\grid\\pqgrid.min.css"
             "TargetName" = "8:pqgrid.min.css"
             "Tag" = "8:"
             "Folder" = "8:_02D26365A1A34028A49F8601AC368B8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C13562A01EED4E5492FCFFA9ED5590D7"
-            {
-            "SourcePath" = "8:..\\webapp\\manual\\jpn\\section01.htm"
-            "TargetName" = "8:section01.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_540DE28AD2DF4F7082D1147B8CD8AA9A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C14A8E4884914EE7961766E36EB5A21E"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\page-first-gray.gif"
-            "TargetName" = "8:page-first-gray.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4656,52 +2634,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C200903AD37347449F1D2D67ABDFE42E"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\page-prev-gray.gif"
-            "TargetName" = "8:page-prev-gray.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C33C8F4E97694606828B38C47FEB4F6B"
             {
             "SourcePath" = "8:..\\webapp\\img\\cristal_image48c.png"
             "TargetName" = "8:cristal_image48c.png"
             "Tag" = "8:"
             "Folder" = "8:_FE0CB3C9816E4F4CACA4C1DCBF1AB971"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C3550FE33B4F43E5BE53CD5DB2D1036E"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-bg_gloss-wave_55_5c9ccc_500x100.png"
-            "TargetName" = "8:ui-bg_gloss-wave_55_5c9ccc_500x100.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4736,26 +2674,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C7072EFA7AE6447BBC4F10E4D52D890E"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\refresh_image32s.png"
-            "TargetName" = "8:refresh_image32s.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C730BEEA64124633B971E0630358F5B3"
             {
             "SourcePath" = "8:..\\webapp\\style.css"
@@ -4776,52 +2694,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CA2B50BC7D1143B58EF365C017AE635B"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\vert-slider-bg.png"
-            "TargetName" = "8:vert-slider-bg.png"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CA3431B217AB4CD782F869BB47D1EC18"
             {
             "SourcePath" = "8:..\\webapp\\img\\config_image32s.png"
             "TargetName" = "8:config_image32s.png"
             "Tag" = "8:"
             "Folder" = "8:_FE0CB3C9816E4F4CACA4C1DCBF1AB971"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CA4AC3C2D9C84B43B3598934E3563F85"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\config_image32c.png"
-            "TargetName" = "8:config_image32c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4882,66 +2760,6 @@
             "TargetName" = "8:ui-icons_f9bd01_256x240.png"
             "Tag" = "8:"
             "Folder" = "8:_DFC729690693485DAA9DA10661DCD217"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CC35F6F33E3F451989D2573563665E57"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\refresh_image32c.png"
-            "TargetName" = "8:refresh_image32c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CD13D26A7DA54CB7A9B6950B7EF67738"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\delete_image32c.png"
-            "TargetName" = "8:delete_image32c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CDEF79C178F74AD3B4103D487CDAD8E3"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\loading.gif"
-            "TargetName" = "8:loading.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5116,26 +2934,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D5F92330B9F342869D96ED174BF29DD3"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\ok_image32c.png"
-            "TargetName" = "8:ok_image32c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D6BB1549E91B4E9E8C54DFE1C2A7164F"
             {
             "SourcePath" = "8:..\\webapp\\img\\delete_image48c.png"
@@ -5162,46 +2960,6 @@
             "TargetName" = "8:50x.html"
             "Tag" = "8:"
             "Folder" = "8:_C6CCF0B06DFA408B9DF190DFEC304FCA"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DAE90D1BDE104F61B64C9043E8DF3110"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\info_image48c.png"
-            "TargetName" = "8:info_image48c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DB4AF3AD58FA440C8C9FC6A4BB76D704"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\sort_asc.gif"
-            "TargetName" = "8:sort_asc.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5296,26 +3054,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DF09AFDFCA7644289F6F3F8AAC08EBBD"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\localize\\pq-localize-it.js"
-            "TargetName" = "8:pq-localize-it.js"
-            "Tag" = "8:"
-            "Folder" = "8:_F051FD088DDB40A18CC599FC46929B1D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DFB2D9438CF141BB8EF85A0010ACC3C9"
             {
             "SourcePath" = "8:..\\webapp\\license\\mongoose_3.7_lic.txt"
@@ -5356,46 +3094,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E13B5EBD1A7746059E5E3B51BEC9BB22"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-icons_6da8d5_256x240.png"
-            "TargetName" = "8:ui-icons_6da8d5_256x240.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E23F625D161C4CAFACBD94A463A0D0C3"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\filter_image32s.png"
-            "TargetName" = "8:filter_image32s.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E464EB4C75E64D2CA7A22324CFFF2100"
             {
             "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-icons_6da8d5_256x240.png"
@@ -5422,46 +3120,6 @@
             "TargetName" = "8:refresh_image32c.png"
             "Tag" = "8:"
             "Folder" = "8:_FE0CB3C9816E4F4CACA4C1DCBF1AB971"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E60D6592C113405B9D66F19F8F598727"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\sep32.png"
-            "TargetName" = "8:sep32.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E746E6F251DF4C7FABED5F7C9549BC6F"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-bg_glass_75_d0e5f5_1x400.png"
-            "TargetName" = "8:ui-bg_glass_75_d0e5f5_1x400.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5541,27 +3199,7 @@
             "SourcePath" = "8:..\\webapp\\stkdatagui.exe"
             "TargetName" = "8:stkdatagui.exe"
             "Tag" = "8:"
-            "Folder" = "8:_F61D85E7FA1B426E963D2DB81FBF94BE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EF7265A905DE40ECA8AA478FBFC11D55"
-            {
-            "SourcePath" = "8:..\\webapp\\bbb.conf"
-            "TargetName" = "8:bbb.conf"
-            "Tag" = "8:"
-            "Folder" = "8:_465977CCE7E34FF8BF173778E37DDEDB"
+            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5656,72 +3294,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F33A1C97611740A6BE886C008FD121D2"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-icons_d8e7f3_256x240.png"
-            "TargetName" = "8:ui-icons_d8e7f3_256x240.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F3DE2AC1FB3147C68FEB3C4DF010B54A"
             {
             "SourcePath" = "8:..\\webapp\\lib\\grid\\themes\\Office\\images\\column-header-over-bg.gif"
             "TargetName" = "8:column-header-over-bg.gif"
             "Tag" = "8:"
             "Folder" = "8:_2F38EDF36F9647F1A5278EA9C3BAB89D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F827DC33BAD74E98930937EDF372FB60"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-icons_f9bd01_256x240.png"
-            "TargetName" = "8:ui-icons_f9bd01_256x240.png"
-            "Tag" = "8:"
-            "Folder" = "8:_3B35E286352A4815A5F3BBEF5E2CF476"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F96716D3A4B741B38093A449959EEA67"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\Refresh.gif"
-            "TargetName" = "8:Refresh.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5776,26 +3354,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FBF8E17FEA9F4F0FBD5FBCF20338CD86"
-            {
-            "SourcePath" = "8:..\\webapp\\mongoose-3.7.exe"
-            "TargetName" = "8:mongoose-3.7.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_F61D85E7FA1B426E963D2DB81FBF94BE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:TRUE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FC8F4AD2B02A4B7DA42AF218E9CBDDCF"
             {
             "SourcePath" = "8:..\\webapp\\manual\\jpn\\frame_r.htm"
@@ -5822,86 +3380,6 @@
             "TargetName" = "8:page-first-gray.gif"
             "Tag" = "8:"
             "Folder" = "8:_192221EFDA62428A9FC7C5C644924C60"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FE1667F695114E35879CFFCD379FE182"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\edit_image32s.png"
-            "TargetName" = "8:edit_image32s.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FE33F70B724841ECA909695237A74CFA"
-            {
-            "SourcePath" = "8:..\\webapp\\lib\\grid\\images\\page-next-gray.gif"
-            "TargetName" = "8:page-next-gray.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FEAF482D1C55494683AE6DE00C61F06C"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\info_image32c.png"
-            "TargetName" = "8:info_image32c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FF2AD308CED14DAEB0959F13F2566F6A"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\ng_image32c.png"
-            "TargetName" = "8:ng_image32c.png"
-            "Tag" = "8:"
-            "Folder" = "8:_4289DD6328134274836237FD0A52B1AD"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5994,160 +3472,6 @@
                             "Property" = "8:_CD0D51379C6044A082B357DFC3375C65"
                                 "Folders"
                                 {
-                                }
-                            }
-                        }
-                    }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_465977CCE7E34FF8BF173778E37DDEDB"
-                    {
-                    "Name" = "8:htdocs"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_5B17029551F04701B53AF5801B1CF0E7"
-                        "Folders"
-                        {
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_41543F858F69475B8FDA4CFC7AB223F2"
-                            {
-                            "Name" = "8:lib"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_C57545BF5ED54162ACEF753EE6193E87"
-                                "Folders"
-                                {
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_AF46E3FD2CA14FE999E378AE5007CE9C"
-                                    {
-                                    "Name" = "8:grid"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_1DB538403665403CB1695348E0604765"
-                                        "Folders"
-                                        {
-                                            "{9EF0B969-E518-4E46-987F-47570745A589}:_D5C9C9CEE2E34B039972412E5E046AB6"
-                                            {
-                                            "Name" = "8:themes"
-                                            "AlwaysCreate" = "11:FALSE"
-                                            "Condition" = "8:"
-                                            "Transitive" = "11:FALSE"
-                                            "Property" = "8:_50AF5366E1844746A0439BC8B196BE94"
-                                                "Folders"
-                                                {
-                                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_716BD543297344E5954E18CB4705E74D"
-                                                    {
-                                                    "Name" = "8:Office"
-                                                    "AlwaysCreate" = "11:FALSE"
-                                                    "Condition" = "8:"
-                                                    "Transitive" = "11:FALSE"
-                                                    "Property" = "8:_E7E1158C3ED54C3780CC82D982AC80B8"
-                                                        "Folders"
-                                                        {
-                                                            "{9EF0B969-E518-4E46-987F-47570745A589}:_54FCA54755F243A6B906AF0138EFBD82"
-                                                            {
-                                                            "Name" = "8:images"
-                                                            "AlwaysCreate" = "11:FALSE"
-                                                            "Condition" = "8:"
-                                                            "Transitive" = "11:FALSE"
-                                                            "Property" = "8:_EA1D7B25AC29464682390EA635F94459"
-                                                                "Folders"
-                                                                {
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            "{9EF0B969-E518-4E46-987F-47570745A589}:_EBDB60CC53DE4B7AA4FB69AEFAE095A0"
-                                            {
-                                            "Name" = "8:images"
-                                            "AlwaysCreate" = "11:FALSE"
-                                            "Condition" = "8:"
-                                            "Transitive" = "11:FALSE"
-                                            "Property" = "8:_69DA3F92C533422DBA0DB945D4BC42A0"
-                                                "Folders"
-                                                {
-                                                }
-                                            }
-                                            "{9EF0B969-E518-4E46-987F-47570745A589}:_F051FD088DDB40A18CC599FC46929B1D"
-                                            {
-                                            "Name" = "8:localize"
-                                            "AlwaysCreate" = "11:FALSE"
-                                            "Condition" = "8:"
-                                            "Transitive" = "11:FALSE"
-                                            "Property" = "8:_CFAA999999E24E8B8A7F414715BBAC7B"
-                                                "Folders"
-                                                {
-                                                }
-                                            }
-                                        }
-                                    }
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_B9A50AEE23C7416FA95E173779243066"
-                                    {
-                                    "Name" = "8:jquery"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_DF7BA97A31CB46C4982D75F7D219C434"
-                                        "Folders"
-                                        {
-                                            "{9EF0B969-E518-4E46-987F-47570745A589}:_3B35E286352A4815A5F3BBEF5E2CF476"
-                                            {
-                                            "Name" = "8:images"
-                                            "AlwaysCreate" = "11:FALSE"
-                                            "Condition" = "8:"
-                                            "Transitive" = "11:FALSE"
-                                            "Property" = "8:_A23DC375A5EF4120906C0EB11EDE4D3A"
-                                                "Folders"
-                                                {
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_4289DD6328134274836237FD0A52B1AD"
-                            {
-                            "Name" = "8:img"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_0587DF190F594F7EA886B9F3A8B6921A"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_E7F4F17179BC4FCF8C15FCAAD0EA12CD"
-                            {
-                            "Name" = "8:manual"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_9CEE164F107C46E9A8CAED6B61693BEF"
-                                "Folders"
-                                {
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_540DE28AD2DF4F7082D1147B8CD8AA9A"
-                                    {
-                                    "Name" = "8:jpn"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_123FF92AEE0B41E6BC567AD18F61A180"
-                                        "Folders"
-                                        {
-                                        }
-                                    }
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_680A092E711F4BEB975E8BFBD8A6E1BF"
-                                    {
-                                    "Name" = "8:eng"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_369677C66F004E539F098307E97672F4"
-                                        "Folders"
-                                        {
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -6350,17 +3674,6 @@
                         {
                         }
                     }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_F61D85E7FA1B426E963D2DB81FBF94BE"
-                    {
-                    "Name" = "8:bin"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_CB9910552E7546BE838058B4EACC81DD"
-                        "Folders"
-                        {
-                        }
-                    }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_FBD5CF2328DD4C39975774BD257B1717"
                     {
                     "Name" = "8:conf"
@@ -6429,7 +3742,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_627E51B19C5F460E8362DF279284CC46"
+        "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:101"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
