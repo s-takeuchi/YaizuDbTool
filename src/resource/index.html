@@ -59,7 +59,6 @@ var CLIMSG_FILTERING_INVALID       = 2173;
 var CLIMSG_FAITALERROR             = 2500;
 var CLIMSG_WARNING                 = 2501;
 var CLIMSG_ERROR                   = 2502;
-var CLIMSG_UNEXPECTED_REQUEST      = 2511;
 var CLIMSG_SERVER_ERROR            = 2512;
 var CLIMSG_COMMUNICATIONERROR      = 2530;
 var CLIMSG_WAITFORAWHILE           = 2540;
@@ -114,7 +113,6 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               {'code':CLIMSG_FAITALERROR, 'en':'Fatal Error', 'ja':'致命的エラー'},
               {'code':CLIMSG_WARNING, 'en':'Warning', 'ja':'警告'},
               {'code':CLIMSG_ERROR, 'en':'Error', 'ja':'エラー'},
-              {'code':CLIMSG_UNEXPECTED_REQUEST, 'en':'CmdFreak service has received an unexpected request.', 'ja':'CmdFreakサービスは予期しない要求を受信しました。'},
               {'code':CLIMSG_SERVER_ERROR, 'en':'An error occurred at server side.', 'ja':'サーバ側でエラーが発生しました。'},
               {'code':CLIMSG_COMMUNICATIONERROR,
                   'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A CmdFreak internal process is invalid.<br>',
@@ -194,9 +192,9 @@ function getCliMsg(msgCode) {
 
 function getSvrMsg(respDat) {
     if (myLanguage == 1) {
-        return respDat.MsgJpn;
+        return getCliMsg(CLIMSG_SERVER_ERROR) + '<br/>' + respDat.MsgJpn;
     } else {
-        return respDat.MsgEng;
+        return getCliMsg(CLIMSG_SERVER_ERROR) + '<br/>' + respDat.MsgEng;
     }
 }
 
@@ -319,8 +317,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 }
                 refreshMainScreen();
             } else if (statusCode[API_GET_LANGUAGE] == 406) {
-                showMessageDialog(getCliMsg(CLIMSG_WARNING), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getSvrMsg(responseData[API_GET_LANGUAGE]));
+                showMessageDialog(getCliMsg(CLIMSG_WARNING), getSvrMsg(responseData[API_GET_LANGUAGE]), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
             }
@@ -374,12 +371,11 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             if (statusCode[API_GET_ODBCINFO_DEFAULT] == 200 && statusCode[API_GET_ODBCINFO_CONFIGURED] == 200) {
                 // Nothing to do
             } else if (statusCode[API_GET_ODBCINFO_DEFAULT] == 400 || statusCode[API_GET_ODBCINFO_CONFIGURED] == 400) {
-                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 if (statusCode[API_GET_ODBCINFO_DEFAULT] == 400) {
-                    $('#adialog-content').append(getSvrMsg(responseData[API_GET_ODBCINFO_DEFAULT]));
+                    showMessageDialog(getCliMsg(CLIMSG_ERROR), getSvrMsg(responseData[API_GET_ODBCINFO_DEFAULT]), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 }
                 if (statusCode[API_GET_ODBCINFO_CONFIGURED] == 400) {
-                    $('#adialog-content').append(getSvrMsg(responseData[API_GET_ODBCINFO_CONFIGURED]));
+                    showMessageDialog(getCliMsg(CLIMSG_ERROR), getSvrMsg(responseData[API_GET_ODBCINFO_CONFIGURED]), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 }
                 return;
             } else {
@@ -430,8 +426,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             if (statusCode[API_POST_ODBCINFO] == 200) {
                 // Nothing to do
             } else if (statusCode[API_POST_ODBCINFO] == 400) {
-                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getSvrMsg(responseData[API_POST_ODBCINFO]));
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getSvrMsg(responseData[API_POST_ODBCINFO]), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 return;
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
@@ -463,14 +458,17 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         //
         if (actionType == ACTION_SHOWTABLEINFO) {
-            if (statusCode[API_GET_TABLEINFO_WITH_COL] == 200) {
-                // Nothing to do
-            } else {
-                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
-                return;
-            }
             if (currentTablename == "") {
                 showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_TABLENOTEXIST), actionType, 550, 200, 'img/error_image48c.png', 0);
+                return;
+            }
+            if (statusCode[API_GET_TABLEINFO_WITH_COL] == 200) {
+                // Nothing to do
+            } else if (statusCode[API_GET_TABLEINFO_WITH_COL] == 404) {
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getSvrMsg(responseData[API_GET_TABLEINFO_WITH_COL]), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
+                return;
+            } else {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
                 return;
             }
 
@@ -502,6 +500,15 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         if (actionType == ACTION_GETFILTERINFO) {
             if (currentTablename == "") {
                 showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_FILTERING_NO_TABLE), actionType, 550, 200, 'img/error_image48c.png', 0);
+                return;
+            }
+            if (statusCode[API_GET_FILTERINFO] == 200 && statusCode[API_GET_TABLEINFO_WITH_COL] == 200) {
+                // Nothing to do
+            } else if (statusCode[API_GET_TABLEINFO_WITH_COL] == 404) {
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getSvrMsg(responseData[API_GET_TABLEINFO_WITH_COL]), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
+                return;
+            } else {
+                showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
                 return;
             }
             showMessageDialog(getCliMsg(CLIMSG_LABEL_FILTERING), getCliMsg(CLIMSG_FILTERING_DESC), actionType, 600, 440, 'img/filter_image48c.png', 1);
@@ -607,12 +614,10 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             if (statusCode[API_GET_TABLEINFO_WITH_COL] == 200 && statusCode[API_GET_RECORDS] == 200) {
                 // Nothing to do
             } else if (statusCode[API_GET_RECORDS] == 400) {
-                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_UNEXPECTED_REQUEST), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getSvrMsg(responseData[API_GET_RECORDS]));
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getSvrMsg(responseData[API_GET_RECORDS]), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 return;
             } else if (statusCode[API_GET_RECORDS] == 404) {
-                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_SERVER_ERROR), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
-                $('#adialog-content').append(getSvrMsg(responseData[API_GET_RECORDS]));
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getSvrMsg(responseData[API_GET_RECORDS]), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 return;
             } else {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
