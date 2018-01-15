@@ -319,6 +319,18 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\icon1.ico"
+			>
+		</File>
+		<File
+			RelativePath=".\resource.h"
+			>
+		</File>
+		<File
+			RelativePath=".\sample.rc"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

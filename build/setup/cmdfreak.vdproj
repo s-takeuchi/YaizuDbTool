@@ -111,12 +111,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1C36D098B33B4C8A88DA352A57E4DEED"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_1D7AF456BE4449C89247F5563457ACD7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -616,12 +610,6 @@
         "Entry"
         {
         "MsmKey" = "8:_D4FD452E290D40A9BE8A43E6007D5B1F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D537094076AF40B685E18E9DE8A64AAA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1174,26 +1162,6 @@
             "TargetName" = "8:mime.types"
             "Tag" = "8:"
             "Folder" = "8:_FBD5CF2328DD4C39975774BD257B1717"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1C36D098B33B4C8A88DA352A57E4DEED"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\browser_ff.png"
-            "TargetName" = "8:browser_ff.png"
-            "Tag" = "8:"
-            "Folder" = "8:_FE0CB3C9816E4F4CACA4C1DCBF1AB971"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2888,26 +2856,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D537094076AF40B685E18E9DE8A64AAA"
-            {
-            "SourcePath" = "8:..\\webapp\\img\\browser_ie.png"
-            "TargetName" = "8:browser_ie.png"
-            "Tag" = "8:"
-            "Folder" = "8:_FE0CB3C9816E4F4CACA4C1DCBF1AB971"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D582D8DF6B9A4B188460D06C99FC0638"
             {
             "SourcePath" = "8:..\\webapp\\lib\\jquery\\images\\ui-icons_217bc0_256x240.png"
@@ -3716,7 +3664,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_8189083772FB483BACF7343FDFA208E3"
         "ARPIconIndex" = "3:101"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
