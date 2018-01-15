@@ -8,7 +8,7 @@
 #include "OdbcManager.h"
 #include "DbAccessor.h"
 
-StkObject* ApiOdbcInfo::GetOdbcInfo(TCHAR UrlPath[128], int* ResultCode)
+StkObject* ApiOdbcInfo::GetOdbcInfo(TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode)
 {
 	StkObject* ResObj = new StkObject(_T(""));
 
@@ -119,10 +119,10 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode)
 		if (!lstrcmp(Elem->GetName(), _T("ConnStr")) && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
 			int LenOfConnStr = lstrlen(Elem->GetStringValue());
 			if (LenOfConnStr >= 256) {
-				TCHAR TmpMsgEng[128];
-				TCHAR TmpMsgJpn[128];
-				swprintf_s(TmpMsgEng, 128, _T("%s (Param=%s, Length=%d, Max Length=255)"), MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), _T("ConnStr"), LenOfConnStr);
-				swprintf_s(TmpMsgJpn, 128, _T("%s (Param=%s, Length=%d, Max Length=255)"), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), _T("ConnStr"), LenOfConnStr);
+				TCHAR TmpMsgEng[StkWebAppExec::URL_PATH_LENGTH];
+				TCHAR TmpMsgJpn[StkWebAppExec::URL_PATH_LENGTH];
+				swprintf_s(TmpMsgEng, StkWebAppExec::URL_PATH_LENGTH, _T("%s (Param=%s, Length=%d, Max Length=255)"), MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), _T("ConnStr"), LenOfConnStr);
+				swprintf_s(TmpMsgJpn, StkWebAppExec::URL_PATH_LENGTH, _T("%s (Param=%s, Length=%d, Max Length=255)"), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), _T("ConnStr"), LenOfConnStr);
 				AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG, TmpMsgEng, TmpMsgJpn);
 				*ResultCode = 400;
 				return ResObj;
@@ -157,7 +157,7 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode)
 	return ResObj;
 }
 
-StkObject* ApiOdbcInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiOdbcInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, TCHAR Locale[3])
 {
 	if (Method & STKWEBAPP_METHOD_GET) {
 		return GetOdbcInfo(UrlPath, ResultCode);

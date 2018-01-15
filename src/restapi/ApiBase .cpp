@@ -17,7 +17,7 @@ void ApiBase::GetLocalTimeWStr(TCHAR LocalTimeStr[32])
 	wsprintf(LocalTimeStr, _T("%s %d %d %02d:%02d:%02d.%03d"), Mon[Systime.wMonth - 1], Systime.wDay, Systime.wYear, Systime.wHour, Systime.wMinute, Systime.wSecond, Systime.wMilliseconds);
 }
 
-void ApiBase::PrintRequest(int Method, TCHAR UrlPath[128])
+void ApiBase::PrintRequest(int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH])
 {
 	TCHAR StrMethod[32];
 	switch (Method) {
@@ -50,11 +50,11 @@ void ApiBase::PrintResponse(int ResultCode)
 	wprintf(_T("%s  [%06x]  %d\r\n"), LocalTimeStr, ThId, ResultCode);
 }
 
-void ApiBase::DecodeURL(TCHAR UrlIn[128], TCHAR UrlOut[128])
+void ApiBase::DecodeURL(TCHAR UrlIn[StkWebAppExec::URL_PATH_LENGTH], TCHAR UrlOut[StkWebAppExec::URL_PATH_LENGTH])
 {
-	char TmpUrlBc[128] = "";
-	BYTE TmpUrlAc[128];
-	sprintf_s(TmpUrlBc, 128, "%S", UrlIn);
+	char TmpUrlBc[StkWebAppExec::URL_PATH_LENGTH] = "";
+	BYTE TmpUrlAc[StkWebAppExec::URL_PATH_LENGTH];
+	sprintf_s(TmpUrlBc, StkWebAppExec::URL_PATH_LENGTH, "%S", UrlIn);
 	int TmpUrlBcLen = strlen(TmpUrlBc);
 	int AcIndex = 0;
 	for (int BcIndex = 0; BcIndex < TmpUrlBcLen; BcIndex++) {
@@ -75,7 +75,7 @@ void ApiBase::DecodeURL(TCHAR UrlIn[128], TCHAR UrlOut[128])
 			if (TmpUrlBc[BcIndex + 2] >= 'a' && TmpUrlBc[BcIndex + 2] <= 'f') {
 				Val += (TmpUrlBc[BcIndex + 2] - 'a' + 10);
 			}
-			if (TmpUrlBc[BcIndex + 2] >= 'A' && TmpUrlBc[BcIndex + 2] <= 'E') {
+			if (TmpUrlBc[BcIndex + 2] >= 'A' && TmpUrlBc[BcIndex + 2] <= 'F') {
 				Val += (TmpUrlBc[BcIndex + 2] - 'A' + 10);
 			}
 			TmpUrlAc[AcIndex] = Val;
@@ -86,11 +86,11 @@ void ApiBase::DecodeURL(TCHAR UrlIn[128], TCHAR UrlOut[128])
 		AcIndex++;
 	}
 	TmpUrlAc[AcIndex] = '\0';
-	int WcSize = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, (LPCSTR)TmpUrlAc, -1, UrlOut, 128);
+	int WcSize = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, (LPCSTR)TmpUrlAc, -1, UrlOut, StkWebAppExec::URL_PATH_LENGTH);
 	return;
 }
 
-StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, TCHAR Locale[3])
 {
 	PrintRequest(Method, UrlPath);
 

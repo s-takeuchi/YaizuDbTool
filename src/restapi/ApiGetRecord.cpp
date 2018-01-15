@@ -9,7 +9,7 @@
 #include "DbAccessor.h"
 #include "..\..\..\YaizuComLib\src\commonfunc\StkStringParser.h"
 
-StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, TCHAR Locale[3])
 {
 	StkObject* ResObj = new StkObject(_T(""));
 

@@ -6,7 +6,7 @@
 #include "dataaccess.h"
 #include "..\Global.h"
 
-StkObject* ApiFilterInfo::GetFilterInfo(TCHAR UrlPath[128], int* ResultCode)
+StkObject* ApiFilterInfo::GetFilterInfo(TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode)
 {
 	StkObject* ResObj = new StkObject(_T(""));
 	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
@@ -88,7 +88,7 @@ StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode)
 	return ResObj;
 }
 
-StkObject* ApiFilterInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiFilterInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, TCHAR Locale[3])
 {
 	if (Method & STKWEBAPP_METHOD_GET) {
 		return GetFilterInfo(UrlPath, ResultCode);

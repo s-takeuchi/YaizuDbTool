@@ -4,9 +4,9 @@
 class ApiOdbcInfo : public ApiBase
 {
 private:
-	StkObject* GetOdbcInfo(TCHAR[128], int*);
+	StkObject* GetOdbcInfo(TCHAR[StkWebAppExec::URL_PATH_LENGTH], int*);
 	StkObject* PostOdbcInfo(StkObject*, int*);
 
 protected:
-	StkObject* ExecuteImpl(StkObject*, int, TCHAR[128], int*, TCHAR[3]);
+	StkObject* ExecuteImpl(StkObject*, int, TCHAR[StkWebAppExec::URL_PATH_LENGTH], int*, TCHAR[3]);
 };

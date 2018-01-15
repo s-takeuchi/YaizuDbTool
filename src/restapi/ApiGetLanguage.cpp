@@ -2,7 +2,7 @@
 #include "MyMsgProc.h"
 #include "ApiGetLanguage.h"
 
-StkObject* ApiGetLanguage::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiGetLanguage::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, TCHAR Locale[3])
 {
 	StkObject* ResObj = new StkObject(_T(""));
 	if (Locale == NULL || Locale[2] != '\0' || Locale[0] == '\0') {

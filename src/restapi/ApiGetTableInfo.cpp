@@ -7,7 +7,7 @@
 #include "OdbcManager.h"
 #include "..\..\..\YaizuComLib\src\commonfunc\StkStringParser.h"
 
-StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[128], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, TCHAR Locale[3])
 {
 	TCHAR Dummy[256] = _T("");
 	TCHAR TableName[256] = _T("");
