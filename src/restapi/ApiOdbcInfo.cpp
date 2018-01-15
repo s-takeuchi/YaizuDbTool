@@ -117,6 +117,16 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode)
 			}
 		}
 		if (!lstrcmp(Elem->GetName(), _T("ConnStr")) && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
+			int LenOfConnStr = lstrlen(Elem->GetStringValue());
+			if (LenOfConnStr >= 256) {
+				TCHAR TmpMsgEng[128];
+				TCHAR TmpMsgJpn[128];
+				swprintf_s(TmpMsgEng, 128, _T("%s (Param=%s, Length=%d, Max Length=255)"), MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), _T("ConnStr"), LenOfConnStr);
+				swprintf_s(TmpMsgJpn, 128, _T("%s (Param=%s, Length=%d, Max Length=255)"), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), _T("ConnStr"), LenOfConnStr);
+				AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG, TmpMsgEng, TmpMsgJpn);
+				*ResultCode = 400;
+				return ResObj;
+			}
 			lstrcpy(ConnStr, Elem->GetStringValue());
 		}
 		Elem = Elem->GetNext();
@@ -141,7 +151,6 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode)
 		ResObj->AppendChildElement(DatObj);
 
 		DataAccess::GetInstance()->AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_DBMSCHANGE));
-
 		*ResultCode = 200;
 	}
 

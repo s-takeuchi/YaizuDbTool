@@ -36,6 +36,10 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddJpn(CMDFRK_TABLE_NOT_EXIST, _T("指定したテーブルが存在しません。"));
 	MessageProc::AddEng(CMDFRK_TABLE_NOT_EXIST, _T("The specified table does not exist."));
 
+	//3123 (★)
+	MessageProc::AddJpn(CMDFRK_PARAM_LENGTH_TOO_LONG, _T("指定されたパラメータは，指定可能な長さの最大を超えています。"));
+	MessageProc::AddEng(CMDFRK_PARAM_LENGTH_TOO_LONG, _T("The specified parameter exceeds the maximum length."));
+
 	//3126 (NC6)
 	MessageProc::AddJpn(CMDFRK_LOG_DBMSCHANGE, _T("ODBC接続の設定を変更しました。"));
 	MessageProc::AddEng(CMDFRK_LOG_DBMSCHANGE, _T("The ODBC connection configuration has been changed."));
