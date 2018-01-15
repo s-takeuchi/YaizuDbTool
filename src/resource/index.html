@@ -24,6 +24,8 @@ var columnData = {'operation' : '', 'resultcode' : 0, 'data' : {}};
 
 var myLanguage = 0;
 
+///////////////////////////////////////////////
+// Tool Bar
 var CLIMSG_LABEL_ODBCCONNECTION    = 2101;
 var CLIMSG_LABEL_TABLEINFO         = 2102;
 var CLIMSG_LABEL_REFRSHTABLE       = 2103;
@@ -59,11 +61,16 @@ var CLIMSG_FILTERING_INVALID       = 2173;
 var CLIMSG_FAITALERROR             = 2500;
 var CLIMSG_WARNING                 = 2501;
 var CLIMSG_ERROR                   = 2502;
+///////////////////////////////////////////////
+// Uncategorized
+var CLIMSG_WAITFORAWHILE           = 2510;
 var CLIMSG_SERVER_ERROR            = 2512;
 var CLIMSG_COMMUNICATIONERROR      = 2530;
-var CLIMSG_WAITFORAWHILE           = 2540;
 
-var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja':'ODBC接続'},
+var cliMsg = [
+              ///////////////////////////////////////////////
+              // Tool Bar
+              {'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja':'ODBC接続'},
               {'code':CLIMSG_LABEL_TABLEINFO, 'en':'Table Information', 'ja':'テーブル情報'},
               {'code':CLIMSG_LABEL_REFRSHTABLE, 'en':'Refresh Table List', 'ja':'テーブル一覧更新'},
               {'code':CLIMSG_LABEL_FILTERING, 'en':'Filtering', 'ja':'フィルタリング'},
@@ -113,12 +120,12 @@ var cliMsg = [{'code':CLIMSG_LABEL_ODBCCONNECTION, 'en':'ODBC Connections', 'ja'
               {'code':CLIMSG_FAITALERROR, 'en':'Fatal Error', 'ja':'致命的エラー'},
               {'code':CLIMSG_WARNING, 'en':'Warning', 'ja':'警告'},
               {'code':CLIMSG_ERROR, 'en':'Error', 'ja':'エラー'},
+              {'code':CLIMSG_WAITFORAWHILE, 'en':'Now loading... Please wait for a while.', 'ja':'読み込み中です。しばらくお待ちください。'},
               {'code':CLIMSG_SERVER_ERROR, 'en':'An error occurred at server side.', 'ja':'サーバ側でエラーが発生しました。'},
               {'code':CLIMSG_COMMUNICATIONERROR,
                   'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A CmdFreak internal process is invalid.<br>',
                   'ja':'CmdFreakサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) CmdFreakサービスが開始されていない。<br>(2) CmdFreakサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , stkwebapp.conf] が不正。<br>(4) CmdFreakの内部処理で異常が発生している。<br>'
-              },
-              {'code':CLIMSG_WAITFORAWHILE, 'en':'Now loading... Please wait for a while.', 'ja':'読み込み中です。しばらくお待ちください。'}
+              }
 ];
 
 var ACTION_LAUNCH           = 50;
@@ -1070,11 +1077,6 @@ function onXxxAction(actionType) {
         showWaitingDialog(ACTION_INFO, 0);
         return;
     }
-    if (actionType == 1100) {
-        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', actionType, 512, 230, 'img/error_image48c.png', 0);
-        $('#adialog-content').append('予期しないエラーが発生しました。このエラーはWebブラウザからのリクエストが解析できなかったときに発生する場合があります。<br>');
-        return;
-    }
     if (actionType == ACTION_ERROR) {
         return;
     }
@@ -1095,7 +1097,7 @@ function onXxxAction(actionType) {
 
 <div id="box_info">
     <noscript>
-        JavaScriptが無効です。<br>ブラウザの設定を変更してJavaScriptを有効後，ページをリフレッシュしてください。<br>
+        JavaScript is disabled in your browser.<br>Change the browser setting to enable it and refresh the page.<br>
     </noscript>
 
     <div id="mainarea" style="display:none">
