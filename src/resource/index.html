@@ -20,7 +20,7 @@
 
 var currentTablename = "";
 var currentDbmsname = "";
-var columnData = {'operation' : '', 'resultcode' : 0, 'data' : {}};
+var welcomeDlg = true;
 
 var myLanguage = 0;
 
@@ -64,7 +64,9 @@ var CLIMSG_ERROR                   = 2502;
 ///////////////////////////////////////////////
 // Uncategorized
 var CLIMSG_WAITFORAWHILE           = 2510;
-var CLIMSG_SERVER_ERROR            = 2512;
+var CLIMSG_WELCOME                 = 2511;
+var CLIMSG_WELCOME_CONFIGODBC      = 2512;
+var CLIMSG_SERVER_ERROR            = 2520;
 var CLIMSG_COMMUNICATIONERROR      = 2530;
 
 var cliMsg = [
@@ -121,6 +123,11 @@ var cliMsg = [
               {'code':CLIMSG_WARNING, 'en':'Warning', 'ja':'警告'},
               {'code':CLIMSG_ERROR, 'en':'Error', 'ja':'エラー'},
               {'code':CLIMSG_WAITFORAWHILE, 'en':'Now loading... Please wait for a while.', 'ja':'読み込み中です。しばらくお待ちください。'},
+              {'code':CLIMSG_WELCOME, 'en':'Welcome to the CmdFreak page!', 'ja':'ようこそ，CmdFreakのページです！'},
+              {'code':CLIMSG_WELCOME_CONFIGODBC,
+                  'en':'To refer to data in a database using this software, the ODBC connection needs to be configured first.',
+                  'ja':'本ソフトウェアを使用してデータベースのデータを参照するには，まずはじめにODBC接続の設定を行ってください。'
+              },
               {'code':CLIMSG_SERVER_ERROR, 'en':'An error occurred at server side.', 'ja':'サーバ側でエラーが発生しました。'},
               {'code':CLIMSG_COMMUNICATIONERROR,
                   'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A CmdFreak internal process is invalid.<br>',
@@ -459,6 +466,13 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 return;
             }
             currentDbmsname = responseData[API_GET_ODBCINFO_CONFIGURED].Data.OdbcInfo.DbType;
+            if (currentDbmsname === "Init") {
+                if (welcomeDlg == true) {
+                    showMessageDialog(getCliMsg(CLIMSG_WELCOME), getCliMsg(CLIMSG_WELCOME) + '<br/>' + getCliMsg(CLIMSG_WELCOME_CONFIGODBC), ACTION_ERROR, 512, 220, 'img/cristal_image48c.png', 0);
+                    welcomeDlg = false;
+                }
+                currentDbmsname = "Not configured";
+            }
             $('#dbmstypeontoolbar').text(currentDbmsname);
             return;
         }
