@@ -79,6 +79,9 @@ StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode)
 		}
 		CurObj = CurObj->GetNext();
 	}
+	
+	DataAccess::GetInstance()->AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_FILTERCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_FILTERCHANGE));
+
 	StkObject* ResObj = new StkObject(_T(""));
 	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
 

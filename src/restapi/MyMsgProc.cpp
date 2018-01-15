@@ -45,8 +45,8 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddEng(CMDFRK_LOG_DBMSCHANGE, _T("The ODBC connection configuration has been changed."));
 
 	//3129 (NC6)
-	MessageProc::AddJpn(CMDFRK_FILTERINGCOND_UPDATE, _T("フィルタリング条件を更新しました。"));
-	MessageProc::AddEng(CMDFRK_FILTERINGCOND_UPDATE, _T("The filter conditions have been updated."));
+	MessageProc::AddJpn(CMDFRK_LOG_FILTERCHANGE, _T("フィルタリング条件を更新しました。"));
+	MessageProc::AddEng(CMDFRK_LOG_FILTERCHANGE, _T("The filter criteria have been updated."));
 
 	//3146 (NC6)
 	MessageProc::AddJpn(CMDFRK_SVCSTART, _T("CmdFreakサービスを開始しました。"));

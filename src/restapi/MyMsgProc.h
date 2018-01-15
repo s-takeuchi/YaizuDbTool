@@ -14,7 +14,7 @@ public:
 	static const int CMDFRK_TABLE_NOT_EXIST = 3122;
 	static const int CMDFRK_PARAM_LENGTH_TOO_LONG = 3123;
 	static const int CMDFRK_LOG_DBMSCHANGE = 3126;
-	static const int CMDFRK_FILTERINGCOND_UPDATE = 3129;
+	static const int CMDFRK_LOG_FILTERCHANGE = 3129;
 	static const int CMDFRK_SVCSTART = 3146;
 	static const int CMDFRK_SVCSTOP = 3147;
 	static const int CMDFRK_LOGGINGTIME = 3226;
