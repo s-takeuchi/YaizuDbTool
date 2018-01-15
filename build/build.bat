@@ -103,6 +103,7 @@ cd..
 rem ########## build complete ##########
 echo;
 %LCOUNTER% ..\src /subdir
+%LCOUNTER% ..\src\resource\index.html /subdir
 echo;
 echo All building processes of CmdFreak have been successfully finished.
 pause

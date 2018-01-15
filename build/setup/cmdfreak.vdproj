@@ -669,12 +669,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_DFB2D9438CF141BB8EF85A0010ACC3C9"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_DFBD64010F8C42B892CB8ECC2C5E1FE6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -3040,26 +3034,6 @@
             "TargetName" = "8:pqgrid.min.js"
             "Tag" = "8:"
             "Folder" = "8:_02D26365A1A34028A49F8601AC368B8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DFB2D9438CF141BB8EF85A0010ACC3C9"
-            {
-            "SourcePath" = "8:..\\webapp\\license\\mongoose_3.7_lic.txt"
-            "TargetName" = "8:mongoose_3.7_lic.txt"
-            "Tag" = "8:"
-            "Folder" = "8:_DF4F0E6CC1C249E2996D1D2F35272F3E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"

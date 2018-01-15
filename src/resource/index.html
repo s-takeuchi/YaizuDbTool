@@ -480,7 +480,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         if (actionType == ACTION_SHOWTABLEINFO) {
             if (currentTablename == "") {
-                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_TABLENOTEXIST), actionType, 550, 200, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_TABLENOTEXIST), ACTION_ERROR, 550, 200, 'img/error_image48c.png', 0);
                 return;
             }
             if (statusCode[API_GET_TABLEINFO_WITH_COL] == 200) {
@@ -502,7 +502,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                     columnInfos.push(tableInfo.ColumnInfo);
                 }
             } else {
-                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_TABLENOTEXIST), actionType, 550, 200, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_TABLENOTEXIST), ACTION_ERROR, 550, 200, 'img/error_image48c.png', 0);
                 return;
             }
 
@@ -520,7 +520,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         //
         if (actionType == ACTION_GETFILTERINFO) {
             if (currentTablename == "") {
-                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_FILTERING_NO_TABLE), actionType, 550, 200, 'img/error_image48c.png', 0);
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getCliMsg(CLIMSG_FILTERING_NO_TABLE), ACTION_ERROR, 550, 200, 'img/error_image48c.png', 0);
                 return;
             }
             if (statusCode[API_GET_FILTERINFO] == 200 && statusCode[API_GET_TABLEINFO_WITH_COL] == 200) {
@@ -823,54 +823,6 @@ function sendRequestRecvResponse(method, url, request, index) {
     return;
 }
 
-function sendRequestToWebServer(operation, response) {
-    var resultcode = 0;
-    $.ajax({
-        type: 'POST',
-        contentType: 'multipart/form-data',
-        url: '',
-        cache: false,
-        dataType: 'json',
-        data: 'operation=' + operation,
-        async: false,
-        success: function(msg){
-            resultcode = msg.resultcode;
-            response.operation = operation;
-            response.resultcode = msg.resultcode;
-            response.data = msg.data;
-        }
-    });
-    if (resultcode == 1100) {
-        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', 1100, 512, 230, 'img/error_image48c.png', 0);
-        $('#adialog-content').append('予期しないエラーが発生しました。このエラーはWebブラウザからのリクエストが解析できなかったときに発生する場合があります。<br>');
-    }
-    if (resultcode == 1110) {
-        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', 1110, 512, 290, 'img/error_image48c.png', 0);
-        $('#adialog-content').append('CmdFreakサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) CmdFreakサービスが開始されていない。<br>(2) CmdFreakサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [bbb.conf, cmdfrksrv.conf] が不正。<br>(4) CmdFreakの内部処理で異常が発生している。<br>');
-    }
-    if (resultcode == 1120) {
-        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', 1120, 512, 290, 'img/error_image48c.png', 0);
-        $('#adialog-content').append('DBMSとの接続に失敗しました。<br>次の要因が考えられます。<br>- DBMSが適切に起動していない。<br>- ODBCドライバがインストールされていない。<br>- ODBCの接続文字列が不正。<br>- DBMSとの接続経路に何らかの問題がある。<br>');
-    }
-    if (resultcode == 1130) {
-        showMessageDialog('ようこそ，CmdFreakのページです！', 'ようこそ，CmdFreakのページです！', 1130, 512, 290, 'img/cristal_image48c.png', 0);
-        $('#adialog-content').append('本ソフトウェアを使用してデータベースのデータを参照するには，まずはじめにODBC接続の設定を行ってください。');
-    }
-    if (resultcode == 1140) {
-        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', 1140, 512, 230, 'img/error_image48c.png', 0);
-        $('#adialog-content').append('対象テーブルのレコード数がCmdFreakで操作可能な上限を超えました。');
-    }
-    if (resultcode == 1150) {
-        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', 1140, 512, 230, 'img/error_image48c.png', 0);
-        $('#adialog-content').append('ODBCの接続文字列で指定可能な長さの上限を超えました。');
-    }
-    if (resultcode == 1160) {
-        showMessageDialog('エラーが発生しました。', 'エラーが発生しました。', 1140, 512, 230, 'img/error_image48c.png', 0);
-        $('#adialog-content').append('フィルタリングの条件が指定可能な上限を超えました。');
-    }
-    return resultcode;
-}
-
 function refreshTableNameList() {
     onXxxAction(ACTION_GETTABLEINFO);
 }
@@ -1091,9 +1043,6 @@ function onXxxAction(actionType) {
         showWaitingDialog(ACTION_INFO, 0);
         return;
     }
-    if (actionType == ACTION_ERROR) {
-        return;
-    }
 }
 
 </script>
@@ -1105,7 +1054,7 @@ function onXxxAction(actionType) {
 <div class="headtailbar">
     <table class="ttblstyle" width="100%"><tr>
         <td align="left"><b>CmdFreak</b></td>
-        <td align="right">Optimized for <img src="img/browser_ie.png">8,9,10 & <img src="img/browser_ff.png">3,10,17 </td>
+        <td align="right">1.1.0</td>
     </tr></table>
 </div>
 
