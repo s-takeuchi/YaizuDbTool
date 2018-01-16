@@ -358,18 +358,18 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             for (var tableIndex = 0; tableIndex < tableInfos.length; tableIndex++) {
                 var tn = tableInfos[tableIndex].Name;
                 var tnReplaced = tn;
-                tnReplaced = tnReplaced.replace(/&lt;/g, "<");
-                tnReplaced = tnReplaced.replace(/&gt;/g, ">");
-                tnReplaced = tnReplaced.replace(/&amp;/g, "&");
-                tnReplaced = tnReplaced.replace(/&quot;/g, "\"");
+                tnReplaced = tnReplaced.replace(/</g, "&lt;");
+                tnReplaced = tnReplaced.replace(/>/g, "&gt;");
+                tnReplaced = tnReplaced.replace(/&/g, "&amp;");
+                tnReplaced = tnReplaced.replace(/\"/g, "&quot;");
                 var seld = '';
                 if (tableIndex == 0 && currentTablename == "") {
-                    currentTablename = tnReplaced;
+                    currentTablename = tn;
                 }
-                if (tnReplaced == currentTablename) {
+                if (tn == currentTablename) {
                     seld = 'selected';
                 }
-                $('#tableselector').append('<option value="' + tn + '" ' + seld + '>' + tn + '</option>');
+                $('#tableselector').append('<option value="' + tnReplaced + '" ' + seld + '>' + tn + '</option>');
             }
 
             initializeCurrentTablename();
@@ -829,7 +829,13 @@ function refreshTableNameList() {
 
 function eventTableSelected() {
     var selectedTableName = $('#tableselector').val();
-    currentTablename = selectedTableName;
+    var tnReplaced = selectedTableName;
+    tnReplaced = tnReplaced.replace(/&lt;/g, "<");
+    tnReplaced = tnReplaced.replace(/&gt;/g, ">");
+    tnReplaced = tnReplaced.replace(/&amp;/g, "&");
+    tnReplaced = tnReplaced.replace(/&quot;/g, "\"");
+
+    currentTablename = tnReplaced;
     showTable();
 }
 
@@ -914,7 +920,13 @@ function initializeCurrentTablename() {
     if (selectedTableName == null) {
         currentTablename = "";
     } else {
-        currentTablename = selectedTableName;
+        var tnReplaced = selectedTableName;
+        tnReplaced = tnReplaced.replace(/&lt;/g, "<");
+        tnReplaced = tnReplaced.replace(/&gt;/g, ">");
+        tnReplaced = tnReplaced.replace(/&amp;/g, "&");
+        tnReplaced = tnReplaced.replace(/&quot;/g, "\"");
+
+        currentTablename = tnReplaced;
     }
 }
 
@@ -957,12 +969,14 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_SHOWTABLEINFO) {
-        sendRequestRecvResponse('GET', './api/tableinfo/?query=' + currentTablename, null, API_GET_TABLEINFO_WITH_COL);
+        var reqDatDf = {'query' : currentTablename};
+        sendRequestRecvResponse('GET', './api/tableinfo/', reqDatDf, API_GET_TABLEINFO_WITH_COL);
         showWaitingDialog(ACTION_SHOWTABLEINFO, 0);
         return;
     }
     if (actionType == ACTION_GETFILTERINFO) {
-        sendRequestRecvResponse('GET', './api/tableinfo/?query=' + currentTablename, null, API_GET_TABLEINFO_WITH_COL);
+        var reqDatDf = {'query' : currentTablename};
+        sendRequestRecvResponse('GET', './api/tableinfo/', reqDatDf, API_GET_TABLEINFO_WITH_COL);
         sendRequestRecvResponse('GET', './api/filterinfo/', null, API_GET_FILTERINFO);
         showWaitingDialog(ACTION_GETFILTERINFO, 0);
         return;
@@ -1032,8 +1046,9 @@ function onXxxAction(actionType) {
         return;
     }
     if (actionType == ACTION_SHOWTABLE) {
-        sendRequestRecvResponse('GET', './api/tableinfo/?query=' + currentTablename, null, API_GET_TABLEINFO_WITH_COL);
-        sendRequestRecvResponse('GET', './api/records/?query=' + currentTablename, null, API_GET_RECORDS);
+        var reqDatDf = {'query' : currentTablename};
+        sendRequestRecvResponse('GET', './api/tableinfo/', reqDatDf, API_GET_TABLEINFO_WITH_COL);
+        sendRequestRecvResponse('GET', './api/records/', reqDatDf, API_GET_RECORDS);
         showWaitingDialog(ACTION_SHOWTABLE, 0);
         return;
     }
