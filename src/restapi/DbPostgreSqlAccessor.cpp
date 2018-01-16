@@ -99,7 +99,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 		StkObject* ClmObj = new StkObject(_T("ColumnInfo"));
 		ClmObj->AppendChildElement(new StkObject(_T("title"), TmpColumnName));
 		ClmObj->AppendChildElement(new StkObject(_T("width"), 100));
-		ClmObj->AppendChildElement(new StkObject(_T("datatype"), ColTypeCnv));
+		ClmObj->AppendChildElement(new StkObject(_T("dataType"), ColTypeCnv));
 		ClmObj->AppendChildElement(new StkObject(_T("dataIndx"), Loop));
 		ClmObj->AppendChildElement(new StkObject(_T("coltype"), TmpColumnType));
 		ClmObj->AppendChildElement(new StkObject(_T("isnull"), TmpIsNull));

@@ -880,14 +880,14 @@ function eventParamColChanged(selectObj) {
     $(paramOpe).empty();
     $(paramOpe).append('<option value="equals">=</option>');
     $(paramOpe).append('<option value="notequal">!=</option>');
-    if (columnInfos[selectObj.selectedIndex - 1].dataType == 'integer' ||
-        columnInfos[selectObj.selectedIndex - 1].dataType == 'float') {
+    if (columnInfos[selectObj.selectedIndex - 1].dataType === 'integer' ||
+        columnInfos[selectObj.selectedIndex - 1].dataType === 'float') {
         $(paramOpe).append('<option value="equalslesserthan">&lt;=</option>');
         $(paramOpe).append('<option value="lesserthan">&lt;</option>');
         $(paramOpe).append('<option value="equalsgreaterthan">&gt;=</option>');
         $(paramOpe).append('<option value="greaterthan">&gt;</option>');
     }
-    if (columnInfos[selectObj.selectedIndex - 1].dataType == 'string') {
+    if (columnInfos[selectObj.selectedIndex - 1].dataType === 'string') {
         $(paramOpe).append('<option value="contains">contains</option>');
         $(paramOpe).append('<option value="notcontain">does not contain</option>');
     }
