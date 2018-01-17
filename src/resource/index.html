@@ -680,6 +680,15 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             } else if (responseData[API_GET_RECORDS].Data.Record) {
                 records.push(responseData[API_GET_RECORDS].Data.Record);
             }
+            for (var Loop in records) {
+                var record = records[Loop];
+                for (var colLoop = 0; colLoop < Object.keys(records[Loop]).length; colLoop++) {
+                    records[Loop][colLoop] = records[Loop][colLoop].replace(/&/g, "&amp;");
+                    records[Loop][colLoop] = records[Loop][colLoop].replace(/</g, "&lt;");
+                    records[Loop][colLoop] = records[Loop][colLoop].replace(/>/g, "&gt;");
+                    records[Loop][colLoop] = records[Loop][colLoop].replace(/\"/g, "&quot;");
+                }
+            }
 
             var tnReplaced = currentTablename;
             tnReplaced = tnReplaced.replace(/&/g, "&amp;");
