@@ -517,7 +517,12 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             $('#adialog-content').append('<table class="tblstyle">');
             $('.tblstyle').append('<tr><th>Column name</th><th>Column type</th><th>Is nullable</th></tr>');
             for (var ColLoop = 0; ColLoop < columnInfos.length; ColLoop++) {
-                $('.tblstyle').append('<tr><td>' + columnInfos[ColLoop].title + '</td><td>' + columnInfos[ColLoop].coltype + '</td><td>' + columnInfos[ColLoop].isnull + '</td></tr>');
+                var cnReplaced = columnInfos[ColLoop].title;
+                cnReplaced = cnReplaced.replace(/&/g, "&amp;");
+                cnReplaced = cnReplaced.replace(/</g, "&lt;");
+                cnReplaced = cnReplaced.replace(/>/g, "&gt;");
+                cnReplaced = cnReplaced.replace(/\"/g, "&quot;");
+                $('.tblstyle').append('<tr><td>' + cnReplaced + '</td><td>' + columnInfos[ColLoop].coltype + '</td><td>' + columnInfos[ColLoop].isnull + '</td></tr>');
             }
             $('#adialog-content').append('</table>');
             return;
@@ -588,7 +593,12 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                         seld = 'selected';
                         filFndFlag = true;
                     }
-                    $('#paramCol' + LoopCol).append('<option value="' + columnInfos[Loop].title + '" ' + seld + '>' + columnInfos[Loop].title + '</option>');
+                    var cnReplaced = columnInfos[Loop].title;
+                    cnReplaced = cnReplaced.replace(/&/g, "&amp;");
+                    cnReplaced = cnReplaced.replace(/</g, "&lt;");
+                    cnReplaced = cnReplaced.replace(/>/g, "&gt;");
+                    cnReplaced = cnReplaced.replace(/\"/g, "&quot;");
+                    $('#paramCol' + LoopCol).append('<option value="' + cnReplaced + '" ' + seld + '>' + cnReplaced + '</option>');
                 }
                 if (filFndFlag == false && filterInfo[LoopCol - 1].columnname != '*') {
                     $('#adialog-content').empty();
@@ -657,6 +667,13 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             } else if (responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo) {
                 columnInfo.push(responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo);
             }
+            for (var Loop in columnInfo) {
+                columnInfo[Loop].title = columnInfo[Loop].title.replace(/&/g, "&amp;");
+                columnInfo[Loop].title = columnInfo[Loop].title.replace(/</g, "&lt;");
+                columnInfo[Loop].title = columnInfo[Loop].title.replace(/>/g, "&gt;");
+                columnInfo[Loop].title = columnInfo[Loop].title.replace(/\"/g, "&quot;");
+            }
+
             var records = [];
             if (responseData[API_GET_RECORDS].Data.Record instanceof Array) {
                 records = responseData[API_GET_RECORDS].Data.Record;
@@ -841,10 +858,10 @@ function refreshTableNameList() {
 function eventTableSelected() {
     var selectedTableName = $('#tableselector').val();
     var tnReplaced = selectedTableName;
-    tnReplaced = tnReplaced.replace(/&amp;/g, "&");
     tnReplaced = tnReplaced.replace(/&lt;/g, "<");
     tnReplaced = tnReplaced.replace(/&gt;/g, ">");
     tnReplaced = tnReplaced.replace(/&quot;/g, "\"");
+    tnReplaced = tnReplaced.replace(/&amp;/g, "&");
 
     currentTablename = tnReplaced;
     showTable();
@@ -932,10 +949,10 @@ function initializeCurrentTablename() {
         currentTablename = "";
     } else {
         var tnReplaced = selectedTableName;
-        tnReplaced = tnReplaced.replace(/&amp;/g, "&");
         tnReplaced = tnReplaced.replace(/&lt;/g, "<");
         tnReplaced = tnReplaced.replace(/&gt;/g, ">");
         tnReplaced = tnReplaced.replace(/&quot;/g, "\"");
+        tnReplaced = tnReplaced.replace(/&amp;/g, "&");
 
         currentTablename = tnReplaced;
     }
@@ -1008,6 +1025,7 @@ function onXxxAction(actionType) {
             var paramOpe = $('#paramOpe' + Loop + ' option:selected').val();
             var paramVal = $('#paramVal' + Loop).val();
             var paramOpeInt = 0;
+
             if (typeof paramCol === 'undefined' || typeof paramOpe === 'undefined' || typeof paramVal === 'undefined') {
                 paramCol = '*';
                 paramVal = '';
@@ -1025,6 +1043,12 @@ function onXxxAction(actionType) {
                     case 'notnull'           : paramOpeInt = 21; break;
                 }
             }
+
+            paramCol = paramCol.replace(/&lt;/g, "<");
+            paramCol = paramCol.replace(/&gt;/g, ">");
+            paramCol = paramCol.replace(/&quot;/g, "\"");
+            paramCol = paramCol.replace(/&amp;/g, "&");
+
             Criteria[Loop - 1].index = Loop;
             Criteria[Loop - 1].columnname = JSON.parse(JSON.stringify(paramCol));
             Criteria[Loop - 1].opetype = paramOpeInt;
