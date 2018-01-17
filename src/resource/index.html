@@ -663,9 +663,9 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
 
             var columnInfo = [];
             if (responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo instanceof Array) {
-                columnInfo = responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo;
+                columnInfo = JSON.parse(JSON.stringify(responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo));
             } else if (responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo) {
-                columnInfo.push(responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo);
+                columnInfo.push(JSON.parse(JSON.stringify(responseData[API_GET_TABLEINFO_WITH_COL].Data.TableInfo.ColumnInfo)));
             }
             for (var Loop in columnInfo) {
                 columnInfo[Loop].title = columnInfo[Loop].title.replace(/&/g, "&amp;");
@@ -676,9 +676,9 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
 
             var records = [];
             if (responseData[API_GET_RECORDS].Data.Record instanceof Array) {
-                records = responseData[API_GET_RECORDS].Data.Record;
+                records = JSON.parse(JSON.stringify(responseData[API_GET_RECORDS].Data.Record));
             } else if (responseData[API_GET_RECORDS].Data.Record) {
-                records.push(responseData[API_GET_RECORDS].Data.Record);
+                records.push(JSON.parse(JSON.stringify(responseData[API_GET_RECORDS].Data.Record)));
             }
             for (var Loop in records) {
                 var record = records[Loop];
