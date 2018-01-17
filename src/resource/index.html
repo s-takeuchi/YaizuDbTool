@@ -358,9 +358,9 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             for (var tableIndex = 0; tableIndex < tableInfos.length; tableIndex++) {
                 var tn = tableInfos[tableIndex].Name;
                 var tnReplaced = tn;
+                tnReplaced = tnReplaced.replace(/&/g, "&amp;");
                 tnReplaced = tnReplaced.replace(/</g, "&lt;");
                 tnReplaced = tnReplaced.replace(/>/g, "&gt;");
-                tnReplaced = tnReplaced.replace(/&/g, "&amp;");
                 tnReplaced = tnReplaced.replace(/\"/g, "&quot;");
                 var seld = '';
                 if (tableIndex == 0 && currentTablename == "") {
@@ -369,7 +369,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 if (tn == currentTablename) {
                     seld = 'selected';
                 }
-                $('#tableselector').append('<option value="' + tnReplaced + '" ' + seld + '>' + tn + '</option>');
+                $('#tableselector').append('<option value="' + tnReplaced + '" ' + seld + '>' + tnReplaced + '</option>');
             }
 
             initializeCurrentTablename();
@@ -507,7 +507,13 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             }
 
             showMessageDialog(getCliMsg(CLIMSG_LABEL_TABLEINFO), getCliMsg(CLIMSG_TABLEINFOSHOWN), actionType, 600, 440, 'img/table_image48c.png', 0);
-            $('#adialog-content').append(getCliMsg(CLIMSG_LABEL_TARGETTABLE) + currentTablename + '<br>');
+
+            var tnReplaced = currentTablename;
+            tnReplaced = tnReplaced.replace(/&/g, "&amp;");
+            tnReplaced = tnReplaced.replace(/</g, "&lt;");
+            tnReplaced = tnReplaced.replace(/>/g, "&gt;");
+            tnReplaced = tnReplaced.replace(/\"/g, "&quot;");
+            $('#adialog-content').append(getCliMsg(CLIMSG_LABEL_TARGETTABLE) + tnReplaced + '<br>');
             $('#adialog-content').append('<table class="tblstyle">');
             $('.tblstyle').append('<tr><th>Column name</th><th>Column type</th><th>Is nullable</th></tr>');
             for (var ColLoop = 0; ColLoop < columnInfos.length; ColLoop++) {
@@ -658,7 +664,12 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
                 records.push(responseData[API_GET_RECORDS].Data.Record);
             }
 
-            var obj = { title: currentTablename, editable: false };
+            var tnReplaced = currentTablename;
+            tnReplaced = tnReplaced.replace(/&/g, "&amp;");
+            tnReplaced = tnReplaced.replace(/</g, "&lt;");
+            tnReplaced = tnReplaced.replace(/>/g, "&gt;");
+            tnReplaced = tnReplaced.replace(/\"/g, "&quot;");
+            var obj = { title: tnReplaced, editable: false };
             $('#grid_array').pqGrid({colModel: columnInfo});
             obj.dataModel = { data: records, dataType: 'JSON', paging: 'local', rPPOptions:[100, 200, 400], rPP:100, curPage:1 };
             $('#grid_array').pqGrid(obj);
@@ -830,9 +841,9 @@ function refreshTableNameList() {
 function eventTableSelected() {
     var selectedTableName = $('#tableselector').val();
     var tnReplaced = selectedTableName;
+    tnReplaced = tnReplaced.replace(/&amp;/g, "&");
     tnReplaced = tnReplaced.replace(/&lt;/g, "<");
     tnReplaced = tnReplaced.replace(/&gt;/g, ">");
-    tnReplaced = tnReplaced.replace(/&amp;/g, "&");
     tnReplaced = tnReplaced.replace(/&quot;/g, "\"");
 
     currentTablename = tnReplaced;
@@ -921,9 +932,9 @@ function initializeCurrentTablename() {
         currentTablename = "";
     } else {
         var tnReplaced = selectedTableName;
+        tnReplaced = tnReplaced.replace(/&amp;/g, "&");
         tnReplaced = tnReplaced.replace(/&lt;/g, "<");
         tnReplaced = tnReplaced.replace(/&gt;/g, ">");
-        tnReplaced = tnReplaced.replace(/&amp;/g, "&");
         tnReplaced = tnReplaced.replace(/&quot;/g, "\"");
 
         currentTablename = tnReplaced;

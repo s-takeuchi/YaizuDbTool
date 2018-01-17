@@ -80,6 +80,8 @@ void ApiBase::DecodeURL(TCHAR UrlIn[StkWebAppExec::URL_PATH_LENGTH], TCHAR UrlOu
 			}
 			TmpUrlAc[AcIndex] = Val;
 			BcIndex += 2;
+		} else if (TmpUrlBc[BcIndex] == '+') {
+			TmpUrlAc[AcIndex] = ' ';
 		} else {
 			TmpUrlAc[AcIndex] = TmpUrlBc[BcIndex];
 		}
