@@ -321,6 +321,8 @@ function displaySheet() {
 function closeWaitingDialogAndExecuteNextAction(actionType) {
     if (underComm == 0) {
         $('#wdialog').dialog('close');
+        $('.ui-dialog-titlebar').show();
+        $(".ui-dialog-titlebar-close").show();
 
         //
         //
@@ -771,22 +773,16 @@ function showWaitingDialog(actionType, count) {
         }
         return;
     }
+    $('.ui-dialog-titlebar').hide();
+    $(".ui-dialog-titlebar-close").hide();
     $('#wdialog').dialog({
         autoOpen:true,
         modal:true,
         position:'center',
         draggable:false,
         resizable: false,
-        height:85,
-        width:400,
-        open : function(event, ui) {
-            $('.ui-dialog-titlebar').hide();
-            $(".ui-dialog-titlebar-close").hide();
-        },
-        close : function(event, ui) {
-            $('.ui-dialog-titlebar').show();
-            $(".ui-dialog-titlebar-close").show();
-        }
+        height:50,
+        width:400
     });
     $('#wdialog-content').empty();
     $('#wdialog-content').append(getCliMsg(CLIMSG_WAITFORAWHILE));
