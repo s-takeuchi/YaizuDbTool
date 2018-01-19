@@ -19,9 +19,9 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPat
 		return ResObj;
 	}
 	TCHAR Dummy[256];
-	TCHAR TableName[256];
-	StkStringParser::ParseInto2Params(UrlPath, _T("$?query=$"), _T('$'), Dummy, 256, TableName, 256);
-	TCHAR TableNameAc[256];
+	TCHAR TableName[768];
+	StkStringParser::ParseInto2Params(UrlPath, _T("$?query=$"), _T('$'), Dummy, 256, TableName, 768);
+	TCHAR TableNameAc[768];
 	DecodeURL(TableName, TableNameAc);
 
 	TCHAR ConnStr[256];

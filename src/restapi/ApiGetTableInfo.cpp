@@ -10,9 +10,9 @@
 StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, TCHAR Locale[3])
 {
 	TCHAR Dummy[256] = _T("");
-	TCHAR TableName[256] = _T("");
+	TCHAR TableName[768] = _T("");
 	if (StrStr(UrlPath, _T("?query="))) {
-		StkStringParser::ParseInto2Params(UrlPath, _T("$?query=$"), _T('$'), Dummy, 256, TableName, 256);
+		StkStringParser::ParseInto2Params(UrlPath, _T("$?query=$"), _T('$'), Dummy, 256, TableName, 768);
 	}
 
 	StkObject* ResObj = new StkObject(_T(""));
@@ -28,7 +28,7 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR Url
 	Da->GetTables(DatObj, StateMsg, Msg, 1024);
 
 	if (lstrcmp(TableName, _T("")) != 0) {
-		TCHAR TableNameAc[256];
+		TCHAR TableNameAc[768];
 		DecodeURL(TableName, TableNameAc);
 
 		// If ?query=TableName is specified...

@@ -175,6 +175,7 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 			if (ValLen[LoopCol] == -1) {
 				RecObj->AppendChildElement(new StkObject(IndStr, _T("")));
 			} else {
+				TmpRecord[LoopCol][Global::COLUMNVAL_LENGTH - 1] = '\0';
 				RecObj->AppendChildElement(new StkObject(IndStr, TmpRecord[LoopCol]));
 			}
 		}
