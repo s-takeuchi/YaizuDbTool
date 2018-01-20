@@ -81,7 +81,7 @@ BEGIN
             VALUE "FileDescription", "CmdFreak Server"
             VALUE "FileVersion", "1, 1, 0, 0"
             VALUE "InternalName", "CmdFreak Server"
-            VALUE "LegalCopyright", "Copyright (C) 2018"
+            VALUE "LegalCopyright", "Copyright (C) 2018 Shinya Takeuchi"
             VALUE "OriginalFilename", "stkwebapp.exe"
             VALUE "ProductName", "CmdFreak Server"
             VALUE "ProductVersion", "1, 1, 0, 0"
