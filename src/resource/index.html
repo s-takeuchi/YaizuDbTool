@@ -432,7 +432,12 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             if (odbcInfoConfigured.DbType === 'Init') {
                 $('#connstr').append(odbcInfos[1].ConnStr);
             } else {
-                $('#connstr').append(odbcInfoConfigured.ConnStr);
+                var csReplaced = odbcInfoConfigured.ConnStr;
+                csReplaced = csReplaced.replace(/&/g, "&amp;");
+                csReplaced = csReplaced.replace(/</g, "&lt;");
+                csReplaced = csReplaced.replace(/>/g, "&gt;");
+                csReplaced = csReplaced.replace(/\"/g, "&quot;");
+                $('#connstr').append(csReplaced);
             }
             return;
         }
