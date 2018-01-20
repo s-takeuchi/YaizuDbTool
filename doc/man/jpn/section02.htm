@@ -63,19 +63,52 @@ http://＜CmdFreakのインストール先ホスト名またはIPアドレス＞
 </div><p>
 
 
-<H2 ID="2.4">2.4 ポート番号の変更</H2>
-ユーザーはインストール時にWebサーバおよびCmdFreakサービスが使用するポート番号を指定します。
-インストール後にこれらのポート番号を変更するためには，以下の手順で操作を行ってください。
+<H2 ID="2.4">2.4 CmdFreakサービスの起動・停止</H2>
+<div class="topic">
+CmdFreakサービスの起動および停止は，以下のコマンドを使って行います。<br/>
+<p>＜CmdFreakのインストールフォルダ＞\CmdFreak\stkwebappcmd.exe</p>
+<ul>
+<li>
+CmdFreakサービスの起動<br/>
+コマンドプロンプトを管理者として実行し，コマンドプロンプトで次のコマンドを実行します。<br/>
+<p>＜CmdFreakのインストールフォルダ＞\CmdFreak\stkwebappcmd.exe start ProductName=CmdFreak</p>
+</li>
+<li>
+CmdFreakサービスの停止<br/>
+コマンドプロンプトを管理者として実行し，コマンドプロンプトで次のコマンドを実行します。<br/>
+<p>＜CmdFreakのインストールフォルダ＞\CmdFreak\stkwebappcmd.exe stop ProductName=CmdFreak</p>
+</li>
+</ul>
+</div><p>
+
+
+<H2 ID="2.5">2.5 IPアドレスおよびポート番号の変更</H2>
+<div class="topic">
+CmdFreakは，2種類のIPアドレスとポート番号を使用します。<br/>
+<ul>
+<li>WebサーバのIPアドレスとポート番号</li>
+<li>CmdFreakサービスのIPアドレスとポート番号</li>
+</ul><br/>
+
+インストール後にこれらのIPアドレスおよびポート番号を変更するためには，以下の手順で操作を行ってください。<br/>
 <ol>
-<li>スタートメニューから[Stop CmdFreak Service]を選択し，CmdFreakサービスを停止します。
-<li>CmdFreakサービスが使用するポート番号を変更する場合:<br>
-＜インストール先フォルダ＞\CmdFreak\bin\cmdfrksrv.conf のserviceport プロパティおよび<br>
-＜インストール先フォルダ＞\CmdFreak\htdocs\bbb.conf のaccessport プロパティを変更します。<p>
-Webサービスが使用するポート番号を変更する場合:<br>
-＜インストール先フォルダ＞\CmdFreak\htdocs\mongoose.conf のlistening_ports プロパティを変更します。
-<li>スタートメニューから[Start CmdFreak Service]を選択し，CmdFreakサービスを開始します。
-</ol>
+<li>CmdFreakサービスを停止します。</li>
+<li>
+IPアドレスおよびポート番号を変更します。<br/>
 <p>
+<u>CmdFreakサービスが使用するIPアドレスおよびポート番号を変更する場合:</u><br/>
+＜インストール先フォルダ＞\CmdFreak\stkwebapp.conf のservicehostおよびserviceport プロパティにCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
+＜インストール先フォルダ＞\CmdFreak\conf\nginx.conf のlocation /api/ セクションのproxy_pass にCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
+</p>
+<p>
+<u>Webサーバが使用するIPアドレスおよびポート番号を変更する場合:</u><br/>
+＜インストール先フォルダ＞\CmdFreak\conf\nginx.conf のlistenおよびserver_name を変更します。<br/>
+</p>
+</li>
+<li>必要に応じてファイアウォールの設定を変更します。</li>
+<li>CmdFreakサービスを起動します。</li>
+</ol>
+</div><p>
 
 </div>
 </BODY>
