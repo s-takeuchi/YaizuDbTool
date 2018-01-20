@@ -63,6 +63,7 @@ copy "..\..\YaizuComLib\src\stkdatagui\Release\stkdatagui.exe" webapp
 copy "..\doc\man\eng\*.*" webapp\manual\eng
 copy "..\doc\man\jpn\*.*" webapp\manual\jpn
 xcopy /y /q /s "..\src\etc\*.*" webapp
+copy "..\LICENSE" webapp\LICENSE.cmdfreak
 copy "..\src\restapi\Release\stkwebapp.exe" webapp
 copy "..\src\restapi\stkwebapp.conf" webapp
 copy "..\src\restapi\stkwebapp.dat" webapp

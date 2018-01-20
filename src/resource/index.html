@@ -39,6 +39,7 @@ var CLIMSG_TECH_EMBEDDED           = 2132;
 var CLIMSG_OPEN_MANUAL             = 2133;
 var CLIMSG_OPEN_MANUAL_URL         = 2134;
 var CLIMSG_TRACELOG                = 2135;
+var CLIMSG_LICENSE                 = 2136;
 ///////////////////////////////////////////////
 // ODBC Config
 var CLIMSG_ODBCCONNSTR_GUIDE       = 2140;
@@ -81,13 +82,14 @@ var cliMsg = [
               // Info
               {'code':CLIMSG_LABEL_LOGTIME, 'en':'Logging time', 'ja':'ログ出力時刻'},
               {'code':CLIMSG_LABEL_LOGMSG, 'en':'Message', 'ja':'メッセージ'},
-              {'code':CLIMSG_TECH_EMBEDDED, 'en':'This software has the following technologies embedded:', 'ja':'このソフトウェアは次の技術を取り込んでいます。'},
+              {'code':CLIMSG_TECH_EMBEDDED, 'en':'This software has the following technologies embedded:', 'ja':'本ソフトウェアは次の技術を取り込んでいます。'},
               {'code':CLIMSG_OPEN_MANUAL, 'en':'Open online manual', 'ja':'オンラインマニュアルを開く'},
               {'code':CLIMSG_OPEN_MANUAL_URL, 'en':'manual/eng/index.htm', 'ja':'manual/jpn/index.htm'},
               {'code':CLIMSG_TRACELOG, 
                   'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.', 
                   'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'
               },
+              {'code':CLIMSG_LICENSE, 'en':'This software is distributed under the MIT License.', 'ja':'本ソフトウェアは MIT ライセンスの下で配布されます。'},
               ///////////////////////////////////////////////
               // ODBC Config
               {'code':CLIMSG_ODBCCONNSTR_GUIDE,
@@ -738,12 +740,14 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
             }
 
             showMessageDialog(getCliMsg(CLIMSG_LABEL_INFORMATION), '' + productName + ' ' + version + '<br/>Copyright (C) 2018 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
-            $('#adialog-content').append('' + getCliMsg(CLIMSG_TECH_EMBEDDED) + '<br/>- nginx 1.10.3 (Released under 2 clause BSD license)<br/>- JQuery 1.9.1 (Released under MIT License)<br/>- JQuery UI 1.10.3 (Released under MIT License)<br/>- ParamQuery Grid 1.1.2 (Released under MIT License)<br/>');
+            $('#adialog-content').append('' + getCliMsg(CLIMSG_LICENSE) + '<br/>');
+            $('#adialog-content').append('<p>' + getCliMsg(CLIMSG_TECH_EMBEDDED) + '<br/>- nginx 1.10.3 (Distributed under 2 clause BSD license)<br/>- JQuery 1.9.1 (Distributed under MIT License)<br/>- JQuery UI 1.10.3 (Distributed under MIT License)<br/>- ParamQuery Grid 1.1.2 (Distributed under MIT License)<br/></p>');
             $('#adialog-content').append('<p>');
-            $('#adialog-content').append('<a href="' + getCliMsg(CLIMSG_OPEN_MANUAL_URL) + '" target="manual">' + getCliMsg(CLIMSG_OPEN_MANUAL) + '</a><p>');
+            $('#adialog-content').append('<a href="' + getCliMsg(CLIMSG_OPEN_MANUAL_URL) + '" target="manual">' + getCliMsg(CLIMSG_OPEN_MANUAL) + '</a>');
+            $('#adialog-content').append('</p><p>');
             $('#adialog-content').append('Build Time = ' + buildTime + '<br/>');
             $('#adialog-content').append('Service Start Time = ' + startTime + '<br/>');
-            $('#adialog-content').append('<br/>');
+            $('#adialog-content').append('</p>');
             $('#adialog-content').append('' + getCliMsg(CLIMSG_TRACELOG));
             var tmpTbl = $('<table class="tblstyle"><tr><th>' + getCliMsg(CLIMSG_LABEL_LOGTIME) + '</th><th>' + getCliMsg(CLIMSG_LABEL_LOGMSG) + '</th></tr></table>');
             $('#adialog-content').append(tmpTbl);

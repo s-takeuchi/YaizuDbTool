@@ -55,29 +55,25 @@ Memory:1 GB or more
 Free disk space: 20 MB or more
 
 Operating systems/editions supported:
- Windows XP Professional SP3
- Windows XP Professional x64 SP2
- Windows Vista Business/Ultimate SP2
- Windows 7 Professional/Ultimate SP1
- Windows 8 Pro
- Windows Server 2003 Standard SP2
- Windows Server 2003 R2 Standard SP2
- Windows Server 2008 Standard SP2
- Windows Server 2008 R2 Standard SP1
- Windows Server 2012 Standard
+ Windows 7
+ Windows 10
+ Windows Server 2012
+ Windows Server 2012 R2
+ Windows Server 2016
 
 Web browsers supported:
- Internet Explorer 8
- Internet Explorer 9
- Internet Explorer 10
- Firefox 3.6
- Firefox 10
- Firefox 17
+ Microsoft Internet Explorer 11
+ Microsoft Edge
+ Google Chrome
+ Mozilla Firefox
 
 DBMSs supported:
- MySQL 5.5 (+ ODBC Driver: MySQL ODBC 5.2 Unicode Driver)
- MariaDB 5.5 (+ ODBC Driver: MySQL ODBC 5.2 Unicode Driver)
- PostgreSQL 9.2 (+ ODBC Driver: PostgreSQL Unicode 9.2)
+ MySQL 5.5 (+ ODBC Driver: MySQL Connector/ODBC 5.2)
+ MySQL 5.7 (+ ODBC Driver: MySQL Connector/ODBC 5.3)
+ MariaDB 5.5 (+ ODBC Driver: MySQL Connector/ODBC 5.2)
+ MariaDB 10.3 (+ ODBC Driver: MariaDB Connector/ODBC 3.0)
+ PostgreSQL 9.2 (+ ODBC Driver: psqlODBC 9.2)
+ PostgreSQL 9.6 (+ ODBC Driver: psqlODBC 9.6)
 
 
 =================================================
