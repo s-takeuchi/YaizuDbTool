@@ -659,14 +659,14 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
         if (actionType == ACTION_SHOWTABLE) {
             if (statusCode[API_GET_TABLEINFO_WITH_COL] == 200 && statusCode[API_GET_RECORDS] == 200) {
                 // Nothing to do
-            } else if (statusCode[API_GET_RECORDS] == 400) {
-                showMessageDialog(getCliMsg(CLIMSG_ERROR), getSvrMsg(responseData[API_GET_RECORDS]), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
-                return;
-            } else if (statusCode[API_GET_RECORDS] == 404) {
-                showMessageDialog(getCliMsg(CLIMSG_ERROR), getSvrMsg(responseData[API_GET_RECORDS]), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
-                return;
-            } else {
+            } else if (statusCode[API_GET_TABLEINFO_WITH_COL] == -1 || statusCode[API_GET_RECORDS] == -1) {
                 showMessageDialog(getCliMsg(CLIMSG_FAITALERROR), getCliMsg(CLIMSG_COMMUNICATIONERROR), ACTION_ERROR, 550, 280, 'img/error_image48c.png', 0);
+                return;
+            } else if (statusCode[API_GET_TABLEINFO_WITH_COL] != -1 && statusCode[API_GET_TABLEINFO_WITH_COL] != 200) {
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getSvrMsg(responseData[API_GET_TABLEINFO_WITH_COL]), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
+                return;
+            } else if (statusCode[API_GET_RECORDS] != -1 && statusCode[API_GET_RECORDS] != 200) {
+                showMessageDialog(getCliMsg(CLIMSG_ERROR), getSvrMsg(responseData[API_GET_RECORDS]), ACTION_ERROR, 512, 200, 'img/error_image48c.png', 0);
                 return;
             }
 
