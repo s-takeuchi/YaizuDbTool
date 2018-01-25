@@ -181,9 +181,6 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 		}
 		Obj->AppendChildElement(RecObj);
 		LoopRec++;
-		if (LoopRec >= Global::MAXNUM_RECORDS) {
-			break;
-		}
 	}
 	return LoopRec;
 }

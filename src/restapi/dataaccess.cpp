@@ -149,40 +149,6 @@ int DataAccess::GetLogs(TCHAR LogMsgTime[Global::MAXNUM_OF_LOGRECORDS][Global::M
 	return NumOfRec;
 }
 
-// Get log information as HTML
-// LogAsHtml [out] : Acquired log information
-// Return : 0:Success, -1: Failure
-int DataAccess::GetLogAsHtml(TCHAR LogAsHtml[Global::MAX_PARAM_LENGTH / 2])
-{
-	LockTable(_T("Log"), LOCK_EXCLUSIVE);
-	AzSortRecord(_T("Log"), _T("Id"));
-	RecordData* RecDatLog = GetRecord(_T("Log"));
-	UnlockTable(_T("Log"));
-
-	StrCpy(LogAsHtml, _T("<table class='tblstyle'>"));
-	TCHAR TmpBuf[200];
-	wsprintf(TmpBuf, _T("<tr><th>Time</th><th>Message</th></tr>"));
-	StrCat(LogAsHtml, TmpBuf);
-	RecordData* CurrRecDat = RecDatLog;
-	while (CurrRecDat != NULL) {
-		ColumnDataWStr* ColDatTime = (ColumnDataWStr*)CurrRecDat->GetColumn(1);
-		ColumnDataWStr* ColDatMsg = (ColumnDataWStr*)CurrRecDat->GetColumn(2);
-		StrCat(LogAsHtml, _T("<tr><td>"));
-		if (ColDatTime->GetValue() != NULL) {
-			StrCat(LogAsHtml, ColDatTime->GetValue());
-		}
-		StrCat(LogAsHtml, _T("</td><td>"));
-		if (ColDatMsg->GetValue() != NULL) {
-			StrCat(LogAsHtml, ColDatMsg->GetValue());
-		}
-		StrCat(LogAsHtml, _T("</td></tr>"));
-		CurrRecDat = CurrRecDat->GetNextRecord();
-	}
-	StrCat(LogAsHtml, _T("</table>"));
-	delete RecDatLog;
-	return 0;
-}
-
 // This function deletes old logs.
 // Return : Always zero returned
 int DataAccess::DeleteOldLogs()
