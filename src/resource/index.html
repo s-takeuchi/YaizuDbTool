@@ -18,6 +18,7 @@
 
 <script type="text/javascript">
 
+var timeout = 10000;
 var currentTablename = "";
 var currentDbmsname = "";
 var welcomeDlg = true;
@@ -132,8 +133,8 @@ var cliMsg = [
               },
               {'code':CLIMSG_SERVER_ERROR, 'en':'An error occurred at server side.', 'ja':'サーバ側でエラーが発生しました。'},
               {'code':CLIMSG_COMMUNICATIONERROR,
-                  'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A CmdFreak internal process is invalid.<br>',
-                  'ja':'CmdFreakサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) CmdFreakサービスが開始されていない。<br>(2) CmdFreakサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , stkwebapp.conf] が不正。<br>(4) CmdFreakの内部処理で異常が発生している。<br>'
+                  'en':'Connection with CmdFreak service failed. This may be caused by one of the following issues:<br>(1) CmdFreak service cannot be started.<br>(2) CmdFreak service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or stkwebapp.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A timeout has occurred when waiting for data from CmdFreak server.<br>',
+                  'ja':'CmdFreakサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) CmdFreakサービスが開始されていない。<br>(2) CmdFreakサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , stkwebapp.conf] が不正。<br>(4) CmdFreakサーバからのデータ取得中にタイムアウトが発生した。<br>'
               }
 ];
 
@@ -821,7 +822,7 @@ function sendRequestRecvResponse(method, url, request, index) {
             url: url,
             data: request,
             async: true,
-            timeout: 7000,
+            timeout: timeout,
             success: function(msg, textStatus, xhr) {
                 statusCode[index] = xhr.status;
                 $.extend(responseData[index], msg);
@@ -845,7 +846,7 @@ function sendRequestRecvResponse(method, url, request, index) {
             data: JSON.stringify(request),
             contentType: 'application/json',
             async: true,
-            timeout: 7000,
+            timeout: timeout,
             success: function(msg, textStatus, xhr) {
                 statusCode[index] = xhr.status;
                 $.extend(responseData[index], msg);
