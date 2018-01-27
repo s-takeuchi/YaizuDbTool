@@ -70,7 +70,7 @@ Web browsers supported:
 DBMSs supported:
  MySQL 5.5 (+ ODBC Driver: MySQL Connector/ODBC 5.2)
  MySQL 5.7 (+ ODBC Driver: MySQL Connector/ODBC 5.3)
- MariaDB 5.5 (+ ODBC Driver: MySQL Connector/ODBC 5.2)
+ MariaDB 5.5 (+ ODBC Driver: MariaDB Connector/ODBC 2.0)
  MariaDB 10.3 (+ ODBC Driver: MariaDB Connector/ODBC 3.0)
  PostgreSQL 9.2 (+ ODBC Driver: psqlODBC 9.2)
  PostgreSQL 9.6 (+ ODBC Driver: psqlODBC 9.6)
