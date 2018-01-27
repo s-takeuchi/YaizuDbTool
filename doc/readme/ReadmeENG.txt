@@ -81,6 +81,12 @@ DBMSs supported:
 
 Execute cmdfreak.msi and launch the installer.
 Follow the on-screen dialog prompts.
+Connect to the URL shown below by Web browser for use of CmdFreak after
+installation.
+
+http://<Host name or IP address of CmdFreak>:<Port number of Web server>
+
+In case of installation with default parameters : http://localhost
 
 
 =================================================
@@ -89,5 +95,7 @@ Follow the on-screen dialog prompts.
 Please use the E-mail address below for inquiries about this product.
 
 bamboo@rj.dream.jp
+https://github.com/s-takeuchi
+
 Shinya Takeuchi
 
