@@ -77,7 +77,14 @@ DBMSs supported:
 
 
 =================================================
-3.Installation
+3.Change history
+* Version 1.0.0 ---> 1.1.0
+(1) Support for displaying unlimited record.
+(2) Performance improvement for multiple user access.
+
+
+=================================================
+4.Installation
 
 Execute cmdfreak.msi and launch the installer.
 Follow the on-screen dialog prompts.
@@ -90,7 +97,7 @@ In case of installation with default parameters : http://localhost
 
 
 =================================================
-4.Contact
+5.Contact
 
 Please use the E-mail address below for inquiries about this product.
 
