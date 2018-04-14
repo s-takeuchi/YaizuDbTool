@@ -41,8 +41,8 @@ rem ########## Checking file existence ##########
 echo;
 echo Checking "stkdatagui.exe" existence...
 if not exist "..\..\YaizuComLib\src\stkdatagui\Release\stkdatagui.exe" goto FILENOTEXIST
-echo Checking "nginx-1.10.3.zip" existence...
-if not exist "..\..\YaizuComLib\src\stkwebapp\nginx-1.10.3.zip" goto FILENOTEXIST
+echo Checking "nginx-1.12.2.zip" existence...
+if not exist "..\..\YaizuComLib\src\stkwebapp\nginx-1.12.2.zip" goto FILENOTEXIST
 echo Checking "stkwebapp.exe" existence...
 if not exist "..\src\restapi\Release\stkwebapp.exe" goto FILENOTEXIST
 echo Checking "stkwebappcmd.exe" existence...
@@ -70,11 +70,11 @@ copy "..\src\restapi\stkwebapp.dat" webapp
 copy "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" webapp
 
 mkdir webapp\nginx
-copy "..\..\YaizuComLib\src\stkwebapp\nginx-1.10.3.zip" webapp\nginx
+copy "..\..\YaizuComLib\src\stkwebapp\nginx-1.12.2.zip" webapp\nginx
 pushd webapp\nginx
-%SEVENZIP% x "nginx-1.10.3.zip"
+%SEVENZIP% x "nginx-1.12.2.zip"
 popd
-xcopy /y /q /i /s /e "webapp\nginx\nginx-1.10.3" webapp
+xcopy /y /q /i /s /e "webapp\nginx\nginx-1.12.2" webapp
 if exist webapp\nginx rmdir /S /Q webapp\nginx
 
 

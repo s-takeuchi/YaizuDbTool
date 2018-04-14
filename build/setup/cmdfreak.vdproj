@@ -123,6 +123,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_26D1330B781F483895AF3C459FA3C17F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2C0DD2D30AF6413BBB0C21761B2E4B4A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1208,6 +1214,26 @@
             "TargetName" = "8:jquery-ui.min.css"
             "Tag" = "8:"
             "Folder" = "8:_777C0E461C414017B63E01EF8BF9A2FC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_26D1330B781F483895AF3C459FA3C17F"
+            {
+            "SourcePath" = "8:..\\webapp\\contrib\\vim\\ftplugin\\nginx.vim"
+            "TargetName" = "8:nginx.vim"
+            "Tag" = "8:"
+            "Folder" = "8:_33EE778BEAC942A9B2E1CE55BF50B392"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3387,6 +3413,17 @@
                                         {
                                         }
                                     }
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_33EE778BEAC942A9B2E1CE55BF50B392"
+                                    {
+                                    "Name" = "8:ftplugin"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_C2F695130D62412FAA82991DE18C52FE"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
                                     "{9EF0B969-E518-4E46-987F-47570745A589}:_6D4172534DC641B484C8E9A52610C16C"
                                     {
                                     "Name" = "8:indent"
@@ -3676,6 +3713,7 @@
         "ProductCode" = "8:{64E66CF9-94FA-4709-84F8-8ABF2FA7A6AD}"
         "PackageCode" = "8:{45823AB0-539E-4C61-A0D6-07EB08611B59}"
         "UpgradeCode" = "8:{9F177B9B-A453-41D8-8EF8-DC8C3BF6D25B}"
+        "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
@@ -4218,7 +4256,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_D2C61F50ED114D16A0B74A38302F825C"
                     {
                     "Sequence" = "3:200"
-                    "DisplayName" = "8:インストール フォルダ"
+                    "DisplayName" = "8:インストール フォルダー"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdFolderDlg.wid"
@@ -4263,7 +4301,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_50AB90EB11D843288C939C4C1B0C8761"
                     {
                     "Sequence" = "3:200"
-                    "DisplayName" = "8:インストール フォルダ"
+                    "DisplayName" = "8:インストール フォルダー"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminFolderDlg.wid"
