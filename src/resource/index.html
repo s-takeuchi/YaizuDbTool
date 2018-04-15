@@ -1,22 +1,22 @@
 ﻿<!doctype html>
 <html>
 <head>
-<title>CmdFreak</title>
+    <title>CmdFreak</title>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="content-style-type" content="text/css" />
-<meta http-equiv="pragma" content="non-cache" />
-<meta http-equiv="cache-control" content="non-cache" />
-<meta http-equiv="expires" content="0" />
-<link rel="stylesheet" href="./lib/jquery/jquery-ui.min.css" />
-<script src="./lib/jquery/jquery-1.9.1.min.js"></script>
-<script src="./lib/jquery/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="./lib/grid/pqgrid.min.css" />
-<script src="./lib/grid/pqgrid.min.js"></script>
-<link rel="stylesheet" href="./lib/grid/themes/office/pqgrid.css" />
-<link rel="stylesheet" href="./style.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-style-type" content="text/css" />
+    <meta http-equiv="pragma" content="non-cache" />
+    <meta http-equiv="cache-control" content="non-cache" />
+    <meta http-equiv="expires" content="0" />
+    <link rel="stylesheet" href="./lib/jquery/jquery-ui.min.css" />
+    <script src="./lib/jquery/jquery-1.9.1.min.js"></script>
+    <script src="./lib/jquery/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="./lib/grid/pqgrid.min.css" />
+    <script src="./lib/grid/pqgrid.min.js"></script>
+    <link rel="stylesheet" href="./lib/grid/themes/office/pqgrid.css" />
+    <link rel="stylesheet" href="./style.css" />
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
 var timeout = 10000;
 var currentTablename = "";
@@ -86,8 +86,8 @@ var cliMsg = [
               {'code':CLIMSG_TECH_EMBEDDED, 'en':'This software has the following technologies embedded:', 'ja':'本ソフトウェアは次の技術を取り込んでいます。'},
               {'code':CLIMSG_OPEN_MANUAL, 'en':'Open online manual', 'ja':'オンラインマニュアルを開く'},
               {'code':CLIMSG_OPEN_MANUAL_URL, 'en':'manual/eng/index.htm', 'ja':'manual/jpn/index.htm'},
-              {'code':CLIMSG_TRACELOG, 
-                  'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.', 
+              {'code':CLIMSG_TRACELOG,
+                  'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.',
                   'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'
               },
               {'code':CLIMSG_LICENSE, 'en':'This software is distributed under the MIT License.', 'ja':'本ソフトウェアは MIT ライセンスの下で配布されます。'},
@@ -742,7 +742,7 @@ function closeWaitingDialogAndExecuteNextAction(actionType) {
 
             showMessageDialog(getCliMsg(CLIMSG_LABEL_INFORMATION), '' + productName + ' ' + version + '<br/>Copyright (C) 2018 Shinya Takeuchi<br/>All Rights Reserved.', actionType, 600, 440, 'img/info_image48c.png', 0);
             $('#adialog-content').append('' + getCliMsg(CLIMSG_LICENSE) + '<br/>');
-            $('#adialog-content').append('<p>' + getCliMsg(CLIMSG_TECH_EMBEDDED) + '<br/>- nginx 1.10.3 (Distributed under 2 clause BSD license)<br/>- JQuery 1.9.1 (Distributed under MIT License)<br/>- JQuery UI 1.10.3 (Distributed under MIT License)<br/>- ParamQuery Grid 1.1.2 (Distributed under MIT License)<br/></p>');
+            $('#adialog-content').append('<p>' + getCliMsg(CLIMSG_TECH_EMBEDDED) + '<br/>- nginx 1.12.2 (Distributed under 2 clause BSD license)<br/>- JQuery 1.9.1 (Distributed under MIT License)<br/>- JQuery UI 1.10.3 (Distributed under MIT License)<br/>- ParamQuery Grid 1.1.2 (Distributed under MIT License)<br/></p>');
             $('#adialog-content').append('<p>');
             $('#adialog-content').append('<a href="' + getCliMsg(CLIMSG_OPEN_MANUAL_URL) + '" target="manual">' + getCliMsg(CLIMSG_OPEN_MANUAL) + '</a>');
             $('#adialog-content').append('</p><p>');
@@ -1077,19 +1077,19 @@ function onXxxAction(actionType) {
     if (actionType == ACTION_GETFILTERSW) {
         sendRequestRecvResponse('GET', './api/filterinfo/', null, API_GET_FILTERINFO);
         showWaitingDialog(ACTION_GETFILTERSW, 0);
-        return;   
+        return;
     }
     if (actionType == ACTION_TURNFILTERSWON) {
         var reqDatDf = {"Function":"enable"};
         sendRequestRecvResponse('POST', './api/filterinfo/', reqDatDf, API_POST_FILTERINFO);
         showWaitingDialog(ACTION_TURNFILTERSWON, 0);
-        return;   
+        return;
     }
     if (actionType == ACTION_TURNFILTERSWOFF) {
         var reqDatDf = {"Function":"disable"};
         sendRequestRecvResponse('POST', './api/filterinfo/', reqDatDf, API_POST_FILTERINFO);
         showWaitingDialog(ACTION_TURNFILTERSWOFF, 0);
-        return;   
+        return;
     }
     if (actionType == ACTION_REFRESH) {
         showTableWithToolBar();
@@ -1110,42 +1110,49 @@ function onXxxAction(actionType) {
     }
 }
 
-</script>
+    </script>
 </head>
 
 
 <body style="overflow: hidden;" onresize="boxResize()">
-<div id="container"><div class="spc">
-<div class="headtailbar">
-    <table class="ttblstyle" width="100%"><tr>
-        <td align="left"><b>CmdFreak</b></td>
-        <td align="right">1.1.0</td>
-    </tr></table>
-</div>
+    <div id="container">
+        <div class="spc">
+            <div class="headtailbar">
+                <table class="ttblstyle" width="100%">
+                    <tr>
+                        <td align="left"><b>CmdFreak</b></td>
+                        <td align="right">1.2.0</td>
+                    </tr>
+                </table>
+            </div>
 
-<div id="box_info">
-    <noscript>
-        JavaScript is disabled in your browser.<br>Change the browser setting to enable it and refresh the page.<br>
-    </noscript>
+            <div id="box_info">
+                <noscript>
+                    JavaScript is disabled in your browser.<br>Change the browser setting to enable it and refresh the page.<br>
+                </noscript>
 
-    <div id="mainarea" style="display:none">
-        <div id="adialog">
-            <table class="ttblstyle" width="100%"><tr>
-            <td id="adialog-icon" width="60px"></td><td id="adialog-msg"></td>
-            </tr></table><p>
-            <div id="adialog-content" align="left"></div>
-            <hr/>
-            <div id="adialog-button" align="right"></div>
-        </div>
-        <div id="wdialog">
-            <div id="wdialog-content" align="center"></div>
+                <div id="mainarea" style="display:none">
+                    <div id="adialog">
+                        <table class="ttblstyle" width="100%">
+                            <tr>
+                                <td id="adialog-icon" width="60px"></td>
+                                <td id="adialog-msg"></td>
+                            </tr>
+                        </table><p>
+                            <div id="adialog-content" align="left"></div>
+                            <hr />
+                            <div id="adialog-button" align="right"></div>
+                    </div>
+                    <div id="wdialog">
+                        <div id="wdialog-content" align="center"></div>
+                    </div>
+                </div>
+                <div id="grid_array">
+                </div>
+            </div>
+
         </div>
     </div>
-    <div id="grid_array">
-    </div>
-</div>
-
-</div></div>
 </body>
 
 </html>
