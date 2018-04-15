@@ -92,9 +92,9 @@ echo ZIP packing stage...
 copy ..\doc\readme\ReadmeJPN.txt deployment
 copy ..\doc\readme\ReadmeENG.txt deployment
 cd deployment
-%SEVENZIP% a cfk110.zip cmdfreak.msi
-%SEVENZIP% a cfk110.zip ReadmeENG.txt
-%SEVENZIP% a cfk110.zip ReadmeJPN.txt
+%SEVENZIP% a cfk120.zip cmdfreak.msi
+%SEVENZIP% a cfk120.zip ReadmeENG.txt
+%SEVENZIP% a cfk120.zip ReadmeJPN.txt
 del ReadmeENG.txt
 del ReadmeJPN.txt
 del cmdfreak.msi
