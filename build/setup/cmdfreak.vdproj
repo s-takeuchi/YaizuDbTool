@@ -3675,12 +3675,23 @@
             "{1525181F-901A-416C-8A58-119130FE478E}:_EF0AC5DA6C79430B9464024859E8CD4E"
             {
             "Name" = "8:#1919"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_A5023CFC8FE04170A4B75BE44FC27907"
+                    {
+                    "Name" = "8:CmdFreak"
+                    "AlwaysCreate" = "11:TRUE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_D6A46B04388A4B869A2FBA486E4F91BF"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_F7F8277FF120458CA37C518C4ED33338"
@@ -3831,6 +3842,34 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2B53955BE23C4A5186F9F87EE9E7B4E6"
+            {
+            "Name" = "8:Start CmdFreak service"
+            "Arguments" = "8:start ProductName=CmdFreak"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_2C2037B9A5FF43EAA007A64BC19E469C"
+            "Folder" = "8:_A5023CFC8FE04170A4B75BE44FC27907"
+            "WorkingFolder" = "8:_86390656788F4E7E90369616F8C082B6"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_49F9C193112146939CC3EB81D8C42FCF"
+            {
+            "Name" = "8:Stop CmdFreak service"
+            "Arguments" = "8:stop ProductName=CmdFreak"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_2C2037B9A5FF43EAA007A64BC19E469C"
+            "Folder" = "8:_A5023CFC8FE04170A4B75BE44FC27907"
+            "WorkingFolder" = "8:_86390656788F4E7E90369616F8C082B6"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
