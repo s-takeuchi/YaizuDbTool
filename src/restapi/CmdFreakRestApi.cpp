@@ -6,7 +6,6 @@
 #include "..\..\..\YaizuComLib\src\commonfunc\StkObject.h"
 #include "..\..\..\YaizuComLib\src\commonfunc\StkProperties.h"
 #include "..\..\..\YaizuComLib\src\stkthread\stkthread.h"
-#include "..\..\..\YaizuComLib\src\stksocket\stksocket.h"
 #include "..\..\..\YaizuComLib\src\stkwebapp\StkWebApp.h"
 #include "..\..\..\YaizuComLib\src\stkwebapp\StkWebAppExec.h"
 #include "dataaccess.h"
