@@ -1,4 +1,5 @@
 #include <tchar.h>
+#include <windows.h>
 #include "ApiGetSystem.h"
 
 ApiGetSystem::ApiGetSystem()

@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <tchar.h>
+#include <stdio.h>
 #include "ApiBase.h"
 
 void ApiBase::AddCodeAndMsg(StkObject* StkObj, int Code, TCHAR* MsgEng, TCHAR* MsgJpn)
