@@ -22,7 +22,7 @@ public:
 
 	static void AddMsg();
 	static TCHAR* GetMsg(int);
-	static BYTE* GetMsgSjis(int);
+	static char* GetMsgSjis(int);
 	static TCHAR* GetMsgJpn(int);
 	static TCHAR* GetMsgEng(int);
 };

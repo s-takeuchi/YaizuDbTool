@@ -71,7 +71,7 @@ TCHAR* MyMsgProc::GetMsg(int Id)
 	return MessageProc::GetMsg(Id);
 }
 
-BYTE* MyMsgProc::GetMsgSjis(int Id)
+char* MyMsgProc::GetMsgSjis(int Id)
 {
 	return MessageProc::GetMsgSjis(Id);
 }
