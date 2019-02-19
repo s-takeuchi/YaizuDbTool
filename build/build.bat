@@ -5,20 +5,37 @@ echo =========================================
 echo Build YaizuDbTool
 echo =========================================
 
-set CURRENTPATH=%cd%
-set DEVENV="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
-set SEVENZIP="C:\Program Files\7-Zip\7z.exe"
-set LCOUNTER="C:\Program Files (x86)\lcounter\lcounter.exe"
+if defined APPVEYOR (
+  set MSBUILD="msbuild.exe"
+  set DEVENV="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
+  set SEVENZIP="7z.exe"
+  set LCOUNTER=""
+)
 
-echo;
-echo This batch file requires softwares shown below.
-echo (1) Microsoft Visual Studio 2017
-echo (2) 7-Zip 9.20
-echo (3) Line Counter
+if not defined APPVEYOR (
+  set MSBUILD="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe"
+  set DEVENV="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
+  set SEVENZIP="C:\Program Files\7-Zip\7z.exe"
+  set LCOUNTER="C:\Program Files (x86)\lcounter\lcounter.exe"
+)
 
-if not exist %DEVENV% exit
-if not exist %SEVENZIP% exit
-if not exist %LCOUNTER% exit
+if not defined APPVEYOR (
+  echo;
+  echo This batch file requires softwares shown below.
+  echo 1. Microsoft Visual Studio 2017
+  echo 2. 7-Zip 9.20
+  echo 3. Line Counter
+
+  if not exist %MSBUILD% (
+    exit
+  ) else if not exist %DEVENV% (
+    exit
+  ) else if not exist %SEVENZIP% (
+    exit
+  ) else if not exist %LCOUNTER% (
+    exit
+  )
+)
 
 
 rem ########## Initializing ##########
@@ -27,26 +44,30 @@ echo Initializing...
 if exist webapp rmdir /S /Q webapp
 if exist deployment rmdir /S /Q deployment
 
+
 rem ########## Building ##########
 echo;
 echo Building stkdatagui.sln...
-%DEVENV% "..\..\YaizuComLib\src\stkdatagui\stkdatagui.sln" /rebuild Release
+%MSBUILD% "..\..\YaizuComLib\src\stkdatagui\stkdatagui.sln" /t:clean;build /p:Configuration=Release
+IF %ERRORLEVEL% NEQ 0 goto ERRORRAISED
 echo Building sample.sln...
-%DEVENV% "..\src\restapi\sample.sln" /rebuild Release
+%MSBUILD% "..\src\restapi\sample.sln" /t:clean;build /p:Configuration=Release
+IF %ERRORLEVEL% NEQ 0 goto ERRORRAISED
 echo Building stkwebappcmd.sln...
-%DEVENV% "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.sln" /rebuild Release
+%MSBUILD% "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.sln" /t:clean;build /p:Configuration=Release
+IF %ERRORLEVEL% NEQ 0 goto ERRORRAISED
 
 
 rem ########## Checking file existence ##########
 echo;
 echo Checking "stkdatagui.exe" existence...
-if not exist "..\..\YaizuComLib\src\stkdatagui\Release\stkdatagui.exe" goto FILENOTEXIST
+if not exist "..\..\YaizuComLib\src\stkdatagui\Release\stkdatagui.exe" goto ERRORRAISED
 echo Checking "nginx-1.12.2.zip" existence...
-if not exist "..\..\YaizuComLib\src\stkwebapp\nginx-1.12.2.zip" goto FILENOTEXIST
+if not exist "..\..\YaizuComLib\src\stkwebapp\nginx-1.12.2.zip" goto ERRORRAISED
 echo Checking "stkwebapp.exe" existence...
-if not exist "..\src\restapi\Release\stkwebapp.exe" goto FILENOTEXIST
+if not exist "..\src\restapi\Release\stkwebapp.exe" goto ERRORRAISED
 echo Checking "stkwebappcmd.exe" existence...
-if not exist "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" goto FILENOTEXIST
+if not exist "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" goto ERRORRAISED
 
 
 rem ########## Deployment of files and folders ##########
@@ -83,14 +104,14 @@ echo;
 echo Making installer...
 %DEVENV% "setup\cmdfreak.sln" /rebuild Release
 mkdir deployment
+copy ..\doc\readme\ReadmeJPN.txt deployment
+copy ..\doc\readme\ReadmeENG.txt deployment
 copy setup\Release\cmdfreak.msi deployment
 
 
 rem ########## ZIP packing ##########
 echo;
 echo ZIP packing stage...
-copy ..\doc\readme\ReadmeJPN.txt deployment
-copy ..\doc\readme\ReadmeENG.txt deployment
 cd deployment
 %SEVENZIP% a cfk120.zip cmdfreak.msi
 %SEVENZIP% a cfk120.zip ReadmeENG.txt
@@ -102,19 +123,25 @@ cd..
 
 
 rem ########## build complete ##########
-echo;
-%LCOUNTER% ..\src /subdir
-%LCOUNTER% ..\src\resource\index.html /subdir
+if not defined APPVEYOR (
+  echo;
+  %LCOUNTER% ..\src /subdir
+  %LCOUNTER% ..\src\resource\index.html /subdir
+)
 echo;
 echo All building processes of CmdFreak have been successfully finished.
-pause
-exit /B
+if not defined APPVEYOR (
+  pause
+)
+exit /B %ERRORLEVEL%
 
 
 rem ########## Error ##########
-:FILENOTEXIST
+:ERRORRAISED
 echo;
-echo Build error occurred because some build target files do not exist.
-pause
-exit /B
+echo Build error.
+if not defined APPVEYOR (
+  pause
+)
+exit /B 1
 
