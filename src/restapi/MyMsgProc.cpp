@@ -13,8 +13,8 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddEng(CMDFRK_CONF_NOT_FOUND, L"stkwebapp.conf does not found.\r\n");
 
 	//3112 (š)
-	MessageProc::AddJpn(CMDFRK_DAT_NOT_FOUND, L"stkwebapp.dat ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB\r\n");
-	MessageProc::AddEng(CMDFRK_DAT_NOT_FOUND, L"stkwebapp.dat does not found.\r\n");
+	MessageProc::AddJpn(CMDFRK_DAT_NOT_FOUND, L"sample.dat ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB\r\n");
+	MessageProc::AddEng(CMDFRK_DAT_NOT_FOUND, L"sample.dat does not found.\r\n");
 
 	//3113 (š)
 	MessageProc::AddJpn(CMDFRK_DAT_SERVICEHOST_NOT_FOUND, L"servicehost ‚ªstkwebapp.conf‚Ì’†‚ÉŒ©‚Â‚©‚è‚Ü‚¹‚ñB\r\n");

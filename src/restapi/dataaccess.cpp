@@ -11,7 +11,7 @@ DataAccess* DataAccess::ThisInstance;
 
 DataAccess::DataAccess()
 {
-	lstrcpyn(DataFileName, _T("stkwebapp.dat"), MAX_PATH);
+	lstrcpyn(DataFileName, _T("sample.dat"), MAX_PATH);
 }
 
 DataAccess::~DataAccess()

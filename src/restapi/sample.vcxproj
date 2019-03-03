@@ -66,7 +66,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;Psapi.lib;Debug\commonfunc.lib;Debug\stkthread.lib;Debug\stksocket.lib;Debug\stkwebapp.lib;Debug\stkdata.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)stkwebapp.exe</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -90,7 +90,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;Psapi.lib;Release\commonfunc.lib;Release\stkthread.lib;Release\stksocket.lib;Release\stkwebapp.lib;Release\stkdata.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)stkwebapp.exe</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>

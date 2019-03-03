@@ -64,8 +64,8 @@ echo Checking "stkdatagui.exe" existence...
 if not exist "..\..\YaizuComLib\src\stkdatagui\Release\stkdatagui.exe" goto ERRORRAISED
 echo Checking "nginx-1.12.2.zip" existence...
 if not exist "..\..\YaizuComLib\src\stkwebapp\nginx-1.12.2.zip" goto ERRORRAISED
-echo Checking "stkwebapp.exe" existence...
-if not exist "..\src\restapi\Release\stkwebapp.exe" goto ERRORRAISED
+echo Checking "sample.exe" existence...
+if not exist "..\src\restapi\Release\sample.exe" goto ERRORRAISED
 echo Checking "stkwebappcmd.exe" existence...
 if not exist "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" goto ERRORRAISED
 
@@ -85,9 +85,9 @@ copy "..\doc\man\eng\*.*" webapp\manual\eng
 copy "..\doc\man\jpn\*.*" webapp\manual\jpn
 xcopy /y /q /s "..\src\etc\*.*" webapp
 copy "..\LICENSE" webapp\LICENSE.cmdfreak
-copy "..\src\restapi\Release\stkwebapp.exe" webapp
+copy "..\src\restapi\Release\sample.exe" webapp
 copy "..\src\restapi\stkwebapp.conf" webapp
-copy "..\src\restapi\stkwebapp.dat" webapp
+copy "..\src\restapi\sample.dat" webapp
 copy "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" webapp
 
 mkdir webapp\nginx
