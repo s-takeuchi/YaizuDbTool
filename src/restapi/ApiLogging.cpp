@@ -1,4 +1,4 @@
-#include <tchar.h>
+﻿#include <tchar.h>
 #include "ApiLogging.h"
 #include "dataaccess.h"
 #include "..\Global.h"

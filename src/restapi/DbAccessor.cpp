@@ -1,4 +1,4 @@
-#include <windows.h>
+﻿#include <windows.h>
 #include "DbAccessor.h"
 #include "..\Global.h"
 #include "dataaccess.h"

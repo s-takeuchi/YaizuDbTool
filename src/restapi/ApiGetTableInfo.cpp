@@ -1,4 +1,4 @@
-#include <tchar.h>
+﻿#include <tchar.h>
 #include <shlwapi.h>
 #include "MyMsgProc.h"
 #include "ApiGetTableInfo.h"

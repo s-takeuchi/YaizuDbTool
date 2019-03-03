@@ -1,4 +1,4 @@
-#include "..\..\..\YaizuComLib\src\\commonfunc\msgproc.h"
+ï»¿#include "..\..\..\YaizuComLib\src\\commonfunc\msgproc.h"
 #include "MyMsgProc.h"
 
 void MyMsgProc::AddMsg()
@@ -8,60 +8,60 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddJpn(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nCopyright (C) 2017 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
 	MessageProc::AddEng(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nCopyright (C) 2017 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
 
-	//3111 (š)
-	MessageProc::AddJpn(CMDFRK_CONF_NOT_FOUND, L"stkwebapp.conf ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB\r\n");
+	//3111 (â˜…)
+	MessageProc::AddJpn(CMDFRK_CONF_NOT_FOUND, L"stkwebapp.conf ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚\r\n");
 	MessageProc::AddEng(CMDFRK_CONF_NOT_FOUND, L"stkwebapp.conf does not found.\r\n");
 
-	//3112 (š)
-	MessageProc::AddJpn(CMDFRK_DAT_NOT_FOUND, L"sample.dat ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB\r\n");
+	//3112 (â˜…)
+	MessageProc::AddJpn(CMDFRK_DAT_NOT_FOUND, L"sample.dat ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚\r\n");
 	MessageProc::AddEng(CMDFRK_DAT_NOT_FOUND, L"sample.dat does not found.\r\n");
 
-	//3113 (š)
-	MessageProc::AddJpn(CMDFRK_DAT_SERVICEHOST_NOT_FOUND, L"servicehost ‚ªstkwebapp.conf‚Ì’†‚ÉŒ©‚Â‚©‚è‚Ü‚¹‚ñB\r\n");
+	//3113 (â˜…)
+	MessageProc::AddJpn(CMDFRK_DAT_SERVICEHOST_NOT_FOUND, L"servicehost ãŒstkwebapp.confã®ä¸­ã«è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚\r\n");
 	MessageProc::AddEng(CMDFRK_DAT_SERVICEHOST_NOT_FOUND, L"servicehost does not found in stkwebapp.conf.\r\n");
 
-	//3114 (š)
-	MessageProc::AddJpn(CMDFRK_DAT_SERVICEPORT_NOT_FOUND, L"serviceport ‚ªstkwebapp.conf‚Ì’†‚ÉŒ©‚Â‚©‚è‚Ü‚¹‚ñB\r\n");
+	//3114 (â˜…)
+	MessageProc::AddJpn(CMDFRK_DAT_SERVICEPORT_NOT_FOUND, L"serviceport ãŒstkwebapp.confã®ä¸­ã«è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚\r\n");
 	MessageProc::AddEng(CMDFRK_DAT_SERVICEPORT_NOT_FOUND, L"serviceport does not found in stkwebapp.conf.\r\n");
 
-	//3120 (š)
-	MessageProc::AddJpn(CMDFRK_NO_CLIENTLOCALE, L"ƒNƒ‰ƒCƒAƒ“ƒg‚ÌƒƒP[ƒ‹‚ğŒŸ’m‚Å‚«‚Ü‚¹‚ñB");
+	//3120 (â˜…)
+	MessageProc::AddJpn(CMDFRK_NO_CLIENTLOCALE, L"ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã®ãƒ­ã‚±ãƒ¼ãƒ«ã‚’æ¤œçŸ¥ã§ãã¾ã›ã‚“ã€‚");
 	MessageProc::AddEng(CMDFRK_NO_CLIENTLOCALE, L"Client locale cannot be detected.");
 
-	//3121 (š)
-	MessageProc::AddJpn(CMDFRK_REQ_NOT_SUFFICIENT, L"•K—v‚Èƒpƒ‰ƒ[ƒ^‚ªƒŠƒNƒGƒXƒg‚ÉŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+	//3121 (â˜…)
+	MessageProc::AddJpn(CMDFRK_REQ_NOT_SUFFICIENT, L"å¿…è¦ãªãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãŒãƒªã‚¯ã‚¨ã‚¹ãƒˆã«å«ã¾ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
 	MessageProc::AddEng(CMDFRK_REQ_NOT_SUFFICIENT, L"The necessary parameter(s) is/are not contained in the request.");
 
-	//3122 (š)
-	MessageProc::AddJpn(CMDFRK_TABLE_NOT_EXIST, L"w’è‚µ‚½ƒe[ƒuƒ‹‚ª‘¶İ‚µ‚Ü‚¹‚ñB");
+	//3122 (â˜…)
+	MessageProc::AddJpn(CMDFRK_TABLE_NOT_EXIST, L"æŒ‡å®šã—ãŸãƒ†ãƒ¼ãƒ–ãƒ«ãŒå­˜åœ¨ã—ã¾ã›ã‚“ã€‚");
 	MessageProc::AddEng(CMDFRK_TABLE_NOT_EXIST, L"The specified table does not exist.");
 
-	//3123 (š)
-	MessageProc::AddJpn(CMDFRK_PARAM_LENGTH_TOO_LONG, L"w’è‚³‚ê‚½ƒpƒ‰ƒ[ƒ^‚ÍCw’è‰Â”\‚È’·‚³‚ÌÅ‘å‚ğ’´‚¦‚Ä‚¢‚Ü‚·B");
+	//3123 (â˜…)
+	MessageProc::AddJpn(CMDFRK_PARAM_LENGTH_TOO_LONG, L"æŒ‡å®šã•ã‚ŒãŸãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã¯ï¼ŒæŒ‡å®šå¯èƒ½ãªé•·ã•ã®æœ€å¤§ã‚’è¶…ãˆã¦ã„ã¾ã™ã€‚");
 	MessageProc::AddEng(CMDFRK_PARAM_LENGTH_TOO_LONG, L"The specified parameter exceeds the maximum length.");
 
 	//3126 (NC6)
-	MessageProc::AddJpn(CMDFRK_LOG_DBMSCHANGE, L"ODBCÚ‘±‚Ìİ’è‚ğ•ÏX‚µ‚Ü‚µ‚½B");
+	MessageProc::AddJpn(CMDFRK_LOG_DBMSCHANGE, L"ODBCæ¥ç¶šã®è¨­å®šã‚’å¤‰æ›´ã—ã¾ã—ãŸã€‚");
 	MessageProc::AddEng(CMDFRK_LOG_DBMSCHANGE, L"The ODBC connection configuration has been changed.");
 
 	//3129 (NC6)
-	MessageProc::AddJpn(CMDFRK_LOG_FILTERCHANGE, L"ƒtƒBƒ‹ƒ^ƒŠƒ“ƒOğŒ‚ğXV‚µ‚Ü‚µ‚½B");
+	MessageProc::AddJpn(CMDFRK_LOG_FILTERCHANGE, L"ãƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°æ¡ä»¶ã‚’æ›´æ–°ã—ã¾ã—ãŸã€‚");
 	MessageProc::AddEng(CMDFRK_LOG_FILTERCHANGE, L"The filter criteria have been updated.");
 
 	//3146 (NC6)
-	MessageProc::AddJpn(CMDFRK_SVCSTART, L"CmdFreakƒT[ƒrƒX‚ğŠJn‚µ‚Ü‚µ‚½B");
+	MessageProc::AddJpn(CMDFRK_SVCSTART, L"CmdFreakã‚µãƒ¼ãƒ“ã‚¹ã‚’é–‹å§‹ã—ã¾ã—ãŸã€‚");
 	MessageProc::AddEng(CMDFRK_SVCSTART, L"CmdFreak service has started.");
 
 	//3147 (NC6)
-	MessageProc::AddJpn(CMDFRK_SVCSTOP, L"CmdFreakƒT[ƒrƒX‚ğ’â~‚µ‚Ü‚µ‚½B");
+	MessageProc::AddJpn(CMDFRK_SVCSTOP, L"CmdFreakã‚µãƒ¼ãƒ“ã‚¹ã‚’åœæ­¢ã—ã¾ã—ãŸã€‚");
 	MessageProc::AddEng(CMDFRK_SVCSTOP, L"CmdFreak service has stopped.");
 
 	//3226 (---)
-	MessageProc::AddJpn(CMDFRK_LOGGINGTIME, L"ƒƒOo—Í");
+	MessageProc::AddJpn(CMDFRK_LOGGINGTIME, L"ãƒ­ã‚°å‡ºåŠ›æ™‚åˆ»");
 	MessageProc::AddEng(CMDFRK_LOGGINGTIME, L"Logging time");
 
 	//3227 (---)
-	MessageProc::AddJpn(CMDFRK_LOGGINGMSG, L"ƒƒbƒZ[ƒW");
+	MessageProc::AddJpn(CMDFRK_LOGGINGMSG, L"ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸");
 	MessageProc::AddEng(CMDFRK_LOGGINGMSG, L"Message");
 
 }

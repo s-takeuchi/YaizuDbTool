@@ -1,4 +1,4 @@
-#include <windows.h>
+﻿#include <windows.h>
 #include "OdbcManager.h"
 #include "..\Global.h"
 #include "DbAccessor.h"

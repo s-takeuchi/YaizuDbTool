@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "..\..\..\YaizuComLib\src\stkwebapp\StkWebAppExec.h"
 
 class ApiBase : public StkWebAppExec

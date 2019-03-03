@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ApiBase.h"
 
 class ApiGetLanguage : public ApiBase
