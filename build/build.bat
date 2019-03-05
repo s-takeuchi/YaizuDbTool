@@ -88,6 +88,7 @@ copy "..\LICENSE" webapp\LICENSE.cmdfreak
 copy "..\src\restapi\Release\sample.exe" webapp
 copy "..\src\restapi\stkwebapp.conf" webapp
 copy "..\src\restapi\sample.dat" webapp
+copy "..\src\restapi\sample.conf" webapp
 copy "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" webapp
 
 mkdir webapp\nginx

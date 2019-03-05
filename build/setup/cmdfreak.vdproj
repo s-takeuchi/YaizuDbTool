@@ -159,6 +159,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2E65EE88D48A4C38B0F91E7A5CC0D7F4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_32B3D590425E4AB4BE0418039CBF1A3A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1334,6 +1340,26 @@
             "TargetName" = "8:ok_image32c.png"
             "Tag" = "8:"
             "Folder" = "8:_FE0CB3C9816E4F4CACA4C1DCBF1AB971"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2E65EE88D48A4C38B0F91E7A5CC0D7F4"
+            {
+            "SourcePath" = "8:..\\webapp\\sample.conf"
+            "TargetName" = "8:sample.conf"
+            "Tag" = "8:"
+            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"

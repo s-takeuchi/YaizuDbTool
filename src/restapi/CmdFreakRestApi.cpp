@@ -96,7 +96,7 @@ int main(int Argc, char* Argv[])
 
 	// Load properties
 	StkProperties *Prop = new StkProperties();
-	if (Prop->GetProperties(_T("stkwebapp.conf")) == 0) {
+	if (Prop->GetProperties(_T("sample.conf")) == 0) {
 		char IpAddrTmp[256];
 		if (Prop->GetPropertyStr("servicehost", IpAddrTmp) != 0) {
 			printf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_SERVICEHOST_NOT_FOUND));
