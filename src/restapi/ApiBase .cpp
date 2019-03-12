@@ -1,6 +1,7 @@
 ﻿#include <windows.h>
 #include <tchar.h>
 #include <stdio.h>
+#include "../../../YaizuComLib/src/StkPl.h"
 #include "ApiBase.h"
 
 void ApiBase::AddCodeAndMsg(StkObject* StkObj, int Code, TCHAR* MsgEng, TCHAR* MsgJpn)
@@ -8,14 +9,6 @@ void ApiBase::AddCodeAndMsg(StkObject* StkObj, int Code, TCHAR* MsgEng, TCHAR* M
 	StkObj->AppendChildElement(new StkObject(_T("Code"), Code));
 	StkObj->AppendChildElement(new StkObject(_T("MsgEng"), MsgEng));
 	StkObj->AppendChildElement(new StkObject(_T("MsgJpn"), MsgJpn));
-}
-
-void ApiBase::GetLocalTimeWStr(TCHAR LocalTimeStr[32])
-{
-	SYSTEMTIME Systime;
-	GetLocalTime(&Systime);
-	TCHAR *Mon[] = {_T("Jan"), _T("Feb"), _T("Mar"), _T("Apr"), _T("May"), _T("Jun"), _T("Jul"), _T("Aug"), _T("Sep"), _T("Oct"), _T("Nov"), _T("Dec")};
-	wsprintf(LocalTimeStr, _T("%s %d %d %02d:%02d:%02d.%03d"), Mon[Systime.wMonth - 1], Systime.wDay, Systime.wYear, Systime.wHour, Systime.wMinute, Systime.wSecond, Systime.wMilliseconds);
 }
 
 void ApiBase::PrintRequest(int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH])
@@ -37,16 +30,16 @@ void ApiBase::PrintRequest(int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LEN
 	default:
 		lstrcpy(StrMethod, _T("Invalid")); break;
 	}
-	TCHAR LocalTimeStr[32];
-	GetLocalTimeWStr(LocalTimeStr);
+	TCHAR LocalTimeStr[64];
+	StkPlGetWTimeInUnixTime(LocalTimeStr, true);
 	DWORD ThId = GetCurrentThreadId();
 	wprintf(_T("%s  [%06x]  %s %s\r\n"), LocalTimeStr, ThId, StrMethod, UrlPath);
 }
 
 void ApiBase::PrintResponse(int ResultCode)
 {
-	TCHAR LocalTimeStr[32];
-	GetLocalTimeWStr(LocalTimeStr);
+	TCHAR LocalTimeStr[64];
+	StkPlGetWTimeInUnixTime(LocalTimeStr, true);
 	DWORD ThId = GetCurrentThreadId();
 	wprintf(_T("%s  [%06x]  %d\r\n"), LocalTimeStr, ThId, ResultCode);
 }

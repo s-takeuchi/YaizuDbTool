@@ -5,7 +5,6 @@ class ApiBase : public StkWebAppExec
 {
 protected:
 	void AddCodeAndMsg(StkObject*, int, TCHAR*, TCHAR*);
-	void ApiBase::GetLocalTimeWStr(TCHAR[32]);
 	void PrintRequest(int, TCHAR[StkWebAppExec::URL_PATH_LENGTH]);
 	void PrintResponse(int);
 	void DecodeURL(TCHAR[StkWebAppExec::URL_PATH_LENGTH], TCHAR[StkWebAppExec::URL_PATH_LENGTH]);
