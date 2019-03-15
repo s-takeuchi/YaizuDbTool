@@ -6,7 +6,6 @@
 #include "..\Global.h"
 #include "..\..\..\YaizuComLib\src\stkdata\stkdata.h"
 #include "..\..\..\YaizuComLib\src\stkdata\stkdataapi.h"
-#include "..\..\..\YaizuComLib\src\commonfunc\StkGeneric.h"
 
 DataAccess* DataAccess::ThisInstance;
 
@@ -329,7 +328,7 @@ BOOL DataAccess::GetFilterSwitch()
 int DataAccess::StopAutoSave()
 {
 	TCHAR Buf[MAX_PATH];
-	StkGeneric::GetInstance()->GetFullPathFromFileName(DataFileName, Buf);
+	StkPlGetFullPathFromFileName(DataFileName, Buf);
 	AutoSave(Buf, 30, FALSE);
 	LockAllTable(2);
 	SaveData(Buf);
@@ -343,11 +342,11 @@ int DataAccess::CreateCmdFreakTables()
 {
 	// Make full path name and call AutoSave
 	TCHAR Buf[MAX_PATH];
-	StkGeneric::GetInstance()->GetFullPathFromFileName(DataFileName, Buf);
+	StkPlGetFullPathFromFileName(DataFileName, Buf);
 	AutoSave(Buf, 30, TRUE);
 
 	LockAllTable(2);
-	if (StkGeneric::GetInstance()->GetFileSize(DataFileName) == 0) {
+	if (StkPlGetFileSize(DataFileName) == 0) {
 
 		// OdbcConfig table
 		ColumnDefInt ColDefOdbcId(_T("OdbcId"));
