@@ -1,7 +1,7 @@
 ﻿#include <windows.h>
 #include <tchar.h>
 #include <stdio.h>
-#include "../../../YaizuComLib/src/StkPl.h"
+#include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "ApiBase.h"
 
 void ApiBase::AddCodeAndMsg(StkObject* StkObj, int Code, TCHAR* MsgEng, TCHAR* MsgJpn)

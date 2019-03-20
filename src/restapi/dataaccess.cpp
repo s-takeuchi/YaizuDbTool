@@ -2,7 +2,7 @@
 #include <tchar.h>
 #include <shlwapi.h>
 #include "dataaccess.h"
-#include "../../../YaizuComLib/src/StkPl.h"
+#include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "..\Global.h"
 #include "..\..\..\YaizuComLib\src\stkdata\stkdata.h"
 #include "..\..\..\YaizuComLib\src\stkdata\stkdataapi.h"
