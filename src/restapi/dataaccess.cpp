@@ -49,7 +49,7 @@ int DataAccess::AddLogMsg(TCHAR LogMsgEn[Global::MAXLEN_OF_LOGMSG], TCHAR LogMsg
 	}
 
 	TCHAR LocalTimeBuf[64];
-	StkPlGetWTimeInUnixTime(LocalTimeBuf, true);
+	StkPlGetWTimeInOldFormat(LocalTimeBuf, true);
 	// New record information
 	ColumnData *ColDatLog[4];
 	ColDatLog[0] = new ColumnDataInt(_T("Id"), MaxLogId);

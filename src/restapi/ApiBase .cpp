@@ -31,7 +31,7 @@ void ApiBase::PrintRequest(int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LEN
 		lstrcpy(StrMethod, _T("Invalid")); break;
 	}
 	TCHAR LocalTimeStr[64];
-	StkPlGetWTimeInUnixTime(LocalTimeStr, true);
+	StkPlGetWTimeInOldFormat(LocalTimeStr, true);
 	DWORD ThId = GetCurrentThreadId();
 	wprintf(_T("%s  [%06x]  %s %s\r\n"), LocalTimeStr, ThId, StrMethod, UrlPath);
 }
@@ -39,7 +39,7 @@ void ApiBase::PrintRequest(int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LEN
 void ApiBase::PrintResponse(int ResultCode)
 {
 	TCHAR LocalTimeStr[64];
-	StkPlGetWTimeInUnixTime(LocalTimeStr, true);
+	StkPlGetWTimeInOldFormat(LocalTimeStr, true);
 	DWORD ThId = GetCurrentThreadId();
 	wprintf(_T("%s  [%06x]  %d\r\n"), LocalTimeStr, ThId, ResultCode);
 }
