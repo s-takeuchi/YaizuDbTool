@@ -68,6 +68,8 @@ echo Checking "sample.exe" existence...
 if not exist "..\src\restapi\Release\sample.exe" goto ERRORRAISED
 echo Checking "stkwebappcmd.exe" existence...
 if not exist "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" goto ERRORRAISED
+echo Checking "stkwebappcmd.conf" existence...
+if not exist "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.conf" goto ERRORRAISED
 
 
 rem ########## Deployment of files and folders ##########
@@ -86,7 +88,7 @@ copy "..\doc\man\jpn\*.*" webapp\manual\jpn
 xcopy /y /q /s "..\src\etc\*.*" webapp
 copy "..\LICENSE" webapp\LICENSE.cmdfreak
 copy "..\src\restapi\Release\sample.exe" webapp
-copy "..\src\restapi\stkwebapp.conf" webapp
+copy "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.conf" webapp
 copy "..\src\restapi\sample.dat" webapp
 copy "..\src\restapi\sample.conf" webapp
 copy "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" webapp
