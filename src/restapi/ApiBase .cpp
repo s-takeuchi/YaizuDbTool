@@ -87,19 +87,9 @@ void ApiBase::DecodeURL(TCHAR UrlIn[StkWebAppExec::URL_PATH_LENGTH], TCHAR UrlOu
 	return;
 }
 
-StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t* HttpHeader)
 {
-	PrintRequest(Method, UrlPath);
-
-	StkObject* RetObj = ExecuteImpl(ReqObj, Method, UrlPath, ResultCode, Locale);
-
-	PrintResponse(*ResultCode);
-
-	return RetObj;
-}
-
-StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, TCHAR Locale[3], wchar_t* HttpHeader)
-{
+	wchar_t Locale[3];
 	PrintRequest(Method, UrlPath);
 
 	StkPlWcsCpy(Locale, 3, L"");
