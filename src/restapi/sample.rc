@@ -79,12 +79,12 @@ BEGIN
         BLOCK "000004b0"
         BEGIN
             VALUE "FileDescription", "CmdFreak Server"
-            VALUE "FileVersion", "1, 1, 0, 0"
+            VALUE "FileVersion", "1, 2, 0, 0"
             VALUE "InternalName", "CmdFreak Server"
-            VALUE "LegalCopyright", "Copyright (C) 2018 Shinya Takeuchi"
-            VALUE "OriginalFilename", "stkwebapp.exe"
+            VALUE "LegalCopyright", "Copyright (C) 2019 Shinya Takeuchi"
+            VALUE "OriginalFilename", "sample.exe"
             VALUE "ProductName", "CmdFreak Server"
-            VALUE "ProductVersion", "1, 1, 0, 0"
+            VALUE "ProductVersion", "1, 2, 0, 0"
         END
     END
     BLOCK "VarFileInfo"

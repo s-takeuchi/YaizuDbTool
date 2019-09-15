@@ -1,8 +1,9 @@
-﻿#include <windows.h>
-#include <tchar.h>
-#include <shlwapi.h>
-#include <stdio.h>
-#include <Psapi.h>
+﻿//#include <windows.h>
+//#include <tchar.h>
+//#include <shlwapi.h>
+//#include <stdio.h>
+//#include <Psapi.h>
+#include "..\..\..\YaizuComLib\src\stkpl\StkPl.h"
 #include "..\..\..\YaizuComLib\src\commonfunc\StkObject.h"
 #include "..\..\..\YaizuComLib\src\commonfunc\StkProperties.h"
 #include "..\..\..\YaizuComLib\src\stkthread\stkthread.h"
@@ -26,50 +27,50 @@ void CmdFreakRestApi(TCHAR* IpAddr, int Port, int SendBufSize)
 	Soc->SetSendBufSize(SendBufSize);
 
 	ApiGetSystem* ApiGetSystemObj = new ApiGetSystem();
-	int Add1 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/system/"), (StkWebAppExec*)ApiGetSystemObj);
+	int Add1 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/system/", (StkWebAppExec*)ApiGetSystemObj);
 	ApiGetSystemObj->SetNumOfThreads(7);
 
 	ApiGetLanguage* ApiGetLanguageObj = new ApiGetLanguage();
-	int Add2 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/language/"), (StkWebAppExec*)ApiGetLanguageObj);
+	int Add2 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/language/", (StkWebAppExec*)ApiGetLanguageObj);
 
 	ApiLogging* ApiLoggingObj = new ApiLogging();
-	int Add3 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/logs/"), (StkWebAppExec*)ApiLoggingObj);
+	int Add3 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/logs/", (StkWebAppExec*)ApiLoggingObj);
 
 	ApiOdbcInfo* ApiGetOdbcInfoObj = new ApiOdbcInfo();
-	int Add4 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/odbcinfo/$"), (StkWebAppExec*)ApiGetOdbcInfoObj);
+	int Add4 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/odbcinfo/$", (StkWebAppExec*)ApiGetOdbcInfoObj);
 
 	ApiOdbcInfo* ApiPostOdbcInfoObj = new ApiOdbcInfo();
-	int Add5 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/odbcinfo/"), (StkWebAppExec*)ApiPostOdbcInfoObj);
+	int Add5 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, L"/api/odbcinfo/", (StkWebAppExec*)ApiPostOdbcInfoObj);
 
 	ApiGetTableInfo* ApiGetTableInfoObj = new ApiGetTableInfo();
-	int Add6 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/tableinfo/"), (StkWebAppExec*)ApiGetTableInfoObj);
+	int Add6 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/tableinfo/", (StkWebAppExec*)ApiGetTableInfoObj);
 
 	ApiGetTableInfo* ApiGetTableInfoByNameObj = new ApiGetTableInfo();
-	int Add7 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/tableinfo/$"), (StkWebAppExec*)ApiGetTableInfoByNameObj);
+	int Add7 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/tableinfo/$", (StkWebAppExec*)ApiGetTableInfoByNameObj);
 
 	ApiGetRecord* ApiGetRecordObj = new ApiGetRecord();
-	int Add8 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/records/$"), (StkWebAppExec*)ApiGetRecordObj);
+	int Add8 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/records/$", (StkWebAppExec*)ApiGetRecordObj);
 
 	ApiFilterInfo* ApiGetFilterInfoObj = new ApiFilterInfo();
-	int Add9 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/filterinfo/"), (StkWebAppExec*)ApiGetFilterInfoObj);
+	int Add9 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/filterinfo/", (StkWebAppExec*)ApiGetFilterInfoObj);
 
 	ApiFilterInfo* ApiPostFilterInfoObj = new ApiFilterInfo();
-	int Add10 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/filterinfo/"), (StkWebAppExec*)ApiPostFilterInfoObj);
+	int Add10 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, L"/api/filterinfo/", (StkWebAppExec*)ApiPostFilterInfoObj);
 
 	////////// Main logic starts
 	Soc->TheLoop();
 	////////// Main logic ends
 
-	int Del1 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/system/"));
-	int Del2 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/language/"));
-	int Del3 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/logs/"));
-	int Del4 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/odbcinfo/$"));
-	int Del5 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/odbcinfo/"));
-	int Del6 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/tableinfo/"));
-	int Del7 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/tableinfo/$"));
-	int Del8 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/records/$"));
-	int Del9 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, _T("/api/filterinfo/"));
-	int Del10 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, _T("/api/filterinfo/"));
+	int Del1 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/system/");
+	int Del2 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/language/");
+	int Del3 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/logs/");
+	int Del4 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/odbcinfo/$");
+	int Del5 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, L"/api/odbcinfo/");
+	int Del6 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/tableinfo/");
+	int Del7 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/tableinfo/$");
+	int Del8 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/records/$");
+	int Del9 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/filterinfo/");
+	int Del10 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, L"/api/filterinfo/");
 
 	delete Soc;
 }
@@ -80,15 +81,20 @@ int main(int Argc, char* Argv[])
 	MyMsgProc::AddMsg();
 
 	// Display product name
-	printf_s("%s\r\n", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CMDFRKSRV));
+	StkPlPrintf("%s\r\n", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CMDFRKSRV));
 
 	// Acquire current path
-	TCHAR Buf[256];
+	wchar_t Buf[256];
 	GetModuleFileName(NULL, Buf, 255);
-	LPTSTR Addr = StrStr(Buf, _T("\\stkwebapp.exe"));
-	lstrcpy(Addr, _T(""));
-	SetCurrentDirectory(Buf);
-	printf("Current Directory = %S\r\n", Buf);
+	wchar_t* Addr = (wchar_t*)StkPlWcsStr(Buf, L"\\sample.exe");
+	if (Addr != NULL) {
+		*Addr = L'\0';
+		SetCurrentDirectory(Buf);
+		StkPlPrintf("Current Directory = %S\r\n", Buf);
+	} else {
+		StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_EXEC_NOT_FOUND));
+		return -1;
+	}
 
 	TCHAR IpAddr[256];
 	int Port;
@@ -96,37 +102,37 @@ int main(int Argc, char* Argv[])
 
 	// Load properties
 	StkProperties *Prop = new StkProperties();
-	if (Prop->GetProperties(_T("sample.conf")) == 0) {
+	if (Prop->GetProperties(L"sample.conf") == 0) {
 		char IpAddrTmp[256];
 		if (Prop->GetPropertyStr("servicehost", IpAddrTmp) != 0) {
-			printf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_SERVICEHOST_NOT_FOUND));
+			StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_SERVICEHOST_NOT_FOUND));
 			return -1;
 		}
-		printf("servicehost property = %s\r\n", IpAddrTmp);
-		wsprintf(IpAddr, _T("%S"), IpAddrTmp);
+		StkPlPrintf("servicehost property = %s\r\n", IpAddrTmp);
+		wsprintf(IpAddr, L"%S", IpAddrTmp);
 
 		if (Prop->GetPropertyInt("serviceport", &Port) != 0) {
-			printf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_SERVICEPORT_NOT_FOUND));
+			StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_SERVICEPORT_NOT_FOUND));
 			return -1;
 		}
-		printf("serviceport property = %d\r\n", Port);
+		StkPlPrintf("serviceport property = %d\r\n", Port);
 
 		if (Prop->GetPropertyInt("sendbufsize", &SendBufSize) != 0) {
 			// nothing to do
 		}
-		printf("send buffer size = %d\r\n", SendBufSize);
+		StkPlPrintf("send buffer size = %d\r\n", SendBufSize);
 	} else {
-		printf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CONF_NOT_FOUND));
+		StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CONF_NOT_FOUND));
 		return -1;
 	}
-	printf("\r\n");
+	StkPlPrintf("\r\n");
 
 	// DataAccess instance
 	DataAccess* DatAc = DataAccess::GetInstance();
 
 	// Initialize data tables and start AutoSave
 	if (DatAc->CreateCmdFreakTables() != 0) {
-		printf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_NOT_FOUND));
+		StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_NOT_FOUND));
 		return -1;
 	}
 

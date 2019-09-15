@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include <windows.h>
 
 class MyMsgProc
 {
@@ -9,6 +8,7 @@ public:
 	static const int CMDFRK_DAT_NOT_FOUND = 3112;
 	static const int CMDFRK_DAT_SERVICEHOST_NOT_FOUND = 3113;
 	static const int CMDFRK_DAT_SERVICEPORT_NOT_FOUND = 3114;
+	static const int CMDFRK_EXEC_NOT_FOUND = 3115;
 	static const int CMDFRK_NO_CLIENTLOCALE = 3120;
 	static const int CMDFRK_REQ_NOT_SUFFICIENT = 3121;
 	static const int CMDFRK_TABLE_NOT_EXIST = 3122;
@@ -21,8 +21,8 @@ public:
 	static const int CMDFRK_LOGGINGMSG = 3227;
 
 	static void AddMsg();
-	static TCHAR* GetMsg(int);
+	static wchar_t* GetMsg(int);
 	static char* GetMsgSjis(int);
-	static TCHAR* GetMsgJpn(int);
-	static TCHAR* GetMsgEng(int);
+	static wchar_t* GetMsgJpn(int);
+	static wchar_t* GetMsgEng(int);
 };

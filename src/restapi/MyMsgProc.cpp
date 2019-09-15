@@ -5,24 +5,28 @@ void MyMsgProc::AddMsg()
 {
 	// =====================================================================================================
 	//3100 (---)
-	MessageProc::AddJpn(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nCopyright (C) 2017 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
-	MessageProc::AddEng(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nCopyright (C) 2017 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
+	MessageProc::AddJpn(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nCopyright (C) 2019 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
+	MessageProc::AddEng(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nCopyright (C) 2019 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
 
 	//3111 (★)
-	MessageProc::AddJpn(CMDFRK_CONF_NOT_FOUND, L"stkwebapp.conf が見つかりません。\r\n");
-	MessageProc::AddEng(CMDFRK_CONF_NOT_FOUND, L"stkwebapp.conf does not found.\r\n");
+	MessageProc::AddJpn(CMDFRK_CONF_NOT_FOUND, L"sample.conf が見つかりません。\r\n");
+	MessageProc::AddEng(CMDFRK_CONF_NOT_FOUND, L"sample.conf does not found.\r\n");
 
 	//3112 (★)
 	MessageProc::AddJpn(CMDFRK_DAT_NOT_FOUND, L"sample.dat が見つかりません。\r\n");
 	MessageProc::AddEng(CMDFRK_DAT_NOT_FOUND, L"sample.dat does not found.\r\n");
 
 	//3113 (★)
-	MessageProc::AddJpn(CMDFRK_DAT_SERVICEHOST_NOT_FOUND, L"servicehost がstkwebapp.confの中に見つかりません。\r\n");
-	MessageProc::AddEng(CMDFRK_DAT_SERVICEHOST_NOT_FOUND, L"servicehost does not found in stkwebapp.conf.\r\n");
+	MessageProc::AddJpn(CMDFRK_DAT_SERVICEHOST_NOT_FOUND, L"servicehost がsample.confの中に見つかりません。\r\n");
+	MessageProc::AddEng(CMDFRK_DAT_SERVICEHOST_NOT_FOUND, L"servicehost does not found in sample.conf.\r\n");
 
 	//3114 (★)
-	MessageProc::AddJpn(CMDFRK_DAT_SERVICEPORT_NOT_FOUND, L"serviceport がstkwebapp.confの中に見つかりません。\r\n");
-	MessageProc::AddEng(CMDFRK_DAT_SERVICEPORT_NOT_FOUND, L"serviceport does not found in stkwebapp.conf.\r\n");
+	MessageProc::AddJpn(CMDFRK_DAT_SERVICEPORT_NOT_FOUND, L"serviceport がsample.confの中に見つかりません。\r\n");
+	MessageProc::AddEng(CMDFRK_DAT_SERVICEPORT_NOT_FOUND, L"serviceport does not found in sample.conf.\r\n");
+
+	//3115 (★)
+	MessageProc::AddJpn(CMDFRK_EXEC_NOT_FOUND, L"実行ファイルが見つかりません。\r\n");
+	MessageProc::AddEng(CMDFRK_EXEC_NOT_FOUND, L"The executable file does not found.\r\n");
 
 	//3120 (★)
 	MessageProc::AddJpn(CMDFRK_NO_CLIENTLOCALE, L"クライアントのロケールを検知できません。");
@@ -66,7 +70,7 @@ void MyMsgProc::AddMsg()
 
 }
 
-TCHAR* MyMsgProc::GetMsg(int Id)
+wchar_t* MyMsgProc::GetMsg(int Id)
 {
 	return MessageProc::GetMsg(Id);
 }
@@ -76,12 +80,12 @@ char* MyMsgProc::GetMsgSjis(int Id)
 	return MessageProc::GetMsgSjis(Id);
 }
 
-TCHAR* MyMsgProc::GetMsgJpn(int Id)
+wchar_t* MyMsgProc::GetMsgJpn(int Id)
 {
 	return MessageProc::GetMsgJpn(Id);
 }
 
-TCHAR* MyMsgProc::GetMsgEng(int Id)
+wchar_t* MyMsgProc::GetMsgEng(int Id)
 {
 	return MessageProc::GetMsgEng(Id);
 }
