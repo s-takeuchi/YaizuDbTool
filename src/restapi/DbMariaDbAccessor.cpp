@@ -1,4 +1,5 @@
 ﻿#include <windows.h>
+#include <stdio.h>
 #include "DbMariaDbAccessor.h"
 #include "..\Global.h"
 #include "dataaccess.h"
@@ -13,7 +14,7 @@ DbMariaDbAccessor::~DbMariaDbAccessor()
 
 void DbMariaDbAccessor::GetDefaultConnStr(SQLTCHAR DefConnStr[Global::MAX_PARAM_LENGTH])
 {
-	lstrcpy(DefConnStr, _T("Driver={MariaDB ODBC 2.0 Driver};Server=localhost;UID=UID;PWD=PWD;DB=DATABASE_NAME;Port=3306;"));
+	lstrcpy(DefConnStr, L"Driver={MariaDB ODBC 2.0 Driver};Server=localhost;UID=UID;PWD=PWD;DB=DATABASE_NAME;Port=3306;");
 }
 
 int DbMariaDbAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
@@ -38,7 +39,7 @@ SQLRETURN DbMariaDbAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10], SQ
 	if (Ret != SQL_SUCCESS) {
 		return Ret;
 	}
-	Ret = GetTablesCommon(_T("show tables;"), Obj, StateMsg, Msg, MsgLen);
+	Ret = GetTablesCommon(L"show tables;", Obj, StateMsg, Msg, MsgLen);
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
 
 	return Ret;
@@ -63,7 +64,7 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
 	SQLTCHAR SqlBuf[1024];
-	_snwprintf_s(SqlBuf, 1024, _TRUNCATE, _T("show full columns from %s;"), EcdTableName);
+	_snwprintf_s(SqlBuf, 1024, _TRUNCATE, L"show full columns from %s;", EcdTableName);
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	delete EcdTableName;
 	if (Ret != SQL_SUCCESS) {
@@ -93,13 +94,13 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 		lstrcpyn(TmpColumnName, TmpColumnNameTmp, Global::COLUMNNAME_LENGTH); // For adaptation to the bug of MariaDB ODBC connector
 		lstrcpyn(TmpColumnType, TmpColumnTypeTmp, Global::COLUMNTYPE_LENGTH); // For adaptation to the bug of MariaDB ODBC connector
 		ConvertAttrType(TmpColumnType, ColTypeCnv);
-		StkObject* ClmObj = new StkObject(_T("ColumnInfo"));
-		ClmObj->AppendChildElement(new StkObject(_T("title"), TmpColumnName));
-		ClmObj->AppendChildElement(new StkObject(_T("width"), 100));
-		ClmObj->AppendChildElement(new StkObject(_T("dataType"), ColTypeCnv));
-		ClmObj->AppendChildElement(new StkObject(_T("dataIndx"), Loop));
-		ClmObj->AppendChildElement(new StkObject(_T("coltype"), TmpColumnType));
-		ClmObj->AppendChildElement(new StkObject(_T("isnull"), TmpIsNull));
+		StkObject* ClmObj = new StkObject(L"ColumnInfo");
+		ClmObj->AppendChildElement(new StkObject(L"title", TmpColumnName));
+		ClmObj->AppendChildElement(new StkObject(L"width", 100));
+		ClmObj->AppendChildElement(new StkObject(L"dataType", ColTypeCnv));
+		ClmObj->AppendChildElement(new StkObject(L"dataIndx", Loop));
+		ClmObj->AppendChildElement(new StkObject(L"coltype", TmpColumnType));
+		ClmObj->AppendChildElement(new StkObject(L"isnull", TmpIsNull));
 		TblObj->AppendChildElement(ClmObj);
 	}
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
@@ -144,21 +145,21 @@ int DbMariaDbAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols,
 
 int DbMariaDbAccessor::ConvertAttrType(SQLTCHAR InAttr[Global::COLUMNTYPE_LENGTH], SQLTCHAR OutAttr[Global::COLUMNTYPE_LENGTH])
 {
-	if (wcsstr(InAttr, _T("bigint")) != NULL ||
-		wcsstr(InAttr, _T("int")) != NULL ||
-		wcsstr(InAttr, _T("mediumint")) != NULL ||
-		wcsstr(InAttr, _T("smallint")) != NULL ||
-		wcsstr(InAttr, _T("tinyint")) != NULL) {
-		lstrcpy(OutAttr, _T("integer"));
+	if (wcsstr(InAttr, L"bigint") != NULL ||
+		wcsstr(InAttr, L"int") != NULL ||
+		wcsstr(InAttr, L"mediumint") != NULL ||
+		wcsstr(InAttr, L"smallint") != NULL ||
+		wcsstr(InAttr, L"tinyint") != NULL) {
+		lstrcpy(OutAttr, L"integer");
 		return 0;
 	}
-	if (wcsstr(InAttr, _T("float")) != NULL ||
-		wcsstr(InAttr, _T("double")) != NULL ||
-		wcsstr(InAttr, _T("double precision")) != NULL) {
-		lstrcpy(OutAttr, _T("float"));
+	if (wcsstr(InAttr, L"float") != NULL ||
+		wcsstr(InAttr, L"double") != NULL ||
+		wcsstr(InAttr, L"double precision") != NULL) {
+		lstrcpy(OutAttr, L"float");
 		return 0;
 	}
-	lstrcpy(OutAttr, _T("string"));
+	lstrcpy(OutAttr, L"string");
 	return 0;
 }
 
@@ -167,37 +168,37 @@ void DbMariaDbAccessor::SqlEncoding(SQLTCHAR* InSql, SQLTCHAR* OutSql, int Type)
 	int LenOfInSql = lstrlen(InSql);
 	int OutSqlIndex = 0;
 	if (Type == TYPE_KEY) {
-		OutSql[0] = _T('`');
+		OutSql[0] = L'`';
 		OutSqlIndex++;
 	}
 	for (int Loop = 0; Loop < LenOfInSql; Loop++) {
-		if (InSql[Loop] == _T('`') && Type == TYPE_KEY) {
-			lstrcpy(&OutSql[OutSqlIndex], _T("``"));
+		if (InSql[Loop] == L'`' && Type == TYPE_KEY) {
+			lstrcpy(&OutSql[OutSqlIndex], L"``");
 			OutSqlIndex += 2;
 			continue;
 		}
-		if (InSql[Loop] == _T('\'') && (Type == TYPE_VALUE || Type == TYPE_LIKE_VALUE)) {
-			lstrcpy(&OutSql[OutSqlIndex], _T("\'\'"));
+		if (InSql[Loop] == L'\'' && (Type == TYPE_VALUE || Type == TYPE_LIKE_VALUE)) {
+			lstrcpy(&OutSql[OutSqlIndex], L"\'\'");
 			OutSqlIndex += 2;
 			continue;
 		}
-		if (InSql[Loop] == _T('\\') && Type == TYPE_VALUE) {
-			lstrcpy(&OutSql[OutSqlIndex], _T("\\\\"));
+		if (InSql[Loop] == L'\\' && Type == TYPE_VALUE) {
+			lstrcpy(&OutSql[OutSqlIndex], L"\\\\");
 			OutSqlIndex += 2;
 			continue;
 		}
-		if (InSql[Loop] == _T('\\') && Type == TYPE_LIKE_VALUE) {
-			lstrcpy(&OutSql[OutSqlIndex], _T("\\\\\\\\"));
+		if (InSql[Loop] == L'\\' && Type == TYPE_LIKE_VALUE) {
+			lstrcpy(&OutSql[OutSqlIndex], L"\\\\\\\\");
 			OutSqlIndex += 4;
 			continue;
 		}
-		if (InSql[Loop] == _T('%') && Type == TYPE_LIKE_VALUE) {
-			lstrcpy(&OutSql[OutSqlIndex], _T("\\%"));
+		if (InSql[Loop] == L'%' && Type == TYPE_LIKE_VALUE) {
+			lstrcpy(&OutSql[OutSqlIndex], L"\\%");
 			OutSqlIndex += 2;
 			continue;
 		}
-		if (InSql[Loop] == _T('_') && Type == TYPE_LIKE_VALUE) {
-			lstrcpy(&OutSql[OutSqlIndex], _T("\\_"));
+		if (InSql[Loop] == L'_' && Type == TYPE_LIKE_VALUE) {
+			lstrcpy(&OutSql[OutSqlIndex], L"\\_");
 			OutSqlIndex += 2;
 			continue;
 		}
@@ -205,8 +206,8 @@ void DbMariaDbAccessor::SqlEncoding(SQLTCHAR* InSql, SQLTCHAR* OutSql, int Type)
 		OutSqlIndex++;
 	}
 	if (Type == TYPE_KEY) {
-		OutSql[OutSqlIndex] = _T('`');
+		OutSql[OutSqlIndex] = L'`';
 		OutSqlIndex++;
 	}
-	OutSql[OutSqlIndex] = _T('\0');
+	OutSql[OutSqlIndex] = L'\0';
 }

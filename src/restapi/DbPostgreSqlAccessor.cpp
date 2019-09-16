@@ -1,4 +1,5 @@
 ﻿#include <windows.h>
+#include <stdio.h>
 #include "DbPostgreSqlAccessor.h"
 #include "..\Global.h"
 #include "dataaccess.h"
@@ -13,7 +14,7 @@ DbPostgreSqlAccessor::~DbPostgreSqlAccessor()
 
 void DbPostgreSqlAccessor::GetDefaultConnStr(SQLTCHAR DefConnStr[Global::MAX_PARAM_LENGTH])
 {
-	lstrcpy(DefConnStr, _T("Driver={PostgreSQL Unicode};Server=127.0.0.1;Database=DATABASE_NAME;UID=UID;PWD=PWD;Port=5432;"));
+	lstrcpy(DefConnStr, L"Driver={PostgreSQL Unicode};Server=127.0.0.1;Database=DATABASE_NAME;UID=UID;PWD=PWD;Port=5432;");
 }
 
 int DbPostgreSqlAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
@@ -38,7 +39,7 @@ SQLRETURN DbPostgreSqlAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10],
 	if (Ret != SQL_SUCCESS) {
 		return Ret;
 	}
-	Ret = GetTablesCommon(_T("select relname as TABLE_NAME from pg_stat_user_tables;"), Obj, StateMsg, Msg, MsgLen);
+	Ret = GetTablesCommon(L"select relname as TABLE_NAME from pg_stat_user_tables;", Obj, StateMsg, Msg, MsgLen);
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
 
 	return Ret;
@@ -63,7 +64,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 	SqlEncoding(TableName, EcdTableName, TYPE_VALUE);
 
 	SQLTCHAR SqlBuf[1024];
-	_snwprintf_s(SqlBuf, 1024, _TRUNCATE, _T("SELECT * FROM information_schema.columns WHERE table_schema='public' and table_name='%s';"), EcdTableName);
+	_snwprintf_s(SqlBuf, 1024, _TRUNCATE, L"SELECT * FROM information_schema.columns WHERE table_schema='public' and table_name='%s';", EcdTableName);
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	delete EcdTableName;
 	if (Ret != SQL_SUCCESS) {
@@ -91,18 +92,18 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 			return 0;
 		}
 		if (ColumneMaxLen != SQL_NULL_DATA) {
-			_snwprintf_s(TmpColumnType, Global::COLUMNTYPE_LENGTH, _TRUNCATE, _T("%s(%d)"), ColumnType, TmpColumnMaxLen);
+			_snwprintf_s(TmpColumnType, Global::COLUMNTYPE_LENGTH, _TRUNCATE, L"%s(%d)", ColumnType, TmpColumnMaxLen);
 		} else {
 			lstrcpy(TmpColumnType, ColumnType);
 		}
 		ConvertAttrType(TmpColumnType, ColTypeCnv);
-		StkObject* ClmObj = new StkObject(_T("ColumnInfo"));
-		ClmObj->AppendChildElement(new StkObject(_T("title"), TmpColumnName));
-		ClmObj->AppendChildElement(new StkObject(_T("width"), 100));
-		ClmObj->AppendChildElement(new StkObject(_T("dataType"), ColTypeCnv));
-		ClmObj->AppendChildElement(new StkObject(_T("dataIndx"), Loop));
-		ClmObj->AppendChildElement(new StkObject(_T("coltype"), TmpColumnType));
-		ClmObj->AppendChildElement(new StkObject(_T("isnull"), TmpIsNull));
+		StkObject* ClmObj = new StkObject(L"ColumnInfo");
+		ClmObj->AppendChildElement(new StkObject(L"title", TmpColumnName));
+		ClmObj->AppendChildElement(new StkObject(L"width", 100));
+		ClmObj->AppendChildElement(new StkObject(L"dataType", ColTypeCnv));
+		ClmObj->AppendChildElement(new StkObject(L"dataIndx", Loop));
+		ClmObj->AppendChildElement(new StkObject(L"coltype", TmpColumnType));
+		ClmObj->AppendChildElement(new StkObject(L"isnull", TmpIsNull));
 		TblObj->AppendChildElement(ClmObj);
 	}
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
@@ -147,21 +148,21 @@ int DbPostgreSqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCo
 
 int DbPostgreSqlAccessor::ConvertAttrType(SQLTCHAR InAttr[Global::COLUMNTYPE_LENGTH], SQLTCHAR OutAttr[Global::COLUMNTYPE_LENGTH])
 {
-	if (wcsstr(InAttr, _T("bigint")) != NULL ||
-		wcsstr(InAttr, _T("integer")) != NULL ||
-		wcsstr(InAttr, _T("smallint")) != NULL ||
-		wcsstr(InAttr, _T("bigserial")) != NULL ||
-		wcsstr(InAttr, _T("serial")) != NULL ||
-		wcsstr(InAttr, _T("smallserial")) != NULL) {
-		lstrcpy(OutAttr, _T("integer"));
+	if (wcsstr(InAttr, L"bigint") != NULL ||
+		wcsstr(InAttr, L"integer") != NULL ||
+		wcsstr(InAttr, L"smallint") != NULL ||
+		wcsstr(InAttr, L"bigserial") != NULL ||
+		wcsstr(InAttr, L"serial") != NULL ||
+		wcsstr(InAttr, L"smallserial") != NULL) {
+		lstrcpy(OutAttr, L"integer");
 		return 0;
 	}
-	if (wcsstr(InAttr, _T("real")) != NULL ||
-		wcsstr(InAttr, _T("double precision")) != NULL) {
-		lstrcpy(OutAttr, _T("float"));
+	if (wcsstr(InAttr, L"real") != NULL ||
+		wcsstr(InAttr, L"double precision") != NULL) {
+		lstrcpy(OutAttr, L"float");
 		return 0;
 	}
-	lstrcpy(OutAttr, _T("string"));
+	lstrcpy(OutAttr, L"string");
 	return 0;
 }
 
@@ -170,32 +171,32 @@ void DbPostgreSqlAccessor::SqlEncoding(SQLTCHAR* InSql, SQLTCHAR* OutSql, int Ty
 	int LenOfInSql = lstrlen(InSql);
 	int OutSqlIndex = 0;
 	if (Type == TYPE_KEY) {
-		OutSql[0] = _T('\"');
+		OutSql[0] = L'\"';
 		OutSqlIndex++;
 	}
 	for (int Loop = 0; Loop < LenOfInSql; Loop++) {
-		if (InSql[Loop] == _T('\"') && Type == TYPE_KEY) {
-			lstrcpy(&OutSql[OutSqlIndex], _T("\"\""));
+		if (InSql[Loop] == L'\"' && Type == TYPE_KEY) {
+			lstrcpy(&OutSql[OutSqlIndex], L"\"\"");
 			OutSqlIndex += 2;
 			continue;
 		}
-		if (InSql[Loop] == _T('\'') && (Type == TYPE_VALUE || Type == TYPE_LIKE_VALUE)) {
-			lstrcpy(&OutSql[OutSqlIndex], _T("\'\'"));
+		if (InSql[Loop] == L'\'' && (Type == TYPE_VALUE || Type == TYPE_LIKE_VALUE)) {
+			lstrcpy(&OutSql[OutSqlIndex], L"\'\'");
 			OutSqlIndex += 2;
 			continue;
 		}
-		if (InSql[Loop] == _T('\\') && Type == TYPE_LIKE_VALUE) {
-			lstrcpy(&OutSql[OutSqlIndex], _T("\\\\"));
+		if (InSql[Loop] == L'\\' && Type == TYPE_LIKE_VALUE) {
+			lstrcpy(&OutSql[OutSqlIndex], L"\\\\");
 			OutSqlIndex += 2;
 			continue;
 		}
-		if (InSql[Loop] == _T('%') && Type == TYPE_LIKE_VALUE) {
-			lstrcpy(&OutSql[OutSqlIndex], _T("\\%"));
+		if (InSql[Loop] == L'%' && Type == TYPE_LIKE_VALUE) {
+			lstrcpy(&OutSql[OutSqlIndex], L"\\%");
 			OutSqlIndex += 2;
 			continue;
 		}
-		if (InSql[Loop] == _T('_') && Type == TYPE_LIKE_VALUE) {
-			lstrcpy(&OutSql[OutSqlIndex], _T("\\_"));
+		if (InSql[Loop] == L'_' && Type == TYPE_LIKE_VALUE) {
+			lstrcpy(&OutSql[OutSqlIndex], L"\\_");
 			OutSqlIndex += 2;
 			continue;
 		}
@@ -203,8 +204,8 @@ void DbPostgreSqlAccessor::SqlEncoding(SQLTCHAR* InSql, SQLTCHAR* OutSql, int Ty
 		OutSqlIndex++;
 	}
 	if (Type == TYPE_KEY) {
-		OutSql[OutSqlIndex] = _T('\"');
+		OutSql[OutSqlIndex] = L'\"';
 		OutSqlIndex++;
 	}
-	OutSql[OutSqlIndex] = _T('\0');
+	OutSql[OutSqlIndex] = L'\0';
 }

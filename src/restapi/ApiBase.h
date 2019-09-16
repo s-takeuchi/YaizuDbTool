@@ -4,12 +4,12 @@
 class ApiBase : public StkWebAppExec
 {
 protected:
-	void AddCodeAndMsg(StkObject*, int, TCHAR*, TCHAR*);
-	void PrintRequest(int, TCHAR[StkWebAppExec::URL_PATH_LENGTH]);
+	void AddCodeAndMsg(StkObject*, int, wchar_t*, wchar_t*);
+	void PrintRequest(int, wchar_t[StkWebAppExec::URL_PATH_LENGTH]);
 	void PrintResponse(int);
-	void DecodeURL(TCHAR[StkWebAppExec::URL_PATH_LENGTH], TCHAR[StkWebAppExec::URL_PATH_LENGTH]);
-	virtual StkObject* ExecuteImpl(StkObject*, int, TCHAR[StkWebAppExec::URL_PATH_LENGTH], int*, TCHAR[3]) = 0;
+	void DecodeURL(wchar_t[StkWebAppExec::URL_PATH_LENGTH], wchar_t[StkWebAppExec::URL_PATH_LENGTH]);
+	virtual StkObject* ExecuteImpl(StkObject*, int, wchar_t[StkWebAppExec::URL_PATH_LENGTH], int*, wchar_t[3]) = 0;
 
 public:
-	virtual StkObject* Execute(StkObject*, int, TCHAR[StkWebAppExec::URL_PATH_LENGTH], int*, wchar_t*);
+	virtual StkObject* Execute(StkObject*, int, wchar_t[StkWebAppExec::URL_PATH_LENGTH], int*, wchar_t*);
 };

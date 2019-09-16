@@ -1,5 +1,4 @@
 ﻿#include <windows.h>
-#include <tchar.h>
 #include <stdio.h>
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "../../../YaizuComLib/src/commonfunc/StkStringParser.h"
@@ -7,9 +6,9 @@
 
 void ApiBase::AddCodeAndMsg(StkObject* StkObj, int Code, TCHAR* MsgEng, TCHAR* MsgJpn)
 {
-	StkObj->AppendChildElement(new StkObject(_T("Code"), Code));
-	StkObj->AppendChildElement(new StkObject(_T("MsgEng"), MsgEng));
-	StkObj->AppendChildElement(new StkObject(_T("MsgJpn"), MsgJpn));
+	StkObj->AppendChildElement(new StkObject(L"Code", Code));
+	StkObj->AppendChildElement(new StkObject(L"MsgEng", MsgEng));
+	StkObj->AppendChildElement(new StkObject(L"MsgJpn", MsgJpn));
 }
 
 void ApiBase::PrintRequest(int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH])
@@ -17,24 +16,24 @@ void ApiBase::PrintRequest(int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LEN
 	TCHAR StrMethod[32];
 	switch (Method) {
 	case STKWEBAPP_METHOD_UNDEFINED:
-		lstrcpy(StrMethod, _T("Undifined")); break;
+		lstrcpy(StrMethod, L"Undifined"); break;
 	case STKWEBAPP_METHOD_GET:
-		lstrcpy(StrMethod, _T("Get")); break;
+		lstrcpy(StrMethod, L"Get"); break;
 	case STKWEBAPP_METHOD_HEAD:
-		lstrcpy(StrMethod, _T("Head")); break;
+		lstrcpy(StrMethod, L"Head"); break;
 	case STKWEBAPP_METHOD_POST:
-		lstrcpy(StrMethod, _T("Post")); break;
+		lstrcpy(StrMethod, L"Post"); break;
 	case STKWEBAPP_METHOD_PUT:
-		lstrcpy(StrMethod, _T("Put")); break;
+		lstrcpy(StrMethod, L"Put"); break;
 	case STKWEBAPP_METHOD_DELETE:
-		lstrcpy(StrMethod, _T("Delete")); break;
+		lstrcpy(StrMethod, L"Delete"); break;
 	default:
-		lstrcpy(StrMethod, _T("Invalid")); break;
+		lstrcpy(StrMethod, L"Invalid"); break;
 	}
 	TCHAR LocalTimeStr[64];
 	StkPlGetWTimeInOldFormat(LocalTimeStr, true);
 	DWORD ThId = GetCurrentThreadId();
-	wprintf(_T("%s  [%06x]  %s %s\r\n"), LocalTimeStr, ThId, StrMethod, UrlPath);
+	wprintf(L"%s  [%06x]  %s %s\r\n", LocalTimeStr, ThId, StrMethod, UrlPath);
 }
 
 void ApiBase::PrintResponse(int ResultCode)
@@ -42,7 +41,7 @@ void ApiBase::PrintResponse(int ResultCode)
 	TCHAR LocalTimeStr[64];
 	StkPlGetWTimeInOldFormat(LocalTimeStr, true);
 	DWORD ThId = GetCurrentThreadId();
-	wprintf(_T("%s  [%06x]  %d\r\n"), LocalTimeStr, ThId, ResultCode);
+	wprintf(L"%s  [%06x]  %d\r\n", LocalTimeStr, ThId, ResultCode);
 }
 
 void ApiBase::DecodeURL(TCHAR UrlIn[StkWebAppExec::URL_PATH_LENGTH], TCHAR UrlOut[StkWebAppExec::URL_PATH_LENGTH])

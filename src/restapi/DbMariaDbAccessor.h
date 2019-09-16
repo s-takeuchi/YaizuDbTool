@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include <windows.h>
-#include <tchar.h>
 #include <sql.h>
 #include <sqlext.h>
 #include "..\Global.h"

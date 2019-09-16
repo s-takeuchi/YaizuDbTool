@@ -1,5 +1,4 @@
 ﻿#include <windows.h>
-#include <tchar.h>
 #include <shlwapi.h>
 #include "dataaccess.h"
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
@@ -11,7 +10,7 @@ DataAccess* DataAccess::ThisInstance;
 
 DataAccess::DataAccess()
 {
-	lstrcpyn(DataFileName, _T("sample.dat"), MAX_PATH);
+	lstrcpyn(DataFileName, L"sample.dat", MAX_PATH);
 }
 
 DataAccess::~DataAccess()
@@ -52,15 +51,15 @@ int DataAccess::AddLogMsg(TCHAR LogMsgEn[Global::MAXLEN_OF_LOGMSG], TCHAR LogMsg
 	StkPlGetWTimeInIso8601(LocalTimeBuf, true);
 	// New record information
 	ColumnData *ColDatLog[4];
-	ColDatLog[0] = new ColumnDataInt(_T("Id"), MaxLogId);
-	ColDatLog[1] = new ColumnDataWStr(_T("Time"), LocalTimeBuf);
-	ColDatLog[2] = new ColumnDataWStr(_T("MessageEn"), LogMsgEn);
-	ColDatLog[3] = new ColumnDataWStr(_T("MessageJa"), LogMsgJa);
-	RecordData* RecDatLog = new RecordData(_T("Log"), ColDatLog, 4);
+	ColDatLog[0] = new ColumnDataInt(L"Id", MaxLogId);
+	ColDatLog[1] = new ColumnDataWStr(L"Time", LocalTimeBuf);
+	ColDatLog[2] = new ColumnDataWStr(L"MessageEn", LogMsgEn);
+	ColDatLog[3] = new ColumnDataWStr(L"MessageJa", LogMsgJa);
+	RecordData* RecDatLog = new RecordData(L"Log", ColDatLog, 4);
 	// Add record
-	LockTable(_T("Log"), LOCK_EXCLUSIVE);
+	LockTable(L"Log", LOCK_EXCLUSIVE);
 	int Ret = InsertRecord(RecDatLog);
-	UnlockTable(_T("Log"));
+	UnlockTable(L"Log");
 	delete RecDatLog;
 	MaxLogId++;
 	return 0;
@@ -71,9 +70,9 @@ int DataAccess::AddLogMsg(TCHAR LogMsgEn[Global::MAXLEN_OF_LOGMSG], TCHAR LogMsg
 // Return : Maximum log id
 int DataAccess::GetMaxLogId()
 {
-	LockTable(_T("Log"), LOCK_SHARE);
-	RecordData* RecDatLog = GetRecord(_T("Log"));
-	UnlockTable(_T("Log"));
+	LockTable(L"Log", LOCK_SHARE);
+	RecordData* RecDatLog = GetRecord(L"Log");
+	UnlockTable(L"Log");
 
 	RecordData* CurrRecDat = RecDatLog;
 	int MaxLogId = 0;
@@ -94,9 +93,9 @@ int DataAccess::GetMaxLogId()
 // Return : Number of logs
 int DataAccess::GetNumOfLogs()
 {
-	LockTable(_T("Log"), LOCK_SHARE);
-	RecordData* RecDatLog = GetRecord(_T("Log"));
-	UnlockTable(_T("Log"));
+	LockTable(L"Log", LOCK_SHARE);
+	RecordData* RecDatLog = GetRecord(L"Log");
+	UnlockTable(L"Log");
 
 	RecordData* CurrRecDat = RecDatLog;
 	int NumOfLogs = 0;
@@ -116,10 +115,10 @@ int DataAccess::GetLogs(TCHAR LogMsgTime[Global::MAXNUM_OF_LOGRECORDS][Global::M
 						TCHAR LogMsgEn[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG],
 						TCHAR LogMsgJa[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG])
 {
-	LockTable(_T("Log"), LOCK_EXCLUSIVE);
-	AzSortRecord(_T("Log"), _T("Id"));
-	RecordData* RecDatLog = GetRecord(_T("Log"));
-	UnlockTable(_T("Log"));
+	LockTable(L"Log", LOCK_EXCLUSIVE);
+	AzSortRecord(L"Log", L"Id");
+	RecordData* RecDatLog = GetRecord(L"Log");
+	UnlockTable(L"Log");
 
 	int NumOfRec = 0;
 	RecordData* CurrRecDat = RecDatLog;
@@ -130,17 +129,17 @@ int DataAccess::GetLogs(TCHAR LogMsgTime[Global::MAXNUM_OF_LOGRECORDS][Global::M
 		if (ColDatTime != NULL && ColDatTime->GetValue() != NULL) {
 			lstrcpy(LogMsgTime[NumOfRec], ColDatTime->GetValue());
 		} else {
-			lstrcpy(LogMsgTime[NumOfRec], _T(""));
+			lstrcpy(LogMsgTime[NumOfRec], L"");
 		}
 		if (ColDatMsgEn != NULL && ColDatMsgEn->GetValue() != NULL) {
 			lstrcpy(LogMsgEn[NumOfRec], ColDatMsgEn->GetValue());
 		} else {
-			lstrcpy(LogMsgEn[NumOfRec], _T(""));
+			lstrcpy(LogMsgEn[NumOfRec], L"");
 		}
 		if (ColDatMsgJa != NULL && ColDatMsgJa->GetValue() != NULL) {
 			lstrcpy(LogMsgJa[NumOfRec], ColDatMsgJa->GetValue());
 		} else {
-			lstrcpy(LogMsgJa[NumOfRec], _T(""));
+			lstrcpy(LogMsgJa[NumOfRec], L"");
 		}
 		NumOfRec++;
 		CurrRecDat = CurrRecDat->GetNextRecord();
@@ -155,10 +154,10 @@ int DataAccess::DeleteOldLogs()
 {
 	int NumOfLogs = GetNumOfLogs();
 	if (NumOfLogs >= 100) {
-		LockTable(_T("Log"), LOCK_EXCLUSIVE);
-		AzSortRecord(_T("Log"), _T("Id"));
-		RecordData* RecDatLog = GetRecord(_T("Log"));
-		UnlockTable(_T("Log"));
+		LockTable(L"Log", LOCK_EXCLUSIVE);
+		AzSortRecord(L"Log", L"Id");
+		RecordData* RecDatLog = GetRecord(L"Log");
+		UnlockTable(L"Log");
 		int ExceededNumOfLogs = NumOfLogs - 99;
 		RecordData* CurrRecDat = RecDatLog;
 		for (int Loop = 0; Loop < ExceededNumOfLogs; Loop++) {
@@ -166,11 +165,11 @@ int DataAccess::DeleteOldLogs()
 			int ValueId = ColDatId->GetValue();
 
 			ColumnData* DelColDat[1];
-			DelColDat[0] = new ColumnDataInt(_T("Id"), ValueId);
-			RecordData* DelRecDat = new RecordData(_T("Log"), DelColDat, 1);
-			LockTable(_T("Log"), LOCK_EXCLUSIVE);
+			DelColDat[0] = new ColumnDataInt(L"Id", ValueId);
+			RecordData* DelRecDat = new RecordData(L"Log", DelColDat, 1);
+			LockTable(L"Log", LOCK_EXCLUSIVE);
 			DeleteRecord(DelRecDat);
-			UnlockTable(_T("Log"));
+			UnlockTable(L"Log");
 			delete DelRecDat;
 
 			CurrRecDat = CurrRecDat->GetNextRecord();
@@ -187,20 +186,20 @@ void DataAccess::SetOdbcConnStr(int DbmsType, TCHAR ConnStr[256])
 {
 	// Record for update
 	ColumnData *ColDatUpd[3];
-	ColDatUpd[0] = new ColumnDataWStr(_T("ConnStr"), ConnStr);
-	ColDatUpd[1] = new ColumnDataInt(_T("DbmsType"), DbmsType);
-	ColDatUpd[2] = new ColumnDataInt(_T("Init"), 0);
-	RecordData* RecDatUpd = new RecordData(_T("OdbcConfig"), ColDatUpd, 3);
+	ColDatUpd[0] = new ColumnDataWStr(L"ConnStr", ConnStr);
+	ColDatUpd[1] = new ColumnDataInt(L"DbmsType", DbmsType);
+	ColDatUpd[2] = new ColumnDataInt(L"Init", 0);
+	RecordData* RecDatUpd = new RecordData(L"OdbcConfig", ColDatUpd, 3);
 
 	// Record for search
 	ColumnData *ColDatSch[1];
-	ColDatSch[0] = new ColumnDataInt(_T("OdbcId"), 0);
-	RecordData* RecDatSch = new RecordData(_T("OdbcConfig"), ColDatSch, 1);
+	ColDatSch[0] = new ColumnDataInt(L"OdbcId", 0);
+	RecordData* RecDatSch = new RecordData(L"OdbcConfig", ColDatSch, 1);
 
 	// Add record
-	LockTable(_T("OdbcConfig"), LOCK_EXCLUSIVE);
+	LockTable(L"OdbcConfig", LOCK_EXCLUSIVE);
 	int Ret = UpdateRecord(RecDatSch, RecDatUpd);
-	UnlockTable(_T("OdbcConfig"));
+	UnlockTable(L"OdbcConfig");
 	delete RecDatSch;
 	delete RecDatUpd;
 	return;
@@ -212,9 +211,9 @@ void DataAccess::SetOdbcConnStr(int DbmsType, TCHAR ConnStr[256])
 // Return : Type of DBMS (0:MariaDB, 1:PostgreSQL, 2:MySQL, -1:Connection string does not exist)
 int DataAccess::GetOdbcConfing(TCHAR ConnStr[256], int* Init)
 {
-	LockTable(_T("OdbcConfig"), LOCK_SHARE);
-	RecordData* RecDatOdbcConfig = GetRecord(_T("OdbcConfig"));
-	UnlockTable(_T("OdbcConfig"));
+	LockTable(L"OdbcConfig", LOCK_SHARE);
+	RecordData* RecDatOdbcConfig = GetRecord(L"OdbcConfig");
+	UnlockTable(L"OdbcConfig");
 	ColumnDataInt* ColDatOdbcId = (ColumnDataInt*)RecDatOdbcConfig->GetColumn(0);
 	ColumnDataInt* ColDatDbmsType = (ColumnDataInt*)RecDatOdbcConfig->GetColumn(1);
 	ColumnDataWStr* ColDatConnStr = (ColumnDataWStr*)RecDatOdbcConfig->GetColumn(2);
@@ -239,19 +238,19 @@ int DataAccess::GetOdbcConfing(TCHAR ConnStr[256], int* Init)
 void DataAccess::SetFilterCondition(int Index, TCHAR ColumnName[Global::COLUMNNAME_LENGTH], int FilterOpeType, TCHAR Value[Global::COLUMNVAL_LENGTH])
 {
 	ColumnData *ColDatFilter[4];
-	ColDatFilter[0] = new ColumnDataInt(_T("Index"), Index);
-	ColDatFilter[1] = new ColumnDataWStr(_T("Column"), ColumnName);
-	ColDatFilter[2] = new ColumnDataInt(_T("Operation"), FilterOpeType);
-	ColDatFilter[3] = new ColumnDataWStr(_T("Value"), Value);
-	RecordData* RecDatFilter = new RecordData(_T("Filter"), ColDatFilter, 4);
+	ColDatFilter[0] = new ColumnDataInt(L"Index", Index);
+	ColDatFilter[1] = new ColumnDataWStr(L"Column", ColumnName);
+	ColDatFilter[2] = new ColumnDataInt(L"Operation", FilterOpeType);
+	ColDatFilter[3] = new ColumnDataWStr(L"Value", Value);
+	RecordData* RecDatFilter = new RecordData(L"Filter", ColDatFilter, 4);
 
 	ColumnData *ColDatSearch[1];
-	ColDatSearch[0] = new ColumnDataInt(_T("Index"), Index);
-	RecordData* RecDatSearch = new RecordData(_T("Filter"), ColDatSearch, 1);
+	ColDatSearch[0] = new ColumnDataInt(L"Index", Index);
+	RecordData* RecDatSearch = new RecordData(L"Filter", ColDatSearch, 1);
 
-	LockTable(_T("Filter"), LOCK_EXCLUSIVE);
+	LockTable(L"Filter", LOCK_EXCLUSIVE);
 	UpdateRecord(RecDatSearch, RecDatFilter);
-	UnlockTable(_T("Filter"));
+	UnlockTable(L"Filter");
 	delete RecDatSearch;
 	delete RecDatFilter;
 }
@@ -263,9 +262,9 @@ void DataAccess::SetFilterCondition(int Index, TCHAR ColumnName[Global::COLUMNNA
 // Value [out] : Value which filter condition
 void DataAccess::GetFilterCondition(int Index, TCHAR ColumnName[Global::COLUMNNAME_LENGTH], int* FilterOpeType, TCHAR Value[Global::COLUMNVAL_LENGTH])
 {
-	LockTable(_T("Filter"), LOCK_SHARE);
-	RecordData* RecDatFilter = GetRecord(_T("Filter"));
-	UnlockTable(_T("Filter"));
+	LockTable(L"Filter", LOCK_SHARE);
+	RecordData* RecDatFilter = GetRecord(L"Filter");
+	UnlockTable(L"Filter");
 	RecordData* CurRecDat = RecDatFilter;
 	while (CurRecDat) {
 		ColumnDataInt* ColDatIndex = (ColumnDataInt*)CurRecDat->GetColumn(0);
@@ -289,18 +288,18 @@ void DataAccess::SetFilterSwitch(BOOL Switch)
 {
 	// Record for update
 	ColumnData *ColDatUpd[1];
-	ColDatUpd[0] = new ColumnDataInt(_T("Switch"), (Switch == TRUE)? 1:0 );
-	RecordData* RecDatUpd = new RecordData(_T("FilterSw"), ColDatUpd, 1);
+	ColDatUpd[0] = new ColumnDataInt(L"Switch", (Switch == TRUE)? 1:0 );
+	RecordData* RecDatUpd = new RecordData(L"FilterSw", ColDatUpd, 1);
 
 	// Record for search
 	ColumnData *ColDatSch[1];
-	ColDatSch[0] = new ColumnDataInt(_T("Switch"), (Switch == TRUE)? 0:1 );
-	RecordData* RecDatSch = new RecordData(_T("FilterSw"), ColDatSch, 1);
+	ColDatSch[0] = new ColumnDataInt(L"Switch", (Switch == TRUE)? 0:1 );
+	RecordData* RecDatSch = new RecordData(L"FilterSw", ColDatSch, 1);
 
 	// Add record
-	LockTable(_T("FilterSw"), LOCK_EXCLUSIVE);
+	LockTable(L"FilterSw", LOCK_EXCLUSIVE);
 	int Ret = UpdateRecord(RecDatSch, RecDatUpd);
-	UnlockTable(_T("FilterSw"));
+	UnlockTable(L"FilterSw");
 	delete RecDatSch;
 	delete RecDatUpd;
 	return;
@@ -310,9 +309,9 @@ void DataAccess::SetFilterSwitch(BOOL Switch)
 // return : TRUE:On, FALSE:Off
 BOOL DataAccess::GetFilterSwitch()
 {
-	LockTable(_T("FilterSw"), LOCK_SHARE);
-	RecordData* RecDatFilterSw = GetRecord(_T("FilterSw"));
-	UnlockTable(_T("FilterSw"));
+	LockTable(L"FilterSw", LOCK_SHARE);
+	RecordData* RecDatFilterSw = GetRecord(L"FilterSw");
+	UnlockTable(L"FilterSw");
 
 	ColumnDataInt* ColDatSwitch = (ColumnDataInt*)RecDatFilterSw->GetColumn(0);
 	if (ColDatSwitch == NULL) {
@@ -349,11 +348,11 @@ int DataAccess::CreateCmdFreakTables()
 	if (StkPlGetFileSize(DataFileName) == 0) {
 
 		// OdbcConfig table
-		ColumnDefInt ColDefOdbcId(_T("OdbcId"));
-		ColumnDefInt ColDefDbmsType(_T("DbmsType"));
-		ColumnDefWStr ColDefConnStr(_T("ConnStr"), 256);
-		ColumnDefInt ColDefOdbcInit(_T("Init"));
-		TableDef TabDefOdbcConfig(_T("OdbcConfig"), 50);
+		ColumnDefInt ColDefOdbcId(L"OdbcId");
+		ColumnDefInt ColDefDbmsType(L"DbmsType");
+		ColumnDefWStr ColDefConnStr(L"ConnStr", 256);
+		ColumnDefInt ColDefOdbcInit(L"Init");
+		TableDef TabDefOdbcConfig(L"OdbcConfig", 50);
 		TabDefOdbcConfig.AddColumnDef(&ColDefOdbcId);
 		TabDefOdbcConfig.AddColumnDef(&ColDefDbmsType);
 		TabDefOdbcConfig.AddColumnDef(&ColDefConnStr);
@@ -363,11 +362,11 @@ int DataAccess::CreateCmdFreakTables()
 		}
 
 		// Log table
-		ColumnDefInt ColDefLogId(_T("Id"));
-		ColumnDefWStr ColDefLogTime(_T("Time"), Global::MAXLEN_OF_LOGTIME);
-		ColumnDefWStr ColDefLogMsgEn(_T("MessageEn"), Global::MAXLEN_OF_LOGMSG);
-		ColumnDefWStr ColDefLogMsgJa(_T("MessageJa"), Global::MAXLEN_OF_LOGMSG);
-		TableDef TabDefLog(_T("Log"), Global::MAXNUM_OF_LOGRECORDS);
+		ColumnDefInt ColDefLogId(L"Id");
+		ColumnDefWStr ColDefLogTime(L"Time", Global::MAXLEN_OF_LOGTIME);
+		ColumnDefWStr ColDefLogMsgEn(L"MessageEn", Global::MAXLEN_OF_LOGMSG);
+		ColumnDefWStr ColDefLogMsgJa(L"MessageJa", Global::MAXLEN_OF_LOGMSG);
+		TableDef TabDefLog(L"Log", Global::MAXNUM_OF_LOGRECORDS);
 		TabDefLog.AddColumnDef(&ColDefLogId);
 		TabDefLog.AddColumnDef(&ColDefLogTime);
 		TabDefLog.AddColumnDef(&ColDefLogMsgEn);
@@ -377,19 +376,19 @@ int DataAccess::CreateCmdFreakTables()
 		}
 
 		// FilterSw table
-		ColumnDefInt ColDefSwitch(_T("Switch"));
-		TableDef TabDefFilterSw(_T("FilterSw"), 5);
+		ColumnDefInt ColDefSwitch(L"Switch");
+		TableDef TabDefFilterSw(L"FilterSw", 5);
 		TabDefFilterSw.AddColumnDef(&ColDefSwitch);
 		if (CreateTable(&TabDefFilterSw) != 0) {
 			return -1;
 		}
 
 		// Filter table
-		ColumnDefInt ColDefIndex(_T("Index"));
-		ColumnDefWStr ColDefColumn(_T("Column"), Global::COLUMNNAME_LENGTH);
-		ColumnDefInt ColDefOperation(_T("Operation"));
-		ColumnDefWStr ColDefValue(_T("Value"), Global::COLUMNVAL_LENGTH);
-		TableDef TabDefFilter(_T("Filter"), 10);
+		ColumnDefInt ColDefIndex(L"Index");
+		ColumnDefWStr ColDefColumn(L"Column", Global::COLUMNNAME_LENGTH);
+		ColumnDefInt ColDefOperation(L"Operation");
+		ColumnDefWStr ColDefValue(L"Value", Global::COLUMNVAL_LENGTH);
+		TableDef TabDefFilter(L"Filter", 10);
 		TabDefFilter.AddColumnDef(&ColDefIndex);
 		TabDefFilter.AddColumnDef(&ColDefColumn);
 		TabDefFilter.AddColumnDef(&ColDefOperation);
@@ -402,36 +401,36 @@ int DataAccess::CreateCmdFreakTables()
 
 		// Add record for OdbcConfig
 		ColumnData *ColDatOdbcConfig[4];
-		ColDatOdbcConfig[0] = new ColumnDataInt(_T("OdbcId"), 0);
-		ColDatOdbcConfig[1] = new ColumnDataInt(_T("DbmsType"), 0);
-		ColDatOdbcConfig[2] = new ColumnDataWStr(_T("ConnStr"), _T(""));
-		ColDatOdbcConfig[3] = new ColumnDataInt(_T("Init"), 1);
-		RecordData* RecDatOdbcConfig = new RecordData(_T("OdbcConfig"), ColDatOdbcConfig, 4);
-		LockTable(_T("OdbcConfig"), LOCK_EXCLUSIVE);
+		ColDatOdbcConfig[0] = new ColumnDataInt(L"OdbcId", 0);
+		ColDatOdbcConfig[1] = new ColumnDataInt(L"DbmsType", 0);
+		ColDatOdbcConfig[2] = new ColumnDataWStr(L"ConnStr", L"");
+		ColDatOdbcConfig[3] = new ColumnDataInt(L"Init", 1);
+		RecordData* RecDatOdbcConfig = new RecordData(L"OdbcConfig", ColDatOdbcConfig, 4);
+		LockTable(L"OdbcConfig", LOCK_EXCLUSIVE);
 		Ret = InsertRecord(RecDatOdbcConfig);
-		UnlockTable(_T("OdbcConfig"));
+		UnlockTable(L"OdbcConfig");
 		delete RecDatOdbcConfig;
 
 		// Add record for FilterSw
 		ColumnData *ColDatFilterSw[1];
-		ColDatFilterSw[0] = new ColumnDataInt(_T("Switch"), 0);
-		RecordData* RecDatFilterSw = new RecordData(_T("FilterSw"), ColDatFilterSw, 1);
-		LockTable(_T("FilterSw"), LOCK_EXCLUSIVE);
+		ColDatFilterSw[0] = new ColumnDataInt(L"Switch", 0);
+		RecordData* RecDatFilterSw = new RecordData(L"FilterSw", ColDatFilterSw, 1);
+		LockTable(L"FilterSw", LOCK_EXCLUSIVE);
 		Ret = InsertRecord(RecDatFilterSw);
-		UnlockTable(_T("FilterSw"));
+		UnlockTable(L"FilterSw");
 		delete RecDatFilterSw;
 
 		// Add record for Filter
 		for (int Loop = 1; Loop <= 5; Loop++) {
 			ColumnData *ColDatFilter[4];
-			ColDatFilter[0] = new ColumnDataInt(_T("Index"), Loop);
-			ColDatFilter[1] = new ColumnDataWStr(_T("Column"), _T("*"));
-			ColDatFilter[2] = new ColumnDataInt(_T("Operation"), 0);
-			ColDatFilter[3] = new ColumnDataWStr(_T("Value"), _T(""));
-			RecordData* RecDatFilter = new RecordData(_T("Filter"), ColDatFilter, 4);
-			LockTable(_T("Filter"), LOCK_EXCLUSIVE);
+			ColDatFilter[0] = new ColumnDataInt(L"Index", Loop);
+			ColDatFilter[1] = new ColumnDataWStr(L"Column", L"*");
+			ColDatFilter[2] = new ColumnDataInt(L"Operation", 0);
+			ColDatFilter[3] = new ColumnDataWStr(L"Value", L"");
+			RecordData* RecDatFilter = new RecordData(L"Filter", ColDatFilter, 4);
+			LockTable(L"Filter", LOCK_EXCLUSIVE);
 			Ret = InsertRecord(RecDatFilter);
-			UnlockTable(_T("Filter"));
+			UnlockTable(L"Filter");
 			delete RecDatFilter;
 		}
 

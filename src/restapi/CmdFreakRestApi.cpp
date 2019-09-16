@@ -1,9 +1,4 @@
-﻿//#include <windows.h>
-//#include <tchar.h>
-//#include <shlwapi.h>
-//#include <stdio.h>
-//#include <Psapi.h>
-#include "..\..\..\YaizuComLib\src\stkpl\StkPl.h"
+﻿#include "..\..\..\YaizuComLib\src\stkpl\StkPl.h"
 #include "..\..\..\YaizuComLib\src\commonfunc\StkObject.h"
 #include "..\..\..\YaizuComLib\src\commonfunc\StkProperties.h"
 #include "..\..\..\YaizuComLib\src\stkthread\stkthread.h"
