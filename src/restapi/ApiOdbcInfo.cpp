@@ -1,6 +1,6 @@
 ﻿#include <windows.h>
+#include <stdio.h>
 #include <shlwapi.h>
-#include <tchar.h>
 #include "MyMsgProc.h"
 #include "ApiOdbcInfo.h"
 #include "dataaccess.h"
@@ -8,13 +8,13 @@
 #include "OdbcManager.h"
 #include "DbAccessor.h"
 
-StkObject* ApiOdbcInfo::GetOdbcInfo(TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode)
+StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode)
 {
-	StkObject* ResObj = new StkObject(_T(""));
+	StkObject* ResObj = new StkObject(L"");
 
-	if (StrStr(UrlPath, _T("?query=default"))) {
-		AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
-		StkObject* DatObj = new StkObject(_T("Data"));
+	if (StrStr(UrlPath, L"?query=default")) {
+		AddCodeAndMsg(ResObj, 0, L"", L"");
+		StkObject* DatObj = new StkObject(L"Data");
 
 		SQLTCHAR ConnStrPostgreSql[Global::MAX_PARAM_LENGTH];
 		SQLTCHAR ConnStrMariaDb[Global::MAX_PARAM_LENGTH];
@@ -36,52 +36,52 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH
 		OdbcManager::GetInstance()->DeleteAccessorObject(DaPostgreSql);
 		OdbcManager::GetInstance()->DeleteAccessorObject(DaMySql);
 
-		StkObject* DatObjMariaDb = new StkObject(_T("OdbcInfo"));
-		DatObjMariaDb->AppendChildElement(new StkObject(_T("DbType"), _T("MariaDB")));
-		DatObjMariaDb->AppendChildElement(new StkObject(_T("ConnStr"), ConnStrMariaDb));
+		StkObject* DatObjMariaDb = new StkObject(L"OdbcInfo");
+		DatObjMariaDb->AppendChildElement(new StkObject(L"DbType", L"MariaDB"));
+		DatObjMariaDb->AppendChildElement(new StkObject(L"ConnStr", ConnStrMariaDb));
 		DatObj->AppendChildElement(DatObjMariaDb);
 
-		StkObject* DatObjPostgreSql = new StkObject(_T("OdbcInfo"));
-		DatObjPostgreSql->AppendChildElement(new StkObject(_T("DbType"), _T("PostgreSQL")));
-		DatObjPostgreSql->AppendChildElement(new StkObject(_T("ConnStr"), ConnStrPostgreSql));
+		StkObject* DatObjPostgreSql = new StkObject(L"OdbcInfo");
+		DatObjPostgreSql->AppendChildElement(new StkObject(L"DbType", L"PostgreSQL"));
+		DatObjPostgreSql->AppendChildElement(new StkObject(L"ConnStr", ConnStrPostgreSql));
 		DatObj->AppendChildElement(DatObjPostgreSql);
 
-		StkObject* DatObjMySql = new StkObject(_T("OdbcInfo"));
-		DatObjMySql->AppendChildElement(new StkObject(_T("DbType"), _T("MySQL")));
-		DatObjMySql->AppendChildElement(new StkObject(_T("ConnStr"), ConnStrMySql));
+		StkObject* DatObjMySql = new StkObject(L"OdbcInfo");
+		DatObjMySql->AppendChildElement(new StkObject(L"DbType", L"MySQL"));
+		DatObjMySql->AppendChildElement(new StkObject(L"ConnStr", ConnStrMySql));
 		DatObj->AppendChildElement(DatObjMySql);
 		ResObj->AppendChildElement(DatObj);
 		*ResultCode = 200;
 	} else 
-	if (StrStr(UrlPath, _T("?query=configured"))) {
-		AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
-		StkObject* DatObj = new StkObject(_T("Data"));
+	if (StrStr(UrlPath, L"?query=configured")) {
+		AddCodeAndMsg(ResObj, 0, L"", L"");
+		StkObject* DatObj = new StkObject(L"Data");
 
-		TCHAR ConnStr[256];
+		wchar_t ConnStr[256];
 		int Init;
 		int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-		TCHAR DbmsTypeStr[16];
+		wchar_t DbmsTypeStr[16];
 		if (Init == 1) {
-			lstrcpy(DbmsTypeStr, _T("Init"));
+			lstrcpy(DbmsTypeStr, L"Init");
 		} else if (DbmsType == OdbcManager::MARIADB_ACCESSOR) {
-			lstrcpy(DbmsTypeStr, _T("MariaDB"));
+			lstrcpy(DbmsTypeStr, L"MariaDB");
 		} else if (DbmsType == OdbcManager::POSTGRESQL_ACCESSOR) {
-			lstrcpy(DbmsTypeStr, _T("PostgreSQL"));
+			lstrcpy(DbmsTypeStr, L"PostgreSQL");
 		} else if (DbmsType == OdbcManager::MYSQL_ACCESSOR) {
-			lstrcpy(DbmsTypeStr, _T("MySQL"));
+			lstrcpy(DbmsTypeStr, L"MySQL");
 		} else {
 		}
 
-		StkObject* DatObjDb = new StkObject(_T("OdbcInfo"));
-		DatObjDb->AppendChildElement(new StkObject(_T("DbType"), DbmsTypeStr));
-		DatObjDb->AppendChildElement(new StkObject(_T("ConnStr"), ConnStr));
+		StkObject* DatObjDb = new StkObject(L"OdbcInfo");
+		DatObjDb->AppendChildElement(new StkObject(L"DbType", DbmsTypeStr));
+		DatObjDb->AppendChildElement(new StkObject(L"ConnStr", ConnStr));
 
 		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 		int Ret = Da->Test(ConnStr);
 		if (Ret == SQL_SUCCESS) {
-			DatObjDb->AppendChildElement(new StkObject(_T("Status"), _T("connectable")));
+			DatObjDb->AppendChildElement(new StkObject(L"Status", L"connectable"));
 		} else {
-			DatObjDb->AppendChildElement(new StkObject(_T("Status"), _T("unconnectable")));
+			DatObjDb->AppendChildElement(new StkObject(L"Status", L"unconnectable"));
 		}
 		OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 
@@ -99,30 +99,30 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH
 StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode)
 {
 	int DbmsType = -1;
-	SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH] = _T("");
+	SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH] = L"";
 
-	StkObject* ResObj = new StkObject(_T(""));
+	StkObject* ResObj = new StkObject(L"");
 
 	StkObject* Elem = ReqObj->GetFirstChildElement();
 	while (Elem) {
-		if (!lstrcmp(Elem->GetName(), _T("DbType")) && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
-			if (!lstrcmp(Elem->GetStringValue(), _T("MariaDB"))) {
+		if (!lstrcmp(Elem->GetName(), L"DbType") && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
+			if (!lstrcmp(Elem->GetStringValue(), L"MariaDB")) {
 				DbmsType = OdbcManager::MARIADB_ACCESSOR;
 			} else
-			if (!lstrcmp(Elem->GetStringValue(), _T("PostgreSQL"))) {
+			if (!lstrcmp(Elem->GetStringValue(), L"PostgreSQL")) {
 				DbmsType = OdbcManager::POSTGRESQL_ACCESSOR;
 			} else
-			if (!lstrcmp(Elem->GetStringValue(), _T("MySQL"))) {
+			if (!lstrcmp(Elem->GetStringValue(), L"MySQL")) {
 				DbmsType = OdbcManager::MYSQL_ACCESSOR;
 			}
 		}
-		if (!lstrcmp(Elem->GetName(), _T("ConnStr")) && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
+		if (!lstrcmp(Elem->GetName(), L"ConnStr") && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
 			int LenOfConnStr = lstrlen(Elem->GetStringValue());
 			if (LenOfConnStr >= 256) {
-				TCHAR TmpMsgEng[StkWebAppExec::URL_PATH_LENGTH];
-				TCHAR TmpMsgJpn[StkWebAppExec::URL_PATH_LENGTH];
-				swprintf_s(TmpMsgEng, StkWebAppExec::URL_PATH_LENGTH, _T("%s (Param=%s, Length=%d, Max Length=255)"), MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), _T("ConnStr"), LenOfConnStr);
-				swprintf_s(TmpMsgJpn, StkWebAppExec::URL_PATH_LENGTH, _T("%s (Param=%s, Length=%d, Max Length=255)"), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), _T("ConnStr"), LenOfConnStr);
+				wchar_t TmpMsgEng[StkWebAppExec::URL_PATH_LENGTH];
+				wchar_t TmpMsgJpn[StkWebAppExec::URL_PATH_LENGTH];
+				swprintf_s(TmpMsgEng, StkWebAppExec::URL_PATH_LENGTH, L"%s (Param=%s, Length=%d, Max Length=255)", MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), L"ConnStr", LenOfConnStr);
+				swprintf_s(TmpMsgJpn, StkWebAppExec::URL_PATH_LENGTH, L"%s (Param=%s, Length=%d, Max Length=255)", MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), L"ConnStr", LenOfConnStr);
 				AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG, TmpMsgEng, TmpMsgJpn);
 				*ResultCode = 400;
 				return ResObj;
@@ -131,20 +131,20 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode)
 		}
 		Elem = Elem->GetNext();
 	}
-	if (DbmsType == -1 || lstrcmp(ConnStr, _T("")) == 0) {
+	if (DbmsType == -1 || lstrcmp(ConnStr, L"") == 0) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT),  MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
 		*ResultCode = 400;
 	} else {
-		DataAccess::GetInstance()->SetOdbcConnStr(DbmsType, (TCHAR*)ConnStr);
-		AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
-		StkObject* DatObj = new StkObject(_T("Data"));
-		StkObject* DatObjDb = new StkObject(_T("OdbcInfo"));
+		DataAccess::GetInstance()->SetOdbcConnStr(DbmsType, (wchar_t*)ConnStr);
+		AddCodeAndMsg(ResObj, 0, L"", L"");
+		StkObject* DatObj = new StkObject(L"Data");
+		StkObject* DatObjDb = new StkObject(L"OdbcInfo");
 		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 		int Ret = Da->Test(ConnStr);
 		if (Ret == SQL_SUCCESS) {
-			DatObjDb->AppendChildElement(new StkObject(_T("Status"), _T("connectable")));
+			DatObjDb->AppendChildElement(new StkObject(L"Status", L"connectable"));
 		} else {
-			DatObjDb->AppendChildElement(new StkObject(_T("Status"), _T("unconnectable")));
+			DatObjDb->AppendChildElement(new StkObject(L"Status", L"unconnectable"));
 		}
 		OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 		DatObj->AppendChildElement(DatObjDb);
@@ -157,7 +157,7 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode)
 	return ResObj;
 }
 
-StkObject* ApiOdbcInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiOdbcInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3])
 {
 	if (Method & STKWEBAPP_METHOD_GET) {
 		return GetOdbcInfo(UrlPath, ResultCode);

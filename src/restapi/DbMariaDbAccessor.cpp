@@ -19,7 +19,7 @@ void DbMariaDbAccessor::GetDefaultConnStr(SQLTCHAR DefConnStr[Global::MAX_PARAM_
 
 int DbMariaDbAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
-	int LenOfTableName = lstrlen((TCHAR*)TableName);
+	int LenOfTableName = lstrlen((wchar_t*)TableName);
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
@@ -32,7 +32,7 @@ SQLRETURN DbMariaDbAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10], SQ
 {
 	SQLRETURN Ret = 0;
 
-	TCHAR ConnStr[256];
+	wchar_t ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg, MsgLen);
@@ -51,7 +51,7 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	SQLRETURN Ret = 0;
 
-	TCHAR ConnStr[256];
+	wchar_t ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg, MsgLen);
@@ -59,7 +59,7 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 		return 0;
 	}
 
-	int LenOfTableName = lstrlen((TCHAR*)TableName);
+	int LenOfTableName = lstrlen((wchar_t*)TableName);
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
@@ -111,20 +111,20 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 int DbMariaDbAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, StkObject* DatObj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLRETURN Ret = 0;
-	TCHAR ConnStr[256];
+	wchar_t ConnStr[256];
 	int Init;
-	int LenOfTableName = lstrlen((TCHAR*)TableName);
+	int LenOfTableName = lstrlen((wchar_t*)TableName);
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg, MsgLen);
 
-	TCHAR ColumnName[5][Global::COLUMNNAME_LENGTH];
-	TCHAR ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2];
+	wchar_t ColumnName[5][Global::COLUMNNAME_LENGTH];
+	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2];
 	int OpeType[5];
-	TCHAR Value[5][Global::COLUMNVAL_LENGTH];
-	TCHAR ValueCnv[5][Global::COLUMNVAL_LENGTH * 4 + 2];
+	wchar_t Value[5][Global::COLUMNVAL_LENGTH];
+	wchar_t ValueCnv[5][Global::COLUMNVAL_LENGTH * 4 + 2];
 	BOOL FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);

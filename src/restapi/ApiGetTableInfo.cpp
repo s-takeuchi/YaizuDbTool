@@ -1,5 +1,4 @@
-﻿#include <tchar.h>
-#include <shlwapi.h>
+﻿#include <shlwapi.h>
 #include "MyMsgProc.h"
 #include "ApiGetTableInfo.h"
 #include "dataaccess.h"
@@ -7,43 +6,43 @@
 #include "OdbcManager.h"
 #include "..\..\..\YaizuComLib\src\commonfunc\StkStringParser.h"
 
-StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3])
 {
-	TCHAR Dummy[256] = _T("");
-	TCHAR TableName[768] = _T("");
-	if (StrStr(UrlPath, _T("?query="))) {
-		StkStringParser::ParseInto2Params(UrlPath, _T("$?query=$"), _T('$'), Dummy, 256, TableName, 768);
+	wchar_t Dummy[256] = L"";
+	wchar_t TableName[768] = L"";
+	if (StrStr(UrlPath, L"?query=")) {
+		StkStringParser::ParseInto2Params(UrlPath, L"$?query=$", L'$', Dummy, 256, TableName, 768);
 	}
 
-	StkObject* ResObj = new StkObject(_T(""));
+	StkObject* ResObj = new StkObject(L"");
 	SQLTCHAR StateMsg[10];
 	SQLTCHAR Msg[1024];
 
-	StkObject* DatObj = new StkObject(_T("Data"));
+	StkObject* DatObj = new StkObject(L"Data");
 
-	TCHAR ConnStr[256];
+	wchar_t ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 	Da->GetTables(DatObj, StateMsg, Msg, 1024);
 
-	if (lstrcmp(TableName, _T("")) != 0) {
-		TCHAR TableNameAc[768];
+	if (lstrcmp(TableName, L"") != 0) {
+		wchar_t TableNameAc[768];
 		DecodeURL(TableName, TableNameAc);
 
 		// If ?query=TableName is specified...
-		StkObject* SearchTgtObj = new StkObject(_T("Name"), TableNameAc);
+		StkObject* SearchTgtObj = new StkObject(L"Name", TableNameAc);
 		if (DatObj->Contains(SearchTgtObj)) {
-			StkObject* TblInfObj = new StkObject(_T("TableInfo"));
+			StkObject* TblInfObj = new StkObject(L"TableInfo");
 			TblInfObj->AppendChildElement(SearchTgtObj);
 			
-			StkObject* DatObj2 = new StkObject(_T("Data"));
+			StkObject* DatObj2 = new StkObject(L"Data");
 			DatObj2->AppendChildElement(TblInfObj);
 
 			Da->GetColumnInfoByTableName(TableNameAc, TblInfObj, StateMsg, Msg, 1024);
 
 			*ResultCode = 200;
-			AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
+			AddCodeAndMsg(ResObj, 0, L"", L"");
 			ResObj->AppendChildElement(DatObj2);
 		} else {
 			// The specified table is not found.
@@ -55,7 +54,7 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR Url
 	} else {
 		// If ?query=TableName is not specified...
 		*ResultCode = 200;
-		AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
+		AddCodeAndMsg(ResObj, 0, L"", L"");
 		ResObj->AppendChildElement(DatObj);
 	}
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);

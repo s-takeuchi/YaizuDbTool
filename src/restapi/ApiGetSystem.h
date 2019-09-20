@@ -4,7 +4,7 @@
 class ApiGetSystem : public ApiBase
 {
 private:
-	TCHAR LocalTimeStr[32];
+	wchar_t LocalTimeStr[32];
 	int NumOfThreads;
 
 	void GetLocalTimeWStr();
@@ -14,5 +14,5 @@ public:
 	void SetNumOfThreads(int);
 
 protected:
-	StkObject* ExecuteImpl(StkObject*, int, TCHAR[StkWebAppExec::URL_PATH_LENGTH], int*, TCHAR[3]);
+	StkObject* ExecuteImpl(StkObject*, int, wchar_t[StkWebAppExec::URL_PATH_LENGTH], int*, wchar_t[3]);
 };

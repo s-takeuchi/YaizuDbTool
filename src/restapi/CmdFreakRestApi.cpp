@@ -14,7 +14,7 @@
 #include "ApiGetRecord.h"
 #include "ApiFilterInfo.h"
 
-void CmdFreakRestApi(TCHAR* IpAddr, int Port, int SendBufSize)
+void CmdFreakRestApi(wchar_t* IpAddr, int Port, int SendBufSize)
 {
 	int Ids[7] = {11, 12, 13, 14, 15, 16, 17};
 
@@ -91,7 +91,7 @@ int main(int Argc, char* Argv[])
 		return -1;
 	}
 
-	TCHAR IpAddr[256];
+	wchar_t IpAddr[256];
 	int Port;
 	int SendBufSize = 20000000;
 

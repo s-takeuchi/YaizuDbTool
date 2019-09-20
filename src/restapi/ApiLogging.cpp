@@ -1,25 +1,24 @@
-﻿#include <tchar.h>
-#include "ApiLogging.h"
+﻿#include "ApiLogging.h"
 #include "dataaccess.h"
 #include "..\Global.h"
 
-StkObject* ApiLogging::ExecuteImpl(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, TCHAR Locale[3])
+StkObject* ApiLogging::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3])
 {
-	TCHAR LogMsgTime[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGTIME];
-	TCHAR LogMsgEn[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG];
-	TCHAR LogMsgJa[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG];
+	wchar_t LogMsgTime[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGTIME];
+	wchar_t LogMsgEn[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG];
+	wchar_t LogMsgJa[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG];
 
 	DataAccess* Dac = DataAccess::GetInstance();
 	int NumOfRec = Dac->GetLogs(LogMsgTime, LogMsgEn, LogMsgJa);
 
-	StkObject* ResObj = new StkObject(_T(""));
-	AddCodeAndMsg(ResObj, 0, _T(""), _T(""));
-	StkObject* DatObj = new StkObject(_T("Data"));
+	StkObject* ResObj = new StkObject(L"");
+	AddCodeAndMsg(ResObj, 0, L"", L"");
+	StkObject* DatObj = new StkObject(L"Data");
 	for (int Loop = 0; Loop < NumOfRec; Loop++) {
-		StkObject* Log4Add = new StkObject(_T("Log"));
-		Log4Add->AppendChildElement(new StkObject(_T("Time"), LogMsgTime[Loop]));
-		Log4Add->AppendChildElement(new StkObject(_T("MsgEn"), LogMsgEn[Loop]));
-		Log4Add->AppendChildElement(new StkObject(_T("MsgJa"), LogMsgJa[Loop]));
+		StkObject* Log4Add = new StkObject(L"Log");
+		Log4Add->AppendChildElement(new StkObject(L"Time", LogMsgTime[Loop]));
+		Log4Add->AppendChildElement(new StkObject(L"MsgEn", LogMsgEn[Loop]));
+		Log4Add->AppendChildElement(new StkObject(L"MsgJa", LogMsgJa[Loop]));
 		DatObj->AppendChildElement(Log4Add);
 	}
 	ResObj->AppendChildElement(DatObj);

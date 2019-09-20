@@ -13,7 +13,7 @@ DbAccessor::~DbAccessor()
 {
 }
 
-int DbAccessor::Test(TCHAR ConnStr[Global::MAX_PARAM_LENGTH])
+int DbAccessor::Test(wchar_t ConnStr[Global::MAX_PARAM_LENGTH])
 {
 	SQLTCHAR StateMsg[10];
 	SQLTCHAR Msg[1024];
@@ -54,7 +54,7 @@ SQLRETURN DbAccessor::GetTablesCommon(SQLTCHAR* Query, StkObject* Obj, SQLTCHAR 
 			return Ret;
 		}
 		StkObject* TblInfObj = new StkObject(L"TableInfo");
-		TblInfObj->AppendChildElement(new StkObject(L"Name", (TCHAR*)TableName));
+		TblInfObj->AppendChildElement(new StkObject(L"Name", (wchar_t*)TableName));
 		Obj->AppendChildElement(TblInfObj);
 		Loop++;
 		if (Loop >= Global::MAXNUM_TABLES) {
@@ -71,7 +71,7 @@ int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, SQLTCHAR StateMsg[10]
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	SQLRETURN Ret = 0;
 
-	TCHAR ConnStr[256];
+	wchar_t ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg, 1024);
@@ -99,7 +99,7 @@ int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, SQLTCHAR StateMsg[10]
 
 int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 	int NumOfCols, StkObject* Obj,
-	TCHAR ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], TCHAR Value[5][Global::COLUMNVAL_LENGTH * 4 + 2],
+	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], wchar_t Value[5][Global::COLUMNVAL_LENGTH * 4 + 2],
 	SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLINTEGER Native; // This will not be refered from anywhere
@@ -170,7 +170,7 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 		}
 		StkObject* RecObj = new StkObject(L"Record");
 		for (int LoopCol = 0; LoopCol < NumOfCols; LoopCol++) {
-			TCHAR IndStr[5];
+			wchar_t IndStr[5];
 			_snwprintf_s(IndStr, 5, _TRUNCATE, L"%d", LoopCol);
 			if (ValLen[LoopCol] == -1) {
 				RecObj->AppendChildElement(new StkObject(IndStr, L""));

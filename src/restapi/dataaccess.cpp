@@ -32,7 +32,7 @@ DataAccess* DataAccess::GetInstance()
 // LogMsgEn [in] : Message in English which you want to insert
 // LogMsgJa [in] : Message in Japanese which you want to insert
 // Return : always zero returned.
-int DataAccess::AddLogMsg(TCHAR LogMsgEn[Global::MAXLEN_OF_LOGMSG], TCHAR LogMsgJa[Global::MAXLEN_OF_LOGMSG])
+int DataAccess::AddLogMsg(wchar_t LogMsgEn[Global::MAXLEN_OF_LOGMSG], wchar_t LogMsgJa[Global::MAXLEN_OF_LOGMSG])
 {
 	static int MaxLogId = 0;
 	if (MaxLogId == 0) {
@@ -47,7 +47,7 @@ int DataAccess::AddLogMsg(TCHAR LogMsgEn[Global::MAXLEN_OF_LOGMSG], TCHAR LogMsg
 		DelFlag++;
 	}
 
-	TCHAR LocalTimeBuf[64];
+	wchar_t LocalTimeBuf[64];
 	StkPlGetWTimeInIso8601(LocalTimeBuf, true);
 	// New record information
 	ColumnData *ColDatLog[4];
@@ -111,9 +111,9 @@ int DataAccess::GetNumOfLogs()
 // LogMsgEn [out] : Acquired log message in English
 // LogMsgJa [out] : Acquired log message in Japan
 // Return : Number of acquired log messages
-int DataAccess::GetLogs(TCHAR LogMsgTime[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGTIME],
-						TCHAR LogMsgEn[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG],
-						TCHAR LogMsgJa[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG])
+int DataAccess::GetLogs(wchar_t LogMsgTime[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGTIME],
+						wchar_t LogMsgEn[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG],
+						wchar_t LogMsgJa[Global::MAXNUM_OF_LOGRECORDS][Global::MAXLEN_OF_LOGMSG])
 {
 	LockTable(L"Log", LOCK_EXCLUSIVE);
 	AzSortRecord(L"Log", L"Id");
@@ -182,7 +182,7 @@ int DataAccess::DeleteOldLogs()
 
 // Configure ODBC connection string
 // ConnStr [in] : Connection string
-void DataAccess::SetOdbcConnStr(int DbmsType, TCHAR ConnStr[256])
+void DataAccess::SetOdbcConnStr(int DbmsType, wchar_t ConnStr[256])
 {
 	// Record for update
 	ColumnData *ColDatUpd[3];
@@ -209,7 +209,7 @@ void DataAccess::SetOdbcConnStr(int DbmsType, TCHAR ConnStr[256])
 // ConnStr [out] : Acquired connection string
 // Init [out] : Init flag (1:After installation, 0:After connection string is configured)
 // Return : Type of DBMS (0:MariaDB, 1:PostgreSQL, 2:MySQL, -1:Connection string does not exist)
-int DataAccess::GetOdbcConfing(TCHAR ConnStr[256], int* Init)
+int DataAccess::GetOdbcConfing(wchar_t ConnStr[256], int* Init)
 {
 	LockTable(L"OdbcConfig", LOCK_SHARE);
 	RecordData* RecDatOdbcConfig = GetRecord(L"OdbcConfig");
@@ -235,7 +235,7 @@ int DataAccess::GetOdbcConfing(TCHAR ConnStr[256], int* Init)
 // ColumnName [in] : Column name which filter condition
 // FilterOpeType[in] : Comparison type
 // Value [in] : Value which filter condition
-void DataAccess::SetFilterCondition(int Index, TCHAR ColumnName[Global::COLUMNNAME_LENGTH], int FilterOpeType, TCHAR Value[Global::COLUMNVAL_LENGTH])
+void DataAccess::SetFilterCondition(int Index, wchar_t ColumnName[Global::COLUMNNAME_LENGTH], int FilterOpeType, wchar_t Value[Global::COLUMNVAL_LENGTH])
 {
 	ColumnData *ColDatFilter[4];
 	ColDatFilter[0] = new ColumnDataInt(L"Index", Index);
@@ -260,7 +260,7 @@ void DataAccess::SetFilterCondition(int Index, TCHAR ColumnName[Global::COLUMNNA
 // ColumnName [out] : Column name which filter condition
 // FilterOpeType[out] : pointer to comparison type
 // Value [out] : Value which filter condition
-void DataAccess::GetFilterCondition(int Index, TCHAR ColumnName[Global::COLUMNNAME_LENGTH], int* FilterOpeType, TCHAR Value[Global::COLUMNVAL_LENGTH])
+void DataAccess::GetFilterCondition(int Index, wchar_t ColumnName[Global::COLUMNNAME_LENGTH], int* FilterOpeType, wchar_t Value[Global::COLUMNVAL_LENGTH])
 {
 	LockTable(L"Filter", LOCK_SHARE);
 	RecordData* RecDatFilter = GetRecord(L"Filter");
@@ -326,7 +326,7 @@ BOOL DataAccess::GetFilterSwitch()
 // Return : always zero returned
 int DataAccess::StopAutoSave()
 {
-	TCHAR Buf[MAX_PATH];
+	wchar_t Buf[MAX_PATH];
 	StkPlGetFullPathFromFileName(DataFileName, Buf);
 	AutoSave(Buf, 30, FALSE);
 	LockAllTable(2);
@@ -340,7 +340,7 @@ int DataAccess::StopAutoSave()
 int DataAccess::CreateCmdFreakTables()
 {
 	// Make full path name and call AutoSave
-	TCHAR Buf[MAX_PATH];
+	wchar_t Buf[MAX_PATH];
 	StkPlGetFullPathFromFileName(DataFileName, Buf);
 	AutoSave(Buf, 30, TRUE);
 

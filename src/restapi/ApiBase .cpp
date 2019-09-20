@@ -4,16 +4,16 @@
 #include "../../../YaizuComLib/src/commonfunc/StkStringParser.h"
 #include "ApiBase.h"
 
-void ApiBase::AddCodeAndMsg(StkObject* StkObj, int Code, TCHAR* MsgEng, TCHAR* MsgJpn)
+void ApiBase::AddCodeAndMsg(StkObject* StkObj, int Code, wchar_t* MsgEng, wchar_t* MsgJpn)
 {
 	StkObj->AppendChildElement(new StkObject(L"Code", Code));
 	StkObj->AppendChildElement(new StkObject(L"MsgEng", MsgEng));
 	StkObj->AppendChildElement(new StkObject(L"MsgJpn", MsgJpn));
 }
 
-void ApiBase::PrintRequest(int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH])
+void ApiBase::PrintRequest(int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH])
 {
-	TCHAR StrMethod[32];
+	wchar_t StrMethod[32];
 	switch (Method) {
 	case STKWEBAPP_METHOD_UNDEFINED:
 		lstrcpy(StrMethod, L"Undifined"); break;
@@ -30,7 +30,7 @@ void ApiBase::PrintRequest(int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LEN
 	default:
 		lstrcpy(StrMethod, L"Invalid"); break;
 	}
-	TCHAR LocalTimeStr[64];
+	wchar_t LocalTimeStr[64];
 	StkPlGetWTimeInOldFormat(LocalTimeStr, true);
 	DWORD ThId = GetCurrentThreadId();
 	wprintf(L"%s  [%06x]  %s %s\r\n", LocalTimeStr, ThId, StrMethod, UrlPath);
@@ -38,13 +38,13 @@ void ApiBase::PrintRequest(int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LEN
 
 void ApiBase::PrintResponse(int ResultCode)
 {
-	TCHAR LocalTimeStr[64];
+	wchar_t LocalTimeStr[64];
 	StkPlGetWTimeInOldFormat(LocalTimeStr, true);
 	DWORD ThId = GetCurrentThreadId();
 	wprintf(L"%s  [%06x]  %d\r\n", LocalTimeStr, ThId, ResultCode);
 }
 
-void ApiBase::DecodeURL(TCHAR UrlIn[StkWebAppExec::URL_PATH_LENGTH], TCHAR UrlOut[StkWebAppExec::URL_PATH_LENGTH])
+void ApiBase::DecodeURL(wchar_t UrlIn[StkWebAppExec::URL_PATH_LENGTH], wchar_t UrlOut[StkWebAppExec::URL_PATH_LENGTH])
 {
 	char TmpUrlBc[StkWebAppExec::URL_PATH_LENGTH] = "";
 	BYTE TmpUrlAc[StkWebAppExec::URL_PATH_LENGTH];
@@ -86,7 +86,7 @@ void ApiBase::DecodeURL(TCHAR UrlIn[StkWebAppExec::URL_PATH_LENGTH], TCHAR UrlOu
 	return;
 }
 
-StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, TCHAR UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t* HttpHeader)
+StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t* HttpHeader)
 {
 	wchar_t Locale[3];
 	PrintRequest(Method, UrlPath);
