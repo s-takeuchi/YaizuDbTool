@@ -1,6 +1,4 @@
-﻿#include <windows.h>
-#include <stdio.h>
-#include "../../../YaizuComLib/src/stkpl/StkPl.h"
+﻿#include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "../../../YaizuComLib/src/commonfunc/StkStringParser.h"
 #include "ApiBase.h"
 
@@ -16,40 +14,38 @@ void ApiBase::PrintRequest(int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_L
 	wchar_t StrMethod[32];
 	switch (Method) {
 	case STKWEBAPP_METHOD_UNDEFINED:
-		lstrcpy(StrMethod, L"Undifined"); break;
+		StkPlWcsCpy(StrMethod, 32, L"Undifined"); break;
 	case STKWEBAPP_METHOD_GET:
-		lstrcpy(StrMethod, L"Get"); break;
+		StkPlWcsCpy(StrMethod, 32, L"Get"); break;
 	case STKWEBAPP_METHOD_HEAD:
-		lstrcpy(StrMethod, L"Head"); break;
+		StkPlWcsCpy(StrMethod, 32, L"Head"); break;
 	case STKWEBAPP_METHOD_POST:
-		lstrcpy(StrMethod, L"Post"); break;
+		StkPlWcsCpy(StrMethod, 32, L"Post"); break;
 	case STKWEBAPP_METHOD_PUT:
-		lstrcpy(StrMethod, L"Put"); break;
+		StkPlWcsCpy(StrMethod, 32, L"Put"); break;
 	case STKWEBAPP_METHOD_DELETE:
-		lstrcpy(StrMethod, L"Delete"); break;
+		StkPlWcsCpy(StrMethod, 32, L"Delete"); break;
 	default:
-		lstrcpy(StrMethod, L"Invalid"); break;
+		StkPlWcsCpy(StrMethod, 32, L"Invalid"); break;
 	}
 	wchar_t LocalTimeStr[64];
 	StkPlGetWTimeInOldFormat(LocalTimeStr, true);
-	DWORD ThId = GetCurrentThreadId();
-	wprintf(L"%s  [%06x]  %s %s\r\n", LocalTimeStr, ThId, StrMethod, UrlPath);
+	StkPlWPrintf(L"%s   %s %s\r\n", LocalTimeStr, StrMethod, UrlPath);
 }
 
 void ApiBase::PrintResponse(int ResultCode)
 {
 	wchar_t LocalTimeStr[64];
 	StkPlGetWTimeInOldFormat(LocalTimeStr, true);
-	DWORD ThId = GetCurrentThreadId();
-	wprintf(L"%s  [%06x]  %d\r\n", LocalTimeStr, ThId, ResultCode);
+	StkPlWPrintf(L"%s   %d\r\n", LocalTimeStr, ResultCode);
 }
 
 void ApiBase::DecodeURL(wchar_t UrlIn[StkWebAppExec::URL_PATH_LENGTH], wchar_t UrlOut[StkWebAppExec::URL_PATH_LENGTH])
 {
 	char TmpUrlBc[StkWebAppExec::URL_PATH_LENGTH] = "";
-	BYTE TmpUrlAc[StkWebAppExec::URL_PATH_LENGTH];
-	sprintf_s(TmpUrlBc, StkWebAppExec::URL_PATH_LENGTH, "%S", UrlIn);
-	int TmpUrlBcLen = strlen(TmpUrlBc);
+	char TmpUrlAc[StkWebAppExec::URL_PATH_LENGTH] = "";
+	StkPlConvWideCharToUtf8(TmpUrlBc, StkWebAppExec::URL_PATH_LENGTH, UrlIn);
+	int TmpUrlBcLen = StkPlStrLen(TmpUrlBc);
 	int AcIndex = 0;
 	for (int BcIndex = 0; BcIndex < TmpUrlBcLen; BcIndex++) {
 		if (TmpUrlBc[BcIndex] == '%' && BcIndex + 2 < TmpUrlBcLen) {
@@ -82,7 +78,7 @@ void ApiBase::DecodeURL(wchar_t UrlIn[StkWebAppExec::URL_PATH_LENGTH], wchar_t U
 		AcIndex++;
 	}
 	TmpUrlAc[AcIndex] = '\0';
-	int WcSize = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, (LPCSTR)TmpUrlAc, -1, UrlOut, StkWebAppExec::URL_PATH_LENGTH);
+	StkPlConvUtf8ToWideChar(UrlOut, StkWebAppExec::URL_PATH_LENGTH, TmpUrlAc);
 	return;
 }
 

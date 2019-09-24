@@ -1,6 +1,4 @@
-﻿#include <windows.h>
-#include <shlwapi.h>
-#include "MyMsgProc.h"
+﻿#include "MyMsgProc.h"
 #include "ApiFilterInfo.h"
 #include "dataaccess.h"
 #include "..\Global.h"

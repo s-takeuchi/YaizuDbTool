@@ -1,4 +1,4 @@
-﻿#include <windows.h>
+﻿#include "..\..\..\YaizuComLib\src\stkpl\StkPl.h"
 #include "ApiGetSystem.h"
 
 ApiGetSystem::ApiGetSystem()
@@ -8,10 +8,10 @@ ApiGetSystem::ApiGetSystem()
 
 void ApiGetSystem::GetLocalTimeWStr()
 {
-	SYSTEMTIME Systime;
-	GetLocalTime(&Systime);
+	int Year, MonA, Day, Hour, Min, Sec;
+	StkPlGetTime(&Year, &MonA, &Day, &Hour, &Min, &Sec, true);
 	wchar_t *Mon[] = {L"Jan", L"Feb", L"Mar", L"Apr", L"May", L"Jun", L"Jul", L"Aug", L"Sep", L"Oct", L"Nov", L"Dec"};
-	wsprintf(LocalTimeStr, L"%s %d %d %02d:%02d:%02d", Mon[Systime.wMonth - 1], Systime.wDay, Systime.wYear, Systime.wHour, Systime.wMinute, Systime.wSecond);
+	StkPlSwPrintf(LocalTimeStr, 32, L"%s %d %d %02d:%02d:%02d", Mon[MonA - 1], Day, Year, Hour, Min, Sec);
 }
 
 void ApiGetSystem::SetNumOfThreads(int Num)
@@ -27,7 +27,9 @@ StkObject* ApiGetSystem::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	DatObj->AppendChildElement(new StkObject(L"ProductName", L"CmdFreak"));
 	DatObj->AppendChildElement(new StkObject(L"Version", L"1.1.0"));
 	wchar_t BuildDate[32];
-	wsprintf(BuildDate, L"%S %S", __DATE__, __TIME__);
+	char BuildDateCh[32];
+	StkPlSPrintf(BuildDateCh, 32, "%s  %s", __DATE__, __TIME__);
+	StkPlConvUtf8ToWideChar(BuildDate, 32, BuildDateCh);
 	DatObj->AppendChildElement(new StkObject(L"BuildTime", BuildDate));
 	DatObj->AppendChildElement(new StkObject(L"StartTime", LocalTimeStr));
 	DatObj->AppendChildElement(new StkObject(L"NumOfThreads", NumOfThreads));
