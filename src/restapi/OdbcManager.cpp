@@ -1,5 +1,4 @@
-﻿#include <windows.h>
-#include "OdbcManager.h"
+﻿#include "OdbcManager.h"
 #include "..\Global.h"
 #include "DbAccessor.h"
 #include "DbPostgreSqlAccessor.h"

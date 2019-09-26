@@ -1,7 +1,4 @@
 ﻿#pragma once
-#include <windows.h>
-#include <sql.h>
-#include <sqlext.h>
 #include "..\Global.h"
 #include "DbAccessor.h"
 

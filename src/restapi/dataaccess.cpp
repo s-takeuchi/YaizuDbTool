@@ -284,16 +284,16 @@ void DataAccess::GetFilterCondition(int Index, wchar_t ColumnName[Global::COLUMN
 
 // Set filtering switch
 // Switch [in] : TRUE:On, FALSE:Off
-void DataAccess::SetFilterSwitch(BOOL Switch)
+void DataAccess::SetFilterSwitch(bool Switch)
 {
 	// Record for update
 	ColumnData *ColDatUpd[1];
-	ColDatUpd[0] = new ColumnDataInt(L"Switch", (Switch == TRUE)? 1:0 );
+	ColDatUpd[0] = new ColumnDataInt(L"Switch", (Switch == true)? 1:0 );
 	RecordData* RecDatUpd = new RecordData(L"FilterSw", ColDatUpd, 1);
 
 	// Record for search
 	ColumnData *ColDatSch[1];
-	ColDatSch[0] = new ColumnDataInt(L"Switch", (Switch == TRUE)? 0:1 );
+	ColDatSch[0] = new ColumnDataInt(L"Switch", (Switch == true)? 0:1 );
 	RecordData* RecDatSch = new RecordData(L"FilterSw", ColDatSch, 1);
 
 	// Add record
@@ -307,7 +307,7 @@ void DataAccess::SetFilterSwitch(BOOL Switch)
 
 // Get filtering switch
 // return : TRUE:On, FALSE:Off
-BOOL DataAccess::GetFilterSwitch()
+bool DataAccess::GetFilterSwitch()
 {
 	LockTable(L"FilterSw", LOCK_SHARE);
 	RecordData* RecDatFilterSw = GetRecord(L"FilterSw");
@@ -315,11 +315,11 @@ BOOL DataAccess::GetFilterSwitch()
 
 	ColumnDataInt* ColDatSwitch = (ColumnDataInt*)RecDatFilterSw->GetColumn(0);
 	if (ColDatSwitch == NULL) {
-		return -1;
+		return false;
 	}
 	int Switch = ColDatSwitch->GetValue();
 	delete RecDatFilterSw;
-	return (Switch == 1)? TRUE : FALSE;
+	return (Switch == 1)? true : false;
 }
 
 // Stops AutoSave function and save the latest data

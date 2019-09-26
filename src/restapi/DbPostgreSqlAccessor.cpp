@@ -1,5 +1,5 @@
 ﻿#include <windows.h>
-#include <stdio.h>
+#include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "DbPostgreSqlAccessor.h"
 #include "..\Global.h"
 #include "dataaccess.h"
@@ -64,7 +64,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 	SqlEncoding(TableName, EcdTableName, TYPE_VALUE);
 
 	SQLTCHAR SqlBuf[1024];
-	_snwprintf_s(SqlBuf, 1024, _TRUNCATE, L"SELECT * FROM information_schema.columns WHERE table_schema='public' and table_name='%s';", EcdTableName);
+	StkPlSwPrintf(SqlBuf, 1024, L"SELECT * FROM information_schema.columns WHERE table_schema='public' and table_name='%s';", EcdTableName);
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	delete EcdTableName;
 	if (Ret != SQL_SUCCESS) {
@@ -92,7 +92,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 			return 0;
 		}
 		if (ColumneMaxLen != SQL_NULL_DATA) {
-			_snwprintf_s(TmpColumnType, Global::COLUMNTYPE_LENGTH, _TRUNCATE, L"%s(%d)", ColumnType, TmpColumnMaxLen);
+			StkPlSwPrintf(TmpColumnType, Global::COLUMNTYPE_LENGTH, L"%s(%d)", ColumnType, TmpColumnMaxLen);
 		} else {
 			lstrcpy(TmpColumnType, ColumnType);
 		}

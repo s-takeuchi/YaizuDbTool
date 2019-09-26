@@ -79,7 +79,17 @@ int main(int Argc, char* Argv[])
 	StkPlPrintf("%s\r\n", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CMDFRKSRV));
 
 	// Acquire current path
-	wchar_t Buf[256];
+	wchar_t Buf[FILENAME_MAX];
+	wchar_t BufWoFileName[FILENAME_MAX];
+
+	StkPlGetFullPathFromFileName(L"\\sample.exe", Buf);
+	if (StkPlGetFullPathWithoutFileName(Buf, BufWoFileName) == 0) {
+		ChangeCurrentDirectory(BufWoFileName);
+	} else {
+		StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_EXEC_NOT_FOUND));
+		return -1;
+	}
+	/*
 	GetModuleFileName(NULL, Buf, 255);
 	wchar_t* Addr = (wchar_t*)StkPlWcsStr(Buf, L"\\sample.exe");
 	if (Addr != NULL) {
@@ -90,6 +100,7 @@ int main(int Argc, char* Argv[])
 		StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_EXEC_NOT_FOUND));
 		return -1;
 	}
+	*/
 
 	wchar_t IpAddr[256];
 	int Port;
@@ -104,7 +115,7 @@ int main(int Argc, char* Argv[])
 			return -1;
 		}
 		StkPlPrintf("servicehost property = %s\r\n", IpAddrTmp);
-		wsprintf(IpAddr, L"%S", IpAddrTmp);
+		StkPlConvUtf8ToWideChar(IpAddr, 256, IpAddrTmp);
 
 		if (Prop->GetPropertyInt("serviceport", &Port) != 0) {
 			StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_SERVICEPORT_NOT_FOUND));

@@ -11,7 +11,7 @@ StkObject* ApiFilterInfo::GetFilterInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_
 	StkObject* FilInfObj = new StkObject(L"FilterInfo");
 	DatObj->AppendChildElement(FilInfObj);
 
-	BOOL FilterSw = DataAccess::GetInstance()->GetFilterSwitch();
+	bool FilterSw = DataAccess::GetInstance()->GetFilterSwitch();
 	if (FilterSw) {
 		FilInfObj->AppendChildElement(new StkObject(L"Function", L"enable"));
 	} else {
@@ -43,29 +43,29 @@ StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode)
 		CurObj = ReqObj->GetFirstChildElement();
 	}
 	while (CurObj) {
-		if (lstrcmp(CurObj->GetName(), L"Function") == 0) {
+		if (StkPlWcsCmp(CurObj->GetName(), L"Function") == 0) {
 			wchar_t* StrFilterSw = CurObj->GetStringValue();
-			if (StrFilterSw != NULL && lstrcmp(StrFilterSw, L"enable") == 0) {
-				DataAccess::GetInstance()->SetFilterSwitch(TRUE);
+			if (StrFilterSw != NULL && StkPlWcsCmp(StrFilterSw, L"enable") == 0) {
+				DataAccess::GetInstance()->SetFilterSwitch(true);
 			}
-			if (StrFilterSw != NULL && lstrcmp(StrFilterSw, L"disable") == 0) {
-				DataAccess::GetInstance()->SetFilterSwitch(FALSE);
+			if (StrFilterSw != NULL && StkPlWcsCmp(StrFilterSw, L"disable") == 0) {
+				DataAccess::GetInstance()->SetFilterSwitch(false);
 			}
 		}
-		if (lstrcmp(CurObj->GetName(), L"Criteria") == 0) {
+		if (StkPlWcsCmp(CurObj->GetName(), L"Criteria") == 0) {
 			StkObject* ChildObj = CurObj->GetFirstChildElement();
 			int ValIndex = 0;
 			wchar_t* PtrColumnname = NULL;
 			int ValOpeType = -1;
 			wchar_t* PtrValue = NULL;
 			for (int Loop = 0; Loop < CurObj->GetChildElementCount(); Loop++) {
-				if (lstrcmp(ChildObj->GetName(), L"index") == 0) {
+				if (StkPlWcsCmp(ChildObj->GetName(), L"index") == 0) {
 					ValIndex = ChildObj->GetIntValue();
-				} else if (lstrcmp(ChildObj->GetName(), L"columnname") == 0) {
+				} else if (StkPlWcsCmp(ChildObj->GetName(), L"columnname") == 0) {
 					PtrColumnname = ChildObj->GetStringValue();
-				} else if (lstrcmp(ChildObj->GetName(), L"opetype") == 0) {
+				} else if (StkPlWcsCmp(ChildObj->GetName(), L"opetype") == 0) {
 					ValOpeType = ChildObj->GetIntValue();
-				} else if (lstrcmp(ChildObj->GetName(), L"value") == 0) {
+				} else if (StkPlWcsCmp(ChildObj->GetName(), L"value") == 0) {
 					PtrValue = ChildObj->GetStringValue();
 				}
 				ChildObj = ChildObj->GetNext();

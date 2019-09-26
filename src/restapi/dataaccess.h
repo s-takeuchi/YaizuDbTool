@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <windows.h>
+#include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "..\Global.h"
 
 class DataAccess
@@ -7,7 +7,7 @@ class DataAccess
 private:
 	// This instance
 	static DataAccess* ThisInstance;
-	wchar_t DataFileName[MAX_PATH];
+	wchar_t DataFileName[FILENAME_MAX];
 	DataAccess();
 	~DataAccess();
 
@@ -25,6 +25,6 @@ public:
 	int GetOdbcConfing(wchar_t[256], int*);
 	void SetFilterCondition(int, wchar_t[Global::COLUMNNAME_LENGTH], int, wchar_t[Global::COLUMNVAL_LENGTH]);
 	void GetFilterCondition(int, wchar_t[Global::COLUMNNAME_LENGTH], int*, wchar_t[Global::COLUMNVAL_LENGTH]);
-	void SetFilterSwitch(BOOL);
-	BOOL GetFilterSwitch();
+	void SetFilterSwitch(bool);
+	bool GetFilterSwitch();
 };
