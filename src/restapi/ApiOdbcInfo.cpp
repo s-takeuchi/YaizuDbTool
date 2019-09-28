@@ -1,6 +1,4 @@
-﻿#include <windows.h>
-#include <stdio.h>
-#include <shlwapi.h>
+﻿#include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "MyMsgProc.h"
 #include "ApiOdbcInfo.h"
 #include "dataaccess.h"
@@ -12,7 +10,7 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 {
 	StkObject* ResObj = new StkObject(L"");
 
-	if (StrStr(UrlPath, L"?query=default")) {
+	if (StkPlWcsStr(UrlPath, L"?query=default")) {
 		AddCodeAndMsg(ResObj, 0, L"", L"");
 		StkObject* DatObj = new StkObject(L"Data");
 
@@ -53,7 +51,7 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 		ResObj->AppendChildElement(DatObj);
 		*ResultCode = 200;
 	} else 
-	if (StrStr(UrlPath, L"?query=configured")) {
+	if (StkPlWcsStr(UrlPath, L"?query=configured")) {
 		AddCodeAndMsg(ResObj, 0, L"", L"");
 		StkObject* DatObj = new StkObject(L"Data");
 
@@ -121,8 +119,8 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode)
 			if (LenOfConnStr >= 256) {
 				wchar_t TmpMsgEng[StkWebAppExec::URL_PATH_LENGTH];
 				wchar_t TmpMsgJpn[StkWebAppExec::URL_PATH_LENGTH];
-				swprintf_s(TmpMsgEng, StkWebAppExec::URL_PATH_LENGTH, L"%s (Param=%s, Length=%d, Max Length=255)", MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), L"ConnStr", LenOfConnStr);
-				swprintf_s(TmpMsgJpn, StkWebAppExec::URL_PATH_LENGTH, L"%s (Param=%s, Length=%d, Max Length=255)", MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), L"ConnStr", LenOfConnStr);
+				StkPlSwPrintf(TmpMsgEng, StkWebAppExec::URL_PATH_LENGTH, L"%s (Param=%s, Length=%d, Max Length=255)", MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), L"ConnStr", LenOfConnStr);
+				StkPlSwPrintf(TmpMsgJpn, StkWebAppExec::URL_PATH_LENGTH, L"%s (Param=%s, Length=%d, Max Length=255)", MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), L"ConnStr", LenOfConnStr);
 				AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG, TmpMsgEng, TmpMsgJpn);
 				*ResultCode = 400;
 				return ResObj;

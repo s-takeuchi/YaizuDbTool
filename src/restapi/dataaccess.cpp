@@ -1,6 +1,4 @@
-﻿#include <windows.h>
-#include <shlwapi.h>
-#include "dataaccess.h"
+﻿#include "dataaccess.h"
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "..\Global.h"
 #include "..\..\..\YaizuComLib\src\stkdata\stkdata.h"
@@ -10,7 +8,7 @@ DataAccess* DataAccess::ThisInstance;
 
 DataAccess::DataAccess()
 {
-	lstrcpyn(DataFileName, L"sample.dat", MAX_PATH);
+	StkPlWcsCpy(DataFileName, FILENAME_MAX, L"sample.dat");
 }
 
 DataAccess::~DataAccess()
@@ -127,19 +125,19 @@ int DataAccess::GetLogs(wchar_t LogMsgTime[Global::MAXNUM_OF_LOGRECORDS][Global:
 		ColumnDataWStr* ColDatMsgEn = (ColumnDataWStr*)CurrRecDat->GetColumn(2);
 		ColumnDataWStr* ColDatMsgJa = (ColumnDataWStr*)CurrRecDat->GetColumn(3);
 		if (ColDatTime != NULL && ColDatTime->GetValue() != NULL) {
-			lstrcpy(LogMsgTime[NumOfRec], ColDatTime->GetValue());
+			StkPlWcsCpy(LogMsgTime[NumOfRec], Global::MAXLEN_OF_LOGTIME, ColDatTime->GetValue());
 		} else {
-			lstrcpy(LogMsgTime[NumOfRec], L"");
+			StkPlWcsCpy(LogMsgTime[NumOfRec], Global::MAXLEN_OF_LOGTIME, L"");
 		}
 		if (ColDatMsgEn != NULL && ColDatMsgEn->GetValue() != NULL) {
-			lstrcpy(LogMsgEn[NumOfRec], ColDatMsgEn->GetValue());
+			StkPlWcsCpy(LogMsgEn[NumOfRec], Global::MAXLEN_OF_LOGMSG, ColDatMsgEn->GetValue());
 		} else {
-			lstrcpy(LogMsgEn[NumOfRec], L"");
+			StkPlWcsCpy(LogMsgEn[NumOfRec], Global::MAXLEN_OF_LOGMSG, L"");
 		}
 		if (ColDatMsgJa != NULL && ColDatMsgJa->GetValue() != NULL) {
-			lstrcpy(LogMsgJa[NumOfRec], ColDatMsgJa->GetValue());
+			StkPlWcsCpy(LogMsgJa[NumOfRec], Global::MAXLEN_OF_LOGMSG, ColDatMsgJa->GetValue());
 		} else {
-			lstrcpy(LogMsgJa[NumOfRec], L"");
+			StkPlWcsCpy(LogMsgJa[NumOfRec], Global::MAXLEN_OF_LOGMSG, L"");
 		}
 		NumOfRec++;
 		CurrRecDat = CurrRecDat->GetNextRecord();
@@ -224,7 +222,7 @@ int DataAccess::GetOdbcConfing(wchar_t ConnStr[256], int* Init)
 
 	int OdbcId = ColDatOdbcId->GetValue();
 	int DbmsType = ColDatDbmsType->GetValue();
-	lstrcpy(ConnStr, ColDatConnStr->GetValue());
+	StkPlWcsCpy(ConnStr, 256, ColDatConnStr->GetValue());
 	*Init = ColDatInit->GetValue();
 	delete RecDatOdbcConfig;
 	return DbmsType;
@@ -272,9 +270,9 @@ void DataAccess::GetFilterCondition(int Index, wchar_t ColumnName[Global::COLUMN
 		ColumnDataInt* ColDatOpeType = (ColumnDataInt*)CurRecDat->GetColumn(2);
 		ColumnDataWStr* ColDatValue = (ColumnDataWStr*)CurRecDat->GetColumn(3);
 		if (Index == ColDatIndex->GetValue()) {
-			lstrcpy(ColumnName, ColDatColumnName->GetValue());
+			StkPlWcsCpy(ColumnName, Global::COLUMNNAME_LENGTH, ColDatColumnName->GetValue());
 			*FilterOpeType = ColDatOpeType->GetValue();
-			lstrcpy(Value, ColDatValue->GetValue());
+			StkPlWcsCpy(Value, Global::COLUMNVAL_LENGTH, ColDatValue->GetValue());
 			break;
 		}
 		CurRecDat = CurRecDat->GetNextRecord();
@@ -326,9 +324,9 @@ bool DataAccess::GetFilterSwitch()
 // Return : always zero returned
 int DataAccess::StopAutoSave()
 {
-	wchar_t Buf[MAX_PATH];
+	wchar_t Buf[FILENAME_MAX];
 	StkPlGetFullPathFromFileName(DataFileName, Buf);
-	AutoSave(Buf, 30, FALSE);
+	AutoSave(Buf, 30, false);
 	LockAllTable(2);
 	SaveData(Buf);
 	UnlockAllTable();
@@ -340,9 +338,9 @@ int DataAccess::StopAutoSave()
 int DataAccess::CreateCmdFreakTables()
 {
 	// Make full path name and call AutoSave
-	wchar_t Buf[MAX_PATH];
+	wchar_t Buf[FILENAME_MAX];
 	StkPlGetFullPathFromFileName(DataFileName, Buf);
-	AutoSave(Buf, 30, TRUE);
+	AutoSave(Buf, 30, true);
 
 	LockAllTable(2);
 	if (StkPlGetFileSize(DataFileName) == 0) {

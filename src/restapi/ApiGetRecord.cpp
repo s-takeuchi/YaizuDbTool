@@ -1,6 +1,4 @@
-﻿#include <windows.h>
-#include <shlwapi.h>
-#include "MyMsgProc.h"
+﻿#include "MyMsgProc.h"
 #include "ApiGetRecord.h"
 #include "dataaccess.h"
 #include "..\Global.h"
@@ -12,7 +10,7 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 {
 	StkObject* ResObj = new StkObject(L"");
 
-	if (!StrStr(UrlPath, L"?query=")) {
+	if (!StkPlWcsStr(UrlPath, L"?query=")) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT),  MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
 		*ResultCode = 400;
 		return ResObj;

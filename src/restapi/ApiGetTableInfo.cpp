@@ -1,5 +1,4 @@
-﻿#include <shlwapi.h>
-#include "MyMsgProc.h"
+﻿#include "MyMsgProc.h"
 #include "ApiGetTableInfo.h"
 #include "dataaccess.h"
 #include "DbAccessor.h"
@@ -10,7 +9,7 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t U
 {
 	wchar_t Dummy[256] = L"";
 	wchar_t TableName[768] = L"";
-	if (StrStr(UrlPath, L"?query=")) {
+	if (StkPlWcsStr(UrlPath, L"?query=")) {
 		StkStringParser::ParseInto2Params(UrlPath, L"$?query=$", L'$', Dummy, 256, TableName, 768);
 	}
 
