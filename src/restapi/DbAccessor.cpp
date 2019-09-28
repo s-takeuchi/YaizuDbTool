@@ -1,5 +1,4 @@
 ﻿#include <windows.h>
-#include <stdio.h>
 #include "DbAccessor.h"
 #include "..\Global.h"
 #include "dataaccess.h"
@@ -44,7 +43,7 @@ SQLRETURN DbAccessor::GetTablesCommon(SQLTCHAR* Query, StkObject* Obj, SQLTCHAR 
 	SQLTCHAR TableName[Global::TABLENAME_LENGTH];
 	SQLBindCol(Hstmt, 1, SQL_C_WCHAR, TableName, Global::TABLENAME_LENGTH * sizeof(SQLTCHAR), NULL);
 
-	BOOL InitFlag = TRUE;
+	bool InitFlag = true;
 	int Loop = 0;
 	for (;;) {
 		Ret = SQLFetch(Hstmt);
@@ -80,7 +79,7 @@ int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, SQLTCHAR StateMsg[10]
 	}
 
 	SQLTCHAR SqlBuf[1024];
-	_snwprintf_s(SqlBuf, 1024, _TRUNCATE, L"select count(*) from %s;", TableName);
+	StkPlSwPrintf(SqlBuf, 1024, L"select count(*) from %s;", TableName);
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	if (Ret != SQL_SUCCESS) {
 		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
@@ -106,11 +105,11 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	SQLRETURN Ret = 0;
 
-	BOOL FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
+	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 
 	SQLTCHAR SqlBuf[1024];
-	_snwprintf_s(SqlBuf, 1024, _TRUNCATE, L"select * from %s", TableName);
-	BOOL FirstCond = TRUE;
+	StkPlSwPrintf(SqlBuf, 1024, L"select * from %s", TableName);
+	bool FirstCond = true;
 	if (FilterSwitch) {
 		for (int Loop = 1; Loop <= 5; Loop++) {
 			if (lstrcmp(ColumnNameCnv[Loop - 1], L"\"*\"") == 0 || lstrcmp(ColumnNameCnv[Loop - 1], L"`*`") == 0 || OpeType[Loop - 1] == 0) {
@@ -171,7 +170,7 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 		StkObject* RecObj = new StkObject(L"Record");
 		for (int LoopCol = 0; LoopCol < NumOfCols; LoopCol++) {
 			wchar_t IndStr[5];
-			_snwprintf_s(IndStr, 5, _TRUNCATE, L"%d", LoopCol);
+			StkPlSwPrintf(IndStr, 5, L"%d", LoopCol);
 			if (ValLen[LoopCol] == -1) {
 				RecObj->AppendChildElement(new StkObject(IndStr, L""));
 			} else {

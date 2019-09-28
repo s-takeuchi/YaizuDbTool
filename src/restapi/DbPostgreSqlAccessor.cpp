@@ -128,7 +128,7 @@ int DbPostgreSqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCo
 	int OpeType[5];
 	wchar_t Value[5][Global::COLUMNVAL_LENGTH];
 	wchar_t ValueCnv[5][Global::COLUMNVAL_LENGTH * 4 + 2];
-	BOOL FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
+	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
 		SqlEncoding(ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);

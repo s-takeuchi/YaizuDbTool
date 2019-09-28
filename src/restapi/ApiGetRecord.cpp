@@ -33,7 +33,7 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	StkObject* TableNameObj = new StkObject(L"TableName");
 	StkObject* TargetTableNameObj = new StkObject(L"Name", TableNameAc);
 	DaTableName->GetTables(TableNameObj, StateMsg, Msg, 1024);
-	BOOL TblFound = FALSE;
+	bool TblFound = FALSE;
 	if (TableNameObj->Contains(TargetTableNameObj) != NULL) {
 		TblFound = TRUE;
 	}

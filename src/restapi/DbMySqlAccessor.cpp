@@ -1,5 +1,4 @@
 ﻿#include <windows.h>
-#include <stdio.h>
 #include "DbMySqlAccessor.h"
 #include "..\Global.h"
 #include "dataaccess.h"
@@ -64,7 +63,7 @@ int DbMySqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* Tb
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
 	SQLTCHAR SqlBuf[1024];
-	_snwprintf_s(SqlBuf, 1024, _TRUNCATE, L"show full columns from %s;", EcdTableName);
+	StkPlSwPrintf(SqlBuf, 1024, L"show full columns from %s;", EcdTableName);
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	delete EcdTableName;
 	if (Ret != SQL_SUCCESS) {
@@ -119,7 +118,7 @@ int DbMySqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, S
 	int OpeType[5];
 	wchar_t Value[5][Global::COLUMNVAL_LENGTH];
 	wchar_t ValueCnv[5][Global::COLUMNVAL_LENGTH * 4 + 2];
-	BOOL FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
+	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
 		SqlEncoding(ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);
