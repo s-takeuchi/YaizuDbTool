@@ -77,8 +77,8 @@ copy "..\test\restapitest\Release\restapitest.exe" webapp
 rem ########## Testing ##########
 echo;
 echo Test starts
-start call webapp\sample.exe
-sleep 5
+start webapp\sample.exe
+timeout /t 3
 webapp\restapitest.exe
 echo Test ends
 
