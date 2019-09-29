@@ -67,7 +67,7 @@
     <Link>
       <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;Psapi.lib;Debug\commonfunc.lib;Debug\stkthread.lib;Debug\stksocket.lib;Debug\stkwebapp.lib;Debug\stkdata.lib;Debug\stkpl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <HeapReserveSize>60000000</HeapReserveSize>
