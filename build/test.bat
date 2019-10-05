@@ -47,6 +47,7 @@ if exist webapp rmdir /S /Q webapp
 rem ########## Building ##########
 echo;
 echo Building sample.sln...
+rem Considering execution privilege, .exe is built as Debug. (Debug=AsInvoker, Release=AsAdmin)
 %MSBUILD% "..\src\restapi\sample.sln" /t:clean;build /p:Configuration=Debug
 IF %ERRORLEVEL% NEQ 0 goto ERRORRAISED
 echo Building restapitest.sln...
