@@ -64,6 +64,12 @@ echo Checking "stkdatagui.exe" existence...
 if not exist "..\..\YaizuComLib\src\stkdatagui\Release\stkdatagui.exe" goto ERRORRAISED
 echo Checking "nginx-1.12.2.zip" existence...
 if not exist "..\..\YaizuComLib\src\stkwebapp\nginx-1.12.2.zip" goto ERRORRAISED
+echo Checking "jquery-3.2.0.min.js" existence...
+if not exist "..\..\YaizuComLib\src\stkwebapp\jquery-3.2.0.min.js" goto ERRORRAISED
+echo Checking "bootstrap-3.3.7-dist.zip" existence...
+if not exist "..\..\YaizuComLib\src\stkwebapp\bootstrap-3.3.7-dist.zip" goto ERRORRAISED
+echo Checking "stkcommon.js" existence...
+if not exist "..\..\YaizuComLib\src\stkwebapp\stkcommon.js" goto ERRORRAISED
 echo Checking "sample.exe" existence...
 if not exist "..\src\restapi\Release\sample.exe" goto ERRORRAISED
 echo Checking "stkwebappcmd.exe" existence...
@@ -76,16 +82,7 @@ rem ########## Deployment of files and folders ##########
 echo;
 echo Deployment of files and folders...
 mkdir webapp
-mkdir webapp\img
-mkdir webapp\manual
-mkdir webapp\manual\eng
-mkdir webapp\manual\jpn
-copy "..\src\resource\*.*" webapp
-copy "..\src\resource\img\*.*" webapp\img
 copy "..\..\YaizuComLib\src\stkdatagui\Release\stkdatagui.exe" webapp
-copy "..\doc\man\eng\*.*" webapp\manual\eng
-copy "..\doc\man\jpn\*.*" webapp\manual\jpn
-xcopy /y /q /s "..\src\etc\*.*" webapp
 copy "..\LICENSE" webapp\LICENSE.cmdfreak
 copy "..\src\restapi\Release\sample.exe" webapp
 copy "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.conf" webapp
@@ -100,6 +97,29 @@ pushd webapp\nginx
 popd
 xcopy /y /q /i /s /e "webapp\nginx\nginx-1.12.2" webapp
 if exist webapp\nginx rmdir /S /Q webapp\nginx
+
+mkdir webapp\bootstrap
+copy "..\..\YaizuComLib\src\stkwebapp\bootstrap-3.3.7-dist.zip" webapp\bootstrap
+pushd webapp\bootstrap
+%SEVENZIP% x "bootstrap-3.3.7-dist.zip"
+popd
+xcopy /y /q /i /s /e "webapp\bootstrap\bootstrap-3.3.7-dist" webapp\html\bootstrap-3.3.7-dist
+if exist webapp\bootstrap rmdir /S /Q webapp\bootstrap
+
+mkdir webapp\license
+mkdir webapp\html\lib
+mkdir webapp\html\img
+mkdir webapp\html\manual
+mkdir webapp\html\manual\eng
+mkdir webapp\html\manual\jpn
+copy "..\src\resource\*.*" webapp\html
+copy "..\src\resource\img\*.*" webapp\html\img
+copy "..\doc\man\eng\*.*" webapp\html\manual\eng
+copy "..\doc\man\jpn\*.*" webapp\html\manual\jpn
+xcopy /y /q /s "..\src\etc\lib" webapp\html\lib
+xcopy /y /q /s "..\src\etc\license" webapp\license
+copy "..\..\YaizuComLib\src\stkwebapp\stkcommon.js" webapp\html
+copy "..\..\YaizuComLib\src\stkwebapp\jquery-3.2.0.min.js" webapp\html
 
 
 rem ########## Making installer ##########
