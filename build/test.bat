@@ -71,7 +71,7 @@ copy "..\src\restapi\Debug\sample.exe" webapp
 copy "..\src\restapi\sample.dat" webapp
 copy "..\src\restapi\sample.conf" webapp
 echo servicehost=localhost>> webapp\sample.conf
-echo serviceport=2060>> webapp\sample.conf
+echo serviceport=10008>> webapp\sample.conf
 copy "..\test\restapitest\Release\restapitest.exe" webapp
 
 
