@@ -39,6 +39,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_082D687CE9334B189E6E539A3C28D467"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_08C5C8DC2B8845C8B16A8EAC584FBCB9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -81,13 +87,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1427CD3131D54950B63A6C9C7AE34CE6"
+        "MsmKey" = "8:_14491D8E11D040879B3F659B9DC7B013"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_14491D8E11D040879B3F659B9DC7B013"
+        "MsmKey" = "8:_1554DEB030794E3699B067293989DC2D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_15876C6D550D43CA907395C9AE19F58B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -123,13 +135,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1E292E73A2A04831942C21C0E09F6C45"
+        "MsmKey" = "8:_1F4C39A0DC1146B18F29A1712CF12A10"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1F4C39A0DC1146B18F29A1712CF12A10"
+        "MsmKey" = "8:_2114F5DF238D4DE4B80F11E93226C596"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -183,13 +195,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_27ADB49AC5B74E8885E20A437E072C79"
+        "MsmKey" = "8:_278103EF40164F89B9BC66E01EFE150C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_2AC2486DA5584FC7B50F52FC5EA6E89A"
+        "MsmKey" = "8:_27ADB49AC5B74E8885E20A437E072C79"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -238,12 +250,6 @@
         "Entry"
         {
         "MsmKey" = "8:_36CDB6E6CB0548A48A3FCDB9D3677E02"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_36EDBE25CA4C4A91B42C9DF3CE492E61"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -381,12 +387,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5F17DFBBC2BF48ACA468E54618203C81"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_60DA3D3774CA4935A94011B5024A0E62"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -411,13 +411,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_66990D59DA1646CA8769F06D3655D6F6"
+        "MsmKey" = "8:_66BE592DC236487E8FAA3F65906FC35B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_66BE592DC236487E8FAA3F65906FC35B"
+        "MsmKey" = "8:_6763A379E4C942149F623874EA657D6C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -430,6 +430,12 @@
         "Entry"
         {
         "MsmKey" = "8:_6992F90995844C6ABBF46F7E67D31CA9"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6D3A3BF21DB2412F971560A91FFE0F36"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -483,7 +489,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_7CD2891F26F343D58C128A48B29F8689"
+        "MsmKey" = "8:_7A7B709C9DDA4D10BE27E2F37674A82C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -508,6 +514,24 @@
         "Entry"
         {
         "MsmKey" = "8:_807B10BAA8834710AAA5FFAD679FCC4D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_82E61FF077584F19923C1F2B1760238B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_845707A455B543CB84E998611BF76D88"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_845AE17CFF554FB5B1A8637DD15DAA58"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -543,12 +567,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_8B3776CBF57F4E199A59BA896DDD955B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_8B49927437EB4C6F96888017F3AB9D9C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -562,12 +580,6 @@
         "Entry"
         {
         "MsmKey" = "8:_8EA33577307343178E115B78D4B17DDB"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8ED7C337FA4B4DD49BDFFE9B9406B33C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -591,7 +603,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_958D7CEA320D4DFDA30A33C749F00806"
+        "MsmKey" = "8:_99D2C860421E4995ACC41ECA4B0803BF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9CB0762B0F144E299591ADD03FA69C38"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -604,6 +622,18 @@
         "Entry"
         {
         "MsmKey" = "8:_9EC8977DE8D94F6BB87EE4F97B89FD6B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A04E12ED1230408494F02359E363DB96"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A0E990AC6CC44CABBFFD75F27AEA080B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -628,6 +658,12 @@
         "Entry"
         {
         "MsmKey" = "8:_ABAF29B0DBE8481198292EBBAB1355D1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AE442557A4E049E0B4FF5BA8D4F50A5C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -699,7 +735,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C5B8AC6365224663B2CD2A0F6FA90A6F"
+        "MsmKey" = "8:_C38BB5691FC348F596AE32CD2FC3F00C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -712,6 +748,12 @@
         "Entry"
         {
         "MsmKey" = "8:_CC527DEED8B04F398F3D2F4146FE2826"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CE8E0567B3D44C14A64433922E80EDA2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -789,7 +831,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E45CDAAB65474AE3926C20CE17E5A028"
+        "MsmKey" = "8:_E192263D10F34B8FAC84F2E50F172152"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -801,13 +843,25 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E5D635A8DEC94DA59D2D756FA50A74B6"
+        "MsmKey" = "8:_E78C6B3FE5D4470EB4923281C8DB3FF2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E7E965044FFD484EA6BCD27F4728A474"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_EBD90A57FF7D4C59BC124887FDF6BCE6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_ED5E2F9709444D459EC837EE6DEDCDCE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -831,13 +885,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F33B48A433284772AF7378AF667C9023"
+        "MsmKey" = "8:_F3A2AFF048A44085B9566D52BA280450"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F3A2AFF048A44085B9566D52BA280450"
+        "MsmKey" = "8:_F431A9AB7F0E42F8957A7992B6023662"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -856,18 +910,6 @@
         "Entry"
         {
         "MsmKey" = "8:_FAF092C603D24576B1590BD1A8248F60"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FC175B0CABFC4B3798ACB309EF35F4BA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FCF2B48503BD43FCAC8F8366C1608771"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1062,6 +1104,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_082D687CE9334B189E6E539A3C28D467"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap-reboot.css.map"
+            "TargetName" = "8:bootstrap-reboot.css.map"
+            "Tag" = "8:"
+            "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_08C5C8DC2B8845C8B16A8EAC584FBCB9"
             {
             "SourcePath" = "8:..\\webapp\\html\\manual\\eng\\style.css"
@@ -1202,12 +1264,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1427CD3131D54950B63A6C9C7AE34CE6"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_14491D8E11D040879B3F659B9DC7B013"
             {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\css\\bootstrap-theme.min.css"
-            "TargetName" = "8:bootstrap-theme.min.css"
+            "SourcePath" = "8:..\\webapp\\html\\img\\ok_image32s.png"
+            "TargetName" = "8:ok_image32s.png"
             "Tag" = "8:"
-            "Folder" = "8:_CC683AC733D646698B700D778CA27E50"
+            "Folder" = "8:_355B462D42FF4111A3CD5A758B108EB0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1222,12 +1284,32 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_14491D8E11D040879B3F659B9DC7B013"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1554DEB030794E3699B067293989DC2D"
             {
-            "SourcePath" = "8:..\\webapp\\html\\img\\ok_image32s.png"
-            "TargetName" = "8:ok_image32s.png"
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap.min.css.map"
+            "TargetName" = "8:bootstrap.min.css.map"
             "Tag" = "8:"
-            "Folder" = "8:_355B462D42FF4111A3CD5A758B108EB0"
+            "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_15876C6D550D43CA907395C9AE19F58B"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\js\\bootstrap.min.js.map"
+            "TargetName" = "8:bootstrap.min.js.map"
+            "Tag" = "8:"
+            "Folder" = "8:_3F38D50C4DEB4392BA208B8DA9E8B25E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1342,12 +1424,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1E292E73A2A04831942C21C0E09F6C45"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1F4C39A0DC1146B18F29A1712CF12A10"
             {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\js\\bootstrap.min.js"
-            "TargetName" = "8:bootstrap.min.js"
+            "SourcePath" = "8:..\\webapp\\sample.dat"
+            "TargetName" = "8:sample.dat"
             "Tag" = "8:"
-            "Folder" = "8:_9877876424D64BD69D1A18FCC0055FF9"
+            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1362,12 +1444,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1F4C39A0DC1146B18F29A1712CF12A10"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2114F5DF238D4DE4B80F11E93226C596"
             {
-            "SourcePath" = "8:..\\webapp\\sample.dat"
-            "TargetName" = "8:sample.dat"
+            "SourcePath" = "8:..\\webapp\\html\\IcoMoon-Free.ttf"
+            "TargetName" = "8:IcoMoon-Free.ttf"
             "Tag" = "8:"
-            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
+            "Folder" = "8:_C6CCF0B06DFA408B9DF190DFEC304FCA"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1542,12 +1624,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_27ADB49AC5B74E8885E20A437E072C79"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_278103EF40164F89B9BC66E01EFE150C"
             {
-            "SourcePath" = "8:..\\webapp\\html\\manual\\jpn\\style.css"
-            "TargetName" = "8:style.css"
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap.css.map"
+            "TargetName" = "8:bootstrap.css.map"
             "Tag" = "8:"
-            "Folder" = "8:_D344A15A1EAE4C23A77C08670688ED40"
+            "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1562,12 +1644,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2AC2486DA5584FC7B50F52FC5EA6E89A"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_27ADB49AC5B74E8885E20A437E072C79"
             {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\css\\bootstrap.min.css.map"
-            "TargetName" = "8:bootstrap.min.css.map"
+            "SourcePath" = "8:..\\webapp\\html\\manual\\jpn\\style.css"
+            "TargetName" = "8:style.css"
             "Tag" = "8:"
-            "Folder" = "8:_CC683AC733D646698B700D778CA27E50"
+            "Folder" = "8:_D344A15A1EAE4C23A77C08670688ED40"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1728,26 +1810,6 @@
             "TargetName" = "8:refresh_image32s.png"
             "Tag" = "8:"
             "Folder" = "8:_355B462D42FF4111A3CD5A758B108EB0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_36EDBE25CA4C4A91B42C9DF3CE492E61"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\fonts\\glyphicons-halflings-regular.ttf"
-            "TargetName" = "8:glyphicons-halflings-regular.ttf"
-            "Tag" = "8:"
-            "Folder" = "8:_5121E4AF70004C0585E29B8705887186"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2202,26 +2264,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5F17DFBBC2BF48ACA468E54618203C81"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\fonts\\glyphicons-halflings-regular.eot"
-            "TargetName" = "8:glyphicons-halflings-regular.eot"
-            "Tag" = "8:"
-            "Folder" = "8:_5121E4AF70004C0585E29B8705887186"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_60DA3D3774CA4935A94011B5024A0E62"
             {
             "SourcePath" = "8:..\\webapp\\conf\\koi-win"
@@ -2302,12 +2344,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_66990D59DA1646CA8769F06D3655D6F6"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_66BE592DC236487E8FAA3F65906FC35B"
             {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\fonts\\glyphicons-halflings-regular.woff"
-            "TargetName" = "8:glyphicons-halflings-regular.woff"
+            "SourcePath" = "8:..\\webapp\\contrib\\README"
+            "TargetName" = "8:README"
             "Tag" = "8:"
-            "Folder" = "8:_5121E4AF70004C0585E29B8705887186"
+            "Folder" = "8:_3A98EBB8059044E9915D3CD75FE918F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2322,12 +2364,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_66BE592DC236487E8FAA3F65906FC35B"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6763A379E4C942149F623874EA657D6C"
             {
-            "SourcePath" = "8:..\\webapp\\contrib\\README"
-            "TargetName" = "8:README"
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap.css"
+            "TargetName" = "8:bootstrap.css"
             "Tag" = "8:"
-            "Folder" = "8:_3A98EBB8059044E9915D3CD75FE918F3"
+            "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2368,6 +2410,26 @@
             "TargetName" = "8:paramquery-grid_1.1.2_lic.txt"
             "Tag" = "8:"
             "Folder" = "8:_DF4F0E6CC1C249E2996D1D2F35272F3E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6D3A3BF21DB2412F971560A91FFE0F36"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap-reboot.min.css"
+            "TargetName" = "8:bootstrap-reboot.min.css"
+            "Tag" = "8:"
+            "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2542,12 +2604,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7CD2891F26F343D58C128A48B29F8689"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7A7B709C9DDA4D10BE27E2F37674A82C"
             {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\fonts\\glyphicons-halflings-regular.svg"
-            "TargetName" = "8:glyphicons-halflings-regular.svg"
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap-reboot.css"
+            "TargetName" = "8:bootstrap-reboot.css"
             "Tag" = "8:"
-            "Folder" = "8:_5121E4AF70004C0585E29B8705887186"
+            "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2628,6 +2690,66 @@
             "TargetName" = "8:jquery_1.9.1_lic.txt"
             "Tag" = "8:"
             "Folder" = "8:_DF4F0E6CC1C249E2996D1D2F35272F3E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_82E61FF077584F19923C1F2B1760238B"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\squirrel.svg"
+            "TargetName" = "8:squirrel.svg"
+            "Tag" = "8:"
+            "Folder" = "8:_C6CCF0B06DFA408B9DF190DFEC304FCA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_845707A455B543CB84E998611BF76D88"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\js\\bootstrap.bundle.min.js.map"
+            "TargetName" = "8:bootstrap.bundle.min.js.map"
+            "Tag" = "8:"
+            "Folder" = "8:_3F38D50C4DEB4392BA208B8DA9E8B25E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_845AE17CFF554FB5B1A8637DD15DAA58"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap-grid.css"
+            "TargetName" = "8:bootstrap-grid.css"
+            "Tag" = "8:"
+            "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2742,26 +2864,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8B3776CBF57F4E199A59BA896DDD955B"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\fonts\\glyphicons-halflings-regular.woff2"
-            "TargetName" = "8:glyphicons-halflings-regular.woff2"
-            "Tag" = "8:"
-            "Folder" = "8:_5121E4AF70004C0585E29B8705887186"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8B49927437EB4C6F96888017F3AB9D9C"
             {
             "SourcePath" = "8:..\\webapp\\html\\lib\\jquery\\images\\ui-bg_inset-hard_100_f5f8f9_1x100.png"
@@ -2808,26 +2910,6 @@
             "TargetName" = "8:zlib.LICENSE"
             "Tag" = "8:"
             "Folder" = "8:_95954E258A084E619345C2682B243FB8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8ED7C337FA4B4DD49BDFFE9B9406B33C"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\css\\bootstrap.css.map"
-            "TargetName" = "8:bootstrap.css.map"
-            "Tag" = "8:"
-            "Folder" = "8:_CC683AC733D646698B700D778CA27E50"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2902,12 +2984,32 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_958D7CEA320D4DFDA30A33C749F00806"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_99D2C860421E4995ACC41ECA4B0803BF"
             {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\css\\bootstrap.css"
-            "TargetName" = "8:bootstrap.css"
+            "SourcePath" = "8:..\\webapp\\html\\IcoMoon-Free.css"
+            "TargetName" = "8:IcoMoon-Free.css"
             "Tag" = "8:"
-            "Folder" = "8:_CC683AC733D646698B700D778CA27E50"
+            "Folder" = "8:_C6CCF0B06DFA408B9DF190DFEC304FCA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9CB0762B0F144E299591ADD03FA69C38"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\js\\bootstrap.bundle.js"
+            "TargetName" = "8:bootstrap.bundle.js"
+            "Tag" = "8:"
+            "Folder" = "8:_3F38D50C4DEB4392BA208B8DA9E8B25E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2948,6 +3050,46 @@
             "TargetName" = "8:OpenSSL.LICENSE"
             "Tag" = "8:"
             "Folder" = "8:_95954E258A084E619345C2682B243FB8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A04E12ED1230408494F02359E363DB96"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\js\\bootstrap.js"
+            "TargetName" = "8:bootstrap.js"
+            "Tag" = "8:"
+            "Folder" = "8:_3F38D50C4DEB4392BA208B8DA9E8B25E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A0E990AC6CC44CABBFFD75F27AEA080B"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap-grid.css.map"
+            "TargetName" = "8:bootstrap-grid.css.map"
+            "Tag" = "8:"
+            "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3028,6 +3170,26 @@
             "TargetName" = "8:vert-bg.png"
             "Tag" = "8:"
             "Folder" = "8:_F7C3E08FF16740DEA18D8BC2057F817B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AE442557A4E049E0B4FF5BA8D4F50A5C"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\js\\bootstrap.js.map"
+            "TargetName" = "8:bootstrap.js.map"
+            "Tag" = "8:"
+            "Folder" = "8:_3F38D50C4DEB4392BA208B8DA9E8B25E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3262,12 +3424,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C5B8AC6365224663B2CD2A0F6FA90A6F"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C38BB5691FC348F596AE32CD2FC3F00C"
             {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\js\\bootstrap.js"
-            "TargetName" = "8:bootstrap.js"
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap-reboot.min.css.map"
+            "TargetName" = "8:bootstrap-reboot.min.css.map"
             "Tag" = "8:"
-            "Folder" = "8:_9877876424D64BD69D1A18FCC0055FF9"
+            "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3308,6 +3470,26 @@
             "TargetName" = "8:pq-localize-ja.js"
             "Tag" = "8:"
             "Folder" = "8:_3011F5868A2A444399B7A93BBB952CBD"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CE8E0567B3D44C14A64433922E80EDA2"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap.min.css"
+            "TargetName" = "8:bootstrap.min.css"
+            "Tag" = "8:"
+            "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3562,12 +3744,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E45CDAAB65474AE3926C20CE17E5A028"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E192263D10F34B8FAC84F2E50F172152"
             {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\css\\bootstrap-theme.min.css.map"
-            "TargetName" = "8:bootstrap-theme.min.css.map"
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\js\\bootstrap.bundle.js.map"
+            "TargetName" = "8:bootstrap.bundle.js.map"
             "Tag" = "8:"
-            "Folder" = "8:_CC683AC733D646698B700D778CA27E50"
+            "Folder" = "8:_3F38D50C4DEB4392BA208B8DA9E8B25E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3602,12 +3784,32 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E5D635A8DEC94DA59D2D756FA50A74B6"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E78C6B3FE5D4470EB4923281C8DB3FF2"
             {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\css\\bootstrap-theme.css.map"
-            "TargetName" = "8:bootstrap-theme.css.map"
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap-grid.min.css"
+            "TargetName" = "8:bootstrap-grid.min.css"
             "Tag" = "8:"
-            "Folder" = "8:_CC683AC733D646698B700D778CA27E50"
+            "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E7E965044FFD484EA6BCD27F4728A474"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\js\\bootstrap.bundle.min.js"
+            "TargetName" = "8:bootstrap.bundle.min.js"
+            "Tag" = "8:"
+            "Folder" = "8:_3F38D50C4DEB4392BA208B8DA9E8B25E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3628,6 +3830,26 @@
             "TargetName" = "8:table_image32s.png"
             "Tag" = "8:"
             "Folder" = "8:_355B462D42FF4111A3CD5A758B108EB0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_ED5E2F9709444D459EC837EE6DEDCDCE"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap-grid.min.css.map"
+            "TargetName" = "8:bootstrap-grid.min.css.map"
+            "Tag" = "8:"
+            "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3702,12 +3924,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F33B48A433284772AF7378AF667C9023"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F3A2AFF048A44085B9566D52BA280450"
             {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\css\\bootstrap-theme.css"
-            "TargetName" = "8:bootstrap-theme.css"
+            "SourcePath" = "8:..\\webapp\\html\\img\\filter_image32c.png"
+            "TargetName" = "8:filter_image32c.png"
             "Tag" = "8:"
-            "Folder" = "8:_CC683AC733D646698B700D778CA27E50"
+            "Folder" = "8:_355B462D42FF4111A3CD5A758B108EB0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3722,12 +3944,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F3A2AFF048A44085B9566D52BA280450"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F431A9AB7F0E42F8957A7992B6023662"
             {
-            "SourcePath" = "8:..\\webapp\\html\\img\\filter_image32c.png"
-            "TargetName" = "8:filter_image32c.png"
+            "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\js\\bootstrap.min.js"
+            "TargetName" = "8:bootstrap.min.js"
             "Tag" = "8:"
-            "Folder" = "8:_355B462D42FF4111A3CD5A758B108EB0"
+            "Folder" = "8:_3F38D50C4DEB4392BA208B8DA9E8B25E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3788,46 +4010,6 @@
             "TargetName" = "8:geo2nginx.pl"
             "Tag" = "8:"
             "Folder" = "8:_3A98EBB8059044E9915D3CD75FE918F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FC175B0CABFC4B3798ACB309EF35F4BA"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\js\\npm.js"
-            "TargetName" = "8:npm.js"
-            "Tag" = "8:"
-            "Folder" = "8:_9877876424D64BD69D1A18FCC0055FF9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FCF2B48503BD43FCAC8F8366C1608771"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\bootstrap-3.3.7-dist\\css\\bootstrap.min.css"
-            "TargetName" = "8:bootstrap.min.css"
-            "Tag" = "8:"
-            "Folder" = "8:_CC683AC733D646698B700D778CA27E50"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4008,6 +4190,39 @@
                                 {
                                 }
                             }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_42B9455A856343FF96843CA38812D714"
+                            {
+                            "Name" = "8:bootstrap-4.4.1-dist"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_E94B20FD8F8B4EC8AFB713805FE08F98"
+                                "Folders"
+                                {
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_3F38D50C4DEB4392BA208B8DA9E8B25E"
+                                    {
+                                    "Name" = "8:js"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_65A550FE3D0B46F68DE0F26B7A73267A"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_E215234CAD8443FA92853F27748A3F6A"
+                                    {
+                                    "Name" = "8:css"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_46DB553D53904F0084DDAAEBF97B1A33"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                }
+                            }
                             "{9EF0B969-E518-4E46-987F-47570745A589}:_70E3869996CA4A64A0021E5D45C27EB6"
                             {
                             "Name" = "8:manual"
@@ -4136,50 +4351,6 @@
                                                 {
                                                 }
                                             }
-                                        }
-                                    }
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_B760BDE2E1FC4A769FF9970C78C965A5"
-                            {
-                            "Name" = "8:bootstrap-3.3.7-dist"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_2FB766CAAE19410EA6B37F63F6001A52"
-                                "Folders"
-                                {
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_5121E4AF70004C0585E29B8705887186"
-                                    {
-                                    "Name" = "8:fonts"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_A1590E1F7DC24CC9A4C3777C5F9006A0"
-                                        "Folders"
-                                        {
-                                        }
-                                    }
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_9877876424D64BD69D1A18FCC0055FF9"
-                                    {
-                                    "Name" = "8:js"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_8046B819A40E42B69F03D752F6DE0DE4"
-                                        "Folders"
-                                        {
-                                        }
-                                    }
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_CC683AC733D646698B700D778CA27E50"
-                                    {
-                                    "Name" = "8:css"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_794A247333004AEDA4B47488D1267888"
-                                        "Folders"
-                                        {
                                         }
                                     }
                                 }
