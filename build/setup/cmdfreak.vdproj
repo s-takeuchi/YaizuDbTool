@@ -783,6 +783,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_D3CE2C2B7DF548B5A3411A7E9BE4AD91"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_D4B989F33F2948F58D363AC9017B409F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -3570,6 +3576,26 @@
             "TargetName" = "8:horiz-bg.png"
             "Tag" = "8:"
             "Folder" = "8:_F7C3E08FF16740DEA18D8BC2057F817B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D3CE2C2B7DF548B5A3411A7E9BE4AD91"
+            {
+            "SourcePath" = "8:..\\webapp\\html\\cmdfreak.html"
+            "TargetName" = "8:cmdfreak.html"
+            "Tag" = "8:"
+            "Folder" = "8:_C6CCF0B06DFA408B9DF190DFEC304FCA"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
