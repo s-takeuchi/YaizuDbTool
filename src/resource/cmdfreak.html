@@ -115,6 +115,7 @@
         });
         addClientMessage('SVCINFO_LOGTIME', {'en':'Logging time', 'ja':'ログ出力時刻'});
         addClientMessage('SVCINFO_LOGMSG', {'en':'Message', 'ja':'メッセージ'});
+        addClientMessage('SVCINFO_DLG_CLOSE', {'en':'Close', 'ja':'閉じる'});
 
         addClientMessage('CONNERR', {
             'en':'Connection with REST API service failed. This may be caused by one of the following issues:<br>(1) REST API service cannot be started.<br>(2) REST API service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or sample.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A timeout has occurred when waiting for data from REST API server.<br>',
@@ -808,7 +809,8 @@
     ////////////////////////////////////////////////////////////////////////////////
 
     function displayInformation() {
-        $('#svcinfo').append('<h2>' + getClientMessage('SVCINFO') + '</h2>');
+        var svcInfo = $('<div id="svcinfo">');
+        showInputModal(getClientMessage('SVCINFO'), svcInfo);
         var buildTime = "";
         var startTime = "";
         var productName = "";
@@ -834,13 +836,13 @@
             return;
         }
 
-        $('#svcinfo').append('<p>' + productName + ' ' + version + '<br/>Copyright (C) 2020 Shinya Takeuchi<br/>All Rights Reserved.</p>');
-        $('#svcinfo').append('<p><button type="button" id="openManual" class="btn btn-dark" onclick="openManual()">' + getClientMessage('SVCINFO_OPEN_MANUAL') + '</button></p>');
-        $('#svcinfo').append('<p>');
-        $('#svcinfo').append('Build Time = ' + buildTime + '<br/>');
-        $('#svcinfo').append('Service Start Time = ' + startTime + '<br/>');
-        $('#svcinfo').append('</p>');
-        $('#svcinfo').append('<p>' +getClientMessage('SVCINFO_TRACELOG') + '</p>');
+        svcInfo.append('<p>' + productName + ' ' + version + '<br/>Copyright (C) 2020 Shinya Takeuchi<br/>All Rights Reserved.</p>');
+        svcInfo.append('<p><button type="button" id="openManual" class="btn btn-dark" onclick="openManual()">' + getClientMessage('SVCINFO_OPEN_MANUAL') + '</button></p>');
+        svcInfo.append('<p>');
+        svcInfo.append('Build Time = ' + buildTime + '<br/>');
+        svcInfo.append('Service Start Time = ' + startTime + '<br/>');
+        svcInfo.append('</p>');
+        svcInfo.append('<p>' +getClientMessage('SVCINFO_TRACELOG') + '</p>');
 
         var logData = $('<table>');
         logData.addClass('table table-striped');
@@ -858,8 +860,9 @@
             }
         }
         logData.append(tBody);
-        $('#svcinfo').append(logData);
-        $('td').css('vertical-align', 'middle');
+
+        svcInfo.append(logData);
+        svcInfo.append('<p><button type="button" id="closeSvcInfo" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('SVCINFO_DLG_CLOSE') + '</button></p>');
     }
 
     function openManual() {
@@ -887,7 +890,6 @@
         $('#svrinfo').empty();
         $('#command').empty();
         $('#loginfo').empty();
-        $('#svcinfo').empty();
         $('#usermgt').empty();
         if (userRole == 1) {
             //apiCall('GET', '/api/agent/', null, 'API_GET_AGTINFO', displayAgentInfo);
@@ -896,7 +898,7 @@
             var contents = [{method : 'GET', url : '/api/logs/', request : null, keystring : 'API_GET_LOGS'},
                             {method : 'GET', url : '/api/system/', request : null, keystring : 'API_GET_SYSTEM'}
             ];
-            MultiApiCall(contents, displayInformation);
+            MultiApiCall(contents, null);
         } else {
             //apiCall('GET', '/api/user/?target=all', null, 'API_GET_USER', displayUser);
         }
@@ -908,16 +910,11 @@
         $('#svrinfo').css('display', 'none');
         $('#command').css('display', 'none');
         $('#loginfo').css('display', 'none');
-        $('#svcinfo').css('display', 'none');
         $('#usermgt').css('display', 'none');
 
         var activateTarget = document.getElementById(id);
         activateTarget.style.display = 'block'
 
-        clearRsCommand();
-        if (id === 'agtinfo') {
-            switchAgentInfoButton();
-        }
     }
 
     function checkLogin() {
@@ -931,11 +928,11 @@
                 $('#menu-svrinfo').show();
                 $('#menu-command').show();
                 $('#menu-loginfo').show();
-                $('#menu-svcinfo').show();
             } else {
                 $('#menu-usermgt').show();
             }
             refreshInfo();
+            addRsCommand('displayInformation()', 'icon-info', true);
             return true;
         }
     }
@@ -948,27 +945,15 @@
             { id : 'svrinfo', actApiName : 'activateTopic', title : 'Server Info' },
             { id : 'command', actApiName : 'activateTopic', title : 'Command' },
             { id : 'loginfo', actApiName : 'activateTopic', title : 'Audit Log' },
-            { id : 'usermgt', actApiName : 'activateTopic', title : 'User Management' },
-            { id : 'svcinfo', actApiName : 'activateTopic', title : 'Information' }
+            { id : 'usermgt', actApiName : 'activateTopic', title : 'User Management' }
         ];
-        initMainPage('CmdFreak', contents);
+        initMainPage('<small>CmdFreak</small>', contents);
         showLoginModal(checkLogin);
     }
 
     </script>
 </head>
 
-<body>
-    <div id="inputDlgModal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <h5 class="modal-header" id="inputDlgModalTitle">
-                </h5>
-                <div class="modal-body" id="inputDlgModalBody">
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
+<body></body>
 
 </html>
