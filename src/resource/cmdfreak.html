@@ -107,6 +107,15 @@
         addClientMessage('LOGEVENTTIME', {'en':'Event Occurrence Time', 'ja':'イベント発生時刻'});
         addClientMessage('LOGEVENT', {'en':'Event', 'ja':'イベント'});
 
+        addClientMessage('SVCINFO_OPEN_MANUAL', {'en':'Open online manual', 'ja':'オンラインマニュアルを開く'});
+        addClientMessage('SVCINFO_OPEN_MANUAL_URL', {'en':'manual/eng/index.htm', 'ja':'manual/jpn/index.htm'});
+        addClientMessage('SVCINFO_TRACELOG', {
+                  'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.',
+                  'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'
+        });
+        addClientMessage('SVCINFO_LOGTIME', {'en':'Logging time', 'ja':'ログ出力時刻'});
+        addClientMessage('SVCINFO_LOGMSG', {'en':'Message', 'ja':'メッセージ'});
+
         addClientMessage('CONNERR', {
             'en':'Connection with REST API service failed. This may be caused by one of the following issues:<br>(1) REST API service cannot be started.<br>(2) REST API service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or sample.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A timeout has occurred when waiting for data from REST API server.<br>',
             'ja':'REST APIサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) REST APIサービスが開始されていない。<br>(2) REST APIサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , sample.conf] が不正。<br>(4) REST APIサーバからのデータ取得中にタイムアウトが発生した。<br>'
@@ -825,6 +834,36 @@
             return;
         }
 
+        $('#svcinfo').append('<p>' + productName + ' ' + version + '<br/>Copyright (C) 2020 Shinya Takeuchi<br/>All Rights Reserved.</p>');
+        $('#svcinfo').append('<p><button type="button" id="openManual" class="btn btn-dark" onclick="openManual()">' + getClientMessage('SVCINFO_OPEN_MANUAL') + '</button></p>');
+        $('#svcinfo').append('<p>');
+        $('#svcinfo').append('Build Time = ' + buildTime + '<br/>');
+        $('#svcinfo').append('Service Start Time = ' + startTime + '<br/>');
+        $('#svcinfo').append('</p>');
+        $('#svcinfo').append('<p>' +getClientMessage('SVCINFO_TRACELOG') + '</p>');
+
+        var logData = $('<table>');
+        logData.addClass('table table-striped');
+
+        var tHead = $('<thead>');
+        tHead.append('<tr><th>' + getClientMessage('SVCINFO_LOGTIME') + '</th><th>' + getClientMessage('SVCINFO_LOGMSG') + '</th></tr>');
+        logData.append(tHead);
+
+        var tBody = $('<tbody>');
+        for (var Loop = 0; Loop < Logs.length; Loop++) {
+            if (getClientLanguage() == 1) {
+                tBody.append('<tr><td>' + Logs[Loop].Time + '</td><td>' + Logs[Loop].MsgJa + '</td></tr>');
+            } else {
+                tBody.append('<tr><td>' + Logs[Loop].Time + '</td><td>' + Logs[Loop].MsgEn + '</td></tr>');
+            }
+        }
+        logData.append(tBody);
+        $('#svcinfo').append(logData);
+        $('td').css('vertical-align', 'middle');
+    }
+
+    function openManual() {
+        window.open(getClientMessage('SVCINFO_OPEN_MANUAL_URL'));
     }
 
     ////////////////////////////////////////////////////////////////////////////////
