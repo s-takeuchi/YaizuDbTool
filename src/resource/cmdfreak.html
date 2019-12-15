@@ -44,7 +44,6 @@
         addClientMessage('COMMAND', {'en':' Command', 'ja':' Command'});
         addClientMessage('AUDITLOG', {'en':' Audit Log', 'ja':' Audit Log'});
         addClientMessage('USERMGT', {'en':' User Management', 'ja':' User Management'});
-        addClientMessage('SVCINFO', {'en':'Information', 'ja':'情報'});
 
         addClientMessage('NOLOGINFO', {'en':'<p>No log information</p>', 'ja':'<p>ログはありません</p>'});
         addClientMessage('NOAGTINFO', {'en':'<p>No agent information</p>', 'ja':'<p>エージェント情報はありません</p>'});
@@ -107,6 +106,19 @@
         addClientMessage('LOGEVENTTIME', {'en':'Event Occurrence Time', 'ja':'イベント発生時刻'});
         addClientMessage('LOGEVENT', {'en':'Event', 'ja':'イベント'});
 
+        //
+        // ODBC configuration
+        //
+        addClientMessage('ODBC_CONNECTION', {'en':'ODBC Connections', 'ja':'ODBC接続'});
+        addClientMessage('ODBC_CONNSTR_GUIDE', {
+            'en':'Configure ODBC connection.<br>Select the connection target DBMS and specify the ODBC connection string.<br>As this is 32-bit application software, this string should be specified for the use of a 32-bit ODBC driver. As a prerequisite, a 32-bit ODBC driver needs to be installed on the operating system.<br>',
+            'ja':'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。オペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>'
+        }),
+
+        //
+        // Service information
+        //
+        addClientMessage('SVCINFO', {'en':'Information', 'ja':'情報'});
         addClientMessage('SVCINFO_OPEN_MANUAL', {'en':'Open online manual', 'ja':'オンラインマニュアルを開く'});
         addClientMessage('SVCINFO_OPEN_MANUAL_URL', {'en':'manual/eng/index.htm', 'ja':'manual/jpn/index.htm'});
         addClientMessage('SVCINFO_TRACELOG', {
@@ -115,12 +127,26 @@
         });
         addClientMessage('SVCINFO_LOGTIME', {'en':'Logging time', 'ja':'ログ出力時刻'});
         addClientMessage('SVCINFO_LOGMSG', {'en':'Message', 'ja':'メッセージ'});
-        addClientMessage('SVCINFO_DLG_CLOSE', {'en':'Close', 'ja':'閉じる'});
 
+        //
+        // Errors, Common
+        //
         addClientMessage('CONNERR', {
             'en':'Connection with REST API service failed. This may be caused by one of the following issues:<br>(1) REST API service cannot be started.<br>(2) REST API service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or sample.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A timeout has occurred when waiting for data from REST API server.<br>',
             'ja':'REST APIサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) REST APIサービスが開始されていない。<br>(2) REST APIサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , sample.conf] が不正。<br>(4) REST APIサーバからのデータ取得中にタイムアウトが発生した。<br>'
         });
+        addClientMessage('DLG_CLOSE', {'en':'Close', 'ja':'閉じる'});
+        addClientMessage('DLG_OK', {'en':'OK', 'ja':'OK'});
+        addClientMessage('DLG_CANCEL', {'en':'Cancel', 'ja':'キャンセル'});
+        addClientMessage('SERVER_ERROR', {'en':'An error occurred at server side.', 'ja':'サーバ側でエラーが発生しました。'});
+    }
+
+    function getSvrMsg(respDat) {
+        if (myLanguage == 1) {
+            return getClientMessage('SERVER_ERROR') + '<br/>' + respDat.MsgJpn;
+        } else {
+            return getClientMessage('SERVER_ERROR') + '<br/>' + respDat.MsgEng;
+        }
     }
 
     function getArray(targetObject) {
@@ -808,6 +834,37 @@
     ////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////
 
+    function displayOdbcConfig() {
+        var odbcConfig = $('<div id="odbcconfig">');
+        showInputModal(getClientMessage('ODBC_CONNECTION'), odbcConfig);
+
+        if (statusCode['API_GET_ODBCINFO_DEFAULT'] == 200 && statusCode['API_GET_ODBCINFO_CONFIGURED'] == 200) {
+            // Nothing to do
+        } else if (statusCode['API_GET_ODBCINFO_DEFAULT'] == 400 || statusCode['API_GET_ODBCINFO_CONFIGURED'] == 400) {
+            if (statusCode['API_GET_ODBCINFO_DEFAULT'] == 400) {
+                displayAlertDanger('#odbcConfig', getSvrMsg(responseData['API_GET_ODBCINFO_DEFAULT']));
+            }
+            if (statusCode['API_GET_ODBCINFO_CONFIGURED'] == 400) {
+                displayAlertDanger('#odbcConfig', getSvrMsg(responseData['API_GET_ODBCINFO_CONFIGURED']));
+            }
+            return;
+        } else {
+            displayAlertDanger('#odbcConfig', getClientMessage('CONNERR'));
+            return;
+        }
+        odbcConfig.append(getClientMessage('ODBC_CONNSTR_GUIDE'));
+
+        odbcConfig.append('<p>');
+        odbcConfig.append('<button type="button" id="okOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_OK') + '</button> ');
+        odbcConfig.append('<button type="button" id="cancelOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CANCEL') + '</button> ');
+        odbcConfig.append('</p>');
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+
     function displayInformation() {
         var svcInfo = $('<div id="svcinfo">');
         showInputModal(getClientMessage('SVCINFO'), svcInfo);
@@ -862,7 +919,7 @@
         logData.append(tBody);
 
         svcInfo.append(logData);
-        svcInfo.append('<p><button type="button" id="closeSvcInfo" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('SVCINFO_DLG_CLOSE') + '</button></p>');
+        svcInfo.append('<p><button type="button" id="closeSvcInfo" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
     }
 
     function openManual() {
@@ -886,53 +943,40 @@
     }
 
     function refreshInfo() {
-        $('#agtinfo').empty();
-        $('#svrinfo').empty();
-        $('#command').empty();
-        $('#loginfo').empty();
-        $('#usermgt').empty();
+        userRole = 1;
         if (userRole == 1) {
-            //apiCall('GET', '/api/agent/', null, 'API_GET_AGTINFO', displayAgentInfo);
-            //apiCall('GET', '/api/server/', null, 'API_GET_SVRINFO', displayServerInfo);
-            //apiCall('GET', '/api/command/', null, 'API_GET_COMMAND', displayCommand);
             var contents = [{method : 'GET', url : '/api/logs/', request : null, keystring : 'API_GET_LOGS'},
                             {method : 'GET', url : '/api/system/', request : null, keystring : 'API_GET_SYSTEM'}
             ];
-            MultiApiCall(contents, null);
+            MultiApiCall(contents, displayInformation);
+
+            var reqDatDf = {'query' : 'default' };
+            apiCall('GET', '/api/odbcinfo/', reqDatDf, 'API_GET_ODBCINFO_DEFAULT', displayOdbcConfig);
         } else {
             //apiCall('GET', '/api/user/?target=all', null, 'API_GET_USER', displayUser);
         }
     }
 
-    function activateTopic(id) {
-        refreshInfo();
-        $('#agtinfo').css('display', 'none');
-        $('#svrinfo').css('display', 'none');
-        $('#command').css('display', 'none');
-        $('#loginfo').css('display', 'none');
-        $('#usermgt').css('display', 'none');
+    function transDisplayInformation() {
+        var contents = [{method : 'GET', url : '/api/logs/', request : null, keystring : 'API_GET_LOGS'},
+                        {method : 'GET', url : '/api/system/', request : null, keystring : 'API_GET_SYSTEM'}
+        ];
+        MultiApiCall(contents, displayInformation);
+    }
 
-        var activateTarget = document.getElementById(id);
-        activateTarget.style.display = 'block'
-
+    function transDisplayOdbcConfig() {
+        var contents = [{method : 'GET', url : '/api/odbcinfo/', request : {'query' : 'default' }, keystring : 'API_GET_ODBCINFO_DEFAULT'},
+                        {method : 'GET', url : '/api/odbcinfo/', request : {'query' : 'configured' }, keystring : 'API_GET_ODBCINFO_CONFIGURED'}
+        ];
+        MultiApiCall(contents, displayOdbcConfig);
     }
 
     function checkLogin() {
         if (false) {
             return false;
         } else {
-            $('#container').show();
-            userRole = 1;
-            if (userRole == 1) {
-                $('#menu-agtinfo').show();
-                $('#menu-svrinfo').show();
-                $('#menu-command').show();
-                $('#menu-loginfo').show();
-            } else {
-                $('#menu-usermgt').show();
-            }
-            refreshInfo();
-            addRsCommand('displayInformation()', 'icon-info', true);
+            addRsCommand('transDisplayOdbcConfig()', 'icon-cogs', true);
+            addRsCommand('transDisplayInformation()', 'icon-info', true);
             return true;
         }
     }
@@ -940,14 +984,7 @@
     window.onload = function() {
         initClientMessage();
         apiCall('GET', '/api/language/', null, 'API_GET_LANG', getLanguage);
-        var contents = [
-            { id : 'agtinfo', actApiName : 'activateTopic', title : 'Agent Info' },
-            { id : 'svrinfo', actApiName : 'activateTopic', title : 'Server Info' },
-            { id : 'command', actApiName : 'activateTopic', title : 'Command' },
-            { id : 'loginfo', actApiName : 'activateTopic', title : 'Audit Log' },
-            { id : 'usermgt', actApiName : 'activateTopic', title : 'User Management' }
-        ];
-        initMainPage('<small>CmdFreak</small>', contents);
+        initMainPage('<small>CmdFreak</small>', null);
         showLoginModal(checkLogin);
     }
 
