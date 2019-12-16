@@ -113,7 +113,8 @@
         addClientMessage('ODBC_CONNSTR_GUIDE', {
             'en':'Configure ODBC connection.<br>Select the connection target DBMS and specify the ODBC connection string.<br>As this is 32-bit application software, this string should be specified for the use of a 32-bit ODBC driver. As a prerequisite, a 32-bit ODBC driver needs to be installed on the operating system.<br>',
             'ja':'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。オペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>'
-        }),
+        });
+        addClientMessage('ODBC_SELECTION', {'en':'Select DBMS : ', 'ja':'DBMSの選択 : '});
 
         //
         // Service information
@@ -852,7 +853,31 @@
             displayAlertDanger('#odbcConfig', getClientMessage('CONNERR'));
             return;
         }
+
+        var odbcInfos = getArray(responseData['API_GET_ODBCINFO_DEFAULT'].Data.OdbcInfo);
+        var odbcInfoConfigured = responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo;
+
         odbcConfig.append(getClientMessage('ODBC_CONNSTR_GUIDE'));
+
+        var configuredOdbc = '';
+        if (odbcInfoConfigured.DbType === 'MariaDB') {
+            configuredOdbc = 'MariaDB';
+        } else if (odbcInfoConfigured.DbType === 'PostgreSQL' || odbcInfoConfigured.DbType === 'Init') {
+            configuredOdbc = 'PostgreSQL';
+        } else if (odbcInfoConfigured.DbType === 'MySQL') {
+            configuredOdbc = 'MySQL';
+        }
+        var btnGrp = $('<div class="btn-group">');
+        btnGrp.append('<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="dbmsselector">' + configuredOdbc + '</span><span class="caret"></span></button>');
+        var ddMenu = $('<ul class="dropdown-menu" role="menu">');
+        ddMenu.append('<li role="presentation"><a onclick="selectPollingInterval(0)" role="menuitem" tabindex="-1" href="#">MariaDB</a></li>');
+        ddMenu.append('<li role="presentation"><a onclick="selectPollingInterval(0)" role="menuitem" tabindex="-1" href="#">PostgreSQL</a></li>');
+        ddMenu.append('<li role="presentation"><a onclick="selectPollingInterval(0)" role="menuitem" tabindex="-1" href="#">MySQL</a></li>');
+        btnGrp.append(ddMenu);
+        odbcConfig.append('<p>');
+        odbcConfig.append(getClientMessage('ODBC_SELECTION'));
+        odbcConfig.append(btnGrp);
+        odbcConfig.append('</p>');
 
         odbcConfig.append('<p>');
         odbcConfig.append('<button type="button" id="okOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_OK') + '</button> ');
