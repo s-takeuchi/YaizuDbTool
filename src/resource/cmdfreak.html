@@ -870,19 +870,45 @@
         var btnGrp = $('<div class="btn-group">');
         btnGrp.append('<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="dbmsselector">' + configuredOdbc + '</span><span class="caret"></span></button>');
         var ddMenu = $('<ul class="dropdown-menu" role="menu">');
-        ddMenu.append('<li role="presentation"><a onclick="selectPollingInterval(0)" role="menuitem" tabindex="-1" href="#">MariaDB</a></li>');
-        ddMenu.append('<li role="presentation"><a onclick="selectPollingInterval(0)" role="menuitem" tabindex="-1" href="#">PostgreSQL</a></li>');
-        ddMenu.append('<li role="presentation"><a onclick="selectPollingInterval(0)" role="menuitem" tabindex="-1" href="#">MySQL</a></li>');
+        ddMenu.append('<li role="presentation"><a onclick="eventDbmsSelected(0)" role="menuitem" tabindex="-1" href="#">MariaDB</a></li>');
+        ddMenu.append('<li role="presentation"><a onclick="eventDbmsSelected(1)" role="menuitem" tabindex="-1" href="#">PostgreSQL</a></li>');
+        ddMenu.append('<li role="presentation"><a onclick="eventDbmsSelected(2)" role="menuitem" tabindex="-1" href="#">MySQL</a></li>');
         btnGrp.append(ddMenu);
         odbcConfig.append('<p>');
         odbcConfig.append(getClientMessage('ODBC_SELECTION'));
         odbcConfig.append(btnGrp);
         odbcConfig.append('</p>');
 
+        odbcConfig.append('<textarea class="form-control" id="connstr" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 100px;"></textarea>');
+        if (odbcInfoConfigured.DbType === 'Init') {
+            $('#connstr').val(odbcInfos[1].ConnStr);
+        } else {
+            var csReplaced = odbcInfoConfigured.ConnStr;
+            csReplaced = csReplaced.replace(/&/g, "&amp;");
+            csReplaced = csReplaced.replace(/</g, "&lt;");
+            csReplaced = csReplaced.replace(/>/g, "&gt;");
+            csReplaced = csReplaced.replace(/\"/g, "&quot;");
+            $('#connstr').append(csReplaced);
+        }
+
         odbcConfig.append('<p>');
-        odbcConfig.append('<button type="button" id="okOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_OK') + '</button> ');
+        odbcConfig.append('<button type="button" id="okOdbcConfig" class="btn btn-dark" onclick="closeDbmsConfig()">' + getClientMessage('DLG_OK') + '</button> ');
         odbcConfig.append('<button type="button" id="cancelOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CANCEL') + '</button> ');
         odbcConfig.append('</p>');
+    }
+
+    function eventDbmsSelected(dbmsindex) {
+        var odbcInfos = getArray(responseData['API_GET_ODBCINFO_DEFAULT'].Data.OdbcInfo);
+        $('#dbmsselector').text(odbcInfos[dbmsindex].DbType);
+        $('#connstr').val(odbcInfos[dbmsindex].ConnStr);
+    }
+
+    function closeDbmsConfig() {
+        var selectedDbmsName = $('#dbmsselector').text();
+        var tmpstr = $('#connstr').val().replace(/[\n\r]/g, '');
+        var reqDatDf = {'DbType' : selectedDbmsName, 'ConnStr' : tmpstr};
+        apiCall('POST', '/api/odbcinfo/', reqDatDf, 'API_POST_ODBCINFO', null);
+        closeInputModal();
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -1002,6 +1028,8 @@
         } else {
             addRsCommand('transDisplayOdbcConfig()', 'icon-cogs', true);
             addRsCommand('transDisplayInformation()', 'icon-info', true);
+            addDropDown('Table');
+            addDropDownMenu('Menu-1');
             return true;
         }
     }
