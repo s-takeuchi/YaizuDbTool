@@ -1004,7 +1004,7 @@
             var contents = [{method : 'GET', url : '/api/tableinfo/', request : reqDatDf, keystring : 'API_GET_TABLEINFO_WITH_COL'},
                             {method : 'GET', url : '/api/records/', request : reqDatDf, keystring : 'API_GET_RECORDS'}
             ];
-            MultiApiCall(contents, null);
+            MultiApiCall(contents, displayData);
         } else {
             currentTablename = "";
         }
@@ -1013,6 +1013,42 @@
     function selectTable(tablename) {
         currentTablename = tablename;
         changeDropDownTitle(currentTablename);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+
+    function displayData() {
+        var containerFluidWorkSpace = $('<div class="container-fluid">');
+        containerFluidWorkSpace.append('<div><div id="cmdfreakdata" class="row col-xs-12"></div></div>');
+        $('body').append(containerFluidWorkSpace);
+
+        var cmdfreakData = $('<table class="table table-striped table-bordered">');
+
+        var tHead = $('<thead>');
+        var headStr = '<tr>';
+        for (var Loop = 0; Loop < 100; Loop++) {
+            headStr += '<th>aaa</th>';
+        }
+        headStr += '</tr>';
+        tHead.append(headStr);
+        cmdfreakData.append(tHead);
+
+        var tBody = $('<tbody>');
+        for (var Loop = 0; Loop < 500; Loop++) {
+            var bodyStr = '<tr>';
+            for (var Loop2 = 0; Loop2 < 100; Loop2++) {
+                bodyStr += '<td>aaa</td>';
+            }
+            bodyStr += '</tr>';
+            tBody.append(bodyStr);
+        }
+        cmdfreakData.append(tBody);
+
+        $('#cmdfreakdata').append(cmdfreakData);
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////
