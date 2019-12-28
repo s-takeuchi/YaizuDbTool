@@ -1113,7 +1113,8 @@
         userRole = 1;
         if (userRole == 1) {
             clearRsCommand();
-            addRsCommand('transDisplayOdbcConfig()', 'icon-cogs', true);
+            addDropDown('Tables');
+            addRsCommand('transDisplayInformation()', 'icon-filter', true);
 
             var contents = [{method : 'GET', url : '/api/logs/', request : null, keystring : 'API_GET_LOGS'},
                             {method : 'GET', url : '/api/system/', request : null, keystring : 'API_GET_SYSTEM'},
@@ -1121,11 +1122,7 @@
                             {method : 'GET', url : '/api/odbcinfo/', request : {'query' : 'configured' }, keystring : 'API_GET_ODBCINFO_CONFIGURED'}
             ];
             MultiApiCall(contents, null);
-
-            addDropDown('Tables');
             apiCall('GET', '/api/tableinfo/', null, 'API_GET_TABLEINFO', displayTableList);
-
-            addRsCommand('transDisplayInformation()', 'icon-info', true);
         } else {
         }
     }
@@ -1149,6 +1146,8 @@
             return false;
         } else {
             refreshInfo();
+            $('#menu-cmdfreakinfo').show();
+            $('#menu-cmdfreakconfig').show();
             return true;
         }
     }
@@ -1163,10 +1162,23 @@
         $(".table-responsive").css("height", hsize + "px");
     });
 
+    function activateTopic(id) {
+        if (id === 'cmdfreakinfo') {
+            transDisplayInformation();
+        }
+        if (id === 'cmdfreakconfig') {
+            transDisplayOdbcConfig();
+        }
+    }
+
     window.onload = function() {
         initClientMessage();
         apiCall('GET', '/api/language/', null, 'API_GET_LANG', getLanguage);
-        initMainPage('CmdFreak', null);
+        var contents = [
+            { id : 'cmdfreakconfig', actApiName : 'activateTopic', title : 'ODBC connection' },
+            { id : 'cmdfreakinfo', actApiName : 'activateTopic', title : 'Information' }
+        ];
+        initMainPage('CmdFreak',contents);
         showLoginModal(checkLogin);
     }
 
