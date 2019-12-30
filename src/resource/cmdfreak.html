@@ -133,6 +133,16 @@
         addClientMessage('SVCINFO_LOGMSG', {'en':'Message', 'ja':'メッセージ'});
 
         //
+        // Filtering dialog
+        //
+        addClientMessage('FILTERING', {'en':'Filtering', 'ja':'フィルタリング'});
+        addClientMessage('FILTERING_NO_TABLE', {'en':'The operation cannot be performed because the target table for filtering does not exist.', 'ja':'フィルタリングの対象となるテーブルが存在しないため操作を継続できません。'});
+        addClientMessage('FILTERING_DESC', {
+            'en':'Filter settings can be specified here.<br>Records are filtered according to the specified criteria.<br>Up to five filter items can be specified.<br>All items are treated as logical AND operators.',
+            'ja':'ここではフィルタリングの設定を行うことができます。<br>指定した条件でレコード情報がフィルタリングされます。<br>フィルタリング項目は最大5件を指定することができます。<br>各フィルタリング項目間は論理積[AND]で結合されます。'
+        });
+
+        //
         // Errors, Common
         //
         addClientMessage('CONNERR', {
@@ -856,14 +866,16 @@
             // Nothing to do
         } else if (statusCode['API_GET_ODBCINFO_DEFAULT'] == 400 || statusCode['API_GET_ODBCINFO_CONFIGURED'] == 400) {
             if (statusCode['API_GET_ODBCINFO_DEFAULT'] == 400) {
-                displayAlertDanger('#odbcConfig', getSvrMsg(responseData['API_GET_ODBCINFO_DEFAULT']));
+                displayAlertDanger('#odbcconfig', getSvrMsg(responseData['API_GET_ODBCINFO_DEFAULT']));
             }
             if (statusCode['API_GET_ODBCINFO_CONFIGURED'] == 400) {
-                displayAlertDanger('#odbcConfig', getSvrMsg(responseData['API_GET_ODBCINFO_CONFIGURED']));
+                displayAlertDanger('#odbcconfig', getSvrMsg(responseData['API_GET_ODBCINFO_CONFIGURED']));
             }
+            odbcConfig.append('<p><button type="button" id="closeOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
             return;
         } else {
-            displayAlertDanger('#odbcConfig', getClientMessage('CONNERR'));
+            displayAlertDanger('#odbcconfig', getClientMessage('CONNERR'));
+            odbcConfig.append('<p><button type="button" id="closeOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
             return;
         }
 
@@ -943,6 +955,7 @@
             version = responseData['API_GET_SYSTEM'].Data.Version;
         } else {
             displayAlertDanger('#svcinfo', getClientMessage('CONNERR'));
+            svcInfo.append('<p><button type="button" id="closeSvcInfo" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
             return;
         }
         var Logs = [];
@@ -954,6 +967,7 @@
             }
         } else {
             displayAlertDanger('#svcinfo', getClientMessage('CONNERR'));
+            svcInfo.append('<p><button type="button" id="closeSvcInfo" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
             return;
         }
 
@@ -1018,6 +1032,7 @@
 
     function selectTable(index) {
         var tableInfos = getArray(responseData['API_GET_TABLEINFO'].Data.TableInfo);
+        currentTablename = tableInfos[index].Name;
         changeDropDownTitle(getDropDownMenu(index));
         var reqDatDf = {'query' : tableInfos[index].Name};
         var contents = [{method : 'GET', url : '/api/tableinfo/', request : reqDatDf, keystring : 'API_GET_TABLEINFO_WITH_COL'},
@@ -1098,6 +1113,69 @@
     ////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////
 
+    function displayFilterModal() {
+        var filteringDlg = $('<div id="filter">');
+        showInputModal(getClientMessage('FILTERING'), filteringDlg);
+
+        if (currentTablename == "") {
+            displayAlertDanger('#filter', getClientMessage('FILTERING_NO_TABLE'));
+            filteringDlg.append('<p><button type="button" id="closeFilterDlg" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
+            return;
+        }
+        if (statusCode['API_GET_FILTERINFO'] == 200 && statusCode['API_GET_TABLEINFO_WITH_COL'] == 200) {
+            // Nothing to do
+        } else if (statusCode['API_GET_TABLEINFO_WITH_COL'] == 404) {
+            displayAlertDanger('#filter', getSvrMsg(responseData['API_GET_TABLEINFO_WITH_COL']));
+            filteringDlg.append('<p><button type="button" id="closeFilterDlg" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
+            return;
+        } else {
+            displayAlertDanger('#filter', getClientMessage('CONNERR'));
+            filteringDlg.append('<p><button type="button" id="closeFilterDlg" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
+            return;
+        }
+
+        var colInfo = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
+
+        filteringDlg.append(getClientMessage('FILTERING_DESC'));
+
+        filteringDlg.append('<p>');
+
+        var btnColGrp = $('<div class="btn-group" style="margin-right:10px;float:left">');
+        btnColGrp.append('<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="selectedExecCommand">' + getClientMessage('SELCMD') + '</span><span class="caret"></span></button>');
+        var colMenu = $('<ul class="dropdown-menu" role="menu">');
+        for (var loop = 0; colInfo != null && loop < colInfo.length; loop++) {
+            colMenu.append('<li role="presentation"><a onclick="selectExecCommand(' + loop + ')" role="menuitem" tabindex="-1" href="#">' + colInfo[loop].title + '</a></li>');
+        }
+        btnColGrp.append(colMenu);
+
+        var btnOpeGrp = $('<div class="btn-group" style="margin-right:10px;float:left;">');
+        btnOpeGrp.append('<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="selectedExecCommand">' + getClientMessage('SELCMD') + '</span><span class="caret"></span></button>');
+        var opeMenu = $('<ul class="dropdown-menu" role="menu">');
+        for (var loop = 0; colInfo != null && loop < colInfo.length; loop++) {
+            opeMenu.append('<li role="presentation"><a onclick="selectExecCommand(' + loop + ')" role="menuitem" tabindex="-1" href="#">' + colInfo[loop].title + '</a></li>');
+        }
+        btnOpeGrp.append(opeMenu);
+
+        var frmValGrp = $('<div class="form-group" style="width:100px;float:left"><input type="text" class="form-control" id="commandName" placeholder="xxxx"></div>');
+
+        filteringDlg.append(btnColGrp);
+        filteringDlg.append(btnOpeGrp);
+        filteringDlg.append(frmValGrp);
+        filteringDlg.append($('<div style="clear:both"/>'));
+
+        filteringDlg.append('</p>');
+
+        filteringDlg.append('<p>');
+        filteringDlg.append('<button type="button" id="okFiltering" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_OK') + '</button> ');
+        filteringDlg.append('<button type="button" id="cancelFiltering" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CANCEL') + '</button> ');
+        filteringDlg.append('</p>');
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+
     function getLanguage() {
         if (statusCode['API_GET_LANG'] == -1 || statusCode['API_GET_LANG'] == 0) {
             return;
@@ -1114,14 +1192,7 @@
         if (userRole == 1) {
             clearRsCommand();
             addDropDown('Tables');
-            addRsCommand('transDisplayInformation()', 'icon-filter', true);
-
-            var contents = [{method : 'GET', url : '/api/logs/', request : null, keystring : 'API_GET_LOGS'},
-                            {method : 'GET', url : '/api/system/', request : null, keystring : 'API_GET_SYSTEM'},
-                            {method : 'GET', url : '/api/odbcinfo/', request : {'query' : 'default' }, keystring : 'API_GET_ODBCINFO_DEFAULT'},
-                            {method : 'GET', url : '/api/odbcinfo/', request : {'query' : 'configured' }, keystring : 'API_GET_ODBCINFO_CONFIGURED'}
-            ];
-            MultiApiCall(contents, null);
+            addRsCommand('transDisplayFilterModal()', 'icon-filter', true);
             apiCall('GET', '/api/tableinfo/', null, 'API_GET_TABLEINFO', displayTableList);
         } else {
         }
@@ -1141,6 +1212,13 @@
         MultiApiCall(contents, displayOdbcConfig);
     }
 
+    function transDisplayFilterModal() {
+        var contents = [{method : 'GET', url : '/api/tableinfo/', request : {'query' : currentTablename }, keystring : 'API_GET_TABLEINFO_WITH_COL'},
+                        {method : 'GET', url : '/api/filterinfo/', request : null, keystring : 'API_GET_FILTERINFO'}
+        ];
+        MultiApiCall(contents, displayFilterModal);
+    }
+
     function checkLogin() {
         if (false) {
             return false;
@@ -1149,6 +1227,15 @@
             $('#menu-cmdfreakinfo').show();
             $('#menu-cmdfreakconfig').show();
             return true;
+        }
+    }
+
+    function activateTopic(id) {
+        if (id === 'cmdfreakinfo') {
+            transDisplayInformation();
+        }
+        if (id === 'cmdfreakconfig') {
+            transDisplayOdbcConfig();
         }
     }
 
@@ -1161,15 +1248,6 @@
         hsize = $(window).height() - 80;
         $(".table-responsive").css("height", hsize + "px");
     });
-
-    function activateTopic(id) {
-        if (id === 'cmdfreakinfo') {
-            transDisplayInformation();
-        }
-        if (id === 'cmdfreakconfig') {
-            transDisplayOdbcConfig();
-        }
-    }
 
     window.onload = function() {
         initClientMessage();
