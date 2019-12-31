@@ -1104,8 +1104,8 @@
         cmdfreakDiv.append(cmdfreakData);
 
         $('#cmdfreakdata').append(cmdfreakDiv);
-        hsize = $(window).height() - 80;
-        $(".table-responsive").css("height", hsize + "px");
+
+        resizeComponent();
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -1138,32 +1138,31 @@
 
         filteringDlg.append(getClientMessage('FILTERING_DESC'));
 
-        filteringDlg.append('<p>');
+        for (var loopFil = 0; loopFil < 5; loopFil++) {
+            var btnCol = $('<div class="filter-col-responsive" style="margin-right:5px;margin-bottom:5px"><button type="button" class="filter-responsive1 btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="paramCol' + loopFil + '">' + getClientMessage('SELCMD') + '</span><span class="caret"></span></button></div>');
+            var colMenu = $('<ul class="dropdown-menu" role="menu">');
+            for (var loop = 0; colInfo != null && loop < colInfo.length; loop++) {
+                colMenu.append('<li role="presentation"><a onclick="selectExecCommand(' + loop + ')" role="menuitem" tabindex="-1" href="#">' + escapeString(colInfo[loop].title) + '</a></li>');
+            }
+            btnCol.append(colMenu);
 
-        var btnColGrp = $('<div class="btn-group" style="margin-right:10px;float:left">');
-        btnColGrp.append('<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="selectedExecCommand">' + getClientMessage('SELCMD') + '</span><span class="caret"></span></button>');
-        var colMenu = $('<ul class="dropdown-menu" role="menu">');
-        for (var loop = 0; colInfo != null && loop < colInfo.length; loop++) {
-            colMenu.append('<li role="presentation"><a onclick="selectExecCommand(' + loop + ')" role="menuitem" tabindex="-1" href="#">' + colInfo[loop].title + '</a></li>');
+            var btnOpe = $('<div class="filter-ope-responsive" style="margin-right:5px;margin-bottom:5px"><button type="button" class="filter-responsive1 btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="paramOpe' + loopFil + '">' + getClientMessage('SELCMD') + '</span><span class="caret"></span></button></div>');
+            var opeMenu = $('<ul class="dropdown-menu" role="menu">');
+            for (var loop = 0; colInfo != null && loop < colInfo.length; loop++) {
+                opeMenu.append('<li role="presentation"><a onclick="selectExecCommand(' + loop + ')" role="menuitem" tabindex="-1" href="#">' + escapeString(colInfo[loop].title) + '</a></li>');
+            }
+            btnOpe.append(opeMenu);
+
+            var frmValGrp = $('<div class="filter-val-responsive filter-responsive1" class="form-group" style="margin-right:5px;margin-bottom:5px"><input type="text" class="form-control" id="paramVal' + loopFil + '" placeholder="xxxx"></div>');
+
+            filteringDlg.append('<p>');
+            filteringDlg.append(btnCol);
+            filteringDlg.append(btnOpe);
+            filteringDlg.append(frmValGrp);
+            filteringDlg.append($('<div style="clear:both"/>'));
+            filteringDlg.append('</p>');
         }
-        btnColGrp.append(colMenu);
-
-        var btnOpeGrp = $('<div class="btn-group" style="margin-right:10px;float:left;">');
-        btnOpeGrp.append('<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="selectedExecCommand">' + getClientMessage('SELCMD') + '</span><span class="caret"></span></button>');
-        var opeMenu = $('<ul class="dropdown-menu" role="menu">');
-        for (var loop = 0; colInfo != null && loop < colInfo.length; loop++) {
-            opeMenu.append('<li role="presentation"><a onclick="selectExecCommand(' + loop + ')" role="menuitem" tabindex="-1" href="#">' + colInfo[loop].title + '</a></li>');
-        }
-        btnOpeGrp.append(opeMenu);
-
-        var frmValGrp = $('<div class="form-group" style="width:100px;float:left"><input type="text" class="form-control" id="commandName" placeholder="xxxx"></div>');
-
-        filteringDlg.append(btnColGrp);
-        filteringDlg.append(btnOpeGrp);
-        filteringDlg.append(frmValGrp);
-        filteringDlg.append($('<div style="clear:both"/>'));
-
-        filteringDlg.append('</p>');
+        resizeComponent();
 
         filteringDlg.append('<p>');
         filteringDlg.append('<button type="button" id="okFiltering" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_OK') + '</button> ');
@@ -1239,14 +1238,52 @@
         }
     }
 
-    $(document).ready(function () {
-        hsize = $(window).height() - 80;
+    function resizeComponent() {
+        var wsize = $(window).width();
+        var horizontal = false;
+        if (wsize >= 1200) {
+            horizontal = true;
+            wsize = 300;
+        } else if (wsize >= 992) {
+            horizontal = true;
+            wsize = 240;
+        } else if (wsize >= 576) {
+            horizontal = false;
+            wsize = 400;
+        } else if (wsize >= 400) {
+            horizontal = false;
+            wsize = 300;
+        } else {
+            horizontal = false;
+            wsize = 240;
+        }
+        if (horizontal == true) {
+            $(".filter-col-responsive").css("margin-left", "0px");
+            $(".filter-ope-responsive").css("margin-left", "0px");
+            $(".filter-val-responsive").css("margin-left", "0px");
+            $(".filter-col-responsive").css("float", "left");
+            $(".filter-ope-responsive").css("float", "left");
+            $(".filter-val-responsive").css("float", "left");
+        } else {
+            $(".filter-col-responsive").css("margin-left", "0px");
+            $(".filter-ope-responsive").css("margin-left", "15px");
+            $(".filter-val-responsive").css("margin-left", "30px");
+            $(".filter-col-responsive").css("float", "top");
+            $(".filter-ope-responsive").css("float", "top");
+            $(".filter-val-responsive").css("float", "top");
+        }
+        $(".filter-responsive1").css("width", wsize + "px");
+
+        var hsize = $(window).height() - 80;
         $(".table-responsive").css("height", hsize + "px");
+    }
+
+    $(document).ready(function () {
+        resizeComponent();
     });
 
     $(window).resize(function () {
-        hsize = $(window).height() - 80;
-        $(".table-responsive").css("height", hsize + "px");
+        resizeComponent();
     });
 
     window.onload = function() {
