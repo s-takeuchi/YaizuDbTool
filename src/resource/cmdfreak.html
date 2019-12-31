@@ -141,6 +141,7 @@
             'en':'Filter settings can be specified here.<br>Records are filtered according to the specified criteria.<br>Up to five filter items can be specified.<br>All items are treated as logical AND operators.',
             'ja':'ここではフィルタリングの設定を行うことができます。<br>指定した条件でレコード情報がフィルタリングされます。<br>フィルタリング項目は最大5件を指定することができます。<br>各フィルタリング項目間は論理積[AND]で結合されます。'
         });
+        addClientMessage('FILTERING_UNSPECIFY', {'en':'Unspecified', 'ja':'未指定'});
 
         //
         // Errors, Common
@@ -1134,40 +1135,156 @@
             return;
         }
 
-        var colInfo = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
+        var columnInfos = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
 
         filteringDlg.append(getClientMessage('FILTERING_DESC'));
 
         for (var loopFil = 0; loopFil < 5; loopFil++) {
-            var btnCol = $('<div class="filter-col-responsive" style="margin-right:5px;margin-bottom:5px"><button type="button" class="filter-responsive1 btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="paramCol' + loopFil + '">' + getClientMessage('SELCMD') + '</span><span class="caret"></span></button></div>');
-            var colMenu = $('<ul class="dropdown-menu" role="menu">');
-            for (var loop = 0; colInfo != null && loop < colInfo.length; loop++) {
-                colMenu.append('<li role="presentation"><a onclick="selectExecCommand(' + loop + ')" role="menuitem" tabindex="-1" href="#">' + escapeString(colInfo[loop].title) + '</a></li>');
-            }
+            var btnCol = $('<div class="filter-col-responsive" style="margin-right:5px;margin-bottom:5px"><button id="paramCol' + loopFil + '" type="button" class="filter-wid-responsive btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="paramColTxt' + loopFil + '">' + getClientMessage('FILTERING_UNSPECIFY') + '</span><span class="caret"></span></button></div>');
+            var colMenu = $('<ul id="paramColMenu' + loopFil + '" class="dropdown-menu" role="menu">');
             btnCol.append(colMenu);
 
-            var btnOpe = $('<div class="filter-ope-responsive" style="margin-right:5px;margin-bottom:5px"><button type="button" class="filter-responsive1 btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="paramOpe' + loopFil + '">' + getClientMessage('SELCMD') + '</span><span class="caret"></span></button></div>');
-            var opeMenu = $('<ul class="dropdown-menu" role="menu">');
-            for (var loop = 0; colInfo != null && loop < colInfo.length; loop++) {
-                opeMenu.append('<li role="presentation"><a onclick="selectExecCommand(' + loop + ')" role="menuitem" tabindex="-1" href="#">' + escapeString(colInfo[loop].title) + '</a></li>');
-            }
+            var btnOpe = $('<div class="filter-ope-responsive" style="margin-right:5px;margin-bottom:5px"><button id="paramOpe' + loopFil + '" type="button" class="filter-wid-responsive btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="paramOpeTxt' + loopFil + '"></span><span class="caret"></span></button></div>');
+            var opeMenu = $('<ul id="paramOpeMenu' + loopFil + '" class="dropdown-menu" role="menu">');
             btnOpe.append(opeMenu);
 
-            var frmValGrp = $('<div class="filter-val-responsive filter-responsive1" class="form-group" style="margin-right:5px;margin-bottom:5px"><input type="text" class="form-control" id="paramVal' + loopFil + '" placeholder="xxxx"></div>');
+            var frmVal = $('<div class="filter-val-responsive filter-wid-responsive"" style="margin-right:5px;margin-bottom:5px"><input type="text" class="form-control" id="paramVal' + loopFil + '"></div>');
 
             filteringDlg.append('<p>');
             filteringDlg.append(btnCol);
             filteringDlg.append(btnOpe);
-            filteringDlg.append(frmValGrp);
+            filteringDlg.append(frmVal);
             filteringDlg.append($('<div style="clear:both"/>'));
             filteringDlg.append('</p>');
         }
         resizeComponent();
 
+        var filterInfo = responseData['API_GET_FILTERINFO'].Data.FilterInfo.Criteria;
+
+        for (var loopFil = 0; loopFil < 5; loopFil++) {
+            $('#paramOpe' + loopFil).addClass('disabled');
+            $('#paramVal' + loopFil).prop('disabled', true);
+            var filFndFlag = false;
+            $('#paramColMenu' + loopFil).append('<li role="presentation"><a onclick="eventParamColChanged(' + loopFil + ', -1)" role="menuitem" tabindex="-1" href="#">' + getClientMessage('FILTERING_UNSPECIFY') + '</a></li>');
+            for (var loop = 0; columnInfos != null && loop < columnInfos.length; loop++) {
+                $('#paramColMenu' + loopFil).append('<li role="presentation"><a onclick="eventParamColChanged(' + loopFil + ', ' + loop + ')" role="menuitem" tabindex="-1" href="#">' + escapeString(columnInfos[loop].title) + '</a></li>');
+                if (columnInfos[loop].title == filterInfo[loopFil].columnname) {
+                    $('#paramColTxt' + loopFil).text(columnInfos[loop].title);
+                    filFndFlag = true;
+                }
+            }
+            if (filFndFlag) {
+                $('#paramOpe' + loopFil).removeClass('disabled');
+                $('#paramVal' + loopFil).prop('disabled', false);
+            }
+            switch (filterInfo[loopFil].opetype) {
+                case 1  : $('#paramOpeTxt' + loopFil).text('='); break;
+                case 2  : $('#paramOpeTxt' + loopFil).text('!='); break;
+                case 3  : $('#paramOpeTxt' + loopFil).text('&lt;='); break;
+                case 4  : $('#paramOpeTxt' + loopFil).text('&lt;'); break;
+                case 5  : $('#paramOpeTxt' + loopFil).text('&gt;='); break;
+                case 6  : $('#paramOpeTxt' + loopFil).text('&gt;'); break;
+                case 10 : $('#paramOpeTxt' + loopFil).text('contains'); break;
+                case 11 : $('#paramOpeTxt' + loopFil).text('does not contain'); break;
+                case 20 : $('#paramOpeTxt' + loopFil).text('is NULL'); $('#paramVal' + loopFil).prop('disabled', true); break;
+                case 21 : $('#paramOpeTxt' + loopFil).text('is not NULL'); $('#paramVal' + loopFil).prop('disabled', true); break;
+            }
+            $('#paramVal' + loopFil).val(filterInfo[loopFil].value);
+        }
+
         filteringDlg.append('<p>');
-        filteringDlg.append('<button type="button" id="okFiltering" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_OK') + '</button> ');
+        filteringDlg.append('<button type="button" id="okFiltering" class="btn btn-dark" onclick="okFilterModal()">' + getClientMessage('DLG_OK') + '</button> ');
         filteringDlg.append('<button type="button" id="cancelFiltering" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CANCEL') + '</button> ');
         filteringDlg.append('</p>');
+    }
+
+    function eventParamColChanged(indexFil, indexCol) {
+        var columnInfos = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
+        if (indexCol == -1) {
+            $('#paramColTxt' + indexFil).text(getClientMessage('FILTERING_UNSPECIFY'));
+            $('#paramOpe' + indexFil).addClass('disabled');
+            $('#paramVal' + indexFil).prop('disabled', true);
+            return;
+        }
+        $('#paramColTxt' + indexFil).text(columnInfos[indexCol].title);
+        $('#paramOpe' + indexFil).removeClass('disabled');
+        $('#paramVal' + indexFil).prop('disabled', false);
+
+        $('#paramOpeMenu' + indexFil).empty();
+        $('#paramOpeMenu' + indexFil).append('<li role="presentation"><a onclick="eventParamOpeChanged(' + indexFil + ', \'=\')" role="menuitem" tabindex="-1" href="#">=</a></li>');
+        $('#paramOpeMenu' + indexFil).append('<li role="presentation"><a onclick="eventParamOpeChanged(' + indexFil + ', \'!=\')" role="menuitem" tabindex="-1" href="#">!=</a></li>');
+        if (columnInfos[indexCol].dataType === 'integer' ||
+            columnInfos[indexCol].dataType === 'float') {
+            $('#paramOpeMenu' + indexFil).append('<li role="presentation"><a onclick="eventParamOpeChanged(' + indexFil + ', \'&lt;=\')" role="menuitem" tabindex="-1" href="#">&lt;=</a></li>');
+            $('#paramOpeMenu' + indexFil).append('<li role="presentation"><a onclick="eventParamOpeChanged(' + indexFil + ', \'&lt;\')" role="menuitem" tabindex="-1" href="#">&lt;</a></li>');
+            $('#paramOpeMenu' + indexFil).append('<li role="presentation"><a onclick="eventParamOpeChanged(' + indexFil + ', \'&gt;=\')" role="menuitem" tabindex="-1" href="#">&gt;=</a></li>');
+            $('#paramOpeMenu' + indexFil).append('<li role="presentation"><a onclick="eventParamOpeChanged(' + indexFil + ', \'&gt;\')" role="menuitem" tabindex="-1" href="#">&gt;</a></li>');
+        }
+        if (columnInfos[indexCol].dataType === 'string') {
+            $('#paramOpeMenu' + indexFil).append('<li role="presentation"><a onclick="eventParamOpeChanged(' + indexFil + ', \'contains\')" role="menuitem" tabindex="-1" href="#">contains</a></li>');
+            $('#paramOpeMenu' + indexFil).append('<li role="presentation"><a onclick="eventParamOpeChanged(' + indexFil + ', \'does not contain\')" role="menuitem" tabindex="-1" href="#">does not contain</a></li>');
+        }
+        $('#paramOpeMenu' + indexFil).append('<li role="presentation"><a onclick="eventParamOpeChanged(' + indexFil + ', \'is NULL\')" role="menuitem" tabindex="-1" href="#">is NULL</a></li>');
+        $('#paramOpeMenu' + indexFil).append('<li role="presentation"><a onclick="eventParamOpeChanged(' + indexFil + ', \'is not NULL\')" role="menuitem" tabindex="-1" href="#">is not NULL</a></li>');
+        $('#paramOpeTxt' + indexFil).text('=');
+    }
+
+    function eventParamOpeChanged(indexFil, ope) {
+        if (ope == "is NULL" || ope == "is not NULL") {
+            $('#paramVal' + indexFil).prop('disabled', true);
+        } else {
+            $('#paramVal' + indexFil).prop('disabled', false);
+        }
+        $('#paramOpeTxt' + indexFil).text(ope);
+    }
+
+    function okFilterModal() {
+        if (currentTablename == "") {
+            return;
+        }
+        var criteria = [{index : 0, columnname : "", opetype : 0, value : ""},
+                        {index : 0, columnname : "", opetype : 0, value : ""},
+                        {index : 0, columnname : "", opetype : 0, value : ""},
+                        {index : 0, columnname : "", opetype : 0, value : ""},
+                        {index : 0, columnname : "", opetype : 0, value : ""}
+        ];
+        for (var loop = 0; loop < 5; loop++) {
+            var paramCol = $('#paramColTxt' + loop).text();
+            var paramOpe = $('#paramOpeTxt' + loop).text();
+            var paramVal = $('#paramVal' + loop).val();
+            var paramOpeInt = 0;
+
+            if (typeof paramCol === 'undefined' || typeof paramOpe === 'undefined' || typeof paramVal === 'undefined') {
+                paramCol = '*';
+                paramVal = '';
+            } else if (paramCol === getClientMessage('FILTERING_UNSPECIFY') || paramOpe === '') {
+                paramCol = '*';
+                paramVal = '';
+            } else {
+                switch (paramOpe) {
+                    case '='                 : paramOpeInt = 1; break;
+                    case '!='                : paramOpeInt = 2; break;
+                    case '>='                : paramOpeInt = 3; break;
+                    case '>'                 : paramOpeInt = 4; break;
+                    case '<='                : paramOpeInt = 5; break;
+                    case '<'                 : paramOpeInt = 6; break;
+                    case 'contains'          : paramOpeInt = 10; break;
+                    case 'does not contain'  : paramOpeInt = 11; break;
+                    case 'is NULL'           : paramOpeInt = 20; break;
+                    case 'is not NULL'       : paramOpeInt = 21; break;
+                }
+            }
+            criteria[loop].index = loop + 1;
+            criteria[loop].columnname = paramCol;
+            criteria[loop].opetype = paramOpeInt;
+            criteria[loop].value = paramVal;
+        }
+        var reqDatDf = {"Criteria":criteria};
+        apiCall('POST', '/api/filterinfo/', reqDatDf, 'API_POST_FILTERINFO', completeFilterModal);
+    }
+
+    function completeFilterModal() {
+        closeInputModal();
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -1272,7 +1389,7 @@
             $(".filter-ope-responsive").css("float", "top");
             $(".filter-val-responsive").css("float", "top");
         }
-        $(".filter-responsive1").css("width", wsize + "px");
+        $(".filter-wid-responsive").css("width", wsize + "px");
 
         var hsize = $(window).height() - 80;
         $(".table-responsive").css("height", hsize + "px");
