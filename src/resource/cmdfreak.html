@@ -142,6 +142,11 @@
             'ja':'ここではフィルタリングの設定を行うことができます。<br>指定した条件でレコード情報がフィルタリングされます。<br>フィルタリング項目は最大5件を指定することができます。<br>各フィルタリング項目間は論理積[AND]で結合されます。'
         });
         addClientMessage('FILTERING_UNSPECIFY', {'en':'Unspecified', 'ja':'未指定'});
+        addClientMessage('FILTERING_INVALID', {
+            'en':'The filter conditions set do not match the current table schema.<br>Do you want to clear the filter conditions?',
+            'ja':'設定されているフィルタリング条件は現在のテーブルのスキーマと一致していません。<br>フィルタリング条件をクリアしてよいですか？'
+        });
+        addClientMessage('FILTERING_ON', {'en':'Filtering On', 'ja':'フィルタリング有効'});
 
         //
         // Errors, Common
@@ -1137,7 +1142,15 @@
 
         var columnInfos = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
 
+        var filterOn = '';
+        if (responseData['API_GET_FILTERINFO'].Data.FilterInfo.Function === 'enable') {
+            filterOn = 'checked';
+        }
+        filteringDlg.append($('<div class="form-check"><input class="form-check-input" type="checkbox" id="filterOn" ' + filterOn + '><label class="form-check-label" for="filterOn">' + getClientMessage('FILTERING_ON') + '</label></div>'));
+
+        filteringDlg.append('<p>');
         filteringDlg.append(getClientMessage('FILTERING_DESC'));
+        filteringDlg.append('</p>');
 
         for (var loopFil = 0; loopFil < 5; loopFil++) {
             var btnCol = $('<div class="filter-col-responsive" style="margin-right:5px;margin-bottom:5px"><button id="paramCol' + loopFil + '" type="button" class="filter-wid-responsive btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="paramColTxt' + loopFil + '">' + getClientMessage('FILTERING_UNSPECIFY') + '</span><span class="caret"></span></button></div>');
@@ -1171,7 +1184,17 @@
                 if (columnInfos[loop].title == filterInfo[loopFil].columnname) {
                     $('#paramColTxt' + loopFil).text(columnInfos[loop].title);
                     filFndFlag = true;
+                    eventParamColChanged(loopFil, loop);
                 }
+            }
+            if (!filFndFlag && filterInfo[loopFil].columnname != '*') {
+                filteringDlg.empty();
+                filteringDlg.append(getClientMessage('FILTERING_INVALID'));
+                filteringDlg.append('<p>');
+                filteringDlg.append('<button type="button" id="clearFiltering" class="btn btn-dark" onclick="clearFilterModal()">' + getClientMessage('DLG_OK') + '</button> ');
+                filteringDlg.append('<button type="button" id="cancelFiltering" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CANCEL') + '</button> ');
+                filteringDlg.append('</p>');
+                return;
             }
             if (filFndFlag) {
                 $('#paramOpe' + loopFil).removeClass('disabled');
@@ -1239,9 +1262,6 @@
     }
 
     function okFilterModal() {
-        if (currentTablename == "") {
-            return;
-        }
         var criteria = [{index : 0, columnname : "", opetype : 0, value : ""},
                         {index : 0, columnname : "", opetype : 0, value : ""},
                         {index : 0, columnname : "", opetype : 0, value : ""},
@@ -1279,12 +1299,37 @@
             criteria[loop].opetype = paramOpeInt;
             criteria[loop].value = paramVal;
         }
+
+        var reqDatDf = {"Criteria":criteria};
+        var reqDatSw = {};
+        if ($('#filterOn').prop('checked') == true) {
+            reqDatSw = {"Function":"enable"};
+        } else {
+            reqDatSw = {"Function":"disable"};
+        }
+        var reqDatRc = {'query' : currentTablename};
+        var contents = [{method : 'POST', url : '/api/filterinfo/', request : reqDatDf, keystring : 'API_POST_FILTERINFO'},
+                        {method : 'POST', url : '/api/filterinfo/', request : reqDatSw, keystring : 'API_POST_FILTERINFO'},
+                        {method : 'GET', url : '/api/tableinfo/', request : reqDatRc, keystring : 'API_GET_TABLEINFO_WITH_COL'},
+                        {method : 'GET', url : '/api/records/', request : reqDatRc, keystring : 'API_GET_RECORDS'}
+        ];
+        MultiApiCall(contents, completeFilterModal);
+    }
+
+    function clearFilterModal() {
+        var criteria = [{index : 1, columnname : "*", opetype : 0, value : ""},
+                        {index : 2, columnname : "*", opetype : 0, value : ""},
+                        {index : 3, columnname : "*", opetype : 0, value : ""},
+                        {index : 4, columnname : "*", opetype : 0, value : ""},
+                        {index : 5, columnname : "*", opetype : 0, value : ""}
+        ];
         var reqDatDf = {"Criteria":criteria};
         apiCall('POST', '/api/filterinfo/', reqDatDf, 'API_POST_FILTERINFO', completeFilterModal);
     }
 
     function completeFilterModal() {
         closeInputModal();
+        displayData();
     }
 
     ////////////////////////////////////////////////////////////////////////////////
