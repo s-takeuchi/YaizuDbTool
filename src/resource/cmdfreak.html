@@ -1381,9 +1381,10 @@
         tableInfo.append('<p>' + getClientMessage('TABLEINFO_SHOWN') + '</p>');
         tableInfo.append(getClientMessage('TABLEINFO_TARGET') + escapeString(currentTablename));
 
+        var tblDataDiv = $('<div style="overflow:auto;">')
         var tblData = $('<table>');
         tblData.addClass('table table-striped');
-        var tHead = $('<thead>');
+        var tHead = $('<thead class="thead-dark">');
         tHead.append('<tr><th>Column name</th><th>Column type</th><th>Is nullable</th></tr>');
         tblData.append(tHead);
         var tBody = $('<tbody>');
@@ -1391,7 +1392,8 @@
             tBody.append('<tr><td>' + escapeString(columnInfos[colLoop].title) + '</td><td>' + columnInfos[colLoop].coltype + '</td><td>' + columnInfos[colLoop].isnull + '</td></tr>');
         }
         tblData.append(tBody);
-        tableInfo.append(tblData);
+        tblDataDiv.append(tblData);
+        tableInfo.append(tblDataDiv);
 
         tableInfo.append('<p>');
         tableInfo.append('<p><button type="button" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
