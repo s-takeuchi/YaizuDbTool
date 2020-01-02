@@ -124,7 +124,6 @@ copy "..\..\YaizuComLib\src\stkwebapp\stkcommon.js" webapp\html
 copy "..\..\YaizuComLib\src\stkwebapp\jquery-3.2.0.min.js" webapp\html
 copy "..\..\YaizuComLib\src\stkwebapp\IcoMoon-Free.ttf" webapp\html
 copy "..\..\YaizuComLib\src\stkwebapp\IcoMoon-Free.css" webapp\html
-copy "..\..\YaizuComLib\src\stkwebapp\squirrel.svg" webapp\html
 
 
 rem ########## Making installer ##########
