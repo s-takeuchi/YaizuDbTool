@@ -42,6 +42,7 @@ StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode)
 	if (ReqObj != NULL) {
 		CurObj = ReqObj->GetFirstChildElement();
 	}
+	bool UpdatedFlag = false;
 	while (CurObj) {
 		if (StkPlWcsCmp(CurObj->GetName(), L"Function") == 0) {
 			wchar_t* StrFilterSw = CurObj->GetStringValue();
@@ -71,13 +72,22 @@ StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode)
 				ChildObj = ChildObj->GetNext();
 			}
 			if (ValIndex >= 1 && ValIndex <= 5 && ValOpeType != -1 && PtrColumnname != NULL && PtrValue != NULL) {
+				wchar_t TmpColumnname[Global::COLUMNNAME_LENGTH] = L"";
+				int TmpOpeType = -1;
+				wchar_t TmpValue[Global::COLUMNVAL_LENGTH] = L"";
+				DataAccess::GetInstance()->GetFilterCondition(ValIndex, TmpColumnname, &TmpOpeType, TmpValue);
+				if (StkPlWcsCmp(TmpColumnname, PtrColumnname) != 0 || TmpOpeType != ValOpeType || StkPlWcsCmp(TmpValue, PtrValue) != 0) {
+					UpdatedFlag = true;
+				}
 				DataAccess::GetInstance()->SetFilterCondition(ValIndex, PtrColumnname, ValOpeType, PtrValue);
 			}
 		}
 		CurObj = CurObj->GetNext();
 	}
-	
-	DataAccess::GetInstance()->AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_FILTERCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_FILTERCHANGE));
+
+	if (UpdatedFlag) {
+		DataAccess::GetInstance()->AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_FILTERCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_FILTERCHANGE));
+	}
 
 	StkObject* ResObj = new StkObject(L"");
 	AddCodeAndMsg(ResObj, 0, L"", L"");
