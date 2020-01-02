@@ -1024,6 +1024,10 @@
     ////////////////////////////////////////////////////////////////////////////////
 
     function displayTableList() {
+        if (responseData['API_GET_TABLEINFO'].Data.TableInfo === undefined) {
+            return;
+        }
+
         var tableInfos = getArray(responseData['API_GET_TABLEINFO'].Data.TableInfo);
         var foundIndex = -1;
         for (var tableIndex = 0; tableIndex < tableInfos.length; tableIndex++) {
@@ -1524,7 +1528,7 @@
             { id : 'cmdfreakconfig', actApiName : 'activateTopic', title : 'ODBC connection' },
             { id : 'cmdfreakinfo', actApiName : 'activateTopic', title : 'Information' }
         ];
-        initMainPage('CmdFreak',contents);
+        initMainPage('CmdFreak', 'img/cristal_image48c.png', contents);
         showLoginModal(checkLogin);
     }
 
