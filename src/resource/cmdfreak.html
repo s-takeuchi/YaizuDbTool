@@ -1062,7 +1062,7 @@
 
     function displayData() {
         $('.container-fluid').remove();
-        var containerFluidWorkSpace = $('<div class="container-fluid">');
+        var containerFluidWorkSpace = $('<div class="container-fluid" style="margin:0px;padding:0px">');
         containerFluidWorkSpace.append('<div id="cmdfreakdata"></div>');
         $('body').append(containerFluidWorkSpace);
 
@@ -1091,7 +1091,7 @@
         var colInfo = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
         var recData = getArray(responseData['API_GET_RECORDS'].Data.Record);
 
-        $('#cmdfreakdata').append('<div id="dispTableName" style="overflow:hidden;text-overflow:ellipsis;text-nowrap;height:20px;background-color:#3030c0"><a onclick="displayTableInfo()" href="#">' + currentTablename + '</a></div>');
+        $('#cmdfreakdata').append('<div id="dispTableName" style="overflow:hidden;text-overflow:ellipsis;text-nowrap;height:25px;background-color:#3030c0"><a onclick="displayTableInfo()" href="#">' + currentTablename + '</a></div>');
 
         var cmdfreakDiv = $('<div class="table-responsive text-nowrap">')
         var cmdfreakData = $('<table class="table table-striped table-bordered table-sm">');
@@ -1505,7 +1505,7 @@
         }
         $(".filter-wid-responsive").css("width", wsize + "px");
 
-        var hsize = $(window).height() - 100;
+        var hsize = $(window).height() - 82;
         $(".table-responsive").css("height", hsize + "px");
     }
 
