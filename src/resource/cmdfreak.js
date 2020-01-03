@@ -788,8 +788,9 @@ function displayTableInfo() {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function getLanguage() {
+function initCmdFreak() {
     if (statusCode['API_GET_LANG'] == -1 || statusCode['API_GET_LANG'] == 0) {
+        $('body').append(getClientMessage('CONNERR'));
         return;
     }
     if (responseData['API_GET_LANG'].Data.ClientLanguage == 'ja') {
@@ -797,6 +798,13 @@ function getLanguage() {
     } else {
         setClientLanguage(0);
     }
+
+    var menuContents = [
+        { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: getClientMessage('ODBC_CONNECTION') },
+        { id: 'cmdfreakinfo', actApiName: 'activateTopic', title: getClientMessage('SVCINFO') }
+    ];
+    initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
+    showLoginModal(checkLogin);
 }
 
 function refreshInfo() {
@@ -885,14 +893,6 @@ $(window).resize(function () {
 
 window.onload = function () {
     initClientMessage();
-
     var contents = [{ method: 'GET', url: '/api/language/', request: null, keystring: 'API_GET_LANG' }];
-    MultiApiCall(contents, getLanguage);
-
-    var menuContents = [
-        { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: 'ODBC connection' },
-        { id: 'cmdfreakinfo', actApiName: 'activateTopic', title: 'Information' }
-    ];
-    initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
-    showLoginModal(checkLogin);
+    MultiApiCall(contents, initCmdFreak);
 }
