@@ -95,7 +95,7 @@ function initClientMessage() {
 }
 
 function getSvrMsg(respDat) {
-    if (myLanguage == 1) {
+    if (getClientLanguage() == 1) {
         return getClientMessage('SERVER_ERROR') + '<br/>' + respDat.MsgJpn;
     } else {
         return getClientMessage('SERVER_ERROR') + '<br/>' + respDat.MsgEng;
@@ -440,14 +440,14 @@ function displayData() {
     containerFluidWorkSpace.append('<div id="cmdfreakdata"></div>');
     $('body').append(containerFluidWorkSpace);
 
-    if (statusCode['API_GET_TABLEINFO_WITH_COL'] == -1) {
+    if (statusCode['API_GET_TABLEINFO_WITH_COL'] == -1 || statusCode['API_GET_TABLEINFO_WITH_COL'] == 0) {
         displayAlertDanger('#cmdfreakdata', getClientMessage('CONNERR'));
         return;
     } else if (statusCode['API_GET_TABLEINFO_WITH_COL'] != 200) {
-        displayAlertDanger('#cmdfreakdata', getSvrMsg(responseData['API_GET_RECORDS']));
+        displayAlertDanger('#cmdfreakdata', getSvrMsg(responseData['API_GET_TABLEINFO_WITH_COL']));
         return;
     }
-    if (statusCode['API_GET_RECORDS'] == -1) {
+    if (statusCode['API_GET_RECORDS'] == -1 || statusCode['API_GET_RECORDS'] == 0) {
         displayAlertDanger('#cmdfreakdata', getClientMessage('CONNERR'));
         return;
     } else if (statusCode['API_GET_RECORDS'] != 200) {
