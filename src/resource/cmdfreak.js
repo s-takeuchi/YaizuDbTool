@@ -69,6 +69,9 @@ function initClientMessage() {
     addClientMessage('TABLEINFO_SHOWN', {'en':'Detailed information on the specified table is shown below.', 'ja':'以下に指定されたテーブルの詳細情報を表示します。'});
     addClientMessage('TABLEINFO_TARGET', {'en':'The target table: ', 'ja':'対象テーブル: '});
     addClientMessage('TABLEINFO_NOTEXIST', {'en':'The operation cannot be performed because the target table for display does not exist.', 'ja':'表示対象のテーブルが存在しないため操作を継続できません。'});
+    addClientMessage('TABLEINFO_COLUMNNAME', {'en':'Column name', 'ja':'カラム名'});
+    addClientMessage('TABLEINFO_COLUMNTYPE', {'en':'Column type', 'ja':'カラム種別'});
+    addClientMessage('TABLEINFO_ISNULL', {'en':'Is nullable', 'ja':'NULL指定可否'});
 
     //
     // Errors, Common
@@ -768,7 +771,7 @@ function displayTableInfo() {
     var tblData = $('<table>');
     tblData.addClass('table table-striped');
     var tHead = $('<thead class="thead-dark">');
-    tHead.append('<tr><th>Column name</th><th>Column type</th><th>Is nullable</th></tr>');
+    tHead.append('<tr><th>' + getClientMessage('TABLEINFO_COLUMNNAME') + '</th><th>' + getClientMessage('TABLEINFO_COLUMNTYPE') + '</th><th>' + getClientMessage('TABLEINFO_ISNULL') + '</th></tr>');
     tblData.append(tHead);
     var tBody = $('<tbody>');
     for (var colLoop = 0; colLoop < columnInfos.length; colLoop++) {
