@@ -681,6 +681,7 @@ function okFilterModal() {
                     { method: 'GET', url: '/api/records/', request: reqDatRc, keystring: 'API_GET_RECORDS' }
     ];
     MultiApiCall(contents, completeFilterModal);
+    closeInputModal();
 }
 
 function clearFilterModal() {
@@ -695,7 +696,6 @@ function clearFilterModal() {
 }
 
 function completeFilterModal() {
-    closeInputModal();
     displayData();
 }
 
