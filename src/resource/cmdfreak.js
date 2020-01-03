@@ -199,6 +199,13 @@ function selectUser(userId) {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+function transDisplayOdbcConfig() {
+    var contents = [{ method: 'GET', url: '/api/odbcinfo/', request: { 'query': 'default' }, keystring: 'API_GET_ODBCINFO_DEFAULT' },
+                    { method: 'GET', url: '/api/odbcinfo/', request: { 'query': 'configured' }, keystring: 'API_GET_ODBCINFO_CONFIGURED' }
+    ];
+    MultiApiCall(contents, displayOdbcConfig);
+}
+
 function displayOdbcConfig() {
     var odbcConfig = $('<div id="odbcconfig">');
     showInputModal(getClientMessage('ODBC_CONNECTION'), odbcConfig);
@@ -281,6 +288,13 @@ function closeDbmsConfig() {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+function transDisplayInformation() {
+    var contents = [{ method: 'GET', url: '/api/logs/', request: null, keystring: 'API_GET_LOGS' },
+                    { method: 'GET', url: '/api/system/', request: null, keystring: 'API_GET_SYSTEM' }
+    ];
+    MultiApiCall(contents, displayInformation);
+}
 
 function displayInformation() {
     var svcInfo = $('<div id="svcinfo">');
@@ -448,7 +462,7 @@ function displayData() {
     var colInfo = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
     var recData = getArray(responseData['API_GET_RECORDS'].Data.Record);
 
-    $('#cmdfreakdata').append('<div id="dispTableName" style="overflow:hidden;text-overflow:ellipsis;text-nowrap;height:25px;background-color:#3030c0"><a onclick="displayTableInfo()" href="#">' + currentTablename + '</a></div>');
+    $('#cmdfreakdata').append('<div id="dispTableName" style="overflow:hidden;text-overflow:ellipsis;text-nowrap;height:25px;background-color:#3030c0"><a onclick="transDisplayTableInfo()" href="#">' + currentTablename + '</a></div>');
 
     var cmdfreakDiv = $('<div class="table-responsive text-nowrap">')
     var cmdfreakData = $('<table class="table table-striped table-bordered table-sm">');
@@ -485,6 +499,13 @@ function displayData() {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+function transDisplayFilterModal() {
+    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
+                    { method: 'GET', url: '/api/filterinfo/', request: null, keystring: 'API_GET_FILTERINFO' }
+    ];
+    MultiApiCall(contents, displayFilterModal);
+}
 
 function displayFilterModal() {
     var filteringDlg = $('<div id="filter">');
@@ -704,6 +725,11 @@ function completeFilterModal() {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+function transDisplayTableInfo() {
+    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' }];
+    MultiApiCall(contents, displayTableInfo);
+}
+
 function displayTableInfo() {
     var tableInfo = $('<div id="tableinfo" style="overflow:hidden;text-overflow:ellipsis;">');
     showInputModal(getClientMessage('TABLEINFO'), tableInfo);
@@ -786,27 +812,6 @@ function refreshInfo() {
         MultiApiCall(contents, checkOdbcConnection);
     } else {
     }
-}
-
-function transDisplayInformation() {
-    var contents = [{ method: 'GET', url: '/api/logs/', request: null, keystring: 'API_GET_LOGS' },
-                    { method: 'GET', url: '/api/system/', request: null, keystring: 'API_GET_SYSTEM' }
-    ];
-    MultiApiCall(contents, displayInformation);
-}
-
-function transDisplayOdbcConfig() {
-    var contents = [{ method: 'GET', url: '/api/odbcinfo/', request: { 'query': 'default' }, keystring: 'API_GET_ODBCINFO_DEFAULT' },
-                    { method: 'GET', url: '/api/odbcinfo/', request: { 'query': 'configured' }, keystring: 'API_GET_ODBCINFO_CONFIGURED' }
-    ];
-    MultiApiCall(contents, displayOdbcConfig);
-}
-
-function transDisplayFilterModal() {
-    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/filterinfo/', request: null, keystring: 'API_GET_FILTERINFO' }
-    ];
-    MultiApiCall(contents, displayFilterModal);
 }
 
 function checkLogin() {
