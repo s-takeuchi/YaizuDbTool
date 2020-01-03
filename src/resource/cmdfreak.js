@@ -28,6 +28,10 @@ function initClientMessage() {
         'ja':'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。オペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>'
     });
     addClientMessage('ODBC_SELECTION', {'en':'Select DBMS : ', 'ja':'DBMSの選択 : '});
+    addClientMessage('ODBC_CONFAILURE', {
+        'en':'DBMS connection failed.<br>This may be caused by one of the following issues:<br>- The DBMS is not working properly.<br>- No ODBC driver is installed.<br>- The ODBC connection string is invalid.<br>- There are issues with the DBMS on the network.<br>',
+        'ja':'DBMSとの接続に失敗しました。<br>次の要因が考えられます。<br>- DBMSが適切に起動していない。<br>- ODBCドライバがインストールされていない。<br>- ODBCの接続文字列が不正。<br>- DBMSとの接続経路に何らかの問題がある。<br>'
+    });
 
     //
     // Service information
@@ -69,6 +73,11 @@ function initClientMessage() {
     //
     // Errors, Common
     //
+    addClientMessage('WELCOME_MSG', {'en':'Welcome to the CmdFreak page!', 'ja':'ようこそ，CmdFreakのページです！'});
+    addClientMessage('WELCOME_CONFIGODBC', {
+        'en':'To refer to data in a database using this software, the ODBC connection needs to be configured first.',
+        'ja':'本ソフトウェアを使用してデータベースのデータを参照するには，まずはじめにODBC接続の設定を行ってください。'
+    });
     addClientMessage('CONNERR', {
         'en':'Connection with REST API service failed. This may be caused by one of the following issues:<br>(1) REST API service cannot be started.<br>(2) REST API service is not registered as a firewall exception.<br>(3) The definition file [nginx.conf and/or sample.conf] for the host name and port number in the network connectivity settings is invalid.<br>(4) A timeout has occurred when waiting for data from REST API server.<br>',
         'ja':'REST APIサービスとの通信が失敗しました。次の要因が考えられます。<br>(1) REST APIサービスが開始されていない。<br>(2) REST APIサービスがファイアウォールに例外登録されていない。<br>(3) 接続先ホスト名およびポート番号の定義ファイル [nginx.conf , sample.conf] が不正。<br>(4) REST APIサーバからのデータ取得中にタイムアウトが発生した。<br>'
@@ -343,6 +352,29 @@ function openManual() {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+function checkOdbcConnection() {
+    $('.container-fluid').remove();
+    var containerFluidWorkSpace = $('<div class="container-fluid" style="margin:0px;padding:0px">');
+    containerFluidWorkSpace.append('<div id="cmdfreakdata"></div>');
+    $('body').append(containerFluidWorkSpace);
+
+    if (statusCode['API_GET_ODBCINFO_CONFIGURED'] == 200 && statusCode['API_GET_TABLEINFO'] == 200) {
+        // Nothing to do
+    } else {
+        displayAlertDanger('#cmdfreakdata', getClientMessage('CONNERR'));
+        return;
+    }
+    if (responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo.DbType === 'Init') {
+        $('#cmdfreakdata').append(getClientMessage('WELCOME_MSG') + '<p>' + getClientMessage('WELCOME_CONFIGODBC') + '</p>');
+        return;
+    }
+    if (responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo.Status === 'unconnectable') {
+        displayAlertDanger('#cmdfreakdata', getClientMessage('ODBC_CONFAILURE'));
+        return;
+    }
+    displayTableList();
+}
 
 function displayTableList() {
     if (responseData['API_GET_TABLEINFO'].Data.TableInfo === undefined) {
@@ -743,11 +775,15 @@ function getLanguage() {
 
 function refreshInfo() {
     userRole = 1;
+    currentTablename = "";
     if (userRole == 1) {
         clearRsCommand();
         addDropDown('Tables');
         addRsCommand('transDisplayFilterModal()', 'icon-filter', true);
-        apiCall('GET', '/api/tableinfo/', null, 'API_GET_TABLEINFO', displayTableList);
+        var contents = [{ method: 'GET', url: '/api/tableinfo/', request: null, keystring: 'API_GET_TABLEINFO' },
+                        { method: 'GET', url: '/api/odbcinfo/', request: { 'query': 'configured' }, keystring: 'API_GET_ODBCINFO_CONFIGURED' }
+        ];
+        MultiApiCall(contents, checkOdbcConnection);
     } else {
     }
 }
@@ -844,12 +880,14 @@ $(window).resize(function () {
 
 window.onload = function () {
     initClientMessage();
-    apiCall('GET', '/api/language/', null, 'API_GET_LANG', getLanguage);
-    var contents = [
+
+    var contents = [{ method: 'GET', url: '/api/language/', request: null, keystring: 'API_GET_LANG' }];
+    MultiApiCall(contents, getLanguage);
+
+    var menuContents = [
         { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: 'ODBC connection' },
         { id: 'cmdfreakinfo', actApiName: 'activateTopic', title: 'Information' }
     ];
-    initMainPage('CmdFreak', 'img/cristal_image48c.png', contents);
+    initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
     showLoginModal(checkLogin);
 }
-
