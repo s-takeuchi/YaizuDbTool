@@ -366,7 +366,7 @@ function checkOdbcConnection() {
         return;
     }
     if (responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo.DbType === 'Init') {
-        $('#cmdfreakdata').append(getClientMessage('WELCOME_MSG') + '<p>' + getClientMessage('WELCOME_CONFIGODBC') + '</p>');
+        displayAlertInfo('#cmdfreakdata', getClientMessage('WELCOME_MSG') + '<p>' + getClientMessage('WELCOME_CONFIGODBC') + '</p>');
         return;
     }
     if (responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo.Status === 'unconnectable') {
