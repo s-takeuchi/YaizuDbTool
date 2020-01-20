@@ -19,7 +19,7 @@ void ApiGetSystem::SetNumOfThreads(int Num)
 	NumOfThreads = Num;
 }
 
-StkObject* ApiGetSystem::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3])
+StkObject* ApiGetSystem::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3], wchar_t* Token)
 {
 	StkObject* ResObj = new StkObject(L"");
 	AddCodeAndMsg(ResObj, 0, L"", L"");

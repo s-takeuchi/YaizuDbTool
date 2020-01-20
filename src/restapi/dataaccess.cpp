@@ -356,6 +356,7 @@ int DataAccess::CreateCmdFreakTables()
 		TabDefOdbcConfig.AddColumnDef(&ColDefConnStr);
 		TabDefOdbcConfig.AddColumnDef(&ColDefOdbcInit);
 		if (CreateTable(&TabDefOdbcConfig) != 0) {
+			UnlockAllTable();
 			return -1;
 		}
 
@@ -370,6 +371,7 @@ int DataAccess::CreateCmdFreakTables()
 		TabDefLog.AddColumnDef(&ColDefLogMsgEn);
 		TabDefLog.AddColumnDef(&ColDefLogMsgJa);
 		if (CreateTable(&TabDefLog) != 0) {
+			UnlockAllTable();
 			return -1;
 		}
 
@@ -378,6 +380,7 @@ int DataAccess::CreateCmdFreakTables()
 		TableDef TabDefFilterSw(L"FilterSw", 5);
 		TabDefFilterSw.AddColumnDef(&ColDefSwitch);
 		if (CreateTable(&TabDefFilterSw) != 0) {
+			UnlockAllTable();
 			return -1;
 		}
 
@@ -392,6 +395,22 @@ int DataAccess::CreateCmdFreakTables()
 		TabDefFilter.AddColumnDef(&ColDefOperation);
 		TabDefFilter.AddColumnDef(&ColDefValue);
 		if (CreateTable(&TabDefFilter) != 0) {
+			UnlockAllTable();
+			return -1;
+		}
+
+		// User table
+		ColumnDefInt ColDefUserId(L"Id");
+		ColumnDefWStr ColDefUserName(L"Name", Global::MAXLEN_OF_USERNAME);
+		ColumnDefWStr ColDefUserPassword(L"Password", Global::MAXLEN_OF_PASSWORD);
+		ColumnDefInt ColDefUserRole(L"Role");
+		TableDef TabDefUser(L"User", Global::MAXNUM_OF_USERRECORDS);
+		TabDefUser.AddColumnDef(&ColDefUserId);
+		TabDefUser.AddColumnDef(&ColDefUserName);
+		TabDefUser.AddColumnDef(&ColDefUserPassword);
+		TabDefUser.AddColumnDef(&ColDefUserRole);
+		if (CreateTable(&TabDefUser) != 0) {
+			UnlockAllTable();
 			return -1;
 		}
 
@@ -418,7 +437,7 @@ int DataAccess::CreateCmdFreakTables()
 		UnlockTable(L"FilterSw");
 		delete RecDatFilterSw;
 
-		// Add record for Filter
+		// Add records for Filter
 		for (int Loop = 1; Loop <= 5; Loop++) {
 			ColumnData *ColDatFilter[4];
 			ColDatFilter[0] = new ColumnDataInt(L"Index", Loop);
@@ -430,6 +449,34 @@ int DataAccess::CreateCmdFreakTables()
 			Ret = InsertRecord(RecDatFilter);
 			UnlockTable(L"Filter");
 			delete RecDatFilter;
+		}
+
+		// Add records for User
+		{
+			ColumnData *ColDatUser[4];
+			ColDatUser[0] = new ColumnDataInt(L"Id", 0);
+			ColDatUser[1] = new ColumnDataWStr(L"Name", L"admin@a.a");
+			ColDatUser[2] = new ColumnDataWStr(L"Password", L"manager");
+			ColDatUser[3] = new ColumnDataInt(L"Role", 0);
+			RecordData* RecUser = new RecordData(L"User", ColDatUser, 4);
+			// Add record
+			LockTable(L"User", LOCK_EXCLUSIVE);
+			int Ret = InsertRecord(RecUser);
+			UnlockTable(L"User");
+			delete RecUser;
+		}
+		{
+			ColumnData *ColDatUser[4];
+			ColDatUser[0] = new ColumnDataInt(L"Id", 1);
+			ColDatUser[1] = new ColumnDataWStr(L"Name", L"takeuchi@a.a");
+			ColDatUser[2] = new ColumnDataWStr(L"Password", L"takeuchi");
+			ColDatUser[3] = new ColumnDataInt(L"Role", 1);
+			RecordData* RecUser = new RecordData(L"User", ColDatUser, 4);
+			// Add record
+			LockTable(L"User", LOCK_EXCLUSIVE);
+			int Ret = InsertRecord(RecUser);
+			UnlockTable(L"User");
+			delete RecUser;
 		}
 
 	} else {

@@ -84,13 +84,15 @@ void ApiBase::DecodeURL(wchar_t UrlIn[StkWebAppExec::URL_PATH_LENGTH], wchar_t U
 
 StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t* HttpHeader)
 {
-	wchar_t Locale[3];
 	PrintRequest(Method, UrlPath);
 
-	StkPlWcsCpy(Locale, 3, L"");
+	wchar_t Locale[3] = L"";;
 	StkStringParser::ParseInto2Params(HttpHeader, L"#Accept-Language: #", L'#', NULL, 0, Locale, 3);
 
-	StkObject* RetObj = ExecuteImpl(ReqObj, Method, UrlPath, ResultCode, Locale);
+	wchar_t Token[256] = L"";
+	StkStringParser::ParseInto4Params(HttpHeader, L"#Authorization:#Bearer #\r\n#", L'#', NULL, 0, NULL, 0, Token, 256, NULL, 0);
+
+	StkObject* RetObj = ExecuteImpl(ReqObj, Method, UrlPath, ResultCode, Locale, Token);
 
 	PrintResponse(*ResultCode);
 
