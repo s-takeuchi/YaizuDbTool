@@ -126,6 +126,38 @@ void TestGetOdbcInfoConfigured(StkWebAppSend* StkWebAppSendObj)
 	StkPlPrintf("[OK]\r\n");
 }
 
+void TestGetUser(StkWebAppSend* StkWebAppSendObj)
+{
+	{
+		StkPlPrintf("GetUser (no target) ... ");
+		int ResultCode = 0;
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/", NULL, &ResultCode);
+		if (ResObj == NULL) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		StkObject* Dat = ResObj->GetFirstChildElement();
+		int CodeInt = -1;
+		wchar_t MsgEng[256] = L"";
+		wchar_t MsgJpn[256] = L"";
+		while (Dat) {
+			if (StkPlWcsCmp(Dat->GetName(), L"Code") == 0) {
+				CodeInt = Dat->GetIntValue();
+			}
+			if (StkPlWcsCmp(Dat->GetName(), L"MsgEng") == 0) {
+				StkPlWcsCpy(MsgEng, 256, Dat->GetStringValue());
+			}
+			if (StkPlWcsCmp(Dat->GetName(), L"MsgJpn") == 0) {
+				StkPlWcsCpy(MsgJpn, 256, Dat->GetStringValue());
+			}
+			Dat = Dat->GetNext();
+		}
+
+
+		StkPlPrintf("[OK]\r\n");
+	}
+}
+
 void TestPostOperationStop(StkWebAppSend* StkWebAppSendObj)
 {
 	{
@@ -168,6 +200,7 @@ int main(int Argc, char* Argv[])
 	TestGetSystem(StkWebAppSendObj);
 	TestGetOdbcInfoDefault(StkWebAppSendObj);
 	TestGetOdbcInfoConfigured(StkWebAppSendObj);
+	TestGetUser(StkWebAppSendObj);
 	TestPostOperationStop(StkWebAppSendObj);
 	delete StkWebAppSendObj;
 	return 0;

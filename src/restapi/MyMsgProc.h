@@ -13,6 +13,7 @@ public:
 	static const int CMDFRK_REQ_NOT_SUFFICIENT = 3121;
 	static const int CMDFRK_TABLE_NOT_EXIST = 3122;
 	static const int CMDFRK_PARAM_LENGTH_TOO_LONG = 3123;
+	static const int CMDFRK_AUTH_ERROR = 3124;
 	static const int CMDFRK_LOG_DBMSCHANGE = 3126;
 	static const int CMDFRK_LOG_FILTERCHANGE = 3129;
 	static const int CMDFRK_SVCSTART = 3146;

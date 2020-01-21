@@ -13,6 +13,7 @@
 #include "ApiGetTableInfo.h"
 #include "ApiGetRecord.h"
 #include "ApiFilterInfo.h"
+#include "ApiGetUser.h"
 
 void CmdFreakRestApi(wchar_t* IpAddr, int Port, int SendBufSize)
 {
@@ -52,6 +53,9 @@ void CmdFreakRestApi(wchar_t* IpAddr, int Port, int SendBufSize)
 	ApiFilterInfo* ApiPostFilterInfoObj = new ApiFilterInfo();
 	int Add10 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, L"/api/filterinfo/", (StkWebAppExec*)ApiPostFilterInfoObj);
 
+	ApiGetUser* ApiGetUserObj = new ApiGetUser();
+	int Add11 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/user/", (StkWebAppExec*)ApiGetUserObj);
+
 	////////// Main logic starts
 	Soc->TheLoop();
 	////////// Main logic ends
@@ -66,6 +70,7 @@ void CmdFreakRestApi(wchar_t* IpAddr, int Port, int SendBufSize)
 	int Del8 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/records/$");
 	int Del9 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/filterinfo/");
 	int Del10 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, L"/api/filterinfo/");
+	int Del11 = Soc->DeleteReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/user/");
 
 	delete Soc;
 }

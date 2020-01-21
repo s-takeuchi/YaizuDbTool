@@ -1,5 +1,7 @@
 ﻿#include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "../../../YaizuComLib/src/commonfunc/StkStringParser.h"
+#include "..\Global.h"
+#include "dataaccess.h"
 #include "ApiBase.h"
 
 void ApiBase::AddCodeAndMsg(StkObject* StkObj, int Code, wchar_t* MsgEng, wchar_t* MsgJpn)
@@ -80,6 +82,53 @@ void ApiBase::DecodeURL(wchar_t UrlIn[StkWebAppExec::URL_PATH_LENGTH], wchar_t U
 	TmpUrlAc[AcIndex] = '\0';
 	StkPlConvUtf8ToWideChar(UrlOut, StkWebAppExec::URL_PATH_LENGTH, TmpUrlAc);
 	return;
+}
+
+bool ApiBase::CheckCredentials(wchar_t* Token, wchar_t* Name)
+{
+	if (Token == NULL || *Token == L'\0') {
+		return false;
+	}
+
+	wchar_t TmpName[Global::MAXLEN_OF_USERNAME] = L"";
+	wchar_t TmpPassword[Global::MAXLEN_OF_PASSWORD] = L"";
+	StkStringParser::ParseInto2Params(Token, L"# #", L'#', TmpName, 256, TmpPassword, 32);
+	if (TmpName == NULL || TmpPassword == NULL || *TmpName == L'\0' || *TmpPassword == L'\0') {
+		return false;
+	}
+
+	int Id = 0;
+	wchar_t Password[Global::MAXLEN_OF_PASSWORD];
+	int Role = 0;
+	bool Ret = DataAccess::GetInstance()->GetTargetUserByName(TmpName, &Id, Password, &Role);
+	if (Ret == false) {
+		return false;
+	}
+
+	if (StkPlWcsCmp(TmpPassword, Password) == 0) {
+		if (Name != NULL) {
+			StkPlWcsCpy(Name, Global::MAXLEN_OF_USERNAME, TmpName);
+		}
+		return true;
+	} else {
+		return false;
+	}
+}
+
+bool ApiBase::IsAdminUser(wchar_t* Token)
+{
+	int UserId = 0;
+	wchar_t UserName[Global::MAXLEN_OF_USERNAME] = L"";
+	wchar_t UserPassword[Global::MAXLEN_OF_PASSWORD] = L"";
+	int Role = 0;
+	if (!CheckCredentials(Token, UserName)) {
+		return false;
+	}
+	DataAccess::GetInstance()->GetTargetUserByName(UserName, &UserId, UserPassword, &Role);
+	if (Role != 0) {
+		return false;
+	}
+	return true;
 }
 
 StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t* HttpHeader)

@@ -44,6 +44,10 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddJpn(CMDFRK_PARAM_LENGTH_TOO_LONG, L"指定されたパラメータは，指定可能な長さの最大を超えています。");
 	MessageProc::AddEng(CMDFRK_PARAM_LENGTH_TOO_LONG, L"The specified parameter exceeds the maximum length.");
 
+	//3124 (★)
+	MessageProc::AddJpn(CMDFRK_AUTH_ERROR, L"認証エラーが発生しました。");
+	MessageProc::AddEng(CMDFRK_AUTH_ERROR, L"Authentication error occurred.");
+
 	//3126 (NC6)
 	MessageProc::AddJpn(CMDFRK_LOG_DBMSCHANGE, L"ODBC接続の設定を変更しました。");
 	MessageProc::AddEng(CMDFRK_LOG_DBMSCHANGE, L"The ODBC connection configuration has been changed.");

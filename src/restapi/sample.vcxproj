@@ -110,6 +110,7 @@
     <ClCompile Include="ApiGetRecord.cpp" />
     <ClCompile Include="ApiGetSystem.cpp" />
     <ClCompile Include="ApiGetTableInfo.cpp" />
+    <ClCompile Include="ApiGetUser.cpp" />
     <ClCompile Include="ApiLogging.cpp" />
     <ClCompile Include="ApiOdbcInfo.cpp" />
     <ClCompile Include="CmdFreakRestApi.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="ApiGetRecord.h" />
     <ClInclude Include="ApiGetSystem.h" />
     <ClInclude Include="ApiGetTableInfo.h" />
+    <ClInclude Include="ApiGetUser.h" />
     <ClInclude Include="ApiLogging.h" />
     <ClInclude Include="ApiOdbcInfo.h" />
     <ClInclude Include="dataaccess.h" />

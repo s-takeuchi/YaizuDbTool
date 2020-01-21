@@ -320,6 +320,59 @@ bool DataAccess::GetFilterSwitch()
 	return (Switch == 1)? true : false;
 }
 
+bool DataAccess::GetTargetUserByName(wchar_t Name[Global::MAXLEN_OF_USERNAME], int* Id, wchar_t Password[Global::MAXLEN_OF_PASSWORD], int* Role)
+{
+	ColumnData* ColDat[1];
+	ColDat[0] = new ColumnDataWStr(L"Name", Name);
+	RecordData* SearchUser = new RecordData(L"User", ColDat, 1);
+	LockTable(L"User", LOCK_SHARE);
+	RecordData* RecDatUser = GetRecord(SearchUser);
+	UnlockTable(L"User");
+	delete SearchUser;
+	if (RecDatUser != NULL) {
+		ColumnDataInt* ColDatId = (ColumnDataInt*)RecDatUser->GetColumn(0);
+		ColumnDataWStr* ColDatPw = (ColumnDataWStr*)RecDatUser->GetColumn(2);
+		ColumnDataInt* ColDatRole = (ColumnDataInt*)RecDatUser->GetColumn(3);
+		if (ColDatId != NULL && ColDatPw != NULL && ColDatRole != NULL) {
+			*Id = ColDatId->GetValue();
+			StkPlWcsCpy(Password, Global::MAXLEN_OF_PASSWORD, ColDatPw->GetValue());
+			*Role = ColDatRole->GetValue();
+		}
+	} else {
+		return false;
+	}
+	delete RecDatUser;
+	return true;
+}
+
+int DataAccess::GetTargetUsers(int Id[Global::MAXNUM_OF_USERRECORDS],
+	wchar_t Name[Global::MAXNUM_OF_USERRECORDS][Global::MAXLEN_OF_USERNAME],
+	wchar_t Password[Global::MAXNUM_OF_USERRECORDS][Global::MAXLEN_OF_PASSWORD],
+	int Role[Global::MAXNUM_OF_USERRECORDS])
+{
+	LockTable(L"User", LOCK_SHARE);
+	RecordData* RecDatUser = GetRecord(L"User");
+	UnlockTable(L"User");
+	RecordData* CurRecDatUser = RecDatUser;
+	if (!CurRecDatUser) {
+		return 0;
+	}
+	int Loop = 0;
+	for (; CurRecDatUser; Loop++) {
+		ColumnDataWStr* ColDatName = (ColumnDataWStr*)CurRecDatUser->GetColumn(1);
+		ColumnDataWStr* ColDatPw = (ColumnDataWStr*)CurRecDatUser->GetColumn(2);
+		ColumnDataInt* ColDatRole = (ColumnDataInt*)CurRecDatUser->GetColumn(3);
+		if (ColDatName != NULL && ColDatPw != NULL && ColDatRole != NULL) {
+			StkPlWcsCpy(Name[Loop], Global::MAXLEN_OF_PASSWORD, ColDatName->GetValue());
+			StkPlWcsCpy(Password[Loop], Global::MAXLEN_OF_PASSWORD, ColDatPw->GetValue());
+			Role[Loop] = ColDatRole->GetValue();
+		}
+		CurRecDatUser = CurRecDatUser->GetNextRecord();
+	}
+	delete RecDatUser;
+	return Loop;
+}
+
 // Stops AutoSave function and save the latest data
 // Return : always zero returned
 int DataAccess::StopAutoSave()
