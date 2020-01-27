@@ -35,7 +35,7 @@ StkObject* ApiGetUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPat
 			TmpObjC->AppendChildElement(new StkObject(L"Role", AryRole[Loop]));
 			TmpObj->AppendChildElement(TmpObjC);
 		}
-		TmpObj->AppendChildElement(new StkObject(L"Msg0", L""));
+		AddCodeAndMsg(TmpObj, 0, L"", L"");
 		*ResultCode = 200;
 		return TmpObj;
 	} else {
@@ -44,7 +44,7 @@ StkObject* ApiGetUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPat
 		TmpObjC->AppendChildElement(new StkObject(L"Name", UserName));
 		TmpObjC->AppendChildElement(new StkObject(L"Role", Role));
 		TmpObj->AppendChildElement(TmpObjC);
-		TmpObj->AppendChildElement(new StkObject(L"Msg0", L""));
+		AddCodeAndMsg(TmpObj, 0, L"", L"");
 		*ResultCode = 200;
 		return TmpObj;
 	}

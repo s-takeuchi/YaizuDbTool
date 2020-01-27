@@ -129,7 +129,7 @@ void TestGetOdbcInfoConfigured(StkWebAppSend* StkWebAppSendObj)
 void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 {
 	{
-		StkPlPrintf("GetUser (no target) ... ");
+		StkPlPrintf("GetUser (no target, no ID/PW) ... ");
 		int ResultCode = 0;
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/", NULL, &ResultCode);
 		if (ResObj == NULL) {
@@ -152,8 +152,51 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 			}
 			Dat = Dat->GetNext();
 		}
-
-
+		if (CodeInt != 3124 || StkPlWcsStr(MsgEng, L"Authentication error") == NULL) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		StkPlPrintf("[OK]\r\n");
+	}
+	{
+		StkPlPrintf("GetUser (no target, appropriate ID/PW) ... ");
+		int ResultCode = 0;
+		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/", NULL, &ResultCode);
+		if (ResObj == NULL) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		StkObject* Dat = ResObj->GetFirstChildElement();
+		int CodeInt = -1;
+		wchar_t MsgEng[256] = L"";
+		wchar_t MsgJpn[256] = L"";
+		int TargetUserId = -1;
+		while (Dat) {
+			if (StkPlWcsCmp(Dat->GetName(), L"Code") == 0) {
+				CodeInt = Dat->GetIntValue();
+			}
+			if (StkPlWcsCmp(Dat->GetName(), L"MsgEng") == 0) {
+				StkPlWcsCpy(MsgEng, 256, Dat->GetStringValue());
+			}
+			if (StkPlWcsCmp(Dat->GetName(), L"MsgJpn") == 0) {
+				StkPlWcsCpy(MsgJpn, 256, Dat->GetStringValue());
+			}
+			if (StkPlWcsCmp(Dat->GetName(), L"User") == 0) {
+				StkObject* DatId = Dat->GetFirstChildElement();
+				while (DatId) {
+					if (StkPlWcsCmp(DatId->GetName(), L"Id") == 0) {
+						TargetUserId = DatId->GetIntValue();
+					}
+					DatId = DatId->GetNext();
+				}
+			}
+			Dat = Dat->GetNext();
+		}
+		if (CodeInt != 0 || MsgEng[0] != L'\0' || MsgJpn[0] != L'\0' || TargetUserId != 0) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
 		StkPlPrintf("[OK]\r\n");
 	}
 }
