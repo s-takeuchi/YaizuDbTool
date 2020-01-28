@@ -199,6 +199,41 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 		}
 		StkPlPrintf("[OK]\r\n");
 	}
+	{
+		StkPlPrintf("GetUser (target=all, appropriate ID/PW) ... ");
+		int ResultCode = 0;
+		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/?target=all", NULL, &ResultCode);
+		if (ResObj == NULL) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		StkObject* Dat = ResObj->GetFirstChildElement();
+		int CodeInt = -1;
+		wchar_t MsgEng[256] = L"";
+		wchar_t MsgJpn[256] = L"";
+		int UserCount = 0;
+		while (Dat) {
+			if (StkPlWcsCmp(Dat->GetName(), L"Code") == 0) {
+				CodeInt = Dat->GetIntValue();
+			}
+			if (StkPlWcsCmp(Dat->GetName(), L"MsgEng") == 0) {
+				StkPlWcsCpy(MsgEng, 256, Dat->GetStringValue());
+			}
+			if (StkPlWcsCmp(Dat->GetName(), L"MsgJpn") == 0) {
+				StkPlWcsCpy(MsgJpn, 256, Dat->GetStringValue());
+			}
+			if (StkPlWcsCmp(Dat->GetName(), L"User") == 0) {
+				UserCount++;
+			}
+			Dat = Dat->GetNext();
+		}
+		if (CodeInt != 0 || MsgEng[0] != L'\0' || MsgJpn[0] != L'\0' || UserCount != 2) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		StkPlPrintf("[OK]\r\n");
+	}
 }
 
 void TestPostOperationStop(StkWebAppSend* StkWebAppSendObj)

@@ -54,7 +54,7 @@ void CmdFreakRestApi(wchar_t* IpAddr, int Port, int SendBufSize)
 	int Add10 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_POST, L"/api/filterinfo/", (StkWebAppExec*)ApiPostFilterInfoObj);
 
 	ApiGetUser* ApiGetUserObj = new ApiGetUser();
-	int Add11 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/user/", (StkWebAppExec*)ApiGetUserObj);
+	int Add11 = Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/user$", (StkWebAppExec*)ApiGetUserObj);
 
 	////////// Main logic starts
 	Soc->TheLoop();
