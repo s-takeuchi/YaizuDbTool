@@ -74,6 +74,11 @@ function initClientMessage() {
     addClientMessage('TABLEINFO_ISNULL', {'en':'Is nullable', 'ja':'NULL指定可否'});
 
     //
+    // User management
+    //
+    addClientMessage('USERMGMT', {'en':'User Management', 'ja':'ユーザー管理'});
+
+    //
     // Errors, Common
     //
     addClientMessage('WELCOME_MSG', {'en':'Welcome to the CmdFreak page!', 'ja':'ようこそ，CmdFreakのページです！'});
@@ -804,6 +809,7 @@ function initCmdFreak() {
 
     var menuContents = [
         { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: getClientMessage('ODBC_CONNECTION') },
+        { id: 'cmdfreakusermgmt', actApiName: 'activateTopic', title: getClientMessage('USERMGMT') },
         { id: 'cmdfreakinfo', actApiName: 'activateTopic', title: getClientMessage('SVCINFO') }
     ];
     initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
@@ -826,12 +832,20 @@ function refreshInfo() {
 }
 
 function checkLogin() {
-    if (false) {
+    sendRequestRecvResponse('GET', '/api/user/', null, 'API_GET_USER', false);
+    if (statusCode['API_GET_USER'] != 200) {
         return false;
     } else {
         refreshInfo();
-        $('#menu-cmdfreakinfo').show();
-        $('#menu-cmdfreakconfig').show();
+        userRole = responseData['API_GET_USER'].User.Role;
+        if (userRole == 0) {
+            $('#menu-cmdfreakinfo').show();
+            $('#menu-cmdfreakusermgmt').show();
+            $('#menu-cmdfreakconfig').show();
+        } else {
+            $('#menu-cmdfreakinfo').show();
+            $('#menu-cmdfreakconfig').show();
+        }
         return true;
     }
 }
@@ -841,6 +855,9 @@ function activateTopic(id) {
         transDisplayInformation();
     }
     if (id === 'cmdfreakconfig') {
+        transDisplayOdbcConfig();
+    }
+    if (id === 'cmdfreakusermgmt') {
         transDisplayOdbcConfig();
     }
 }
