@@ -12,7 +12,7 @@ function initClientMessage() {
     //
     // User information
     //
-    addClientMessage('USERMGT', {'en':' User Management', 'ja':' User Management'});
+    addClientMessage('USERMGMT', {'en':'User Management', 'ja':'ユーザー管理'});
     addClientMessage('NOUSEREXIST', {'en':'<p>No user exists</p>', 'ja':'<p>ユーザーは存在しません</p>'});
     addClientMessage('USERNAME', {'en':'User Name', 'ja':'ユーザー名'});
     addClientMessage('USERROLE', {'en':'User Role', 'ja':'ユーザーロール'});
@@ -74,11 +74,6 @@ function initClientMessage() {
     addClientMessage('TABLEINFO_ISNULL', {'en':'Is nullable', 'ja':'NULL指定可否'});
 
     //
-    // User management
-    //
-    addClientMessage('USERMGMT', {'en':'User Management', 'ja':'ユーザー管理'});
-
-    //
     // Errors, Common
     //
     addClientMessage('WELCOME_MSG', {'en':'Welcome to the CmdFreak page!', 'ja':'ようこそ，CmdFreakのページです！'});
@@ -135,22 +130,29 @@ function escapeString(tmpStr) {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+function transDisplayUser() {
+    var contents = [{ method: 'GET', url: '/api/user/?target=all', request: null, keystring: 'API_GET_USERS' }];
+    MultiApiCall(contents, displayUser);
+}
+
 function displayUser() {
-    $('#usermgt').append('<h2>' + getClientMessage('USERMGT') + '</h2>');
-    if (statusCode['API_GET_USER'] == -1 || statusCode['API_GET_USER'] == 0) {
-        displayAlertDanger('#usermgt', getClientMessage('CONNERR'));
+    var userMgmt = $('<div id="usermgmt">');
+    showInputModal(getClientMessage('USERMGMT'), userMgmt);
+
+    if (statusCode['API_GET_USERS'] == -1 || statusCode['API_GET_USERS'] == 0) {
+        displayAlertDanger('#usermgmt', getClientMessage('CONNERR'));
         return;
     }
-    var userList = getArray(responseData['API_GET_USER'].User);
+    var userList = getArray(responseData['API_GET_USERS'].User);
     if (userList == null) {
-        $('#usermgt').append(getClientMessage('NOUSEREXIST'));
+        $('#usermgmt').append(getClientMessage('NOUSEREXIST'));
     }
 
-    if (responseData['API_GET_USER'].User !== undefined) {
+    if (responseData['API_GET_USERS'].User !== undefined) {
         var userListTable = $('<table>');
         userListTable.addClass('table table-striped');
 
-        var tHead = $('<thead>');
+        var tHead = $('<thead class="thead-dark">');
         tHead.append('<tr><th>' + getClientMessage('USERNAME') + '</th><th>' + getClientMessage('USERROLE') + '</th></tr>');
         userListTable.append(tHead);
 
@@ -165,15 +167,16 @@ function displayUser() {
             tBody.append('<tr><td><div class="radio"><label><input type="radio" id="radioUser' + userList[Loop].Id + '" name="optradio" onclick="selectUser(\''+ userList[Loop].Id + '\')"/>' + userList[Loop].Name + '</label></div></td><td>' + StrUserRole + '</td></tr>');
         }
         userListTable.append(tBody);
-        $('#usermgt').append(userListTable);
+        $('#usermgmt').append(userListTable);
     }
-    $('#usermgt').append('<div class="form-group"><label for="userName">' + getClientMessage('USERNAME') + '</label><input type="text" class="form-control" id="userName" placeholder="' + getClientMessage('USERNAME') + '"></div>');
-    $('#usermgt').append('<div class="form-group"><label for="userType">' + getClientMessage('USERROLE') + '</label><select class="form-control" id="userRole"><option>' + getClientMessage('USERROLEADMIN') + '</option><option>' + getClientMessage('USERROLEUSER') + '</option></select></div>');
-    $('#usermgt').append('<div id="usermgt_errmsg"/>');
-    $('#usermgt').append('<button type="button" id="userBtnAdd" class="btn btn-primary" onclick="updateUser(false)">' + getClientMessage('COMADD') + '</button> ');
-    $('#usermgt').append('<button type="button" id="userBtnUpdate" class="btn btn-primary disabled" onclick="updateUser(true)">' + getClientMessage('COMUPDATE') + '</button> ');
-    $('#usermgt').append('<button type="button" id="userBtnDelete" class="btn btn-primary disabled" onclick="deleteUser()">' + getClientMessage('COMDELETE') + '</button> ');
-    $('#usermgt').append('<p></p>');
+    $('#usermgmt').append('<div class="form-group"><label for="userName">' + getClientMessage('USERNAME') + '</label><input type="text" class="form-control" id="userName" placeholder="' + getClientMessage('USERNAME') + '"></div>');
+    $('#usermgmt').append('<div class="form-group"><label for="userType">' + getClientMessage('USERROLE') + '</label><select class="form-control" id="userRole"><option>' + getClientMessage('USERROLEADMIN') + '</option><option>' + getClientMessage('USERROLEUSER') + '</option></select></div>');
+    $('#usermgmt').append('<div id="usermgt_errmsg"/>');
+    $('#usermgmt').append('<button type="button" id="userBtnAdd" class="btn btn-dark" onclick="updateUser(false)">' + getClientMessage('COMADD') + '</button> ');
+    $('#usermgmt').append('<button type="button" id="userBtnUpdate" class="btn btn-dark disabled" onclick="updateUser(true)">' + getClientMessage('COMUPDATE') + '</button> ');
+    $('#usermgmt').append('<button type="button" id="userBtnDelete" class="btn btn-dark disabled" onclick="deleteUser()">' + getClientMessage('COMDELETE') + '</button> ');
+    $('#usermgmt').append('<button type="button" id="closeOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button>');
+    $('#usermgmt').append('<p></p>');
     $('td').css('vertical-align', 'middle');
 }
 
@@ -184,7 +187,7 @@ function deleteUser() {
 }
 
 function selectUser(userId) {
-    var userList = getArray(responseData['API_GET_USER'].User);
+    var userList = getArray(responseData['API_GET_USERS'].User);
     selectedUser = userName;
     for (loop = 0; loop < userList.length; loop++) {
         if (userList[loop].Id == userId) {
@@ -858,7 +861,7 @@ function activateTopic(id) {
         transDisplayOdbcConfig();
     }
     if (id === 'cmdfreakusermgmt') {
-        transDisplayOdbcConfig();
+        transDisplayUser();
     }
 }
 
