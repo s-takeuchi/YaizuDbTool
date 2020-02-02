@@ -19,7 +19,7 @@ StkObject* ApiGetUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPat
 	DataAccess::GetInstance()->GetTargetUserByName(UserName, &UserId, UserPassword, &Role);
 	if (StkPlWcsStr(UrlPath, L"?target=all") != NULL) {
 		if (Role != 0) {
-			AddCodeAndMsg(TmpObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
+			AddCodeAndMsg(TmpObj, MyMsgProc::CMDFRK_ACCESS_RIGHT_ERROR, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_ACCESS_RIGHT_ERROR), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_ACCESS_RIGHT_ERROR));
 			*ResultCode = 403;
 			return TmpObj;
 		}

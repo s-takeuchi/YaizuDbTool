@@ -48,6 +48,10 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddJpn(CMDFRK_AUTH_ERROR, L"認証エラーが発生しました。");
 	MessageProc::AddEng(CMDFRK_AUTH_ERROR, L"Authentication error occurred.");
 
+	//3125 (★)
+	MessageProc::AddJpn(CMDFRK_ACCESS_RIGHT_ERROR, L"アクセス権限エラーが発生しました。");
+	MessageProc::AddEng(CMDFRK_ACCESS_RIGHT_ERROR, L"Access right error occurred.");
+
 	//3126 (NC6)
 	MessageProc::AddJpn(CMDFRK_LOG_DBMSCHANGE, L"ODBC接続の設定を変更しました。");
 	MessageProc::AddEng(CMDFRK_LOG_DBMSCHANGE, L"The ODBC connection configuration has been changed.");
