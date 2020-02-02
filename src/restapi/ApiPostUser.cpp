@@ -29,7 +29,12 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 	wchar_t Name[Global::MAXLEN_OF_USERNAME] = L"";
 	wchar_t Password[Global::MAXLEN_OF_PASSWORD] = L"";
 	int Role = 0;
-	StkObject* CurObj = UserObj->GetFirstChildElement();
+	StkObject *SearchObj = new StkObject(L"User");
+	StkObject* CurObj = UserObj->Contains(SearchObj);
+	if (CurObj) {
+		CurObj = CurObj->GetFirstChildElement();
+	}
+	delete SearchObj;
 	while (CurObj) {
 		if (StkPlWcsCmp(CurObj->GetName(), L"Id") == 0) {
 			Id = CurObj->GetIntValue();
