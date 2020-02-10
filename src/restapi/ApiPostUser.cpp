@@ -19,22 +19,16 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 		*ResultCode = 400;
 		return ResObj;
 	}
-	StkObject* UserObj = ReqObj->GetFirstChildElement();
-	if (UserObj == NULL) {
-		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
-		*ResultCode = 400;
-		return ResObj;
-	}
 	int Id = -1;
 	wchar_t Name[Global::MAXLEN_OF_USERNAME] = L"";
 	wchar_t Password[Global::MAXLEN_OF_PASSWORD] = L"";
 	int Role = 0;
-	StkObject *SearchObj = new StkObject(L"User");
-	StkObject* CurObj = UserObj->Contains(SearchObj);
-	if (CurObj) {
-		CurObj = CurObj->GetFirstChildElement();
+	StkObject* CurObj = ReqObj->GetFirstChildElement();
+	if (CurObj == NULL) {
+		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
+		*ResultCode = 400;
+		return ResObj;
 	}
-	delete SearchObj;
 	while (CurObj) {
 		if (StkPlWcsCmp(CurObj->GetName(), L"Id") == 0) {
 			Id = CurObj->GetIntValue();
@@ -57,5 +51,6 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 		}
 		CurObj = CurObj->GetNext();
 	}
+	DataAccess::GetInstance()->UpdateUser(Id, Name, Role);
 	return NULL;
 }

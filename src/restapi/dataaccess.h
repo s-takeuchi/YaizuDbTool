@@ -29,4 +29,5 @@ public:
 	bool GetFilterSwitch();
 	bool GetTargetUserByName(wchar_t[Global::MAXLEN_OF_USERNAME], int*, wchar_t[Global::MAXLEN_OF_PASSWORD], int*);
 	int GetTargetUsers(int[Global::MAXNUM_OF_USERRECORDS], wchar_t[Global::MAXNUM_OF_USERRECORDS][Global::MAXLEN_OF_USERNAME], wchar_t[Global::MAXNUM_OF_USERRECORDS][Global::MAXLEN_OF_PASSWORD], int[Global::MAXNUM_OF_USERRECORDS]);
+	bool UpdateUser(int, wchar_t[Global::MAXLEN_OF_USERNAME], int);
 };

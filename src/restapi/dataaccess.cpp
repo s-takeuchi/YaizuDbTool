@@ -359,10 +359,12 @@ int DataAccess::GetTargetUsers(int Id[Global::MAXNUM_OF_USERRECORDS],
 	}
 	int Loop = 0;
 	for (; CurRecDatUser; Loop++) {
+		ColumnDataInt* ColDatId = (ColumnDataInt*)CurRecDatUser->GetColumn(0);
 		ColumnDataWStr* ColDatName = (ColumnDataWStr*)CurRecDatUser->GetColumn(1);
 		ColumnDataWStr* ColDatPw = (ColumnDataWStr*)CurRecDatUser->GetColumn(2);
 		ColumnDataInt* ColDatRole = (ColumnDataInt*)CurRecDatUser->GetColumn(3);
-		if (ColDatName != NULL && ColDatPw != NULL && ColDatRole != NULL) {
+		if (ColDatId != NULL && ColDatName != NULL && ColDatPw != NULL && ColDatRole != NULL) {
+			Id[Loop] = ColDatId->GetValue();
 			StkPlWcsCpy(Name[Loop], Global::MAXLEN_OF_PASSWORD, ColDatName->GetValue());
 			StkPlWcsCpy(Password[Loop], Global::MAXLEN_OF_PASSWORD, ColDatPw->GetValue());
 			Role[Loop] = ColDatRole->GetValue();
@@ -371,6 +373,26 @@ int DataAccess::GetTargetUsers(int Id[Global::MAXNUM_OF_USERRECORDS],
 	}
 	delete RecDatUser;
 	return Loop;
+}
+
+bool DataAccess::UpdateUser(int Id, wchar_t Name[Global::MAXLEN_OF_USERNAME], int Role)
+{
+	ColumnData* ColDatUpdUser[3];
+	ColDatUpdUser[0] = new ColumnDataInt(L"Id", Id);
+	ColDatUpdUser[1] = new ColumnDataWStr(L"Name", Name);
+	ColDatUpdUser[2] = new ColumnDataInt(L"Role", Role);
+	RecordData* RecDatUpdUser = new RecordData(L"User", ColDatUpdUser, 3);
+
+	ColumnData* ColDatSearchUser[1];
+	ColDatSearchUser[0] = new ColumnDataInt(L"Id", Id);
+	RecordData* RecDatSearchUser = new RecordData(L"User", ColDatSearchUser, 1);
+
+	LockTable(L"User", LOCK_EXCLUSIVE);
+	int Ret = UpdateRecord(RecDatSearchUser, RecDatUpdUser);
+	UnlockTable(L"User");
+	delete RecDatUpdUser;
+	delete RecDatSearchUser;
+	return true;
 }
 
 // Stops AutoSave function and save the latest data

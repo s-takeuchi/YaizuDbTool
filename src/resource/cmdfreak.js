@@ -5,8 +5,8 @@ var userRole = 0;
 // Table name which selected
 var currentTablename = "";
 
-// Selected user on user management page
-var selectedUser = '';
+// Selected user information on user management page
+var selectedUserId = -1;
 
 function initClientMessage() {
     //
@@ -181,6 +181,19 @@ function displayUser() {
 }
 
 function updateUser(updateFlag) {
+    var specifiedUserName = $('#userName').val().replace(/[\n\r]/g, '');
+    var specifiedUserRole = $('#userRole').val();
+    var tmpRole = -1;
+    if (specifiedUserRole === getClientMessage('USERROLEADMIN')) {
+        tmpRole = 0;
+    } else if (specifiedUserRole === getClientMessage('USERROLEUSER')) {
+        tmpRole = 1;
+    } else {
+        closeInputModal();
+    }
+    var reqDatDf = { 'Id': selectedUserId, 'Name': specifiedUserName, 'Role': tmpRole };
+    apiCall('POST', '/api/user/', reqDatDf, 'API_POST_USER', null);
+    closeInputModal();
 }
 
 function deleteUser() {
@@ -188,9 +201,9 @@ function deleteUser() {
 
 function selectUser(userId) {
     var userList = getArray(responseData['API_GET_USERS'].User);
-    selectedUser = userName;
     for (loop = 0; loop < userList.length; loop++) {
         if (userList[loop].Id == userId) {
+            selectedUserId = userList[loop].Id;
             var roleStr = '';
             if (userList[loop].Role == 0) {
                 roleStr = getClientMessage('USERROLEADMIN');
