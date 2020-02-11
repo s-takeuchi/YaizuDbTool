@@ -183,8 +183,10 @@ function displayUser() {
     $('#usermgmt').append('<div class="form-group"><label for="userType">' + getClientMessage('USERROLE') + '</label><select class="form-control" id="userRole"><option>' + getClientMessage('USERROLEADMIN') + '</option><option>' + getClientMessage('USERROLEUSER') + '</option></select></div>');
     $('#usermgmt').append('<div id="usermgt_msg"/>');
     if (userOpeStatus == 0) {
+    } else if (userOpeStatus == 1) {
+        displayAlertSuccess('#usermgt_msg', getClientMessage('USEROPECOMPLETED'));
     } else {
-        displayAlertInfo('#usermgt_msg', getClientMessage('USEROPECOMPLETED'));
+        displayAlertDanger('#usermgt_msg', getSvrMsg(responseData['API_POST_USER']));
     }
     $('#usermgmt').append('<button type="button" id="userBtnAdd" class="btn btn-dark" onclick="updateUser(false)">' + getClientMessage('COMADD') + '</button> ');
     $('#usermgmt').append('<button type="button" id="userBtnUpdate" class="btn btn-dark disabled"">' + getClientMessage('COMUPDATE') + '</button> ');
@@ -213,7 +215,12 @@ function deleteUser() {
 }
 
 function userOpeFinal() {
-    userOpeStatus = 1;
+    if (statusCode['API_POST_USER'] == 200 && statusCode['API_POST_USER'] == 200) {
+        userOpeStatus = 1;
+    } else {
+        userOpeStatus = 2;
+    }
+    
     var contents = [{ method: 'GET', url: '/api/user/?target=all', request: null, keystring: 'API_GET_USERS' }];
     MultiApiCall(contents, displayUser);
 }
