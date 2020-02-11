@@ -8,6 +8,9 @@ var currentTablename = "";
 // Selected user information on user management page
 var selectedUserId = -1;
 
+// User operation result
+var userOpeStatus = 0;
+
 function initClientMessage() {
     //
     // User information
@@ -18,6 +21,7 @@ function initClientMessage() {
     addClientMessage('USERROLE', {'en':'User Role', 'ja':'ユーザーロール'});
     addClientMessage('USERROLEADMIN', {'en':'Administrator', 'ja':'管理者'});
     addClientMessage('USERROLEUSER', {'en':'General User', 'ja':'一般ユーザー'});
+    addClientMessage('USEROPECOMPLETED', {'en':'The operation has completed.', 'ja':'操作が完了しました。'});
 
     //
     // ODBC configuration
@@ -131,6 +135,7 @@ function escapeString(tmpStr) {
 ////////////////////////////////////////////////////////////////////////////////
 
 function transDisplayUser() {
+    userOpeStatus = 0;
     var contents = [{ method: 'GET', url: '/api/user/?target=all', request: null, keystring: 'API_GET_USERS' }];
     MultiApiCall(contents, displayUser);
 }
@@ -142,11 +147,16 @@ function displayUser() {
     if (statusCode['API_GET_USERS'] == -1 || statusCode['API_GET_USERS'] == 0) {
         displayAlertDanger('#usermgmt', getClientMessage('CONNERR'));
         return;
+    } else if (statusCode['API_GET_USERS'] != 200) {
+        displayAlertDanger('#usermgmt', getSvrMsg(responseData['API_GET_USERS']));
+        return;
     }
     var userList = getArray(responseData['API_GET_USERS'].User);
     if (userList == null) {
         $('#usermgmt').append(getClientMessage('NOUSEREXIST'));
     }
+
+    selectedUserId = -1;
 
     if (responseData['API_GET_USERS'].User !== undefined) {
         var userListTable = $('<table>');
@@ -171,10 +181,14 @@ function displayUser() {
     }
     $('#usermgmt').append('<div class="form-group"><label for="userName">' + getClientMessage('USERNAME') + '</label><input type="text" class="form-control" id="userName" placeholder="' + getClientMessage('USERNAME') + '"></div>');
     $('#usermgmt').append('<div class="form-group"><label for="userType">' + getClientMessage('USERROLE') + '</label><select class="form-control" id="userRole"><option>' + getClientMessage('USERROLEADMIN') + '</option><option>' + getClientMessage('USERROLEUSER') + '</option></select></div>');
-    $('#usermgmt').append('<div id="usermgt_errmsg"/>');
+    $('#usermgmt').append('<div id="usermgt_msg"/>');
+    if (userOpeStatus == 0) {
+    } else {
+        displayAlertInfo('#usermgt_msg', getClientMessage('USEROPECOMPLETED'));
+    }
     $('#usermgmt').append('<button type="button" id="userBtnAdd" class="btn btn-dark" onclick="updateUser(false)">' + getClientMessage('COMADD') + '</button> ');
-    $('#usermgmt').append('<button type="button" id="userBtnUpdate" class="btn btn-dark disabled" onclick="updateUser(true)">' + getClientMessage('COMUPDATE') + '</button> ');
-    $('#usermgmt').append('<button type="button" id="userBtnDelete" class="btn btn-dark disabled" onclick="deleteUser()">' + getClientMessage('COMDELETE') + '</button> ');
+    $('#usermgmt').append('<button type="button" id="userBtnUpdate" class="btn btn-dark disabled"">' + getClientMessage('COMUPDATE') + '</button> ');
+    $('#usermgmt').append('<button type="button" id="userBtnDelete" class="btn btn-dark disabled"">' + getClientMessage('COMDELETE') + '</button> ');
     $('#usermgmt').append('<button type="button" id="closeOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button>');
     $('#usermgmt').append('<p></p>');
     $('td').css('vertical-align', 'middle');
@@ -192,11 +206,16 @@ function updateUser(updateFlag) {
         closeInputModal();
     }
     var reqDatDf = { 'Id': selectedUserId, 'Name': specifiedUserName, 'Role': tmpRole };
-    apiCall('POST', '/api/user/', reqDatDf, 'API_POST_USER', null);
-    closeInputModal();
+    apiCall('POST', '/api/user/', reqDatDf, 'API_POST_USER', userOpeFinal);
 }
 
 function deleteUser() {
+}
+
+function userOpeFinal() {
+    userOpeStatus = 1;
+    var contents = [{ method: 'GET', url: '/api/user/?target=all', request: null, keystring: 'API_GET_USERS' }];
+    MultiApiCall(contents, displayUser);
 }
 
 function selectUser(userId) {
@@ -213,7 +232,9 @@ function selectUser(userId) {
             $('#userName').val(userList[loop].Name);
             $('#userRole').val(roleStr);
             $('#userBtnUpdate').removeClass('disabled');
+            $('#userBtnUpdate').click(function() {updateUser(true);});
             $('#userBtnDelete').removeClass('disabled');
+            $('#userBtnDelete').click(function() {deleteUser();});
         }
     }
 }
