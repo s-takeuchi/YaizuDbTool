@@ -196,7 +196,7 @@ function displayUser() {
     $('td').css('vertical-align', 'middle');
 }
 
-function updateUser(updateFlag) {
+function updateUser(opeFlag) {
     var specifiedUserName = $('#userName').val().replace(/[\n\r]/g, '');
     var specifiedUserRole = $('#userRole').val();
     var tmpRole = -1;
@@ -207,6 +207,10 @@ function updateUser(updateFlag) {
     } else {
         closeInputModal();
     }
+    if (opeFlag == false) {
+        selectedUserId = -1;
+    }
+    
     var reqDatDf = { 'Id': selectedUserId, 'Name': specifiedUserName, 'Role': tmpRole };
     apiCall('POST', '/api/user/', reqDatDf, 'API_POST_USER', userOpeFinal);
 }

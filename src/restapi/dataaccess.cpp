@@ -375,6 +375,38 @@ int DataAccess::GetTargetUsers(int Id[Global::MAXNUM_OF_USERRECORDS],
 	return Loop;
 }
 
+bool DataAccess::AddUser(wchar_t Name[Global::MAXLEN_OF_USERNAME], int Role)
+{
+	LockTable(L"User", LOCK_EXCLUSIVE);
+
+	// Get max user ID
+	RecordData* RecDatUser = GetRecord(L"User");
+	RecordData* CurrRecDat = RecDatUser;
+	int MaxLogId = 0;
+	while (CurrRecDat != NULL) {
+		ColumnDataInt* ColDat = (ColumnDataInt*)CurrRecDat->GetColumn(0);
+		int CurrId = ColDat->GetValue();
+		if (CurrId > MaxLogId) {
+			MaxLogId = CurrId;
+		}
+		CurrRecDat = CurrRecDat->GetNextRecord();
+	}
+	delete RecDatUser;
+	
+	// Add new user
+	ColumnData* ColDatInsertUser[4];
+	ColDatInsertUser[0] = new ColumnDataInt(L"Id", MaxLogId + 1);
+	ColDatInsertUser[1] = new ColumnDataWStr(L"Name", Name);
+	ColDatInsertUser[2] = new ColumnDataWStr(L"Password", L"aaa");
+	ColDatInsertUser[3] = new ColumnDataInt(L"Role", Role);
+	RecordData* RecDatInsertUser = new RecordData(L"User", ColDatInsertUser, 4);
+	int Ret = InsertRecord(RecDatInsertUser);
+	delete RecDatInsertUser;
+
+	UnlockTable(L"User");
+	return true;
+}
+
 bool DataAccess::UpdateUser(int Id, wchar_t Name[Global::MAXLEN_OF_USERNAME], int Role)
 {
 	ColumnData* ColDatUpdUser[3];
