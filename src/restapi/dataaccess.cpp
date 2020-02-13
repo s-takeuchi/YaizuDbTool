@@ -345,6 +345,31 @@ bool DataAccess::GetTargetUserByName(wchar_t Name[Global::MAXLEN_OF_USERNAME], i
 	return true;
 }
 
+bool DataAccess::GetTargetUserById(int Id, wchar_t Name[Global::MAXLEN_OF_USERNAME], wchar_t Password[Global::MAXLEN_OF_PASSWORD], int* Role)
+{
+	ColumnData* ColDat[1];
+	ColDat[0] = new ColumnDataInt(L"Id", Id);
+	RecordData* SearchUser = new RecordData(L"User", ColDat, 1);
+	LockTable(L"User", LOCK_SHARE);
+	RecordData* RecDatUser = GetRecord(SearchUser);
+	UnlockTable(L"User");
+	delete SearchUser;
+	if (RecDatUser != NULL) {
+		ColumnDataWStr* ColDatName = (ColumnDataWStr*)RecDatUser->GetColumn(1);
+		ColumnDataWStr* ColDatPw = (ColumnDataWStr*)RecDatUser->GetColumn(2);
+		ColumnDataInt* ColDatRole = (ColumnDataInt*)RecDatUser->GetColumn(3);
+		if (ColDatName != NULL && ColDatPw != NULL && ColDatRole != NULL) {
+			StkPlWcsCpy(Name, Global::MAXLEN_OF_USERNAME, ColDatName->GetValue());
+			StkPlWcsCpy(Password, Global::MAXLEN_OF_PASSWORD, ColDatPw->GetValue());
+			*Role = ColDatRole->GetValue();
+		}
+	} else {
+		return false;
+	}
+	delete RecDatUser;
+	return true;
+}
+
 int DataAccess::GetTargetUsers(int Id[Global::MAXNUM_OF_USERRECORDS],
 	wchar_t Name[Global::MAXNUM_OF_USERRECORDS][Global::MAXLEN_OF_USERNAME],
 	wchar_t Password[Global::MAXNUM_OF_USERRECORDS][Global::MAXLEN_OF_PASSWORD],

@@ -57,8 +57,12 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddEng(CMDFRK_ACCESS_RIGHT_ERROR, L"Access right error occurred.");
 
 	//(★)
-	MessageProc::AddJpn(CMDFRK_CANNOT_MODIFY_YOUR_INFO, L"自分自身の情報を変更することはできません。");
+	MessageProc::AddJpn(CMDFRK_CANNOT_MODIFY_YOUR_INFO, L"自分自身のユーザー情報を変更することはできません。");
 	MessageProc::AddEng(CMDFRK_CANNOT_MODIFY_YOUR_INFO, L"You cannot modify user information yourself.");
+
+	//(★)
+	MessageProc::AddJpn(CMDFRK_SAME_USER_NAME_EXIST, L"すでに同名のユーザーが存在するため，ユーザー情報を変更できません。");
+	MessageProc::AddEng(CMDFRK_SAME_USER_NAME_EXIST, L"You cannot modify user information because the user who has the same name exists.");
 
 	//
 	// Logging
