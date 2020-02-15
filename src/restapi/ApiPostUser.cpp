@@ -68,8 +68,12 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 	wchar_t TmpName[Global::MAXLEN_OF_USERNAME] = L"";
 	wchar_t TmpPassword[Global::MAXLEN_OF_PASSWORD] = L"";
 	int TmpRole = -1;
+	if (Id != -1 && DataAccess::GetInstance()->GetTargetUserById(Id, TmpName, TmpPassword, &TmpRole) == false) {
+		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_USER_DOES_NOT_EXIST, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_USER_DOES_NOT_EXIST), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_USER_DOES_NOT_EXIST));
+		*ResultCode = 400;
+		return ResObj;
+	}
 	// In case user information yourself is cahnged.
-	DataAccess::GetInstance()->GetTargetUserById(Id, TmpName, TmpPassword, &TmpRole);
 	if (StkPlWcsCmp(YourName, TmpName) == 0) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_CANNOT_MODIFY_YOUR_INFO, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_CANNOT_MODIFY_YOUR_INFO), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_CANNOT_MODIFY_YOUR_INFO));
 		*ResultCode = 400;
