@@ -68,13 +68,15 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 	wchar_t TmpName[Global::MAXLEN_OF_USERNAME] = L"";
 	wchar_t TmpPassword[Global::MAXLEN_OF_PASSWORD] = L"";
 	int TmpRole = -1;
+	// In case user information yourself is cahnged.
 	DataAccess::GetInstance()->GetTargetUserById(Id, TmpName, TmpPassword, &TmpRole);
 	if (StkPlWcsCmp(YourName, TmpName) == 0) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_CANNOT_MODIFY_YOUR_INFO, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_CANNOT_MODIFY_YOUR_INFO), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_CANNOT_MODIFY_YOUR_INFO));
 		*ResultCode = 400;
 		return ResObj;
 	}
-	if (DataAccess::GetInstance()->GetTargetUserByName(Name, &TmpId, TmpPassword, &TmpRole) == true) {
+	// User name is changed, and the name already exists.
+	if (StkPlWcsCmp(TmpName, Name) != 0 && DataAccess::GetInstance()->GetTargetUserByName(Name, &TmpId, TmpPassword, &TmpRole) == true) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_SAME_USER_NAME_EXIST, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SAME_USER_NAME_EXIST), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SAME_USER_NAME_EXIST));
 		*ResultCode = 400;
 		return ResObj;
