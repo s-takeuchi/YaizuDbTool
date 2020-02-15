@@ -64,6 +64,10 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddJpn(CMDFRK_SAME_USER_NAME_EXIST, L"すでに同名のユーザーが存在するため，ユーザー情報を変更できません。");
 	MessageProc::AddEng(CMDFRK_SAME_USER_NAME_EXIST, L"You cannot modify user information because the user who has the same name exists.");
 
+	//(★)
+	MessageProc::AddJpn(CMDFRK_USER_DOES_NOT_EXIST, L"指定したユーザーは存在しません。");
+	MessageProc::AddEng(CMDFRK_USER_DOES_NOT_EXIST, L"The specified user does not exist.");
+
 	//
 	// Logging
 	//

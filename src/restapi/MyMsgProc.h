@@ -19,6 +19,7 @@ public:
 	static const int CMDFRK_ACCESS_RIGHT_ERROR        = 3125;
 	static const int CMDFRK_CANNOT_MODIFY_YOUR_INFO   = 3126;
 	static const int CMDFRK_SAME_USER_NAME_EXIST      = 3127;
+	static const int CMDFRK_USER_DOES_NOT_EXIST       = 3128;
 
 	// Logging
 	static const int CMDFRK_USER_ADD                  = 3131;

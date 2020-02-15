@@ -452,6 +452,19 @@ bool DataAccess::UpdateUser(int Id, wchar_t Name[Global::MAXLEN_OF_USERNAME], in
 	return true;
 }
 
+bool DataAccess::DeleteUser(int Id)
+{
+	ColumnData* ColDatSearchUser[1];
+	ColDatSearchUser[0] = new ColumnDataInt(L"Id", Id);
+	RecordData* RecDatSearchUser = new RecordData(L"User", ColDatSearchUser, 1);
+
+	LockTable(L"User", LOCK_EXCLUSIVE);
+	int Ret = DeleteRecord(RecDatSearchUser);
+	UnlockTable(L"User");
+	delete RecDatSearchUser;
+	return true;
+}
+
 // Stops AutoSave function and save the latest data
 // Return : always zero returned
 int DataAccess::StopAutoSave()

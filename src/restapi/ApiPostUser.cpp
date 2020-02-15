@@ -82,9 +82,10 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 		return ResObj;
 	}
 
+	AddCodeAndMsg(ResObj, 0, L"", L"");
+	*ResultCode = 200;
 	if (Id == -1) {
 		DataAccess::GetInstance()->AddUser(Name, Role);
-		*ResultCode = 200;
 		wchar_t LogBufEng[512] = L"";
 		wchar_t LogBufJpn[512] = L"";
 		StkPlSwPrintf(LogBufEng, 512, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_USER_ADD), Name);
@@ -92,7 +93,6 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 		DataAccess::GetInstance()->AddLogMsg(LogBufEng, LogBufJpn);
 	} else {
 		DataAccess::GetInstance()->UpdateUser(Id, Name, Role);
-		*ResultCode = 200;
 		wchar_t LogBufEng[512] = L"";
 		wchar_t LogBufJpn[512] = L"";
 		StkPlSwPrintf(LogBufEng, 512, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_USER_EDIT), Name);

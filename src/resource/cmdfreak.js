@@ -186,7 +186,7 @@ function displayUser() {
     } else if (userOpeStatus == 1) {
         displayAlertSuccess('#usermgt_msg', getClientMessage('USEROPECOMPLETED'));
     } else {
-        displayAlertDanger('#usermgt_msg', getSvrMsg(responseData['API_POST_USER']));
+        displayAlertDanger('#usermgt_msg', getSvrMsg(responseData['API_OPE_USER']));
     }
     $('#usermgmt').append('<button type="button" id="userBtnAdd" class="btn btn-dark" onclick="updateUser(false)">' + getClientMessage('COMADD') + '</button> ');
     $('#usermgmt').append('<button type="button" id="userBtnUpdate" class="btn btn-dark disabled"">' + getClientMessage('COMUPDATE') + '</button> ');
@@ -212,14 +212,15 @@ function updateUser(opeFlag) {
     }
     
     var reqDatDf = { 'Id': selectedUserId, 'Name': specifiedUserName, 'Role': tmpRole };
-    apiCall('POST', '/api/user/', reqDatDf, 'API_POST_USER', userOpeFinal);
+    apiCall('POST', '/api/user/', reqDatDf, 'API_OPE_USER', userOpeFinal);
 }
 
 function deleteUser() {
+    apiCall('DELETE', '/api/user/' + selectedUserId + '/', null, 'API_OPE_USER', userOpeFinal);
 }
 
 function userOpeFinal() {
-    if (statusCode['API_POST_USER'] == 200 && statusCode['API_POST_USER'] == 200) {
+    if (statusCode['API_OPE_USER'] == 200 && statusCode['API_OPE_USER'] == 200) {
         userOpeStatus = 1;
     } else {
         userOpeStatus = 2;
