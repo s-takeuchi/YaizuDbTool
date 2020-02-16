@@ -400,7 +400,7 @@ int DataAccess::GetTargetUsers(int Id[Global::MAXNUM_OF_USERRECORDS],
 	return Loop;
 }
 
-bool DataAccess::AddUser(wchar_t Name[Global::MAXLEN_OF_USERNAME], int Role)
+bool DataAccess::AddUser(wchar_t Name[Global::MAXLEN_OF_USERNAME], int Role, wchar_t Password[Global::MAXLEN_OF_PASSWORD])
 {
 	LockTable(L"User", LOCK_EXCLUSIVE);
 
@@ -422,7 +422,7 @@ bool DataAccess::AddUser(wchar_t Name[Global::MAXLEN_OF_USERNAME], int Role)
 	ColumnData* ColDatInsertUser[4];
 	ColDatInsertUser[0] = new ColumnDataInt(L"Id", MaxLogId + 1);
 	ColDatInsertUser[1] = new ColumnDataWStr(L"Name", Name);
-	ColDatInsertUser[2] = new ColumnDataWStr(L"Password", L"aaa");
+	ColDatInsertUser[2] = new ColumnDataWStr(L"Password", Password);
 	ColDatInsertUser[3] = new ColumnDataInt(L"Role", Role);
 	RecordData* RecDatInsertUser = new RecordData(L"User", ColDatInsertUser, 4);
 	int Ret = InsertRecord(RecDatInsertUser);
@@ -432,13 +432,20 @@ bool DataAccess::AddUser(wchar_t Name[Global::MAXLEN_OF_USERNAME], int Role)
 	return true;
 }
 
-bool DataAccess::UpdateUser(int Id, wchar_t Name[Global::MAXLEN_OF_USERNAME], int Role)
+bool DataAccess::UpdateUser(int Id, wchar_t Name[Global::MAXLEN_OF_USERNAME], int Role, wchar_t Password[Global::MAXLEN_OF_PASSWORD])
 {
-	ColumnData* ColDatUpdUser[3];
+	int ColLen = 0;
+	ColumnData* ColDatUpdUser[4];
 	ColDatUpdUser[0] = new ColumnDataInt(L"Id", Id);
 	ColDatUpdUser[1] = new ColumnDataWStr(L"Name", Name);
 	ColDatUpdUser[2] = new ColumnDataInt(L"Role", Role);
-	RecordData* RecDatUpdUser = new RecordData(L"User", ColDatUpdUser, 3);
+	if (Password == NULL || Password[0] == L'\0') {
+		ColLen = 3;
+	} else {
+		ColLen = 4;
+		ColDatUpdUser[3] = new ColumnDataWStr(L"Password", Password);
+	}
+	RecordData* RecDatUpdUser = new RecordData(L"User", ColDatUpdUser, ColLen);
 
 	ColumnData* ColDatSearchUser[1];
 	ColDatSearchUser[0] = new ColumnDataInt(L"Id", Id);

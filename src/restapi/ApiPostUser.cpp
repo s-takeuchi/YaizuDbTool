@@ -52,7 +52,7 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 				*ResultCode = 400;
 				return ResObj;
 			}
-			StkPlWcsCpy(Name, Global::MAXLEN_OF_PASSWORD, CurObj->GetStringValue());
+			StkPlWcsCpy(Password, Global::MAXLEN_OF_PASSWORD, CurObj->GetStringValue());
 		} else if (StkPlWcsCmp(CurObj->GetName(), L"Role") == 0) {
 			Role = CurObj->GetIntValue();
 		}
@@ -89,14 +89,14 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 	AddCodeAndMsg(ResObj, 0, L"", L"");
 	*ResultCode = 200;
 	if (Id == -1) {
-		DataAccess::GetInstance()->AddUser(Name, Role);
+		DataAccess::GetInstance()->AddUser(Name, Role, Password);
 		wchar_t LogBufEng[512] = L"";
 		wchar_t LogBufJpn[512] = L"";
 		StkPlSwPrintf(LogBufEng, 512, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_USER_ADD), Name);
 		StkPlSwPrintf(LogBufJpn, 512, MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_USER_ADD), Name);
 		DataAccess::GetInstance()->AddLogMsg(LogBufEng, LogBufJpn);
 	} else {
-		DataAccess::GetInstance()->UpdateUser(Id, Name, Role);
+		DataAccess::GetInstance()->UpdateUser(Id, Name, Role, Password);
 		wchar_t LogBufEng[512] = L"";
 		wchar_t LogBufJpn[512] = L"";
 		StkPlSwPrintf(LogBufEng, 512, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_USER_EDIT), Name);

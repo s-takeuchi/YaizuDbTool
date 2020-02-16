@@ -22,6 +22,8 @@ function initClientMessage() {
     addClientMessage('USERROLEADMIN', {'en':'Administrator', 'ja':'管理者'});
     addClientMessage('USERROLEUSER', {'en':'General User', 'ja':'一般ユーザー'});
     addClientMessage('USEROPECOMPLETED', {'en':'The operation has completed.', 'ja':'操作が完了しました。'});
+    addClientMessage('USER_PASSWORD_ON', {'en':'Configure password', 'ja':'パスワードを設定する'});
+    addClientMessage('USER_PASSWORD', {'en':'Password', 'ja':'パスワード'});
 
     //
     // ODBC configuration
@@ -179,8 +181,13 @@ function displayUser() {
         userListTable.append(tBody);
         $('#usermgmt').append(userListTable);
     }
-    $('#usermgmt').append('<div class="form-group"><label for="userName">' + getClientMessage('USERNAME') + '</label><input type="text" class="form-control" id="userName" placeholder="' + getClientMessage('USERNAME') + '"></div>');
+    $('#usermgmt').append('<div class="form-group"><label for="userName">' + getClientMessage('USERNAME') + '</label><input type="text" class="form-control" id="userName" placeholder="' + getClientMessage('USERNAME') + '"/></div>');
     $('#usermgmt').append('<div class="form-group"><label for="userType">' + getClientMessage('USERROLE') + '</label><select class="form-control" id="userRole"><option>' + getClientMessage('USERROLEADMIN') + '</option><option>' + getClientMessage('USERROLEUSER') + '</option></select></div>');
+
+    var userPwOn = '';
+    $('#usermgmt').append($('<div class="form-check"><input class="form-check-input" type="checkbox" id="userPwOn" onClick="clickUserPwOn()" ' + userPwOn + '><label class="form-check-label" for="userPwOn">' + getClientMessage('USER_PASSWORD_ON') + '</label><input type="password" class="form-control" id="userPassword" placeholder="' + getClientMessage('USER_PASSWORD') + '" disabled/></div>'));
+
+    $('#usermgmt').append('<br/>');
     $('#usermgmt').append('<div id="usermgt_msg"/>');
     if (userOpeStatus == 0) {
     } else if (userOpeStatus == 1) {
@@ -196,9 +203,19 @@ function displayUser() {
     $('td').css('vertical-align', 'middle');
 }
 
+function clickUserPwOn()
+{
+    if ($('#userPwOn').prop('checked') == true) {
+        $('#userPassword').prop('disabled', false);
+    } else {
+        $('#userPassword').prop('disabled', true);
+    }
+}
+
 function updateUser(opeFlag) {
     var specifiedUserName = $('#userName').val().replace(/[\n\r]/g, '');
     var specifiedUserRole = $('#userRole').val();
+    var specifiedUserPassword = $('#userPassword').val().replace(/[\n\r]/g, '');
     var tmpRole = -1;
     if (specifiedUserRole === getClientMessage('USERROLEADMIN')) {
         tmpRole = 0;
@@ -210,8 +227,13 @@ function updateUser(opeFlag) {
     if (opeFlag == false) {
         selectedUserId = -1;
     }
-    
-    var reqDatDf = { 'Id': selectedUserId, 'Name': specifiedUserName, 'Role': tmpRole };
+
+    var reqDatDf = {};
+    if ($('#userPwOn').prop('checked') == true) {
+        reqDatDf = { 'Id': selectedUserId, 'Name': specifiedUserName, 'Role': tmpRole, 'Password': specifiedUserPassword };
+    } else {
+        reqDatDf = { 'Id': selectedUserId, 'Name': specifiedUserName, 'Role': tmpRole };
+    }
     apiCall('POST', '/api/user/', reqDatDf, 'API_OPE_USER', userOpeFinal);
 }
 
@@ -243,6 +265,9 @@ function selectUser(userId) {
             }
             $('#userName').val(userList[loop].Name);
             $('#userRole').val(roleStr);
+            $('#userPwOn').prop('checked', false);
+            $('#userPassword').prop('disabled', true);
+            $('#userPassword').val('');
             $('#userBtnUpdate').removeClass('disabled');
             $('#userBtnUpdate').click(function() {updateUser(true);});
             $('#userBtnDelete').removeClass('disabled');
