@@ -46,6 +46,23 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 				return ResObj;
 			}
 			StkPlWcsCpy(Name, Global::MAXLEN_OF_USERNAME, CurObj->GetStringValue());
+
+			if (StkPlWcsLen(Name) <= 3) {
+				AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_INVALID_LEN_OF_USER_NAME, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_INVALID_LEN_OF_USER_NAME), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_INVALID_LEN_OF_USER_NAME));
+				*ResultCode = 400;
+				return ResObj;
+			}
+
+			wchar_t* PtrName = Name;
+			while (*PtrName) {
+				if (!(*PtrName >= L'a' && *PtrName <= L'z') && !(*PtrName >= L'A' && *PtrName <= L'Z') && !(*PtrName >= L'0' && *PtrName <= L'9') && 
+					*PtrName != L'@' && *PtrName != L'.' && *PtrName != L'-' && *PtrName != L'_') {
+					AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_INVALID_USER_NAME, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_INVALID_USER_NAME), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_INVALID_USER_NAME));
+					*ResultCode = 400;
+					return ResObj;
+				}
+				PtrName++;
+			}
 		} else if (StkPlWcsCmp(CurObj->GetName(), L"Password") == 0) {
 			if (StkPlWcsLen(CurObj->GetStringValue()) >= Global::MAXLEN_OF_PASSWORD) {
 				AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG));
@@ -53,6 +70,24 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 				return ResObj;
 			}
 			StkPlWcsCpy(Password, Global::MAXLEN_OF_PASSWORD, CurObj->GetStringValue());
+
+			if (StkPlWcsLen(Password) <= 3) {
+				AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_INVALID_LEN_OF_PASSWORD, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_INVALID_LEN_OF_PASSWORD), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_INVALID_LEN_OF_PASSWORD));
+				*ResultCode = 400;
+				return ResObj;
+			}
+
+			wchar_t* PtrPassword = Password;
+			while (*PtrPassword) {
+				if (!(*PtrPassword >= L'a' && *PtrPassword <= L'z') && !(*PtrPassword >= L'A' && *PtrPassword <= L'Z') && !(*PtrPassword >= L'0' && *PtrPassword <= L'9') &&
+					*PtrPassword != L'!' && *PtrPassword != L'?' && *PtrPassword != L'.' && *PtrPassword != L'+' && *PtrPassword != L'-' && *PtrPassword != L'$' &&
+					*PtrPassword != L'%' && *PtrPassword != L'#' && *PtrPassword != L'&' && *PtrPassword != L'*' && *PtrPassword != L'/' && *PtrPassword != L'=' && *PtrPassword != L'@') {
+					AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_INVALID_PASSWORD, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_INVALID_PASSWORD), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_INVALID_PASSWORD));
+					*ResultCode = 400;
+					return ResObj;
+				}
+				PtrPassword++;
+			}
 		} else if (StkPlWcsCmp(CurObj->GetName(), L"Role") == 0) {
 			Role = CurObj->GetIntValue();
 		}

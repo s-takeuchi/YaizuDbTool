@@ -68,6 +68,22 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddJpn(CMDFRK_USER_DOES_NOT_EXIST, L"指定したユーザーは存在しません。");
 	MessageProc::AddEng(CMDFRK_USER_DOES_NOT_EXIST, L"The specified user does not exist.");
 
+	//(★)
+	MessageProc::AddJpn(CMDFRK_INVALID_USER_NAME, L"指定されたユーザー名に使用禁止文字が含まれています。");
+	MessageProc::AddEng(CMDFRK_INVALID_USER_NAME, L"The specified user name contains prohibited character(s).");
+
+	//(★)
+	MessageProc::AddJpn(CMDFRK_INVALID_LEN_OF_USER_NAME, L"ユーザー名は4文字以上である必要があります。");
+	MessageProc::AddEng(CMDFRK_INVALID_LEN_OF_USER_NAME, L"The user name needs to contain at least 4 characters.");
+
+	//(★)
+	MessageProc::AddJpn(CMDFRK_INVALID_PASSWORD, L"指定されたパスワードに使用禁止文字が含まれています。");
+	MessageProc::AddEng(CMDFRK_INVALID_PASSWORD, L"The specified password contains prohibited character(s).");
+
+	//(★)
+	MessageProc::AddJpn(CMDFRK_INVALID_LEN_OF_PASSWORD, L"パスワードは4文字以上である必要があります。");
+	MessageProc::AddEng(CMDFRK_INVALID_LEN_OF_PASSWORD, L"The password needs to contain at least 4 characters.");
+
 	//
 	// Logging
 	//
