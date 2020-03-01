@@ -25,6 +25,7 @@ public:
 	static const int CMDFRK_INVALID_LEN_OF_USER_NAME  = 3130;
 	static const int CMDFRK_INVALID_PASSWORD          = 3131;
 	static const int CMDFRK_INVALID_LEN_OF_PASSWORD   = 3132;
+	static const int CMDFRK_PASSWORD_REQUIRED_FOR_ADD = 3133;
 
 	// Logging
 	static const int CMDFRK_USER_ADD                  = 3331;

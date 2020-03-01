@@ -84,6 +84,10 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddJpn(CMDFRK_INVALID_LEN_OF_PASSWORD, L"パスワードは4文字以上である必要があります。");
 	MessageProc::AddEng(CMDFRK_INVALID_LEN_OF_PASSWORD, L"The password needs to contain at least 4 characters.");
 
+	//(★)
+	MessageProc::AddJpn(CMDFRK_PASSWORD_REQUIRED_FOR_ADD, L"ユーザーを追加する場合，パスワードを指定する必要があります。");
+	MessageProc::AddEng(CMDFRK_PASSWORD_REQUIRED_FOR_ADD, L"In case user addition, a password needs to be specified.");
+
 	//
 	// Logging
 	//

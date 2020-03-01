@@ -872,7 +872,7 @@ function displayTableInfo() {
 
 function initCmdFreak() {
     if (statusCode['API_GET_LANG'] == -1 || statusCode['API_GET_LANG'] == 0) {
-        $('body').append(getClientMessage('CONNERR'));
+        displayAlertDanger('body', getClientMessage('CONNERR'));
         return;
     }
     if (responseData['API_GET_LANG'].Data.ClientLanguage == 'ja') {
@@ -880,17 +880,17 @@ function initCmdFreak() {
     } else {
         setClientLanguage(0);
     }
+    showLoginModal(checkLogin);
+}
 
+function refreshInfo() {
     var menuContents = [
         { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: getClientMessage('ODBC_CONNECTION') },
         { id: 'cmdfreakusermgmt', actApiName: 'activateTopic', title: getClientMessage('USERMGMT') },
         { id: 'cmdfreakinfo', actApiName: 'activateTopic', title: getClientMessage('SVCINFO') }
     ];
     initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
-    showLoginModal(checkLogin);
-}
 
-function refreshInfo() {
     userRole = 1;
     currentTablename = "";
     if (userRole == 1) {
