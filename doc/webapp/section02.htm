@@ -25,6 +25,9 @@ CmdFreakのREST APIは，以下の一覧に示すAPIをクライアント提供�
 <tr><td>GET /api/records/</td><td>指定されたテーブルのレコードを取得する。</td></tr>
 <tr><td>GET /api/filterinfo/</td><td>フィルタ情報を取得する。</td></tr>
 <tr><td>POST /api/filterinfo/</td><td>フィルタ情報を設定する。</td></tr>
+<tr><td>GET /api/user/</td><td>ユーザー情報を取得する。</td></tr>
+<tr><td>POST /api/user/</td><td>ユーザー情報を設定する。</td></tr>
+<tr><td>DELETE /api/user/</td><td>ユーザー情報を削除する。</td></tr>
 </table>
 </div><p>
 
@@ -536,6 +539,145 @@ ODBCの情報を設定します。<br/>
 </pre>
 <table class="tblstyle">
 <tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200)。</td></tr>
+<tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+</table><br/>
+</li>
+</ul>
+</div><p>
+
+
+<H2 ID="2.12">2.12 Get /api/user/</H2>
+<div class="topic">
+ユーザー情報を取得します。<br/>
+?target=allは，管理者のみ指定可能。<br/>
+<ul>
+<li>リクエスト
+<pre>
+<b><u>&lt;すべてのユーザー情報を取得する場合(管理者のみ指定可能)&gt;</u></b>
+&target=all
+</pre>
+<pre>
+<b><u>&lt;ログインユーザーの情報のみを取得する&gt;</u></b>
+なし
+</pre>
+<table class="tblstyle">
+<tr><td>target</td><td>String</td><td>allのみ指定可能。</td></tr>
+</table><br/>
+<li>レスポンス
+<pre>
+{
+  "Code" : 1234,
+  "MsgEng" : "abc",
+  "MsgJpn" : "あいう",
+  "Data" : {
+    "User" : [
+      {
+        "Id" : 1,
+        "Name" : "aaa",
+        "Role" : 0
+      },
+      {
+        "Id" : 2,
+        "Name" : "bbb",
+        "Role" : 1
+      },
+    ]
+  }
+}
+</pre>
+<table class="tblstyle">
+<tr><td>Code</td><td>Integer</td><td>結果コード。0:成功(HTTPステータスコード=200)，3124:認証エラー(HTTPステータスコード=401)，3125:権限エラー(HTTPステータスコード=403)。</td></tr>
+<tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>User</td><td>Element</td><td></td></tr>
+<tr><td>Id</td><td>Integer</td><td>ユーザーID</td></tr>
+<tr><td>Name</td><td>String</td><td>ユーザー名</td></tr>
+<tr><td>Role</td><td>Integer</td><td>ユーザー種別 (0:管理者, 1:一般ユーザー)</td></tr>
+</table><br/>
+</li>
+</ul>
+</div><p>
+
+
+<H2 ID="2.13">2.13 Post /api/user/</H2>
+<div class="topic">
+ユーザー情報を設定します。<br/>
+管理者のみ本APIを呼び出すことができます。<br/>
+<ul>
+<li>リクエスト
+<pre>
+{
+  "Id" : 0,
+  "Name" : "aaa",
+  "Password" : "xxx",
+  "Role" : 0,
+}
+</pre>
+<table class="tblstyle">
+<tr><td>Id</td><td>Integer</td><td>ユーザーID。既存のユーザー情報を変更する場合は指定。新規ユーザーを作成する場合は指定しない。</td></tr>
+<tr><td>Name</td><td>String</td><td>ユーザー名。指定可能文字: a-z, A-Z, 0-9, @, .(ピリオド), -, _, /</td></tr>
+<tr><td>Password</td><td>String</td><td>パスワード。指定可能文字: a-z, A-Z, 0-9, !, ?, .(ピリオド), +, -, $, %, #, &, *, /, =, @</td></tr>
+<tr><td>Role</td><td>Integer</td><td>ユーザー種別 (0:管理者, 1:一般ユーザー)</td></tr>
+</table><br/>
+<li>レスポンス
+<pre>
+{
+  "Code" : 1234,
+  "MsgEng" : "abc",
+  "MsgJpn" : "あいう",
+}
+</pre>
+<table class="tblstyle">
+<tr><td>Code</td><td>Integer</td><td>
+  結果コード。
+  0:成功(HTTPステータスコード=200)，
+  3121:リクエストデータ不十分(HTTPステータスコード=400)，
+  3124:認証エラー(HTTPステータスコード=401)，
+  3125:権限エラー(HTTPステータスコード=403)，
+  3126:自分自身の情報の変更を試みた(HTTPステータスコード=400)，
+  3127:変更を試みたユーザー名はすでに使用されている(HTTPステータスコード=400)，
+  3128:指定したユーザーが存在しない(HTTPステータスコード=400)，
+  31XX:その他各種エラー(HTTPステータスコード=400)。
+</td></tr>
+<tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+</table><br/>
+</li>
+</ul>
+</div><p>
+
+
+<H2 ID="2.14">2.14 Delete /api/user/</H2>
+<div class="topic">
+ユーザー情報を削除します。<br/>
+管理者のみ本APIを呼び出すことができます。<br/>
+<ul>
+<li>リクエスト
+<pre>
+/api/user/n/</pre>
+<table class="tblstyle">
+<tr><td>n</td><td>Integer</td><td>削除対象のユーザーID</td></tr>
+</table><br/>
+<li>レスポンス
+<pre>
+{
+  "Code" : 1234,
+  "MsgEng" : "abc",
+  "MsgJpn" : "あいう",
+}
+</pre>
+<table class="tblstyle">
+<tr><td>Code</td><td>Integer</td><td>
+  結果コード。
+  0:成功(HTTPステータスコード=200)，
+  3121:ユーザーID未指定(HTTPステータスコード=400)，
+  3124:認証エラー(HTTPステータスコード=401)，
+  3125:権限エラー(HTTPステータスコード=403)，
+  3126:自分自身の削除を試みた(HTTPステータスコード=400)，
+  3128:指定したユーザーが存在しない(HTTPステータスコード=400)。
+</td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 </table><br/>

@@ -56,7 +56,7 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 			wchar_t* PtrName = Name;
 			while (*PtrName) {
 				if (!(*PtrName >= L'a' && *PtrName <= L'z') && !(*PtrName >= L'A' && *PtrName <= L'Z') && !(*PtrName >= L'0' && *PtrName <= L'9') && 
-					*PtrName != L'@' && *PtrName != L'.' && *PtrName != L'-' && *PtrName != L'_') {
+					*PtrName != L'@' && *PtrName != L'.' && *PtrName != L'-' && *PtrName != L'_' && *PtrName != L'/') {
 					AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_INVALID_USER_NAME, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_INVALID_USER_NAME), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_INVALID_USER_NAME));
 					*ResultCode = 400;
 					return ResObj;

@@ -13,7 +13,7 @@ StkObject* ApiGetUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPat
 	StkObject* TmpObj = new StkObject(L"");
 	if (!CheckCredentials(Token, UserName)) {
 		AddCodeAndMsg(TmpObj, MyMsgProc::CMDFRK_AUTH_ERROR, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_AUTH_ERROR), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_AUTH_ERROR));
-		*ResultCode = 403;
+		*ResultCode = 401;
 		return TmpObj;
 	}
 	DataAccess::GetInstance()->GetTargetUserByName(UserName, &UserId, UserPassword, &Role);
@@ -28,13 +28,15 @@ StkObject* ApiGetUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPat
 		wchar_t AryUserPassword[Global::MAXNUM_OF_USERRECORDS][Global::MAXLEN_OF_PASSWORD];
 		int AryRole[Global::MAXNUM_OF_USERRECORDS];
 		int Cnt = DataAccess::GetInstance()->GetTargetUsers(AryUserId, AryUserName, AryUserPassword, AryRole);
+		StkObject* TmpObjD = new StkObject(L"Data");
 		for (int Loop = 0; Loop < Cnt; Loop++) {
 			StkObject* TmpObjC = new StkObject(L"User");
 			TmpObjC->AppendChildElement(new StkObject(L"Id", AryUserId[Loop]));
 			TmpObjC->AppendChildElement(new StkObject(L"Name", AryUserName[Loop]));
 			TmpObjC->AppendChildElement(new StkObject(L"Role", AryRole[Loop]));
-			TmpObj->AppendChildElement(TmpObjC);
+			TmpObjD->AppendChildElement(TmpObjC);
 		}
+		TmpObj->AppendChildElement(TmpObjD);
 		AddCodeAndMsg(TmpObj, 0, L"", L"");
 		*ResultCode = 200;
 		return TmpObj;
@@ -43,7 +45,9 @@ StkObject* ApiGetUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPat
 		TmpObjC->AppendChildElement(new StkObject(L"Id", UserId));
 		TmpObjC->AppendChildElement(new StkObject(L"Name", UserName));
 		TmpObjC->AppendChildElement(new StkObject(L"Role", Role));
-		TmpObj->AppendChildElement(TmpObjC);
+		StkObject* TmpObjD = new StkObject(L"Data");
+		TmpObjD->AppendChildElement(TmpObjC);
+		TmpObj->AppendChildElement(TmpObjD);
 		AddCodeAndMsg(TmpObj, 0, L"", L"");
 		*ResultCode = 200;
 		return TmpObj;

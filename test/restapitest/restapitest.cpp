@@ -156,6 +156,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 			StkPlPrintf("[NG]\r\n");
 			StkPlExit(1);
 		}
+		delete ResObj;
 		StkPlPrintf("[OK]\r\n");
 	}
 	{
@@ -182,13 +183,16 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 			if (StkPlWcsCmp(Dat->GetName(), L"MsgJpn") == 0) {
 				StkPlWcsCpy(MsgJpn, 256, Dat->GetStringValue());
 			}
-			if (StkPlWcsCmp(Dat->GetName(), L"User") == 0) {
-				StkObject* DatId = Dat->GetFirstChildElement();
-				while (DatId) {
-					if (StkPlWcsCmp(DatId->GetName(), L"Id") == 0) {
-						TargetUserId = DatId->GetIntValue();
+			if (StkPlWcsCmp(Dat->GetName(), L"Data") == 0) {
+				StkObject* DatUser = Dat->GetFirstChildElement();
+				if (StkPlWcsCmp(DatUser->GetName(), L"User") == 0) {
+					StkObject* DatId = DatUser->GetFirstChildElement();
+					while (DatId) {
+						if (StkPlWcsCmp(DatId->GetName(), L"Id") == 0) {
+							TargetUserId = DatId->GetIntValue();
+						}
+						DatId = DatId->GetNext();
 					}
-					DatId = DatId->GetNext();
 				}
 			}
 			Dat = Dat->GetNext();
@@ -197,6 +201,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 			StkPlPrintf("[NG]\r\n");
 			StkPlExit(1);
 		}
+		delete ResObj;
 		StkPlPrintf("[OK]\r\n");
 	}
 	{
@@ -223,8 +228,14 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 			if (StkPlWcsCmp(Dat->GetName(), L"MsgJpn") == 0) {
 				StkPlWcsCpy(MsgJpn, 256, Dat->GetStringValue());
 			}
-			if (StkPlWcsCmp(Dat->GetName(), L"User") == 0) {
-				UserCount++;
+			if (StkPlWcsCmp(Dat->GetName(), L"Data") == 0) {
+				StkObject* DatUser = Dat->GetFirstChildElement();
+				while (DatUser) {
+					if (StkPlWcsCmp(DatUser->GetName(), L"User") == 0) {
+						UserCount++;
+					}
+					DatUser = DatUser->GetNext();
+				}
 			}
 			Dat = Dat->GetNext();
 		}
@@ -232,6 +243,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 			StkPlPrintf("[NG]\r\n");
 			StkPlExit(1);
 		}
+		delete ResObj;
 		StkPlPrintf("[OK]\r\n");
 	}
 }

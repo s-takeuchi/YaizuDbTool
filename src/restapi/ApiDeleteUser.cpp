@@ -28,7 +28,7 @@ StkObject* ApiDeleteUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t Url
 		StkStringParser::ParseInto2Params(UrlPath, L"$user/$/", L'$', Dummy, 256, UserIdStr, 16);
 	}
 	if (UserIdStr == NULL || UserIdStr[0] == L'\0') {
-		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_USER_DOES_NOT_EXIST, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_USER_DOES_NOT_EXIST), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_USER_DOES_NOT_EXIST));
+		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
 		*ResultCode = 400;
 		return ResObj;
 	}

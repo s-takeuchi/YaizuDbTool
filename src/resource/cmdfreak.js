@@ -153,14 +153,14 @@ function displayUser() {
         displayAlertDanger('#usermgmt', getSvrMsg(responseData['API_GET_USERS']));
         return;
     }
-    var userList = getArray(responseData['API_GET_USERS'].User);
+    var userList = getArray(responseData['API_GET_USERS'].Data.User);
     if (userList == null) {
         $('#usermgmt').append(getClientMessage('NOUSEREXIST'));
     }
 
     selectedUserId = -1;
 
-    if (responseData['API_GET_USERS'].User !== undefined) {
+    if (responseData['API_GET_USERS'].Data.User !== undefined) {
         var userListTable = $('<table>');
         userListTable.addClass('table table-striped');
 
@@ -253,7 +253,7 @@ function userOpeFinal() {
 }
 
 function selectUser(userId) {
-    var userList = getArray(responseData['API_GET_USERS'].User);
+    var userList = getArray(responseData['API_GET_USERS'].Data.User);
     for (loop = 0; loop < userList.length; loop++) {
         if (userList[loop].Id == userId) {
             selectedUserId = userList[loop].Id;
@@ -911,7 +911,7 @@ function checkLogin() {
         return false;
     } else {
         refreshInfo();
-        userRole = responseData['API_GET_USER'].User.Role;
+        var userRole = responseData['API_GET_USER'].Data.User.Role;
         if (userRole == 0) {
             $('#menu-cmdfreakinfo').show();
             $('#menu-cmdfreakusermgmt').show();
