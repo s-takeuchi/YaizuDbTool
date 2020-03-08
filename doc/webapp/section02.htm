@@ -616,10 +616,10 @@ ODBCの情報を設定します。<br/>
 }
 </pre>
 <table class="tblstyle">
-<tr><td>Id</td><td>Integer</td><td>ユーザーID。既存のユーザー情報を変更する場合は指定。新規ユーザーを作成する場合は指定しない。</td></tr>
+<tr><td>Id</td><td>Integer</td><td>ユーザーID。既存のユーザー情報を変更する場合は指定。新規ユーザーを作成する場合は指定しない。既存ユーザー情報を変更する場合のみ指定する。</td></tr>
 <tr><td>Name</td><td>String</td><td>ユーザー名。指定可能文字: a-z, A-Z, 0-9, @, .(ピリオド), -, _, /</td></tr>
-<tr><td>Password</td><td>String</td><td>パスワード。指定可能文字: a-z, A-Z, 0-9, !, ?, .(ピリオド), +, -, $, %, #, &, *, /, =, @</td></tr>
-<tr><td>Role</td><td>Integer</td><td>ユーザー種別 (0:管理者, 1:一般ユーザー)</td></tr>
+<tr><td>Password</td><td>String</td><td>パスワード。新規ユーザーを作成する場合は必須。指定可能文字: a-z, A-Z, 0-9, !, ?, .(ピリオド), +, -, $, %, #, &, *, /, =, @</td></tr>
+<tr><td>Role</td><td>Integer</td><td>ユーザー種別 (0:管理者, 1:一般ユーザー)。</td></tr>
 </table><br/>
 <li>レスポンス
 <pre>
@@ -627,6 +627,14 @@ ODBCの情報を設定します。<br/>
   "Code" : 1234,
   "MsgEng" : "abc",
   "MsgJpn" : "あいう",
+  "Data" : {
+    "User" : [
+      {
+        "Id" : 1,
+        "Name" : "aaa",
+        "Role" : 0
+      }
+  }
 }
 </pre>
 <table class="tblstyle">
@@ -643,6 +651,11 @@ ODBCの情報を設定します。<br/>
 </td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>User</td><td>Element</td><td>追加したユーザーの情報</td></tr>
+<tr><td>Id</td><td>Integer</td><td>ユーザーID</td></tr>
+<tr><td>Name</td><td>String</td><td>ユーザー名</td></tr>
+<tr><td>Role</td><td>Integer</td><td>ユーザー種別 (0:管理者, 1:一般ユーザー)</td></tr>
 </table><br/>
 </li>
 </ul>

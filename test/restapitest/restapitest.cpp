@@ -132,7 +132,9 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 		StkPlPrintf("GetUser (no target, no ID/PW) ... ");
 		int ResultCode = 0;
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/", NULL, &ResultCode);
-		if (ResObj == NULL) {
+		StkObject* SearchObj = new StkObject(L"Code", 3124);
+		StkObject* FoundObj = ResObj->Contains(SearchObj);
+		if (ResObj == NULL || ResultCode != 401 || FoundObj == NULL || FoundObj->GetIntValue() != 3124) {
 			StkPlPrintf("[NG]\r\n");
 			StkPlExit(1);
 		}
@@ -156,6 +158,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 			StkPlPrintf("[NG]\r\n");
 			StkPlExit(1);
 		}
+		delete SearchObj;
 		delete ResObj;
 		StkPlPrintf("[OK]\r\n");
 	}
@@ -205,7 +208,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 		StkPlPrintf("[OK]\r\n");
 	}
 	{
-		StkPlPrintf("GetUser (target=all, appropriate ID/PW) ... ");
+		StkPlPrintf("GetUser (target=all, appropriate ID/PW, admin user) ... ");
 		int ResultCode = 0;
 		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/?target=all", NULL, &ResultCode);
@@ -243,6 +246,159 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 			StkPlPrintf("[NG]\r\n");
 			StkPlExit(1);
 		}
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
+	{
+		StkPlPrintf("GetUser (target=all, appropriate ID/PW, normal user) ... ");
+		int ResultCode = 0;
+		StkWebAppSendObj->SetAutholization("Bearer takeuchi@a.a takeuchi");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/?target=all", NULL, &ResultCode);
+		if (ResObj == NULL || ResultCode != 403) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
+}
+
+void TestPostUser(StkWebAppSend* StkWebAppSendObj)
+{
+	{
+		StkPlPrintf("PostUser (add user, invalid ID/PW, abnormal) ... ");
+		int ResultCode = 0;
+		int JsonRes = 0;
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"testuser\", \"Role\" : 0, \"Password\" : \"testuser\"}", &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer error@a.a error");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		StkObject* SearchObj = new StkObject(L"Code", 3124);
+		StkObject* FoundObj = ResObj->Contains(SearchObj);
+		if (ResObj == NULL || ResultCode != 401 || FoundObj == NULL || FoundObj->GetIntValue() != 3124) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete SearchObj;
+		delete ReqObj;
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
+	{
+		StkPlPrintf("PostUser (add user, appropriate ID/PW, normal user, abnormal) ... ");
+		int ResultCode = 0;
+		int JsonRes = 0;
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"testuser\", \"Role\" : 0, \"Password\" : \"testuser\"}", &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer takeuchi@a.a takeuchi");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		if (ResObj == NULL || ResultCode != 403) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete ReqObj;
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
+	{
+		StkPlPrintf("PostUser (add user, appropriate ID/PW, admin user, no name specification, abnormal) ... ");
+		int ResultCode = 0;
+		int JsonRes = 0;
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Role\" : 0, \"Password\" : \"testuser\"}", &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		StkObject* SearchObj = new StkObject(L"Code", 3121);
+		StkObject* FoundObj = ResObj->Contains(SearchObj);
+		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3121) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete SearchObj;
+		delete ReqObj;
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
+	{
+		StkPlPrintf("PostUser (add user, appropriate ID/PW, admin user, no role specification, abnormal) ... ");
+		int ResultCode = 0;
+		int JsonRes = 0;
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"testuser\", \"Password\" : \"testuser\"}", &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		StkObject* SearchObj = new StkObject(L"Code", 3121);
+		StkObject* FoundObj = ResObj->Contains(SearchObj);
+		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3121) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete SearchObj;
+		delete ReqObj;
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
+	{
+		StkPlPrintf("PostUser (add user, appropriate ID/PW, admin user, no password specification, abnormal) ... ");
+		int ResultCode = 0;
+		int JsonRes = 0;
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"testuser\", \"Role\" : 0}", &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		StkObject* SearchObj = new StkObject(L"Code", 3133);
+		StkObject* FoundObj = ResObj->Contains(SearchObj);
+		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3133) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete SearchObj;
+		delete ReqObj;
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
+	int TargetId = -1;
+	{
+		StkPlPrintf("PostUser (add user, appropriate ID/PW, admin user) ... ");
+		int ResultCode = 0;
+		int JsonRes = 0;
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"testuser\", \"Role\" : 0, \"Password\" : \"testuser\"}", &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		StkObject* SearchObj = new StkObject(L"Code", 0);
+		StkObject* Search2Obj = StkObject::CreateObjectFromJson(L"\"User\" : {\"Name\" : \"testuser\"}", &JsonRes);
+		StkObject* FoundObj = ResObj->Contains(SearchObj);
+		StkObject* Found2Obj = ResObj->Contains(Search2Obj);
+		if (ResObj == NULL || ResultCode != 200 || FoundObj == NULL || Found2Obj == NULL) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		Found2Obj = Found2Obj->GetFirstChildElement();
+		while (Found2Obj) {
+			if (StkPlWcsCmp(Found2Obj->GetName(), L"Id") == 0) {
+				TargetId = Found2Obj->GetIntValue();
+			}
+			Found2Obj = Found2Obj->GetNext();
+		}
+		if (TargetId == -1) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete SearchObj;
+		delete Search2Obj;
+		delete ReqObj;
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
+	{
+		StkPlPrintf("PostUser (modify user, appropriate ID/PW, admin user, w/o password) ... ");
+		int ResultCode = 0;
+		int JsonRes = 0;
+		wchar_t ReqBuf[128] = L"";
+		StkPlSwPrintf(ReqBuf, 128, L"{\"Id\" : %d, \"Role\" : 0, \"Name\" :  \"testuser2\"}", TargetId);
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(ReqBuf, &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		if (ResObj == NULL || ResultCode != 200) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete ReqObj;
 		delete ResObj;
 		StkPlPrintf("[OK]\r\n");
 	}
@@ -291,6 +447,7 @@ int main(int Argc, char* Argv[])
 	TestGetOdbcInfoDefault(StkWebAppSendObj);
 	TestGetOdbcInfoConfigured(StkWebAppSendObj);
 	TestGetUser(StkWebAppSendObj);
+	TestPostUser(StkWebAppSendObj);
 	TestPostOperationStop(StkWebAppSendObj);
 	delete StkWebAppSendObj;
 	return 0;

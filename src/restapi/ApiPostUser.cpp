@@ -93,6 +93,7 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 		}
 		CurObj = CurObj->GetNext();
 	}
+	// In case both of name and role are not specified.
 	if (StkPlWcsCmp(Name, L"") == 0 || Role == -1) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
 		*ResultCode = 400;
@@ -127,7 +128,6 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 		*ResultCode = 400;
 		return ResObj;
 	}
-
 	AddCodeAndMsg(ResObj, 0, L"", L"");
 	*ResultCode = 200;
 	if (Id == -1) {
@@ -144,6 +144,21 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 		StkPlSwPrintf(LogBufEng, 512, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_USER_EDIT), Name);
 		StkPlSwPrintf(LogBufJpn, 512, MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_USER_EDIT), Name);
 		DataAccess::GetInstance()->AddLogMsg(LogBufEng, LogBufJpn);
+	}
+
+	{
+		int RetId = -1;
+		wchar_t RetPassword[Global::MAXLEN_OF_PASSWORD] = L"";
+		int RetRole = -1;
+
+		DataAccess::GetInstance()->GetTargetUserByName(Name, &RetId, RetPassword, &RetRole);
+		StkObject* RetData = new StkObject(L"Data");
+		StkObject* RetUser = new StkObject(L"User");
+		RetUser->AppendChildElement(new StkObject(L"Id", RetId));
+		RetUser->AppendChildElement(new StkObject(L"Name", Name));
+		RetUser->AppendChildElement(new StkObject(L"Role", RetRole));
+		RetData->AppendChildElement(RetUser);
+		ResObj->AppendChildElement(RetData);
 	}
 
 	return ResObj;
