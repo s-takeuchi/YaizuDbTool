@@ -6,6 +6,7 @@ void TestGetSystem(StkWebAppSend* StkWebAppSendObj)
 {
 	StkPlPrintf("GetSystem ... ");
 	int ResultCode = 0;
+	StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
 	StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/system/", NULL, &ResultCode);
 	if (ResObj == NULL) {
 		StkPlPrintf("[NG]\r\n");
@@ -42,6 +43,7 @@ void TestGetOdbcInfoDefault(StkWebAppSend* StkWebAppSendObj)
 {
 	StkPlPrintf("GetOdbcInfo(query=default) ... ");
 	int ResultCode = 0;
+	StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
 	StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/odbcinfo/?query=default", NULL, &ResultCode);
 	if (ResObj == NULL) {
 		StkPlPrintf("[NG]\r\n");
@@ -88,6 +90,7 @@ void TestGetOdbcInfoConfigured(StkWebAppSend* StkWebAppSendObj)
 {
 	StkPlPrintf("GetOdbcInfo(query=configured) ... ");
 	int ResultCode = 0;
+	StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
 	StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/odbcinfo/?query=configured", NULL, &ResultCode);
 	if (ResObj == NULL) {
 		StkPlPrintf("[NG]\r\n");
@@ -131,6 +134,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 	{
 		StkPlPrintf("GetUser (no target, no ID/PW) ... ");
 		int ResultCode = 0;
+		StkWebAppSendObj->SetAutholization("Bearer");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/", NULL, &ResultCode);
 		StkObject* SearchObj = new StkObject(L"Code", 3124);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
