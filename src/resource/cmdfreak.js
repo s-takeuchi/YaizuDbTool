@@ -148,9 +148,11 @@ function displayUser() {
 
     if (statusCode['API_GET_USERS'] == -1 || statusCode['API_GET_USERS'] == 0) {
         displayAlertDanger('#usermgmt', getClientMessage('CONNERR'));
+        $('#usermgmt').append('<p><button type="button" id="closeOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
         return;
     } else if (statusCode['API_GET_USERS'] != 200) {
         displayAlertDanger('#usermgmt', getSvrMsg(responseData['API_GET_USERS']));
+        $('#usermgmt').append('<p><button type="button" id="closeOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
         return;
     }
     var userList = getArray(responseData['API_GET_USERS'].Data.User);
@@ -303,6 +305,10 @@ function displayOdbcConfig() {
         }
         odbcConfig.append('<p><button type="button" id="closeOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
         return;
+    } else if (statusCode['API_GET_ODBCINFO_DEFAULT'] == 401) {
+        displayAlertDanger('#odbcconfig', getSvrMsg(responseData['API_GET_ODBCINFO_CONFIGURED']));
+        odbcConfig.append('<p><button type="button" id="closeOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
+        return;
     } else {
         displayAlertDanger('#odbcconfig', getClientMessage('CONNERR'));
         odbcConfig.append('<p><button type="button" id="closeOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
@@ -390,6 +396,10 @@ function displayInformation() {
         startTime = responseData['API_GET_SYSTEM'].Data.StartTime;
         productName = responseData['API_GET_SYSTEM'].Data.ProductName;
         version = responseData['API_GET_SYSTEM'].Data.Version;
+    } else if (statusCode['API_GET_SYSTEM'] == 401) {
+        displayAlertDanger('#svcinfo', getSvrMsg(responseData['API_GET_SYSTEM']));
+        svcInfo.append('<p><button type="button" id="closeSvcInfo" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
+        return;
     } else {
         displayAlertDanger('#svcinfo', getClientMessage('CONNERR'));
         svcInfo.append('<p><button type="button" id="closeSvcInfo" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
@@ -602,6 +612,10 @@ function displayFilterModal() {
         // Nothing to do
     } else if (statusCode['API_GET_TABLEINFO_WITH_COL'] == 404) {
         displayAlertDanger('#filter', getSvrMsg(responseData['API_GET_TABLEINFO_WITH_COL']));
+        filteringDlg.append('<p><button type="button" id="closeFilterDlg" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
+        return;
+    } else if (statusCode['API_GET_FILTERINFO'] == 401) {
+        displayAlertDanger('#filter', getSvrMsg(responseData['API_GET_FILTERINFO']));
         filteringDlg.append('<p><button type="button" id="closeFilterDlg" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
         return;
     } else {
@@ -831,7 +845,7 @@ function displayTableInfo() {
     }
     if (statusCode['API_GET_TABLEINFO_WITH_COL'] == 200) {
         // Nothing to do
-    } else if (statusCode['API_GET_TABLEINFO_WITH_COL'] == 404) {
+    } else if (statusCode['API_GET_TABLEINFO_WITH_COL'] == 404 || statusCode['API_GET_TABLEINFO_WITH_COL'] == 401) {
         displayAlertDanger('#tableinfo', getSvrMsg(responseData['API_GET_TABLEINFO_WITH_COL']));
         tableInfo.append('<p><button type="button" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
         return;
