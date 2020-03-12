@@ -795,7 +795,15 @@ function clearFilterModal() {
                     { index: 5, columnname: "*", opetype: 0, value: "" }
     ];
     var reqDatDf = { "Criteria": criteria };
-    apiCall('POST', '/api/filterinfo/', reqDatDf, 'API_POST_FILTERINFO', completeFilterModal);
+    reqDatSw = { "Function": "disable" };
+    var reqDatRc = { 'query': currentTablename };
+    var contents = [{ method: 'POST', url: '/api/filterinfo/', request: reqDatDf, keystring: 'API_POST_FILTERINFO' },
+                    { method: 'POST', url: '/api/filterinfo/', request: reqDatSw, keystring: 'API_POST_FILTERINFO' },
+                    { method: 'GET', url: '/api/tableinfo/', request: reqDatRc, keystring: 'API_GET_TABLEINFO_WITH_COL' },
+                    { method: 'GET', url: '/api/records/', request: reqDatRc, keystring: 'API_GET_RECORDS' }
+    ];
+    MultiApiCall(contents, completeFilterModal);
+    closeInputModal();
 }
 
 function completeFilterModal() {
@@ -884,25 +892,14 @@ function initCmdFreak() {
 }
 
 function refreshInfo() {
-    var menuContents = [
-        { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: getClientMessage('ODBC_CONNECTION') },
-        { id: 'cmdfreakusermgmt', actApiName: 'activateTopic', title: getClientMessage('USERMGMT') },
-        { id: 'cmdfreakinfo', actApiName: 'activateTopic', title: getClientMessage('SVCINFO') }
-    ];
-    initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
-
-    userRole = 1;
     currentTablename = "";
-    if (userRole == 1) {
-        clearRsCommand();
-        addDropDown('Tables');
-        addRsCommand('transDisplayFilterModal()', 'icon-filter', true);
-        var contents = [{ method: 'GET', url: '/api/tableinfo/', request: null, keystring: 'API_GET_TABLEINFO' },
-                        { method: 'GET', url: '/api/odbcinfo/', request: { 'query': 'configured' }, keystring: 'API_GET_ODBCINFO_CONFIGURED' }
-        ];
-        MultiApiCall(contents, checkOdbcConnection);
-    } else {
-    }
+    clearRsCommand();
+    addDropDown('Tables');
+    addRsCommand('transDisplayFilterModal()', 'icon-filter', true);
+    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: null, keystring: 'API_GET_TABLEINFO' },
+                    { method: 'GET', url: '/api/odbcinfo/', request: { 'query': 'configured' }, keystring: 'API_GET_ODBCINFO_CONFIGURED' }
+    ];
+    MultiApiCall(contents, checkOdbcConnection);
 }
 
 function checkLogin() {
@@ -910,7 +907,12 @@ function checkLogin() {
     if (statusCode['API_GET_USER'] != 200) {
         return false;
     } else {
-        refreshInfo();
+        var menuContents = [
+            { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: getClientMessage('ODBC_CONNECTION') },
+            { id: 'cmdfreakusermgmt', actApiName: 'activateTopic', title: getClientMessage('USERMGMT') },
+            { id: 'cmdfreakinfo', actApiName: 'activateTopic', title: getClientMessage('SVCINFO') }
+        ];
+        initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
         var userRole = responseData['API_GET_USER'].Data.User.Role;
         if (userRole == 0) {
             $('#menu-cmdfreakinfo').show();
@@ -918,8 +920,8 @@ function checkLogin() {
             $('#menu-cmdfreakconfig').show();
         } else {
             $('#menu-cmdfreakinfo').show();
-            $('#menu-cmdfreakconfig').show();
         }
+        refreshInfo();
         return true;
     }
 }

@@ -6,9 +6,15 @@
 #include "OdbcManager.h"
 #include "DbAccessor.h"
 
-StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode)
+StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t* Token)
 {
 	StkObject* ResObj = new StkObject(L"");
+	wchar_t YourName[Global::MAXLEN_OF_USERNAME] = L"";
+	if (!CheckCredentials(Token, YourName)) {
+		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_AUTH_ERROR, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_AUTH_ERROR), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_AUTH_ERROR));
+		*ResultCode = 401;
+		return ResObj;
+	}
 
 	if (StkPlWcsStr(UrlPath, L"?query=default")) {
 		AddCodeAndMsg(ResObj, 0, L"", L"");
@@ -94,12 +100,25 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 	return ResObj;
 }
 
-StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode)
+StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t* Token)
 {
 	int DbmsType = -1;
 	SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH] = L"";
 
 	StkObject* ResObj = new StkObject(L"");
+
+	wchar_t YourName[Global::MAXLEN_OF_USERNAME] = L"";
+	if (!CheckCredentials(Token, YourName)) {
+		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_AUTH_ERROR, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_AUTH_ERROR), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_AUTH_ERROR));
+		*ResultCode = 401;
+		return ResObj;
+	}
+
+	if (!IsAdminUser(Token)) {
+		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_ACCESS_RIGHT_ERROR, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_ACCESS_RIGHT_ERROR), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_ACCESS_RIGHT_ERROR));
+		*ResultCode = 403;
+		return ResObj;
+	}
 
 	StkObject* Elem = ReqObj->GetFirstChildElement();
 	while (Elem) {
@@ -158,10 +177,10 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode)
 StkObject* ApiOdbcInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3], wchar_t* Token)
 {
 	if (Method & STKWEBAPP_METHOD_GET) {
-		return GetOdbcInfo(UrlPath, ResultCode);
+		return GetOdbcInfo(UrlPath, ResultCode, Token);
 	} else
 	if (Method & STKWEBAPP_METHOD_POST) {
-		return PostOdbcInfo(ReqObj, ResultCode);
+		return PostOdbcInfo(ReqObj, ResultCode, Token);
 	}
 	return NULL;
 }

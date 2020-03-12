@@ -97,6 +97,14 @@ StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode)
 
 StkObject* ApiFilterInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3], wchar_t* Token)
 {
+	wchar_t YourName[Global::MAXLEN_OF_USERNAME] = L"";
+	if (!CheckCredentials(Token, YourName)) {
+		StkObject* ResObj = new StkObject(L"");
+		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_AUTH_ERROR, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_AUTH_ERROR), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_AUTH_ERROR));
+		*ResultCode = 401;
+		return ResObj;
+	}
+
 	if (Method & STKWEBAPP_METHOD_GET) {
 		return GetFilterInfo(UrlPath, ResultCode);
 	} else
