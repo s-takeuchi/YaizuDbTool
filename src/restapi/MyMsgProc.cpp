@@ -5,8 +5,8 @@ void MyMsgProc::AddMsg()
 {
 	// =====================================================================================================
 	//(---)
-	MessageProc::AddJpn(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nCopyright (C) 2019 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
-	MessageProc::AddEng(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nCopyright (C) 2019 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
+	MessageProc::AddJpn(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nCopyright (C) 2020 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
+	MessageProc::AddEng(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nCopyright (C) 2020 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
 
 	//(★)
 	MessageProc::AddJpn(CMDFRK_CONF_NOT_FOUND, L"sample.conf が見つかりません。\r\n");
@@ -61,8 +61,8 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddEng(CMDFRK_CANNOT_MODIFY_YOUR_INFO, L"You cannot modify user information yourself.");
 
 	//(★)
-	MessageProc::AddJpn(CMDFRK_SAME_USER_NAME_EXIST, L"すでに同名のユーザーが存在するため，ユーザー情報を変更できません。");
-	MessageProc::AddEng(CMDFRK_SAME_USER_NAME_EXIST, L"You cannot modify user information because the user who has the same name exists.");
+	MessageProc::AddJpn(CMDFRK_SAME_USER_NAME_EXIST, L"すでに同名のユーザーが存在するため，ユーザー情報を追加または変更できません。");
+	MessageProc::AddEng(CMDFRK_SAME_USER_NAME_EXIST, L"You cannot add / modify user information because the user who has the same name you specified exists.");
 
 	//(★)
 	MessageProc::AddJpn(CMDFRK_USER_DOES_NOT_EXIST, L"指定したユーザーは存在しません。");
@@ -87,6 +87,10 @@ void MyMsgProc::AddMsg()
 	//(★)
 	MessageProc::AddJpn(CMDFRK_PASSWORD_REQUIRED_FOR_ADD, L"ユーザーを追加する場合，パスワードを指定する必要があります。");
 	MessageProc::AddEng(CMDFRK_PASSWORD_REQUIRED_FOR_ADD, L"In case user addition, a password needs to be specified.");
+
+	//(★)
+	MessageProc::AddJpn(CMDFRK_EXCEEDED_MAX_NUM_OF_USER, L"登録可能なユーザーの最大数を超えました。");
+	MessageProc::AddEng(CMDFRK_EXCEEDED_MAX_NUM_OF_USER, L"The number of users has been exceeded the maximum.");
 
 	//
 	// Logging

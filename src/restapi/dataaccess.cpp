@@ -400,6 +400,11 @@ int DataAccess::GetTargetUsers(int Id[Global::MAXNUM_OF_USERRECORDS],
 	return Loop;
 }
 
+int DataAccess::GetNumberOfUsers()
+{
+	return GetNumOfRecords(L"User");
+}
+
 bool DataAccess::AddUser(wchar_t Name[Global::MAXLEN_OF_USERNAME], int Role, wchar_t Password[Global::MAXLEN_OF_PASSWORD])
 {
 	LockTable(L"User", LOCK_EXCLUSIVE);

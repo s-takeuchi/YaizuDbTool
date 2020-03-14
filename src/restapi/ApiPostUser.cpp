@@ -104,6 +104,12 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 	wchar_t TmpName[Global::MAXLEN_OF_USERNAME] = L"";
 	wchar_t TmpPassword[Global::MAXLEN_OF_PASSWORD] = L"";
 	int TmpRole = -1;
+	// In case number of users exceeds the maximum.
+	if (Id == -1 && DataAccess::GetInstance()->GetNumberOfUsers() + 1 > Global::MAXNUM_OF_USERRECORDS) {
+		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_EXCEEDED_MAX_NUM_OF_USER, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_EXCEEDED_MAX_NUM_OF_USER), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_EXCEEDED_MAX_NUM_OF_USER));
+		*ResultCode = 400;
+		return ResObj;
+	}
 	// In case user which has the specified ID does not exist.
 	if (Id != -1 && DataAccess::GetInstance()->GetTargetUserById(Id, TmpName, TmpPassword, &TmpRole) == false) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_USER_DOES_NOT_EXIST, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_USER_DOES_NOT_EXIST), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_USER_DOES_NOT_EXIST));

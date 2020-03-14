@@ -561,6 +561,40 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 	}
 }
 
+void TestTooManyUsers(StkWebAppSend* StkWebAppSendObj)
+{
+	StkPlPrintf("Too many users (add 64 users, abnormal) ... ");
+	int ResultCode = 0;
+	int JsonRes = 0;
+	for (int Loop = 0; Loop < 64; Loop++) {
+		wchar_t JsonReq[256] = L"";
+		StkPlSwPrintf(JsonReq, 256, L"{\"Name\" : \"dummyuser%d\", \"Role\" : 1, \"Password\" : \"dummyuser%d\"}", Loop, Loop);
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(JsonReq, &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		if (ResObj == NULL) {
+			StkPlPrintf("[NG1]\r\n");
+			StkPlExit(1);
+		}
+		StkObject* SearchObj = new StkObject(L"Code", 3134);
+		StkObject* FoundObj = ResObj->Contains(SearchObj);
+		if (Loop <= 61 && (FoundObj != NULL || ResultCode != 200)) {
+			StkPlPrintf("[NG2]\r\n");
+			StkPlExit(1);
+		}
+		if (Loop > 61 && (FoundObj == NULL || ResultCode != 400)) {
+			StkPlPrintf("[NG3]\r\n");
+			StkPlExit(1);
+		}
+		delete SearchObj;
+		delete ReqObj;
+		delete ResObj;
+
+	}
+	StkPlPrintf("[OK]\r\n");
+
+}
+
 void TestPostOperationStop(StkWebAppSend* StkWebAppSendObj)
 {
 	{
@@ -606,6 +640,7 @@ int main(int Argc, char* Argv[])
 	TestGetUser(StkWebAppSendObj);
 	TestPostUser(StkWebAppSendObj);
 	TestDeleteUser(StkWebAppSendObj);
+	TestTooManyUsers(StkWebAppSendObj);
 	TestPostOperationStop(StkWebAppSendObj);
 	delete StkWebAppSendObj;
 	return 0;
