@@ -17,7 +17,7 @@ public:
 	static const int MAXLEN_OF_LOGMSG = 100;
 	static const int MAXNUM_OF_LOGRECORDS = 111;
 
-	static const int MAXLEN_OF_USERNAME = 256;
+	static const int MAXLEN_OF_USERNAME = 32;
 	static const int MAXLEN_OF_PASSWORD = 32;
 	static const int MAXNUM_OF_USERRECORDS = 64;
 };

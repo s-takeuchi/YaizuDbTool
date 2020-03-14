@@ -92,7 +92,7 @@ bool ApiBase::CheckCredentials(wchar_t* Token, wchar_t* Name)
 
 	wchar_t TmpName[Global::MAXLEN_OF_USERNAME] = L"";
 	wchar_t TmpPassword[Global::MAXLEN_OF_PASSWORD] = L"";
-	StkStringParser::ParseInto2Params(Token, L"# #", L'#', TmpName, 256, TmpPassword, 32);
+	StkStringParser::ParseInto2Params(Token, L"# #", L'#', TmpName, Global::MAXLEN_OF_USERNAME, TmpPassword, Global::MAXLEN_OF_PASSWORD);
 	if (TmpName == NULL || TmpPassword == NULL || *TmpName == L'\0' || *TmpPassword == L'\0') {
 		return false;
 	}

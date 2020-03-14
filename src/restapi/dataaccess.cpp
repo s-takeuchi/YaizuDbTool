@@ -390,7 +390,7 @@ int DataAccess::GetTargetUsers(int Id[Global::MAXNUM_OF_USERRECORDS],
 		ColumnDataInt* ColDatRole = (ColumnDataInt*)CurRecDatUser->GetColumn(3);
 		if (ColDatId != NULL && ColDatName != NULL && ColDatPw != NULL && ColDatRole != NULL) {
 			Id[Loop] = ColDatId->GetValue();
-			StkPlWcsCpy(Name[Loop], Global::MAXLEN_OF_PASSWORD, ColDatName->GetValue());
+			StkPlWcsCpy(Name[Loop], Global::MAXLEN_OF_USERNAME, ColDatName->GetValue());
 			StkPlWcsCpy(Password[Loop], Global::MAXLEN_OF_PASSWORD, ColDatPw->GetValue());
 			Role[Loop] = ColDatRole->GetValue();
 		}
