@@ -6,7 +6,7 @@ void TestGetSystem(StkWebAppSend* StkWebAppSendObj)
 {
 	StkPlPrintf("GetSystem ... ");
 	int ResultCode = 0;
-	StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+	StkWebAppSendObj->SetAutholization("Bearer admin manager");
 	StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/system/", NULL, &ResultCode);
 	if (ResObj == NULL) {
 		StkPlPrintf("[NG]\r\n");
@@ -43,7 +43,7 @@ void TestGetOdbcInfoDefault(StkWebAppSend* StkWebAppSendObj)
 {
 	StkPlPrintf("GetOdbcInfo(query=default) ... ");
 	int ResultCode = 0;
-	StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+	StkWebAppSendObj->SetAutholization("Bearer admin manager");
 	StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/odbcinfo/?query=default", NULL, &ResultCode);
 	if (ResObj == NULL) {
 		StkPlPrintf("[NG]\r\n");
@@ -90,7 +90,7 @@ void TestGetOdbcInfoConfigured(StkWebAppSend* StkWebAppSendObj)
 {
 	StkPlPrintf("GetOdbcInfo(query=configured) ... ");
 	int ResultCode = 0;
-	StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+	StkWebAppSendObj->SetAutholization("Bearer admin manager");
 	StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/odbcinfo/?query=configured", NULL, &ResultCode);
 	if (ResObj == NULL) {
 		StkPlPrintf("[NG]\r\n");
@@ -169,7 +169,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 	{
 		StkPlPrintf("GetUser (no target, appropriate ID/PW) ... ");
 		int ResultCode = 0;
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/", NULL, &ResultCode);
 		if (ResObj == NULL) {
 			StkPlPrintf("[NG]\r\n");
@@ -214,7 +214,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 	{
 		StkPlPrintf("GetUser (target=all, appropriate ID/PW, admin user) ... ");
 		int ResultCode = 0;
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/?target=all", NULL, &ResultCode);
 		if (ResObj == NULL) {
 			StkPlPrintf("[NG]\r\n");
@@ -256,7 +256,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 	{
 		StkPlPrintf("GetUser (target=all, appropriate ID/PW, normal user) ... ");
 		int ResultCode = 0;
-		StkWebAppSendObj->SetAutholization("Bearer takeuchi@a.a takeuchi");
+		StkWebAppSendObj->SetAutholization("Bearer guest guest999");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/?target=all", NULL, &ResultCode);
 		if (ResObj == NULL || ResultCode != 403) {
 			StkPlPrintf("[NG]\r\n");
@@ -292,7 +292,7 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		int ResultCode = 0;
 		int JsonRes = 0;
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"testuser\", \"Role\" : 0, \"Password\" : \"testuser\"}", &JsonRes);
-		StkWebAppSendObj->SetAutholization("Bearer takeuchi@a.a takeuchi");
+		StkWebAppSendObj->SetAutholization("Bearer guest guest999");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 403) {
 			StkPlPrintf("[NG]\r\n");
@@ -307,7 +307,7 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		int ResultCode = 0;
 		int JsonRes = 0;
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Role\" : 0, \"Password\" : \"testuser\"}", &JsonRes);
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		StkObject* SearchObj = new StkObject(L"Code", 3121);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
@@ -325,7 +325,7 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		int ResultCode = 0;
 		int JsonRes = 0;
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"testuser\", \"Password\" : \"testuser\"}", &JsonRes);
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		StkObject* SearchObj = new StkObject(L"Code", 3121);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
@@ -343,7 +343,7 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		int ResultCode = 0;
 		int JsonRes = 0;
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"testuser\", \"Role\" : 0}", &JsonRes);
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		StkObject* SearchObj = new StkObject(L"Code", 3133);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
@@ -362,7 +362,7 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		int ResultCode = 0;
 		int JsonRes = 0;
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"testuser\", \"Role\" : 0, \"Password\" : \"testuser\"}", &JsonRes);
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		StkObject* SearchObj = new StkObject(L"Code", 0);
 		StkObject* Search2Obj = StkObject::CreateObjectFromJson(L"\"User\" : {\"Name\" : \"testuser\"}", &JsonRes);
@@ -396,7 +396,7 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		wchar_t ReqBuf[128] = L"";
 		StkPlSwPrintf(ReqBuf, 128, L"{\"Id\" : %d, \"Role\" : 0, \"Name\" :  \"testuser2\"}", TargetId);
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(ReqBuf, &JsonRes);
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 200) {
 			StkPlPrintf("[NG]\r\n");
@@ -413,7 +413,7 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		wchar_t ReqBuf[128] = L"";
 		StkPlSwPrintf(ReqBuf, 128, L"{\"Id\" : 100, \"Role\" : 0, \"Name\" :  \"testuser2\"}");
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(ReqBuf, &JsonRes);
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 400) {
 			StkPlPrintf("[NG]\r\n");
@@ -455,13 +455,13 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkPlPrintf("[OK]\r\n");
 	}
 	{
-		StkPlPrintf("PostUser (modify user, appropriate ID/PW, admin user, try to change user name into admin@a.a, abnormal) ... ");
+		StkPlPrintf("PostUser (modify user, appropriate ID/PW, admin user, try to change user name into admin, abnormal) ... ");
 		int ResultCode = 0;
 		int JsonRes = 0;
 		wchar_t ReqBuf[128] = L"";
-		StkPlSwPrintf(ReqBuf, 128, L"{\"Id\" : %d, \"Role\" : 0, \"Name\" :  \"admin@a.a\"}", TargetId);
+		StkPlSwPrintf(ReqBuf, 128, L"{\"Id\" : %d, \"Role\" : 0, \"Name\" :  \"admin\"}", TargetId);
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(ReqBuf, &JsonRes);
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 400) {
 			StkPlPrintf("[NG]\r\n");
@@ -502,7 +502,7 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		StkPlPrintf("DeleteUser (access right error, abnormal) ... ");
 		int ResultCode = 0;
 		int JsonRes = 0;
-		StkWebAppSendObj->SetAutholization("Bearer takeuchi@a.a takeuchi");
+		StkWebAppSendObj->SetAutholization("Bearer guest guest999");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_DELETE, "/api/user/0/", NULL, &ResultCode);
 		StkObject* SearchObj = new StkObject(L"Code", 3125);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
@@ -518,7 +518,7 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		StkPlPrintf("DeleteUser (delete my own data, abnormal) ... ");
 		int ResultCode = 0;
 		int JsonRes = 0;
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_DELETE, "/api/user/0/", NULL, &ResultCode);
 		StkObject* SearchObj = new StkObject(L"Code", 3126);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
@@ -534,7 +534,7 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		StkPlPrintf("DeleteUser (invalid user ID, abnormal) ... ");
 		int ResultCode = 0;
 		int JsonRes = 0;
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_DELETE, "/api/user/100/", NULL, &ResultCode);
 		StkObject* SearchObj = new StkObject(L"Code", 3128);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
@@ -550,7 +550,7 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		StkPlPrintf("DeleteUser ... ");
 		int ResultCode = 0;
 		int JsonRes = 0;
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_DELETE, "/api/user/2/", NULL, &ResultCode);
 		if (ResObj == NULL || ResultCode != 200) {
 			StkPlPrintf("[NG]\r\n");
@@ -570,7 +570,7 @@ void TestTooManyUsers(StkWebAppSend* StkWebAppSendObj)
 		wchar_t JsonReq[256] = L"";
 		StkPlSwPrintf(JsonReq, 256, L"{\"Name\" : \"dummyuser%d\", \"Role\" : 1, \"Password\" : \"dummyuser%d\"}", Loop, Loop);
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(JsonReq, &JsonRes);
-		StkWebAppSendObj->SetAutholization("Bearer admin@a.a manager");
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL) {
 			StkPlPrintf("[NG1]\r\n");

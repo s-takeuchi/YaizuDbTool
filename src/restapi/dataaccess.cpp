@@ -612,7 +612,7 @@ int DataAccess::CreateCmdFreakTables()
 		{
 			ColumnData *ColDatUser[4];
 			ColDatUser[0] = new ColumnDataInt(L"Id", 0);
-			ColDatUser[1] = new ColumnDataWStr(L"Name", L"admin@a.a");
+			ColDatUser[1] = new ColumnDataWStr(L"Name", L"admin");
 			ColDatUser[2] = new ColumnDataWStr(L"Password", L"manager");
 			ColDatUser[3] = new ColumnDataInt(L"Role", 0);
 			RecordData* RecUser = new RecordData(L"User", ColDatUser, 4);
@@ -625,8 +625,8 @@ int DataAccess::CreateCmdFreakTables()
 		{
 			ColumnData *ColDatUser[4];
 			ColDatUser[0] = new ColumnDataInt(L"Id", 1);
-			ColDatUser[1] = new ColumnDataWStr(L"Name", L"takeuchi@a.a");
-			ColDatUser[2] = new ColumnDataWStr(L"Password", L"takeuchi");
+			ColDatUser[1] = new ColumnDataWStr(L"Name", L"guest");
+			ColDatUser[2] = new ColumnDataWStr(L"Password", L"guest999");
 			ColDatUser[3] = new ColumnDataInt(L"Role", 1);
 			RecordData* RecUser = new RecordData(L"User", ColDatUser, 4);
 			// Add record
