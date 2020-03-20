@@ -467,6 +467,9 @@ function checkOdbcConnection() {
 
     if (statusCode['API_GET_ODBCINFO_CONFIGURED'] == 200 && statusCode['API_GET_TABLEINFO'] == 200) {
         // Nothing to do
+    } else if (statusCode['API_GET_ODBCINFO_CONFIGURED'] == 401) {
+        displayAlertDanger('#cmdfreakdata', getSvrMsg(responseData['API_GET_ODBCINFO_CONFIGURED']));
+        return;
     } else {
         displayAlertDanger('#cmdfreakdata', getClientMessage('CONNERR'));
         return;
