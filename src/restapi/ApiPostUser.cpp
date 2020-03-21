@@ -93,8 +93,8 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 		}
 		CurObj = CurObj->GetNext();
 	}
-	// In case both of name and role are not specified.
-	if (StkPlWcsCmp(Name, L"") == 0 || Role == -1) {
+	// In case both of name or role is not specified for addition scenario.
+	if (Id == -1 && (StkPlWcsCmp(Name, L"") == 0 || Role == -1)) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
 		*ResultCode = 400;
 		return ResObj;
@@ -116,8 +116,8 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 		*ResultCode = 400;
 		return ResObj;
 	}
-	// In case user information yourself is cahnged.
-	if (StkPlWcsCmp(YourName, TmpName) == 0) {
+	// In case user information yourself (regarding name and/or role) is cahnged.
+	if (!(StkPlWcsCmp(Name, L"") == 0 || Role == -1) && StkPlWcsCmp(YourName, TmpName) == 0) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_CANNOT_MODIFY_YOUR_INFO, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_CANNOT_MODIFY_YOUR_INFO), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_CANNOT_MODIFY_YOUR_INFO));
 		*ResultCode = 400;
 		return ResObj;

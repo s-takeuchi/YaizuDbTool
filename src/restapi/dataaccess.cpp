@@ -442,15 +442,19 @@ bool DataAccess::UpdateUser(int Id, wchar_t Name[Global::MAXLEN_OF_USERNAME], in
 	int ColLen = 0;
 	ColumnData* ColDatUpdUser[4];
 	ColDatUpdUser[0] = new ColumnDataInt(L"Id", Id);
-	ColDatUpdUser[1] = new ColumnDataWStr(L"Name", Name);
-	ColDatUpdUser[2] = new ColumnDataInt(L"Role", Role);
-	if (Password == NULL || Password[0] == L'\0') {
-		ColLen = 3;
-	} else {
-		ColLen = 4;
-		ColDatUpdUser[3] = new ColumnDataWStr(L"Password", Password);
+	if (StkPlWcsCmp(Name, L"") != 0) {
+		ColLen++;
+		ColDatUpdUser[ColLen] = new ColumnDataWStr(L"Name", Name);
 	}
-	RecordData* RecDatUpdUser = new RecordData(L"User", ColDatUpdUser, ColLen);
+	if (Role != -1) {
+		ColLen++;
+		ColDatUpdUser[ColLen] = new ColumnDataInt(L"Role", Role);
+	}
+	if (Password != NULL && Password[0] != L'\0') {
+		ColLen++;
+		ColDatUpdUser[ColLen] = new ColumnDataWStr(L"Password", Password);
+	}
+	RecordData* RecDatUpdUser = new RecordData(L"User", ColDatUpdUser, ColLen + 1);
 
 	ColumnData* ColDatSearchUser[1];
 	ColDatSearchUser[0] = new ColumnDataInt(L"Id", Id);

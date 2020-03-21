@@ -24,6 +24,12 @@ function initClientMessage() {
     addClientMessage('USEROPECOMPLETED', {'en':'The operation has completed.', 'ja':'操作が完了しました。'});
     addClientMessage('USER_PASSWORD_ON', {'en':'Configure password', 'ja':'パスワードを設定する'});
     addClientMessage('USER_PASSWORD', {'en':'Password', 'ja':'パスワード'});
+    addClientMessage('USER_CHG_PW', {'en':'Change Password', 'ja':'パスワードの変更'});
+    addClientMessage('USER_CHG_PW_CURRENT', {'en':'Current Password', 'ja':'現在のパスワード'});
+    addClientMessage('USER_CHG_PW_NEW', {'en':'New Password', 'ja':'新しいパスワード'});
+    addClientMessage('USER_CHG_PW_CONFIRM', {'en':'Confirm New Password', 'ja':'新しいパスワード(確認用)'});
+    addClientMessage('USER_PW_WRONG', {'en':'The specified password is not correct.', 'ja':'指定されたパスワードが不正です。'});
+    addClientMessage('USER_NEWPW_WRONG', {'en':'The specified "New Password" and "Confirm New Password" are not matched.', 'ja':'"新しいパスワード"と"新しいパスワード(確認用)"が不一致です。'});
 
     //
     // ODBC configuration
@@ -199,8 +205,8 @@ function displayUser() {
         displayAlertDanger('#usermgt_msg', getSvrMsg(responseData['API_OPE_USER']));
     }
     $('#usermgmt').append('<button type="button" id="userBtnAdd" class="btn btn-dark" onclick="updateUser(false)">' + getClientMessage('COMADD') + '</button> ');
-    $('#usermgmt').append('<button type="button" id="userBtnUpdate" class="btn btn-dark disabled"">' + getClientMessage('COMUPDATE') + '</button> ');
-    $('#usermgmt').append('<button type="button" id="userBtnDelete" class="btn btn-dark disabled"">' + getClientMessage('COMDELETE') + '</button> ');
+    $('#usermgmt').append('<button type="button" id="userBtnUpdate" class="btn btn-dark disabled">' + getClientMessage('COMUPDATE') + '</button> ');
+    $('#usermgmt').append('<button type="button" id="userBtnDelete" class="btn btn-dark disabled">' + getClientMessage('COMDELETE') + '</button> ');
     $('#usermgmt').append('<button type="button" id="closeOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button>');
     $('#usermgmt').append('<p></p>');
     $('td').css('vertical-align', 'middle');
@@ -245,7 +251,7 @@ function deleteUser() {
 }
 
 function userOpeFinal() {
-    if (statusCode['API_OPE_USER'] == 200 && statusCode['API_OPE_USER'] == 200) {
+    if (statusCode['API_OPE_USER'] == 200) {
         userOpeStatus = 1;
     } else {
         userOpeStatus = 2;
@@ -276,6 +282,69 @@ function selectUser(userId) {
             $('#userBtnDelete').removeClass('disabled');
             $('#userBtnDelete').click(function() {deleteUser();});
         }
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+function transDisplayChgPassword() {
+    userOpeStatus = 0;
+    var contents = [{ method: 'GET', url: '/api/user/', request: null, keystring: 'API_GET_USER' }];
+    MultiApiCall(contents, displayChgPassword);
+}
+
+function displayChgPassword() {
+    var userMgmt = $('<div id="chgpassword">');
+    showInputModal(getClientMessage('USER_CHG_PW'), userMgmt);
+
+    if (statusCode['API_GET_USER'] == -1 || statusCode['API_GET_USER'] == 0) {
+        displayAlertDanger('#chgpassword', getClientMessage('CONNERR'));
+        userMgmt.append('<p><button type="button" id="closeOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
+        return;
+    } else if (statusCode['API_GET_USER'] != 200) {
+        displayAlertDanger('#chgpassword', getSvrMsg(responseData['API_GET_USER']));
+        userMgmt.append('<p><button type="button" id="closeOdbcConfig" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
+        return;
+    }
+
+    userMgmt.append('<div class="form-group"><label for="currentPw">' + getClientMessage('USER_CHG_PW_CURRENT') + '</label><input type="password" class="form-control" id="currentPw" placeholder="' + getClientMessage('USER_CHG_PW_CURRENT') + '"/></div>');
+    userMgmt.append('<div class="form-group"><label for="newPw">' + getClientMessage('USER_CHG_PW_NEW') + '</label><input type="password" class="form-control" id="newPw" placeholder="' + getClientMessage('USER_CHG_PW_NEW') + '"/></div>');
+    userMgmt.append('<div class="form-group"><label for="confirmNewPw">' + getClientMessage('USER_CHG_PW_CONFIRM') + '</label><input type="password" class="form-control" id="confirmNewPw" placeholder="' + getClientMessage('USER_CHG_PW_CONFIRM') + '"/></div>');
+
+    userMgmt.append('<br/>');
+    userMgmt.append('<div id="chgpassword_msg"/>');
+
+    userMgmt.append('<button type="button" id="chgpassword_update" class="btn btn-dark" onclick="chgPwUpdate()">' + getClientMessage('COMUPDATE') + '</button> ');
+    userMgmt.append('<button type="button" id="chgpassword_cancel" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button>');
+}
+
+function chgPwUpdate() {
+    var specifiedCurrentPw = $('#currentPw').val().replace(/[\n\r]/g, '');
+    var specifiedNewPw = $('#newPw').val().replace(/[\n\r]/g, '');
+    var specifiedConfirmNewPw = $('#confirmNewPw').val().replace(/[\n\r]/g, '');
+
+    if (loginPw !== specifiedCurrentPw) {
+        displayAlertDanger('#chgpassword_msg', getClientMessage('USER_PW_WRONG'));
+        return;
+    }
+    if (specifiedNewPw !== specifiedConfirmNewPw) {
+        displayAlertDanger('#chgpassword_msg', getClientMessage('USER_NEWPW_WRONG'));
+        return;
+    }
+
+    var reqDatDf = {};
+    reqDatDf = { 'Id': responseData['API_GET_USER'].Data.User.Id, 'Password': specifiedNewPw };
+    apiCall('POST', '/api/user/', reqDatDf, 'API_OPE_USER', chgPwFinal);
+}
+
+function chgPwFinal() {
+    if (statusCode['API_OPE_USER'] == 200) {
+        displayAlertSuccess('#chgpassword_msg', getClientMessage('USEROPECOMPLETED'));
+    } else {
+        displayAlertDanger('#chgpassword_msg', getSvrMsg(responseData['API_OPE_USER']));
     }
 }
 
@@ -932,7 +1001,7 @@ function checkLogin() {
         ];
         initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
         var usermenuContents = [
-            { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: getClientMessage('ODBC_CONNECTION') },
+            { id: 'cmdfreakchgpw', actApiName: 'activateTopic', title: getClientMessage('USER_CHG_PW') },
         ];
         addRsUserMenu(usermenuContents);
         var userRole = responseData['API_GET_USER'].Data.User.Role;
@@ -957,6 +1026,9 @@ function activateTopic(id) {
     }
     if (id === 'cmdfreakusermgmt') {
         transDisplayUser();
+    }
+    if (id === 'cmdfreakchgpw') {
+        transDisplayChgPassword();
     }
 }
 
