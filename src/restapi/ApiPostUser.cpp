@@ -15,12 +15,6 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 		return ResObj;
 	}
 
-	if (!IsAdminUser(Token)) {
-		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_ACCESS_RIGHT_ERROR, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_ACCESS_RIGHT_ERROR), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_ACCESS_RIGHT_ERROR));
-		*ResultCode = 403;
-		return ResObj;
-	}
-
 	if (ReqObj == NULL) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
 		*ResultCode = 400;
@@ -116,7 +110,16 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 		*ResultCode = 400;
 		return ResObj;
 	}
-	// In case user information yourself (regarding name and/or role) is cahnged.
+	// In case (1) Update & (2) target is your information & (3) only id and password is presented
+	if (Id != -1 && StkPlWcsCmp(YourName, TmpName) == 0 && StkPlWcsCmp(Name, L"") == 0 && Role == -1) {
+	} else {
+		if (!IsAdminUser(Token)) {
+			AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_ACCESS_RIGHT_ERROR, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_ACCESS_RIGHT_ERROR), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_ACCESS_RIGHT_ERROR));
+			*ResultCode = 403;
+			return ResObj;
+		}
+	}
+	// In case user information yourself (regarding name and/or role) is changed.
 	if (!(StkPlWcsCmp(Name, L"") == 0 || Role == -1) && StkPlWcsCmp(YourName, TmpName) == 0) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_CANNOT_MODIFY_YOUR_INFO, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_CANNOT_MODIFY_YOUR_INFO), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_CANNOT_MODIFY_YOUR_INFO));
 		*ResultCode = 400;
@@ -147,8 +150,8 @@ StkObject* ApiPostUser::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPa
 		DataAccess::GetInstance()->UpdateUser(Id, Name, Role, Password);
 		wchar_t LogBufEng[512] = L"";
 		wchar_t LogBufJpn[512] = L"";
-		StkPlSwPrintf(LogBufEng, 512, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_USER_EDIT), Name);
-		StkPlSwPrintf(LogBufJpn, 512, MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_USER_EDIT), Name);
+		StkPlSwPrintf(LogBufEng, 512, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_USER_EDIT), TmpName);
+		StkPlSwPrintf(LogBufJpn, 512, MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_USER_EDIT), TmpName);
 		DataAccess::GetInstance()->AddLogMsg(LogBufEng, LogBufJpn);
 	}
 

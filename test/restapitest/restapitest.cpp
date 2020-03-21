@@ -390,6 +390,23 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkPlPrintf("[OK]\r\n");
 	}
 	{
+		StkPlPrintf("PostUser (modify user, appropriate ID/PW, normal user, abnormal) ... ");
+		int ResultCode = 0;
+		int JsonRes = 0;
+		wchar_t ReqBuf[128] = L"";
+		StkPlSwPrintf(ReqBuf, 128, L"{\"Id\" : %d, \"Role\" : 0, \"Name\" :  \"testuser2\", \"Password\" : \"testuser2\"}", TargetId);
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(ReqBuf, &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer guest guest999");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		if (ResObj == NULL || ResultCode != 403) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete ReqObj;
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
+	{
 		StkPlPrintf("PostUser (modify user, appropriate ID/PW, admin user, w/o password change) ... ");
 		int ResultCode = 0;
 		int JsonRes = 0;
@@ -402,6 +419,13 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 			StkPlPrintf("[NG]\r\n");
 			StkPlExit(1);
 		}
+		StkObject* SearchObj = new StkObject(L"Name", L"testuser2");
+		StkObject* FoundObj = ResObj->Contains(SearchObj);
+		if (FoundObj == NULL) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete SearchObj;
 		delete ReqObj;
 		delete ResObj;
 		StkPlPrintf("[OK]\r\n");
@@ -426,6 +450,47 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 			StkPlExit(1);
 		}
 		delete SearchObj;
+		delete ReqObj;
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
+	{
+		StkPlPrintf("PostUser (modify user, appropriate ID/PW, normal user, try to change admin's password, abnormal) ... ");
+		int ResultCode = 0;
+		int JsonRes = 0;
+		wchar_t ReqBuf[128] = L"";
+		StkPlSwPrintf(ReqBuf, 128, L"{\"Id\" : 0, \"Password\" : \"manager0\"}");
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(ReqBuf, &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer guest guest999");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		if (ResObj == NULL || ResultCode != 403) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		StkObject* SearchObj = new StkObject(L"Code", 3125);
+		StkObject* FoundObj = ResObj->Contains(SearchObj);
+		if (FoundObj == NULL) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete SearchObj;
+		delete ReqObj;
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
+	{
+		StkPlPrintf("PostUser (modify user, appropriate ID/PW, normal user, own password change) ... ");
+		int ResultCode = 0;
+		int JsonRes = 0;
+		wchar_t ReqBuf[128] = L"";
+		StkPlSwPrintf(ReqBuf, 128, L"{\"Id\" : 1, \"Password\" : \"guest\"}");
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(ReqBuf, &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer guest guest999");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		if (ResObj == NULL || ResultCode != 200) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
 		delete ReqObj;
 		delete ResObj;
 		StkPlPrintf("[OK]\r\n");
@@ -478,6 +543,23 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		delete ResObj;
 		StkPlPrintf("[OK]\r\n");
 	}
+	{
+		StkPlPrintf("PostUser (modify user, appropriate ID/PW, admin user, Change only role) ... ");
+		int ResultCode = 0;
+		int JsonRes = 0;
+		wchar_t ReqBuf[128] = L"";
+		StkPlSwPrintf(ReqBuf, 128, L"{\"Id\" : %d, \"Role\" : 1}", TargetId);
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(ReqBuf, &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		if (ResObj == NULL || ResultCode != 200) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete ReqObj;
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
 }
 
 void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
@@ -502,7 +584,7 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		StkPlPrintf("DeleteUser (access right error, abnormal) ... ");
 		int ResultCode = 0;
 		int JsonRes = 0;
-		StkWebAppSendObj->SetAutholization("Bearer guest guest999");
+		StkWebAppSendObj->SetAutholization("Bearer guest guest");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_DELETE, "/api/user/0/", NULL, &ResultCode);
 		StkObject* SearchObj = new StkObject(L"Code", 3125);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
