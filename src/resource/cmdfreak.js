@@ -183,11 +183,12 @@ function displayUser() {
         userListTable.append(tBody);
         $('#usermgmt').append(userListTable);
     }
-    $('#usermgmt').append('<div class="form-group"><label for="userName">' + getClientMessage('USERNAME') + '</label><input type="text" class="form-control" id="userName" placeholder="' + getClientMessage('USERNAME') + '"/></div>');
-    $('#usermgmt').append('<div class="form-group"><label for="userType">' + getClientMessage('USERROLE') + '</label><select class="form-control" id="userRole"><option>' + getClientMessage('USERROLEADMIN') + '</option><option>' + getClientMessage('USERROLEUSER') + '</option></select></div>');
+    $('#usermgmt').append('<div id="usermgmt-ope" style="margin-top:30px;padding-left:30px;padding-right:30px;padding-top:30px;padding-bottom:30px;border-color:#000000;border-style:solid;border-width:2px">');
+    $('#usermgmt-ope').append('<div class="form-group"><label for="userName">' + getClientMessage('USERNAME') + '</label><input type="text" class="form-control" id="userName" placeholder="' + getClientMessage('USERNAME') + '"/></div>');
+    $('#usermgmt-ope').append('<div class="form-group"><label for="userType">' + getClientMessage('USERROLE') + '</label><select class="form-control" id="userRole"><option>' + getClientMessage('USERROLEADMIN') + '</option><option>' + getClientMessage('USERROLEUSER') + '</option></select></div>');
 
     var userPwOn = '';
-    $('#usermgmt').append($('<div class="form-check"><input class="form-check-input" type="checkbox" id="userPwOn" onClick="clickUserPwOn()" ' + userPwOn + '><label class="form-check-label" for="userPwOn">' + getClientMessage('USER_PASSWORD_ON') + '</label><input type="password" class="form-control" id="userPassword" placeholder="' + getClientMessage('USER_PASSWORD') + '" disabled/></div>'));
+    $('#usermgmt-ope').append($('<div class="form-check"><input class="form-check-input" type="checkbox" id="userPwOn" onClick="clickUserPwOn()" ' + userPwOn + '><label class="form-check-label" for="userPwOn">' + getClientMessage('USER_PASSWORD_ON') + '</label><input type="password" class="form-control" id="userPassword" placeholder="' + getClientMessage('USER_PASSWORD') + '" disabled/></div>'));
 
     $('#usermgmt').append('<br/>');
     $('#usermgmt').append('<div id="usermgt_msg"/>');
@@ -930,6 +931,10 @@ function checkLogin() {
             { id: 'cmdfreakinfo', actApiName: 'activateTopic', title: getClientMessage('SVCINFO') }
         ];
         initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
+        var usermenuContents = [
+            { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: getClientMessage('ODBC_CONNECTION') },
+        ];
+        addRsUserMenu(usermenuContents);
         var userRole = responseData['API_GET_USER'].Data.User.Role;
         if (userRole == 0) {
             $('#menu-cmdfreakinfo').show();
