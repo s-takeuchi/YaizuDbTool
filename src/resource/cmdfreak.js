@@ -343,6 +343,8 @@ function chgPwUpdate() {
 function chgPwFinal() {
     if (statusCode['API_OPE_USER'] == 200) {
         displayAlertSuccess('#chgpassword_msg', getClientMessage('USEROPECOMPLETED'));
+        var specifiedNewPw = $('#newPw').val().replace(/[\n\r]/g, '');
+        changeLoginPassword(specifiedNewPw);
     } else {
         displayAlertDanger('#chgpassword_msg', getSvrMsg(responseData['API_OPE_USER']));
     }
