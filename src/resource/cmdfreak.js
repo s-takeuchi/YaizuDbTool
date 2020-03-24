@@ -638,7 +638,7 @@ function displayData() {
     var headStr = '<tr>';
     for (var loop = 0; loop < colCount; loop++) {
         var targetTitle = escapeString(colInfo[loop].title);
-        headStr += '<th>' + targetTitle + '</th>';
+        headStr += '<th><a onclick="columnSort(' + loop + ')" href="#">' + targetTitle + '</a>&nbsp;&nbsp;<span id="sortTarget-' + loop + '" class="" style="font-size:15px;"></span></th>';
     }
     headStr += '</tr>';
     tHead.append(headStr);
@@ -659,7 +659,25 @@ function displayData() {
 
     $('#cmdfreakdata').append(cmdfreakDiv);
 
+    for (var loop = 0; loop < colCount; loop++) {
+        if (colInfo[loop].dataIndx == 2) {
+            $('#sortTarget-' + loop).addClass('icon icon-arrow-down');
+        }
+        if (colInfo[loop].dataIndx == 0) {
+            $('#sortTarget-' + loop).addClass('icon icon-arrow-up');
+        }
+    }
+
     resizeComponent();
+}
+
+function columnSort(targetId) {
+    sortTarget = targetId;
+    var reqDatDf = { 'query': currentTablename };
+    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: reqDatDf, keystring: 'API_GET_TABLEINFO_WITH_COL' },
+                    { method: 'GET', url: '/api/records/', request: reqDatDf, keystring: 'API_GET_RECORDS' }
+    ];
+    MultiApiCall(contents, displayData);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
