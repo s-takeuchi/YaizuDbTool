@@ -659,12 +659,16 @@ function displayData() {
 
     $('#cmdfreakdata').append(cmdfreakDiv);
 
-    for (var loop = 0; loop < colCount; loop++) {
-        if (colInfo[loop].dataIndx == 2) {
-            $('#sortTarget-' + loop).addClass('icon icon-arrow-down');
-        }
-        if (colInfo[loop].dataIndx == 0) {
-            $('#sortTarget-' + loop).addClass('icon icon-arrow-up');
+    if (responseData['API_GET_RECORDS'].Data.Sort !== undefined) {
+        var sortTarget = responseData['API_GET_RECORDS'].Data.Sort.Target;
+        var sortOrder = responseData['API_GET_RECORDS'].Data.Sort.Order;
+        for (var loop = 0; loop < colCount; loop++) {
+            if (colInfo[loop].title === sortTarget && sortOrder === 'des') {
+                $('#sortTarget-' + loop).addClass('icon icon-arrow-up');
+            }
+            if (colInfo[loop].title === sortTarget && sortOrder === 'asc') {
+                $('#sortTarget-' + loop).addClass('icon icon-arrow-down');
+            }
         }
     }
 
@@ -672,10 +676,15 @@ function displayData() {
 }
 
 function columnSort(targetId) {
-    sortTarget = targetId;
-    var reqDatDf = { 'query': currentTablename };
-    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: reqDatDf, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: reqDatDf, keystring: 'API_GET_RECORDS' }
+    var sortOrder = '';
+    if ($('#sortTarget-' + targetId).hasClass('icon icon-arrow-down')) {
+        sortOrder = 'des';
+    } else {
+        sortOrder = "asc";
+    }
+    var colInfo = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
+    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': colInfo[targetId].title, 'sortOrder': sortOrder }, keystring: 'API_GET_RECORDS' }
     ];
     MultiApiCall(contents, displayData);
 }

@@ -17,15 +17,23 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	}
 
 	if (!StkPlWcsStr(UrlPath, L"?query=")) {
-		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT),  MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
+		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
 		*ResultCode = 400;
 		return ResObj;
 	}
-	wchar_t Dummy[256];
-	wchar_t TableName[768];
-	StkStringParser::ParseInto2Params(UrlPath, L"$?query=$", L'$', Dummy, 256, TableName, 768);
-	wchar_t TableNameAc[768];
+	wchar_t Dummy[256] = L"";
+	wchar_t TableName[768] = L"";
+	wchar_t SortColumnName[768] = L"";
+	wchar_t SortOrder[32] = L"";
+	if (StkPlWcsStr(UrlPath, L"&") != NULL) {
+		StkStringParser::ParseInto4Params(UrlPath, L"$?query=$&sort=$&sortOrder=$", L'$', Dummy, 256, TableName, 768, SortColumnName, 768, SortOrder, 32);
+	} else {
+		StkStringParser::ParseInto2Params(UrlPath, L"$?query=$", L'$', Dummy, 256, TableName, 768);
+	}
+	wchar_t TableNameAc[768] = L"";
 	DecodeURL(TableName, TableNameAc);
+	wchar_t SortColumnNameAc[768] = L"";
+	DecodeURL(SortColumnName, SortColumnNameAc);
 
 	wchar_t ConnStr[256];
 	int Init;
@@ -47,7 +55,7 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	delete TableNameObj;
 	OdbcManager::GetInstance()->DeleteAccessorObject(DaTableName);
 	if (!TblFound) {
-		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_TABLE_NOT_EXIST, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_TABLE_NOT_EXIST),  MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_TABLE_NOT_EXIST));
+		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_TABLE_NOT_EXIST, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_TABLE_NOT_EXIST), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_TABLE_NOT_EXIST));
 		*ResultCode = 404;
 		return ResObj;
 	}
@@ -60,6 +68,16 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	StkObject* DatObj = new StkObject(L"Data");
 	int NumOfRecs = Da->GetRecordsByTableName(TableNameAc, NumOfCols, DatObj, StateMsg, Msg, 1024);
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);
+
+	if (SortColumnNameAc != NULL && *SortColumnNameAc != L'\0') {
+		StkObject* SearchObj = new StkObject(L"Data");
+		StkObject* FoundObj = DatObj->Contains(SearchObj);
+		StkObject* NewObj = new StkObject(L"Sort");
+		NewObj->AppendChildElement(new StkObject(L"Target", SortColumnNameAc));
+		NewObj->AppendChildElement(new StkObject(L"Order", SortOrder));
+		FoundObj->AppendChildElement(NewObj);
+		delete SearchObj;
+	}
 
 	AddCodeAndMsg(ResObj, 0, L"", L"");
 	ResObj->AppendChildElement(DatObj);
