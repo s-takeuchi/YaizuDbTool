@@ -111,11 +111,6 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 
 	SQLTCHAR SqlBuf[1024] = L"";
 	StkPlSwPrintf(SqlBuf, 1024, L"select * from %ls", TableName);
-	if (SortTarget != NULL && *SortTarget != L'\0') {
-		SQLTCHAR SqlSortBuf[128] = L"";
-		StkPlSwPrintf(SqlSortBuf, 128, L" order by %ls %ls", SortTarget, SortOrder);
-		StkPlWcsCat(SqlBuf, 1024, SqlSortBuf);
-	}
 	bool FirstCond = true;
 	if (FilterSwitch) {
 		for (int Loop = 1; Loop <= 5; Loop++) {
@@ -153,6 +148,11 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 				lstrcat(SqlBuf, L"'");
 			}
 		}
+	}
+	if (SortTarget != NULL && *SortTarget != L'\0') {
+		SQLTCHAR SqlSortBuf[128] = L"";
+		StkPlSwPrintf(SqlSortBuf, 128, L" order by %ls %ls", SortTarget, SortOrder);
+		StkPlWcsCat(SqlBuf, 1024, SqlSortBuf);
 	}
 	lstrcat(SqlBuf, L";");
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
