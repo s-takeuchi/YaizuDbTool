@@ -99,6 +99,8 @@ int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, SQLTCHAR StateMsg[10]
 int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 	int NumOfCols, StkObject* Obj,
 	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], wchar_t Value[5][Global::COLUMNVAL_LENGTH * 4 + 2],
+	wchar_t SortTarget[Global::COLUMNNAME_LENGTH * 4 + 2],
+	wchar_t SortOrder[5],
 	SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLINTEGER Native; // This will not be refered from anywhere
@@ -107,8 +109,13 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 
-	SQLTCHAR SqlBuf[1024];
-	StkPlSwPrintf(SqlBuf, 1024, L"select * from %s", TableName);
+	SQLTCHAR SqlBuf[1024] = L"";
+	StkPlSwPrintf(SqlBuf, 1024, L"select * from %ls", TableName);
+	if (SortTarget != NULL && *SortTarget != L'\0') {
+		SQLTCHAR SqlSortBuf[128] = L"";
+		StkPlSwPrintf(SqlSortBuf, 128, L" order by %ls %ls", SortTarget, SortOrder);
+		StkPlWcsCat(SqlBuf, 1024, SqlSortBuf);
+	}
 	bool FirstCond = true;
 	if (FilterSwitch) {
 		for (int Loop = 1; Loop <= 5; Loop++) {

@@ -107,14 +107,22 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 	return Loop;
 }
 
-int DbMariaDbAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, StkObject* DatObj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+int DbMariaDbAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, StkObject* DatObj, SQLTCHAR* SortTarget, SQLTCHAR* SortOrder, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLRETURN Ret = 0;
 	wchar_t ConnStr[256];
 	int Init;
+
 	int LenOfTableName = lstrlen((wchar_t*)TableName);
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
+
+	SQLTCHAR* EcdSortTarget = NULL;
+	if (SortTarget != NULL && *SortTarget != L'\0') {
+		int LenOfSortTarget = lstrlen((wchar_t*)SortTarget);
+		EcdSortTarget = new  SQLTCHAR[LenOfSortTarget * 4 + 2];
+		SqlEncoding(SortTarget, EcdSortTarget, TYPE_KEY);
+	}
 
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg, MsgLen);
@@ -135,9 +143,12 @@ int DbMariaDbAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols,
 		}
 	}
 
-	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg, MsgLen);
+	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, NULL, NULL, StateMsg, Msg, MsgLen);
 
 	delete EcdTableName;
+	if (EcdSortTarget != NULL) {
+		delete EcdSortTarget;
+	}
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
 	return NumOfRecs;
 }

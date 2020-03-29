@@ -663,10 +663,10 @@ function displayData() {
         var sortTarget = responseData['API_GET_RECORDS'].Data.Sort.Target;
         var sortOrder = responseData['API_GET_RECORDS'].Data.Sort.Order;
         for (var loop = 0; loop < colCount; loop++) {
-            if (colInfo[loop].title === sortTarget && sortOrder === 'des') {
+            if (colInfo[loop].title === sortTarget && sortOrder === 'DESC') {
                 $('#sortTarget-' + loop).addClass('icon icon-arrow-up');
             }
-            if (colInfo[loop].title === sortTarget && sortOrder === 'asc') {
+            if (colInfo[loop].title === sortTarget && sortOrder === 'ASC') {
                 $('#sortTarget-' + loop).addClass('icon icon-arrow-down');
             }
         }
@@ -678,9 +678,9 @@ function displayData() {
 function columnSort(targetId) {
     var sortOrder = '';
     if ($('#sortTarget-' + targetId).hasClass('icon icon-arrow-down')) {
-        sortOrder = 'des';
+        sortOrder = 'DESC';
     } else {
-        sortOrder = "asc";
+        sortOrder = "ASC";
     }
     var colInfo = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
     var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
