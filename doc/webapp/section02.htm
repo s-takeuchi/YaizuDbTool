@@ -384,10 +384,12 @@ ODBCの情報を設定します。<br/>
 <ul>
 <li>リクエスト
 <pre>
-?query=tablename
+?query=tablename&sort=columnname&sortOrder=ASC
 </pre>
 <table class="tblstyle">
 <tr><td>query</td><td>String</td><td>レコードの取得対象となるテーブル名。</td></tr>
+<tr><td>sort</td><td>String</td><td>ソート対象となるカラム名。</td></tr>
+<tr><td>sortOrder</td><td>String</td><td>ソートする順番。"ASC":昇順, "DESC":降順。</td></tr>
 </table><br/>
 </li>
 <li>レスポンス
@@ -397,6 +399,10 @@ ODBCの情報を設定します。<br/>
   "MsgEng" : "abc",
   "MsgJpn" : "あいう",
   "Data" : {
+    "Sort" : {
+        "Target" : "Sort target",
+        "Order" : "Sort order"
+    },
     "Record" : [
       {
         "0" : "Aaa",
@@ -422,6 +428,9 @@ ODBCの情報を設定します。<br/>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>Sort</td><td>Element</td><td>sortクエリを指定しなかった場合，この要素は返却されない。</td></tr>
+<tr><td>Target</td><td>String</td><td>ソート対象となったカラム名。</td></tr>
+<tr><td>Order</td><td>String</td><td>ソート順序。"ASC":昇順, "DESC":降順。</td></tr>
 <tr><td>Record</td><td>Element</td><td>レコードが存在しないとき，この要素は返却されない。</td></tr>
 <tr><td>n</td><td>String</td><td>n(n=0,1,2,...)番目のカラム値。</td></tr>
 </table><br/>
