@@ -82,8 +82,8 @@ function initClientMessage() {
     addClientMessage('TABLEINFO_TARGET', {'en':'The target table: ', 'ja':'対象テーブル: '});
     addClientMessage('TABLEINFO_NOTEXIST', {'en':'The operation cannot be performed because the target table for display does not exist.', 'ja':'表示対象のテーブルが存在しないため操作を継続できません。'});
     addClientMessage('TABLEINFO_COLUMNNAME', {'en':'Column name', 'ja':'カラム名'});
-    addClientMessage('TABLEINFO_COLUMNTYPE', {'en':'Column type', 'ja':'カラム種別'});
-    addClientMessage('TABLEINFO_ISNULL', {'en':'Is nullable', 'ja':'NULL指定可否'});
+    addClientMessage('TABLEINFO_COLUMNTYPE', {'en':'Column type', 'ja':'種別'});
+    addClientMessage('TABLEINFO_ISNULL', {'en':'Is nullable', 'ja':'NULL指定'});
 
     //
     // Errors, Common
@@ -585,7 +585,7 @@ function displayTableList() {
 function selectTable(index) {
     var tableInfos = getArray(responseData['API_GET_TABLEINFO'].Data.TableInfo);
     currentTablename = tableInfos[index].Name;
-    changeDropDownTitle(getDropDownMenu(index));
+    changeDropDownTitle(trimDropDownTitle(getDropDownMenu(index)));
     var reqDatDf = { 'query': tableInfos[index].Name };
     var contents = [{ method: 'GET', url: '/api/tableinfo/', request: reqDatDf, keystring: 'API_GET_TABLEINFO_WITH_COL' },
                     { method: 'GET', url: '/api/records/', request: reqDatDf, keystring: 'API_GET_RECORDS' }
@@ -1010,8 +1010,11 @@ function initCmdFreak() {
 function refreshInfo() {
     currentTablename = "";
     clearRsCommand();
-    addDropDown('Tables');
+    addDropDown(trimDropDownTitle('Tables'));
+    addRsCommand('transDisplayFilterModal()', 'icon-eye', true);
     addRsCommand('transDisplayFilterModal()', 'icon-filter', true);
+    addRsCommand('transDisplayFilterModal()', 'icon-circle-left', true);
+    addRsCommand('transDisplayFilterModal()', 'icon-circle-right', true);
     var contents = [{ method: 'GET', url: '/api/tableinfo/', request: null, keystring: 'API_GET_TABLEINFO' },
                     { method: 'GET', url: '/api/odbcinfo/', request: { 'query': 'configured' }, keystring: 'API_GET_ODBCINFO_CONFIGURED' }
     ];
@@ -1061,6 +1064,30 @@ function activateTopic(id) {
     }
 }
 
+function trimDropDownTitle(dropdownTitle) {
+    if (dropdownTitle === '') {
+        return;
+    }
+    var wsize = $(window).width();
+    var length = 0;
+    if (wsize >= 1200) {
+        length = 32;
+    } else if (wsize >= 992) {
+        length = 16;
+    } else if (wsize >= 576) {
+        length = 9;
+    } else if (wsize >= 400) {
+        length = 6;
+    } else {
+        length = 3;
+    }
+    var tmpTitle = dropdownTitle.substring(0, length);
+    if (tmpTitle !== dropdownTitle) {
+        tmpTitle = tmpTitle + '...';
+    }
+    return tmpTitle;
+}
+
 function resizeComponent() {
     var wsize = $(window).width();
 
@@ -1104,10 +1131,12 @@ function resizeComponent() {
 
 $(document).ready(function () {
     resizeComponent();
+    changeDropDownTitle(trimDropDownTitle(currentTablename));
 });
 
 $(window).resize(function () {
     resizeComponent();
+    changeDropDownTitle(trimDropDownTitle(currentTablename));
 });
 
 window.onload = function () {
