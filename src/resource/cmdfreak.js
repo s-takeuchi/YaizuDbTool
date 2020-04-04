@@ -86,6 +86,13 @@ function initClientMessage() {
     addClientMessage('TABLEINFO_ISNULL', {'en':'Is nullable', 'ja':'NULL指定'});
 
     //
+    // View Setting dialog
+    //
+    addClientMessage('VIEWSETTING', {'en':'View Setting', 'ja':'ビュー設定'});
+    addClientMessage('VIEWSETTING_RECORDS_PER_PAGE', {'en':'Records / Page:', 'ja':'レコード数 / ページ:'});
+    addClientMessage('VIEWSETTING_PAGE', {'en':'Page:', 'ja':'ページ:'});
+
+    //
     // Errors, Common
     //
     addClientMessage('WELCOME_MSG', {'en':'Welcome to the CmdFreak page!', 'ja':'ようこそ，CmdFreakのページです！'});
@@ -747,7 +754,7 @@ function displayFilterModal() {
         var opeMenu = $('<ul id="paramOpeMenu' + loopFil + '" class="dropdown-menu" role="menu">');
         btnOpe.append(opeMenu);
 
-        var frmVal = $('<div class="filter-val-responsive filter-wid-responsive"" style="margin-right:5px;margin-bottom:5px"><input type="text" class="form-control" id="paramVal' + loopFil + '"></div>');
+        var frmVal = $('<div class="filter-val-responsive filter-wid-responsive" style="margin-right:5px;margin-bottom:5px"><input type="text" class="form-control" id="paramVal' + loopFil + '"></div>');
 
         filteringDlg.append('<p>');
         filteringDlg.append(btnCol);
@@ -994,6 +1001,41 @@ function displayTableInfo() {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+function transViewSetting() {
+    displayViewSetting();
+}
+
+function displayViewSetting() {
+    var viewSettingDlg = $('<div id="viewsetting">');
+    showInputModal(getClientMessage('VIEWSETTING'), viewSettingDlg);
+
+    viewSettingDlg.append(getClientMessage('VIEWSETTING_RECORDS_PER_PAGE') + '&nbsp;&nbsp;');
+    var btnRecords = $('<button id="paramRecords" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="paramRecordsText"></span><span class="caret"></span></button>');
+    var recordsMenu = $('<ul id="paramRecordsMenu" class="dropdown-menu" role="menu">');
+    recordsMenu.append('<li role="presentation"><a onclick="eventParamRecordsChanged(50)" role="menuitem" tabindex="-1" href="#">50</a></li>');
+    recordsMenu.append('<li role="presentation"><a onclick="eventParamRecordsChanged(100)" role="menuitem" tabindex="-1" href="#">100</a></li>');
+    recordsMenu.append('<li role="presentation"><a onclick="eventParamRecordsChanged(200)" role="menuitem" tabindex="-1" href="#">200</a></li>');
+    recordsMenu.append('<li role="presentation"><a onclick="eventParamRecordsChanged(500)" role="menuitem" tabindex="-1" href="#">500</a></li>');
+    btnRecords.append(recordsMenu);
+    viewSettingDlg.append(btnRecords);
+    viewSettingDlg.append('<br/>');
+
+    viewSettingDlg.append('<div style="float:left">' + getClientMessage('VIEWSETTING_PAGE') + '&nbsp;&nbsp;</div>');
+    var textboxPage = $('<div style="width:60px;float:left"><input type="text" class="form-control" id="paramPage"></div>');
+    viewSettingDlg.append(textboxPage);
+    viewSettingDlg.append('<div style="clear:left"></div><br/>');
+
+    viewSettingDlg.append('<p>');
+    viewSettingDlg.append('<button type="button" id="okViewSetting" class="btn btn-dark" onclick="okViewSettingModal()">' + getClientMessage('DLG_OK') + '</button> ');
+    viewSettingDlg.append('<button type="button" id="cancelViewSetting" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CANCEL') + '</button> ');
+    viewSettingDlg.append('</p>');
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 function initCmdFreak() {
     if (statusCode['API_GET_LANG'] == -1 || statusCode['API_GET_LANG'] == 0) {
         displayAlertDanger('body', getClientMessage('CONNERR'));
@@ -1011,8 +1053,8 @@ function refreshInfo() {
     currentTablename = "";
     clearRsCommand();
     addDropDown(trimDropDownTitle('Tables'));
-    addRsCommand('transDisplayFilterModal()', 'icon-eye', true);
     addRsCommand('transDisplayFilterModal()', 'icon-filter', true);
+    addRsCommand('transViewSetting()', 'icon-eye', true);
     addRsCommand('transDisplayFilterModal()', 'icon-circle-left', true);
     addRsCommand('transDisplayFilterModal()', 'icon-circle-right', true);
     var contents = [{ method: 'GET', url: '/api/tableinfo/', request: null, keystring: 'API_GET_TABLEINFO' },
