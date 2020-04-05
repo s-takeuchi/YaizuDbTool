@@ -138,8 +138,8 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 			if (LenOfConnStr >= 256) {
 				wchar_t TmpMsgEng[StkWebAppExec::URL_PATH_LENGTH];
 				wchar_t TmpMsgJpn[StkWebAppExec::URL_PATH_LENGTH];
-				StkPlSwPrintf(TmpMsgEng, StkWebAppExec::URL_PATH_LENGTH, L"%s (Param=%s, Length=%d, Max Length=255)", MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), L"ConnStr", LenOfConnStr);
-				StkPlSwPrintf(TmpMsgJpn, StkWebAppExec::URL_PATH_LENGTH, L"%s (Param=%s, Length=%d, Max Length=255)", MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), L"ConnStr", LenOfConnStr);
+				StkPlSwPrintf(TmpMsgEng, StkWebAppExec::URL_PATH_LENGTH, L"%ls (Param=%ls, Length=%d, Max Length=255)", MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), L"ConnStr", LenOfConnStr);
+				StkPlSwPrintf(TmpMsgJpn, StkWebAppExec::URL_PATH_LENGTH, L"%ls (Param=%ls, Length=%d, Max Length=255)", MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), L"ConnStr", LenOfConnStr);
 				AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG, TmpMsgEng, TmpMsgJpn);
 				*ResultCode = 400;
 				return ResObj;

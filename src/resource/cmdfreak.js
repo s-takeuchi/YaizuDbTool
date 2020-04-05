@@ -5,6 +5,9 @@ var userRole = 0;
 // Table name which selected
 var currentTablename = "";
 
+// Records / page
+var recordsPerPage = 50;
+
 // Selected user information on user management page
 var selectedUserId = -1;
 
@@ -1019,6 +1022,7 @@ function displayViewSetting() {
     btnRecords.append(recordsMenu);
     viewSettingDlg.append(btnRecords);
     viewSettingDlg.append('<br/>');
+    $('#paramRecordsText').text(recordsPerPage);
 
     viewSettingDlg.append('<div style="float:left">' + getClientMessage('VIEWSETTING_PAGE') + '&nbsp;&nbsp;</div>');
     var textboxPage = $('<div style="width:60px;float:left"><input type="text" class="form-control" id="paramPage"></div>');
@@ -1029,6 +1033,11 @@ function displayViewSetting() {
     viewSettingDlg.append('<button type="button" id="okViewSetting" class="btn btn-dark" onclick="okViewSettingModal()">' + getClientMessage('DLG_OK') + '</button> ');
     viewSettingDlg.append('<button type="button" id="cancelViewSetting" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CANCEL') + '</button> ');
     viewSettingDlg.append('</p>');
+}
+
+function eventParamRecordsChanged(records) {
+    recordsPerPage = records;
+    $('#paramRecordsText').text(recordsPerPage);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

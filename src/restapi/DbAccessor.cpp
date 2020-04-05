@@ -64,7 +64,7 @@ SQLRETURN DbAccessor::GetTablesCommon(SQLTCHAR* Query, StkObject* Obj, SQLTCHAR 
 	return Ret;
 }
 
-int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], wchar_t Value[5][Global::COLUMNVAL_LENGTH * 4 + 2], SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
@@ -78,8 +78,49 @@ int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, SQLTCHAR StateMsg[10]
 		return Ret;
 	}
 
+	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
+
 	SQLTCHAR SqlBuf[1024];
-	StkPlSwPrintf(SqlBuf, 1024, L"select count(*) from %s;", TableName);
+	StkPlSwPrintf(SqlBuf, 1024, L"select count(*) from %ls", TableName);
+	bool FirstCond = true;
+	if (FilterSwitch) {
+		for (int Loop = 1; Loop <= 5; Loop++) {
+			if (lstrcmp(ColumnNameCnv[Loop - 1], L"\"*\"") == 0 || lstrcmp(ColumnNameCnv[Loop - 1], L"`*`") == 0 || OpeType[Loop - 1] == 0) {
+				continue;
+			}
+			if (FirstCond == TRUE) {
+				lstrcat(SqlBuf, L" where ");
+				FirstCond = FALSE;
+			} else {
+				lstrcat(SqlBuf, L" and ");
+			}
+			lstrcat(SqlBuf, ColumnNameCnv[Loop - 1]);
+			switch (OpeType[Loop - 1]) {
+			case 1:  lstrcat(SqlBuf, L" = "); break;
+			case 2:  lstrcat(SqlBuf, L" <> "); break;
+			case 3:  lstrcat(SqlBuf, L" <= "); break;
+			case 4:  lstrcat(SqlBuf, L" < "); break;
+			case 5:  lstrcat(SqlBuf, L" >= "); break;
+			case 6:  lstrcat(SqlBuf, L" > "); break;
+			case 10: lstrcat(SqlBuf, L" like "); break;
+			case 11: lstrcat(SqlBuf, L" not like "); break;
+			case 20: lstrcat(SqlBuf, L" is null "); break;
+			case 21: lstrcat(SqlBuf, L" is not null "); break;
+			}
+			if (OpeType[Loop - 1] != 20 && OpeType[Loop - 1] != 21) {
+				lstrcat(SqlBuf, L"'");
+				if (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11) {
+					lstrcat(SqlBuf, L"%");
+				}
+				lstrcat(SqlBuf, Value[Loop - 1]);
+				if (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11) {
+					lstrcat(SqlBuf, L"%");
+				}
+				lstrcat(SqlBuf, L"'");
+			}
+		}
+	}
+	lstrcat(SqlBuf, L";");
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	if (Ret != SQL_SUCCESS) {
 		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);

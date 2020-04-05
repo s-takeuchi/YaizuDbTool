@@ -32,14 +32,14 @@ void ApiBase::PrintRequest(int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_L
 	}
 	wchar_t LocalTimeStr[64];
 	StkPlGetWTimeInOldFormat(LocalTimeStr, true);
-	StkPlWPrintf(L"%s   %s %s\r\n", LocalTimeStr, StrMethod, UrlPath);
+	StkPlWPrintf(L"%ls   %ls %ls\r\n", LocalTimeStr, StrMethod, UrlPath);
 }
 
 void ApiBase::PrintResponse(int ResultCode)
 {
 	wchar_t LocalTimeStr[64];
 	StkPlGetWTimeInOldFormat(LocalTimeStr, true);
-	StkPlWPrintf(L"%s   %d\r\n", LocalTimeStr, ResultCode);
+	StkPlWPrintf(L"%ls   %d\r\n", LocalTimeStr, ResultCode);
 }
 
 void ApiBase::DecodeURL(wchar_t UrlIn[StkWebAppExec::URL_PATH_LENGTH], wchar_t UrlOut[StkWebAppExec::URL_PATH_LENGTH])

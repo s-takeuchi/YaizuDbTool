@@ -23,7 +23,23 @@ int DbPostgreSqlAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
-	int Ret = GetNumOfRecordsCommon(EcdTableName, StateMsg, Msg, MsgLen);
+	wchar_t ColumnName[5][Global::COLUMNNAME_LENGTH];
+	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2];
+	int OpeType[5];
+	wchar_t Value[5][Global::COLUMNVAL_LENGTH];
+	wchar_t ValueCnv[5][Global::COLUMNVAL_LENGTH * 4 + 2];
+	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
+	for (int Loop = 1; Loop <= 5; Loop++) {
+		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
+		SqlEncoding(ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);
+		if (FilterSwitch && (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11)) {
+			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
+		} else {
+			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_VALUE);
+		}
+	}
+
+	int Ret = GetNumOfRecordsCommon(EcdTableName, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg, MsgLen);
 	delete EcdTableName;
 	return Ret;
 }
@@ -64,7 +80,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 	SqlEncoding(TableName, EcdTableName, TYPE_VALUE);
 
 	SQLTCHAR SqlBuf[1024];
-	StkPlSwPrintf(SqlBuf, 1024, L"SELECT * FROM information_schema.columns WHERE table_schema='public' and table_name='%s';", EcdTableName);
+	StkPlSwPrintf(SqlBuf, 1024, L"SELECT * FROM information_schema.columns WHERE table_schema='public' and table_name='%ls';", EcdTableName);
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	delete EcdTableName;
 	if (Ret != SQL_SUCCESS) {
@@ -92,7 +108,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 			return 0;
 		}
 		if (ColumneMaxLen != SQL_NULL_DATA) {
-			StkPlSwPrintf(TmpColumnType, Global::COLUMNTYPE_LENGTH, L"%s(%d)", ColumnType, TmpColumnMaxLen);
+			StkPlSwPrintf(TmpColumnType, Global::COLUMNTYPE_LENGTH, L"%ls(%d)", ColumnType, TmpColumnMaxLen);
 		} else {
 			lstrcpy(TmpColumnType, ColumnType);
 		}
