@@ -108,6 +108,7 @@
     <ClCompile Include="ApiDeleteUser.cpp" />
     <ClCompile Include="ApiFilterInfo.cpp" />
     <ClCompile Include="ApiGetLanguage.cpp" />
+    <ClCompile Include="ApiGetRecCount.cpp" />
     <ClCompile Include="ApiGetRecord.cpp" />
     <ClCompile Include="ApiGetSystem.cpp" />
     <ClCompile Include="ApiGetTableInfo.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="ApiDeleteUser.h" />
     <ClInclude Include="ApiFilterInfo.h" />
     <ClInclude Include="ApiGetLanguage.h" />
+    <ClInclude Include="ApiGetRecCount.h" />
     <ClInclude Include="ApiGetRecord.h" />
     <ClInclude Include="ApiGetSystem.h" />
     <ClInclude Include="ApiGetTableInfo.h" />
