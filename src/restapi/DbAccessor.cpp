@@ -142,6 +142,7 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], wchar_t Value[5][Global::COLUMNVAL_LENGTH * 4 + 2],
 	wchar_t SortTarget[Global::COLUMNNAME_LENGTH * 4 + 2],
 	wchar_t SortOrder[5],
+	int Limit, int Offset,
 	SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLINTEGER Native; // This will not be refered from anywhere
@@ -194,6 +195,11 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 		SQLTCHAR SqlSortBuf[128] = L"";
 		StkPlSwPrintf(SqlSortBuf, 128, L" order by %ls %ls", SortTarget, SortOrder);
 		StkPlWcsCat(SqlBuf, 1024, SqlSortBuf);
+	}
+	if (Limit != -1 && Offset != -1) {
+		SQLTCHAR SqlLimitBuf[128] = L"";
+		StkPlSwPrintf(SqlLimitBuf, 128, L" limit %d offset %d", Limit, Offset);
+		StkPlWcsCat(SqlBuf, 1024, SqlLimitBuf);
 	}
 	lstrcat(SqlBuf, L";");
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);

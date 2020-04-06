@@ -123,7 +123,7 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 	return Loop;
 }
 
-int DbMariaDbAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, StkObject* DatObj, SQLTCHAR* SortTarget, SQLTCHAR* SortOrder, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+int DbMariaDbAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, StkObject* DatObj, SQLTCHAR* SortTarget, SQLTCHAR* SortOrder, int Limit, int Offset, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
 	SQLRETURN Ret = 0;
 	wchar_t ConnStr[256];
@@ -159,7 +159,7 @@ int DbMariaDbAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols,
 		}
 	}
 
-	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, NULL, NULL, StateMsg, Msg, MsgLen);
+	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, NULL, NULL, Limit, Offset, StateMsg, Msg, MsgLen);
 
 	delete EcdTableName;
 	if (EcdSortTarget != NULL) {
