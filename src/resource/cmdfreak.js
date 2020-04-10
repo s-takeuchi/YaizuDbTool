@@ -101,6 +101,8 @@ function initClientMessage() {
     addClientMessage('VIEWSETTING', {'en':'View Setting', 'ja':'ビュー設定'});
     addClientMessage('VIEWSETTING_RECORDS_PER_PAGE', {'en':'Records / Page:', 'ja':'レコード数 / ページ:'});
     addClientMessage('VIEWSETTING_PAGE', {'en':'Page:', 'ja':'ページ:'});
+    addClientMessage('VIEWSETTING_INVALID_VALUE', {'en':'An invalid value is presented.', 'ja':'不正な値が指定されました。'});
+    addClientMessage('VIEWSETTING_INVALID_RANGE_ERROR', {'en':'The value specified is out of range.', 'ja':'指定された値は許容範囲外です。'});
 
     //
     // Errors, Common
@@ -1057,6 +1059,7 @@ function displayViewSetting() {
     viewSettingDlg.append('<div style="clear:left"></div><br/>');
     $('#paramPage').val(startRecord + 1);
 
+    viewSettingDlg.append('<div id="viewsetting_msg"/>');
     viewSettingDlg.append('<p>');
     viewSettingDlg.append('<button type="button" id="okViewSetting" class="btn btn-dark" onclick="okViewSettingModal()">' + getClientMessage('DLG_OK') + '</button> ');
     viewSettingDlg.append('<button type="button" id="cancelViewSetting" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CANCEL') + '</button> ');
@@ -1070,8 +1073,20 @@ function eventParamRecordsChanged(records, numOfRecords) {
 }
 
 function okViewSettingModal() {
+    if (!$('#paramPage').val().match(/^[0-9]+$/)) {
+        displayAlertDanger('#viewsetting_msg', getClientMessage('VIEWSETTING_INVALID_VALUE'));
+        return;
+    }
+
     recordsPerPage = $('#paramRecordsText').text();
     startRecord = parseInt($('#paramPage').val()) - 1;
+
+    var numOfRecords = responseData['API_GET_RECCOUNT'].Data.NumOfRecords;
+    if (startRecord <= -1 || startRecord >= parseInt(numOfRecords / recordsPerPage + 1)) {
+        displayAlertDanger('#viewsetting_msg', getClientMessage('VIEWSETTING_INVALID_RANGE_ERROR'));
+        return;
+    }
+
     closeInputModal();
 
     var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
