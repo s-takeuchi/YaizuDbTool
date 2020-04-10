@@ -611,7 +611,8 @@ function selectTable(index) {
     var reqDatGetTbl = { 'query': tableInfos[index].Name };
     var reqDatGetRec = { 'query': tableInfos[index].Name, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage };
     var contents = [{ method: 'GET', url: '/api/tableinfo/', request: reqDatGetTbl, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: reqDatGetRec, keystring: 'API_GET_RECORDS' }
+                    { method: 'GET', url: '/api/records/', request: reqDatGetRec, keystring: 'API_GET_RECORDS' },
+                    { method: 'GET', url: '/api/reccount/', request: { 'query': currentTablename }, keystring: 'API_GET_RECCOUNT' }
     ];
     MultiApiCall(contents, displayData);
 }
@@ -708,7 +709,8 @@ function columnSort(targetId) {
     var colInfo = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
     globalSortTarget = colInfo[targetId].title;
     var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' }
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' },
+                    { method: 'GET', url: '/api/reccount/', request: { 'query': currentTablename }, keystring: 'API_GET_RECCOUNT' }
     ];
     MultiApiCall(contents, displayData);
 }
@@ -921,7 +923,8 @@ function okFilterModal() {
     var contents = [{ method: 'POST', url: '/api/filterinfo/', request: reqDatDf, keystring: 'API_POST_FILTERINFO' },
                     { method: 'POST', url: '/api/filterinfo/', request: reqDatSw, keystring: 'API_POST_FILTERINFO' },
                     { method: 'GET', url: '/api/tableinfo/', request: reqDatRc, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' }
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' },
+                    { method: 'GET', url: '/api/reccount/', request: { 'query': currentTablename }, keystring: 'API_GET_RECCOUNT' }
     ];
     MultiApiCall(contents, completeFilterModal);
     closeInputModal();
@@ -940,7 +943,8 @@ function clearFilterModal() {
     var contents = [{ method: 'POST', url: '/api/filterinfo/', request: reqDatDf, keystring: 'API_POST_FILTERINFO' },
                     { method: 'POST', url: '/api/filterinfo/', request: reqDatSw, keystring: 'API_POST_FILTERINFO' },
                     { method: 'GET', url: '/api/tableinfo/', request: reqDatRc, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' }
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' },
+                    { method: 'GET', url: '/api/reccount/', request: { 'query': currentTablename }, keystring: 'API_GET_RECCOUNT' }
     ];
     MultiApiCall(contents, completeFilterModal);
     closeInputModal();
@@ -1019,8 +1023,7 @@ function displayTableInfo() {
 ////////////////////////////////////////////////////////////////////////////////
 
 function transViewSetting() {
-    var contents = [{ method: 'GET', url: '/api/reccount/', request: { 'query': currentTablename }, keystring: 'API_GET_RECCOUNT' }];
-    MultiApiCall(contents, displayViewSetting);
+    displayViewSetting()
 }
 
 function displayViewSetting() {
@@ -1078,36 +1081,51 @@ function okViewSettingModal() {
         return;
     }
 
-    recordsPerPage = $('#paramRecordsText').text();
-    startRecord = parseInt($('#paramPage').val()) - 1;
+    var tmpRecordsPerPage = $('#paramRecordsText').text();
+    var tmpStartRecord = parseInt($('#paramPage').val());
 
     var numOfRecords = responseData['API_GET_RECCOUNT'].Data.NumOfRecords;
-    if (startRecord <= -1 || startRecord >= parseInt(numOfRecords / recordsPerPage + 1)) {
+    if (tmpStartRecord <= 0 || tmpStartRecord > parseInt(numOfRecords / tmpRecordsPerPage + 1)) {
         displayAlertDanger('#viewsetting_msg', getClientMessage('VIEWSETTING_INVALID_RANGE_ERROR'));
         return;
     }
 
+    startRecord = tmpStartRecord - 1;
+    recordsPerPage = tmpRecordsPerPage;
+
     closeInputModal();
 
     var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' }
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' },
+                    { method: 'GET', url: '/api/reccount/', request: { 'query': currentTablename }, keystring: 'API_GET_RECCOUNT' }
     ];
     MultiApiCall(contents, completeViewSettingModal);
 }
 
 
 function pageForward() {
+    var numOfRecords = responseData['API_GET_RECCOUNT'].Data.NumOfRecords;
+    if (startRecord + 1 >= parseInt(numOfRecords / recordsPerPage + 1)) {
+        return;
+    }
+
     startRecord++;
     var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' }
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' },
+                    { method: 'GET', url: '/api/reccount/', request: { 'query': currentTablename }, keystring: 'API_GET_RECCOUNT' }
     ];
     MultiApiCall(contents, displayData);
 }
 
 function pageBackward() {
+    if (startRecord <= 0) {
+        return;
+    }
+
     startRecord--;
     var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' }
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' },
+                    { method: 'GET', url: '/api/reccount/', request: { 'query': currentTablename }, keystring: 'API_GET_RECCOUNT' }
     ];
     MultiApiCall(contents, displayData);
 }
