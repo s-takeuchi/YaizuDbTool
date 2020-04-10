@@ -8,6 +8,13 @@ var currentTablename = "";
 // Records / page
 var recordsPerPage = 20;
 
+// Start record
+var startRecord = 0;
+
+// Sort information
+var globalSortOrder = '';
+var globalSortTarget = '';
+
 // Selected user information on user management page
 var selectedUserId = -1;
 
@@ -595,10 +602,14 @@ function displayTableList() {
 function selectTable(index) {
     var tableInfos = getArray(responseData['API_GET_TABLEINFO'].Data.TableInfo);
     currentTablename = tableInfos[index].Name;
+    globalSortTarget = '';
+    globalSortOrder = '';
+    startRecord = 0;
     changeDropDownTitle(trimDropDownTitle(getDropDownMenu(index)));
-    var reqDatDf = { 'query': tableInfos[index].Name };
-    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: reqDatDf, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: reqDatDf, keystring: 'API_GET_RECORDS' }
+    var reqDatGetTbl = { 'query': tableInfos[index].Name };
+    var reqDatGetRec = { 'query': tableInfos[index].Name, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage };
+    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: reqDatGetTbl, keystring: 'API_GET_TABLEINFO_WITH_COL' },
+                    { method: 'GET', url: '/api/records/', request: reqDatGetRec, keystring: 'API_GET_RECORDS' }
     ];
     MultiApiCall(contents, displayData);
 }
@@ -686,15 +697,16 @@ function displayData() {
 }
 
 function columnSort(targetId) {
-    var sortOrder = '';
+    startRecord = 0;
     if ($('#sortTarget-' + targetId).hasClass('icon icon-arrow-down')) {
-        sortOrder = 'DESC';
+        globalSortOrder = 'DESC';
     } else {
-        sortOrder = "ASC";
+        globalSortOrder = "ASC";
     }
     var colInfo = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
+    globalSortTarget = colInfo[targetId].title;
     var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': colInfo[targetId].title, 'sortOrder': sortOrder }, keystring: 'API_GET_RECORDS' }
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' }
     ];
     MultiApiCall(contents, displayData);
 }
@@ -907,7 +919,7 @@ function okFilterModal() {
     var contents = [{ method: 'POST', url: '/api/filterinfo/', request: reqDatDf, keystring: 'API_POST_FILTERINFO' },
                     { method: 'POST', url: '/api/filterinfo/', request: reqDatSw, keystring: 'API_POST_FILTERINFO' },
                     { method: 'GET', url: '/api/tableinfo/', request: reqDatRc, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: reqDatRc, keystring: 'API_GET_RECORDS' }
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' }
     ];
     MultiApiCall(contents, completeFilterModal);
     closeInputModal();
@@ -926,7 +938,7 @@ function clearFilterModal() {
     var contents = [{ method: 'POST', url: '/api/filterinfo/', request: reqDatDf, keystring: 'API_POST_FILTERINFO' },
                     { method: 'POST', url: '/api/filterinfo/', request: reqDatSw, keystring: 'API_POST_FILTERINFO' },
                     { method: 'GET', url: '/api/tableinfo/', request: reqDatRc, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: reqDatRc, keystring: 'API_GET_RECORDS' }
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' }
     ];
     MultiApiCall(contents, completeFilterModal);
     closeInputModal();
@@ -1043,6 +1055,7 @@ function displayViewSetting() {
     viewSettingDlg.append(textboxPage);
     viewSettingDlg.append('<div id="paramMaxPage" style="float:left">' + parseInt(numOfRecords / recordsPerPage + 1) + '</div>');
     viewSettingDlg.append('<div style="clear:left"></div><br/>');
+    $('#paramPage').val(startRecord + 1);
 
     viewSettingDlg.append('<p>');
     viewSettingDlg.append('<button type="button" id="okViewSetting" class="btn btn-dark" onclick="okViewSettingModal()">' + getClientMessage('DLG_OK') + '</button> ');
@@ -1052,12 +1065,40 @@ function displayViewSetting() {
 
 function eventParamRecordsChanged(records, numOfRecords) {
     $('#paramRecordsText').text(records);
+    $('#paramPage').val(1);
     $('#paramMaxPage').text(parseInt(numOfRecords / records + 1));
 }
 
 function okViewSettingModal() {
     recordsPerPage = $('#paramRecordsText').text();
+    startRecord = parseInt($('#paramPage').val()) - 1;
     closeInputModal();
+
+    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' }
+    ];
+    MultiApiCall(contents, completeViewSettingModal);
+}
+
+
+function pageForward() {
+    startRecord++;
+    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' }
+    ];
+    MultiApiCall(contents, displayData);
+}
+
+function pageBackward() {
+    startRecord--;
+    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' }
+    ];
+    MultiApiCall(contents, displayData);
+}
+
+function completeViewSettingModal() {
+    displayData();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1084,8 +1125,8 @@ function refreshInfo() {
     addDropDown(trimDropDownTitle('Tables'));
     addRsCommand('transDisplayFilterModal()', 'icon-filter', true);
     addRsCommand('transViewSetting()', 'icon-eye', true);
-    addRsCommand('transDisplayFilterModal()', 'icon-circle-left', true);
-    addRsCommand('transDisplayFilterModal()', 'icon-circle-right', true);
+    addRsCommand('pageBackward()', 'icon-circle-left', true);
+    addRsCommand('pageForward()', 'icon-circle-right', true);
     var contents = [{ method: 'GET', url: '/api/tableinfo/', request: null, keystring: 'API_GET_TABLEINFO' },
                     { method: 'GET', url: '/api/odbcinfo/', request: { 'query': 'configured' }, keystring: 'API_GET_ODBCINFO_CONFIGURED' }
     ];

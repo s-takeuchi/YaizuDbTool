@@ -21,19 +21,48 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 		*ResultCode = 400;
 		return ResObj;
 	}
-	wchar_t Dummy[256] = L"";
-	wchar_t TableName[768] = L"";
-	wchar_t SortColumnName[768] = L"";
-	wchar_t SortOrder[32] = L"";
-	if (StkPlWcsStr(UrlPath, L"&") != NULL) {
-		StkStringParser::ParseInto4Params(UrlPath, L"$?query=$&sort=$&sortOrder=$", L'$', Dummy, 256, TableName, 768, SortColumnName, 768, SortOrder, 32);
-	} else {
-		StkStringParser::ParseInto2Params(UrlPath, L"$?query=$", L'$', Dummy, 256, TableName, 768);
+	wchar_t Dummy1[512] = L"";
+	wchar_t Dummy2[512] = L"";
+	wchar_t TableName[512] = L"";
+	wchar_t TableNameAc[512] = L"";
+	wchar_t SortColumnName[512] = L"";
+	wchar_t SortColumnNameAc[512] = L"";
+	wchar_t SortOrder[512] = L"";
+	wchar_t Limit[512] = L"";
+	int LimitInt = -1;
+	wchar_t Offset[512] = L"";
+	int OffsetInt = -1;
+
+	if (StkPlWcsStr(UrlPath, L"query=") != NULL) {
+		if (StkStringParser::ParseInto3Params(UrlPath, L"$query=$&$", L'$', Dummy1, 512, TableName, 512, Dummy2, 512) != 1) {
+			StkStringParser::ParseInto2Params(UrlPath, L"$query=$", L'$', Dummy1, 512, TableName, 512);
+		}
+		DecodeURL(TableName, TableNameAc);
 	}
-	wchar_t TableNameAc[768] = L"";
-	DecodeURL(TableName, TableNameAc);
-	wchar_t SortColumnNameAc[768] = L"";
-	DecodeURL(SortColumnName, SortColumnNameAc);
+	if (StkPlWcsStr(UrlPath, L"sort=") != NULL) {
+		if (StkStringParser::ParseInto3Params(UrlPath, L"$sort=$&$", L'$', Dummy1, 512, SortColumnName, 512, Dummy2, 512) != 1) {
+			StkStringParser::ParseInto2Params(UrlPath, L"$sort=$", L'$', Dummy1, 512, SortColumnName, 512);
+		}
+		DecodeURL(SortColumnName, SortColumnNameAc);
+	}
+	if (StkPlWcsStr(UrlPath, L"sortOrder=") != NULL) {
+		if (StkStringParser::ParseInto3Params(UrlPath, L"$sortOrder=$&$", L'$', Dummy1, 512, SortOrder, 512, Dummy2, 512) != 1) {
+			StkStringParser::ParseInto2Params(UrlPath, L"$sortOrder=$", L'$', Dummy1, 512, SortOrder, 512);
+		}
+	}
+	if (StkPlWcsStr(UrlPath, L"limit=") != NULL) {
+		if (StkStringParser::ParseInto3Params(UrlPath, L"$limit=$&$", L'$', Dummy1, 512, Limit, 512, Dummy2, 512) != 1) {
+			StkStringParser::ParseInto2Params(UrlPath, L"$limit=$", L'$', Dummy1, 512, Limit, 512);
+		}
+		LimitInt = StkPlWcsToL(Limit);
+	}
+	if (StkPlWcsStr(UrlPath, L"offset=") != NULL) {
+		if (StkStringParser::ParseInto3Params(UrlPath, L"$offset=$&$", L'$', Dummy1, 512, Offset, 512, Dummy2, 512) != 1) {
+			StkStringParser::ParseInto2Params(UrlPath, L"$offset=$", L'$', Dummy1, 512, Offset, 512);
+		}
+		OffsetInt = StkPlWcsToL(Offset);
+	}
+
 
 	wchar_t ConnStr[256];
 	int Init;
@@ -66,7 +95,7 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	int NumOfCols = Da->GetColumnInfoByTableName((SQLTCHAR*)TableNameAc, ColumnObj, StateMsg, Msg, 1024);
 	delete ColumnObj;
 	StkObject* DatObj = new StkObject(L"Data");
-	int NumOfRecs = Da->GetRecordsByTableName(TableNameAc, NumOfCols, DatObj, SortColumnNameAc, SortOrder, -1, -1, StateMsg, Msg, 1024);
+	int NumOfRecs = Da->GetRecordsByTableName(TableNameAc, NumOfCols, DatObj, SortColumnNameAc, SortOrder, LimitInt, OffsetInt, StateMsg, Msg, 1024);
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 
 	if (SortColumnNameAc != NULL && *SortColumnNameAc != L'\0') {
