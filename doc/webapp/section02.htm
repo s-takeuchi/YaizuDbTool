@@ -28,6 +28,7 @@ CmdFreakのREST APIは，以下の一覧に示すAPIをクライアント提供�
 <tr><td>GET /api/user/</td><td>ユーザー情報を取得する。</td></tr>
 <tr><td>POST /api/user/</td><td>ユーザー情報を設定する。</td></tr>
 <tr><td>DELETE /api/user/</td><td>ユーザー情報を削除する。</td></tr>
+<tr><td>GET /api/reccount/</td><td>指定されたテーブルのレコード数を取得する。</td></tr>
 </table>
 </div><p>
 
@@ -381,15 +382,18 @@ ODBCの情報を設定します。<br/>
 <H2 ID="2.9">2.9 Get /api/records/</H2>
 <div class="topic">
 指定されたテーブルのレコードを取得します。<br/>
+取得されるレコードは，"Post /api/filterinfo/"の設定によりフィルタリングされます。<br/>
 <ul>
 <li>リクエスト
 <pre>
-?query=tablename&sort=columnname&sortOrder=ASC
+?query=tablename&sort=columnname&sortOrder=ASC&limit=30&offset=100
 </pre>
 <table class="tblstyle">
 <tr><td>query</td><td>String</td><td>レコードの取得対象となるテーブル名。</td></tr>
 <tr><td>sort</td><td>String</td><td>ソート対象となるカラム名。</td></tr>
 <tr><td>sortOrder</td><td>String</td><td>ソートする順番。"ASC":昇順, "DESC":降順。</td></tr>
+<tr><td>limit</td><td>Integer</td><td>取得するレコード数。</td></tr>
+<tr><td>offset</td><td>Integer</td><td>取得するレコードのオフセット。</td></tr>
 </table><br/>
 </li>
 <li>レスポンス
@@ -706,6 +710,47 @@ ODBCの情報を設定します。<br/>
 </td></tr>
 <tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
 <tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+</table><br/>
+</li>
+</ul>
+</div><p>
+
+
+<H2 ID="2.15">2.15 Get /api/reccount/</H2>
+<div class="topic">
+指定されたテーブルのレコード数を取得します。<br/>
+取得されるレコード数は，"Post /api/filterinfo/"の設定によりフィルタリングされます。<br/>
+<ul>
+<li>リクエスト
+<pre>
+?query=tablename
+</pre>
+<table class="tblstyle">
+<tr><td>query</td><td>String</td><td>レコードの取得対象となるテーブル名。</td></tr>
+</table><br/>
+</li>
+<li>レスポンス
+<pre>
+{
+  "Code" : 1234,
+  "MsgEng" : "abc",
+  "MsgJpn" : "あいう",
+  "Data" : {
+    "NumOfRecords" : 123
+  }
+}
+</pre>
+<table class="tblstyle">
+<tr><td>Code</td><td>Integer</td><td>結果コード。
+0:成功(HTTPステータスコード=200), 
+3121:リクエストに?query=が含まれていない(HTTPステータスコード=400), 
+3122:指定したテーブルが存在しない(HTTPステータスコード=404), 
+3124:認証エラー(HTTPステータスコード=401)。
+</td></tr>
+<tr><td>MsgEng</td><td>String</td><td>英文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>MsgJpn</td><td>String</td><td>和文メッセージ。結果コードが0のときは空文字が返る。</td></tr>
+<tr><td>Data</td><td>Element</td><td>結果コードが0でないとき，この要素は返却されない。</td></tr>
+<tr><td>NumOfRecords</td><td>Integer</td><td>取得したレコード数。</td></tr>
 </table><br/>
 </li>
 </ul>
