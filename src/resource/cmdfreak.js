@@ -6,7 +6,7 @@ var userRole = 0;
 var currentTablename = "";
 
 // Records / page
-var recordsPerPage = 20;
+var recordsPerPage = 100;
 
 // Start record
 var startRecord = 0;
@@ -1047,12 +1047,12 @@ function displayViewSetting() {
     viewSettingDlg.append(getClientMessage('VIEWSETTING_RECORDS_PER_PAGE') + '&nbsp;&nbsp;');
     var btnRecords = $('<button id="paramRecords" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span id="paramRecordsText"></span><span class="caret"></span></button>');
     var recordsMenu = $('<ul id="paramRecordsMenu" class="dropdown-menu" role="menu">');
-    recordsMenu.append('<li role="presentation"><a onclick="eventParamRecordsChanged(10, ' + numOfRecords + ')" role="menuitem" tabindex="-1" href="#">10</a></li>');
-    recordsMenu.append('<li role="presentation"><a onclick="eventParamRecordsChanged(20, ' + numOfRecords + ')" role="menuitem" tabindex="-1" href="#">20</a></li>');
-    recordsMenu.append('<li role="presentation"><a onclick="eventParamRecordsChanged(30, ' + numOfRecords + ')" role="menuitem" tabindex="-1" href="#">30</a></li>');
-    recordsMenu.append('<li role="presentation"><a onclick="eventParamRecordsChanged(500, ' + numOfRecords + ')" role="menuitem" tabindex="-1" href="#">500</a></li>');
-    btnRecords.append(recordsMenu);
+    recordsMenu.append('<li role="presentation"><a onclick="eventParamRecordsChanged(50, ' + numOfRecords + ')" role="menuitem" tabindex="-1" href="#">50</a></li>');
+    recordsMenu.append('<li role="presentation"><a onclick="eventParamRecordsChanged(100, ' + numOfRecords + ')" role="menuitem" tabindex="-1" href="#">100</a></li>');
+    recordsMenu.append('<li role="presentation"><a onclick="eventParamRecordsChanged(200, ' + numOfRecords + ')" role="menuitem" tabindex="-1" href="#">200</a></li>');
+    recordsMenu.append('<li role="presentation"><a onclick="eventParamRecordsChanged(400, ' + numOfRecords + ')" role="menuitem" tabindex="-1" href="#">400</a></li>');
     viewSettingDlg.append(btnRecords);
+    viewSettingDlg.append(recordsMenu);
     viewSettingDlg.append('<br/>');
     $('#paramRecordsText').text(recordsPerPage);
 
