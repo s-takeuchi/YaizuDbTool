@@ -643,9 +643,8 @@ function displayData() {
         return;
     }
 
-    if (responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo === undefined ||
-        responseData['API_GET_RECORDS'].Data.Record === undefined) {
-        $('#cmdfreakdata').append('No data');
+    if (responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo === undefined) {
+        $('#cmdfreakdata').append('No columns');
         return;
     }
 
@@ -653,7 +652,7 @@ function displayData() {
     var colInfo = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
     var recData = getArray(responseData['API_GET_RECORDS'].Data.Record);
 
-    $('#cmdfreakdata').append('<div id="dispTableName" style="overflow:hidden;text-overflow:ellipsis;text-nowrap;height:25px;background-color:#3030c0"><a onclick="transDisplayTableInfo()" href="#">' + currentTablename + '</a></div>');
+    $('#cmdfreakdata').append('<div id="dispTableName" style="overflow:hidden;text-overflow:ellipsis;text-nowrap;height:25px;background-color:#3030c0"><a onclick="transDisplayTableInfo()" href="#">' + escapeString(currentTablename) + '</a></div>');
 
     var cmdfreakDiv = $('<div class="table-responsive text-nowrap">')
     var cmdfreakData = $('<table class="table table-striped table-bordered table-sm">');
@@ -669,14 +668,16 @@ function displayData() {
     cmdfreakData.append(tHead);
 
     var tBody = $('<tbody>');
-    for (var loopRec = 0; loopRec < recData.length; loopRec++) {
-        var bodyStr = '<tr>';
-        for (var loopCol = 0; loopCol < colCount; loopCol++) {
-            var targetData = escapeString(recData[loopRec][loopCol]);
-            bodyStr += '<td>' + targetData + '</td>';
+    if (recData !== null) {
+        for (var loopRec = 0; loopRec < recData.length; loopRec++) {
+            var bodyStr = '<tr>';
+            for (var loopCol = 0; loopCol < colCount; loopCol++) {
+                var targetData = escapeString(recData[loopRec][loopCol]);
+                bodyStr += '<td>' + targetData + '</td>';
+            }
+            bodyStr += '</tr>';
+            tBody.append(bodyStr);
         }
-        bodyStr += '</tr>';
-        tBody.append(bodyStr);
     }
     cmdfreakData.append(tBody);
     cmdfreakDiv.append(cmdfreakData);
