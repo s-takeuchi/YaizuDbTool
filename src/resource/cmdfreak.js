@@ -1074,7 +1074,7 @@ function displayViewSetting() {
 function eventParamRecordsChanged(records, numOfRecords) {
     $('#paramRecordsText').text(records);
     $('#paramPage').val(1);
-    $('#paramMaxPage').text(parseInt(numOfRecords / records + 1));
+    $('#paramMaxPage').text((parseInt((numOfRecords - 1) / records) + 1));
 }
 
 function okViewSettingModal() {
