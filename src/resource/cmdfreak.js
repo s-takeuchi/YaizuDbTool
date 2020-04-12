@@ -1060,7 +1060,7 @@ function displayViewSetting() {
     viewSettingDlg.append('<div style="float:left">' + getClientMessage('VIEWSETTING_PAGE') + '&nbsp;&nbsp;</div>');
     var textboxPage = $('<div style="width:60px;float:left"><input type="text" class="form-control" id="paramPage"></div><div style="float:left">&nbsp&nbsp;/&nbsp;&nbsp;</div>');
     viewSettingDlg.append(textboxPage);
-    viewSettingDlg.append('<div id="paramMaxPage" style="float:left">' + parseInt(numOfRecords / recordsPerPage + 1) + '</div>');
+    viewSettingDlg.append('<div id="paramMaxPage" style="float:left">' + (parseInt((numOfRecords - 1) / recordsPerPage)  + 1) + '</div>');
     viewSettingDlg.append('<div style="clear:left"></div><br/>');
     $('#paramPage').val(startRecord + 1);
 
