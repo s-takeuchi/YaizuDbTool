@@ -153,7 +153,7 @@ int DbMySqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, S
 		}
 	}
 
-	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, NULL, NULL, Limit, Offset, StateMsg, Msg, MsgLen);
+	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, EcdSortTarget, SortOrder, Limit, Offset, StateMsg, Msg, MsgLen);
 
 	delete EcdTableName;
 	if (EcdSortTarget != NULL) {
