@@ -913,6 +913,7 @@ function okFilterModal() {
         criteria[loop].value = paramVal;
     }
 
+    startRecord = 0;
     var reqDatDf = { "Criteria": criteria };
     var reqDatSw = {};
     if ($('#filterOn').prop('checked') == true) {
