@@ -153,7 +153,7 @@ rem ########## build complete ##########
 if not defined APPVEYOR (
   echo;
   %LCOUNTER% ..\src /subdir
-  %LCOUNTER% ..\src\resource\index.html /subdir
+  %LCOUNTER% ..\src\resource\cmdfreak.js
 )
 echo;
 echo All building processes of CmdFreak have been successfully finished.

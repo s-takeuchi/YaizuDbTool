@@ -26,6 +26,7 @@ function initClientMessage() {
     // User information
     //
     addClientMessage('USERMGMT', {'en':'User Management', 'ja':'ユーザー管理'});
+    addClientMessage('USERMGMTS', {'en':'User Mgmt', 'ja':'ユーザー管理'});
     addClientMessage('NOUSEREXIST', {'en':'<p>No user exists</p>', 'ja':'<p>ユーザーは存在しません</p>'});
     addClientMessage('USERNAME', {'en':'User Name', 'ja':'ユーザー名'});
     addClientMessage('USERROLE', {'en':'User Role', 'ja':'ユーザーロール'});
@@ -45,6 +46,7 @@ function initClientMessage() {
     // ODBC configuration
     //
     addClientMessage('ODBC_CONNECTION', {'en':'ODBC Connections', 'ja':'ODBC接続'});
+    addClientMessage('ODBC_CONNECTIONS', {'en':'ODBC Conn', 'ja':'ODBC接続'});
     addClientMessage('ODBC_CONNSTR_GUIDE', {
         'en':'Configure ODBC connection.<br>Select the connection target DBMS and specify the ODBC connection string.<br>As this is 32-bit application software, this string should be specified for the use of a 32-bit ODBC driver. As a prerequisite, a 32-bit ODBC driver needs to be installed on the operating system.<br>',
         'ja':'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。オペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>'
@@ -59,6 +61,7 @@ function initClientMessage() {
     // Service information
     //
     addClientMessage('SVCINFO', {'en':'Information', 'ja':'情報'});
+    addClientMessage('SVCINFOS', {'en':'Info', 'ja':'情報'});
     addClientMessage('SVCINFO_OPEN_MANUAL', {'en':'Open online manual', 'ja':'オンラインマニュアルを開く'});
     addClientMessage('SVCINFO_OPEN_MANUAL_URL', {'en':'manual/eng/index.htm', 'ja':'manual/jpn/index.htm'});
     addClientMessage('SVCINFO_TRACELOG', {
@@ -1183,9 +1186,9 @@ function checkLogin() {
         return false;
     } else {
         var menuContents = [
-            { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: getClientMessage('ODBC_CONNECTION') },
-            { id: 'cmdfreakusermgmt', actApiName: 'activateTopic', title: getClientMessage('USERMGMT') },
-            { id: 'cmdfreakinfo', actApiName: 'activateTopic', title: getClientMessage('SVCINFO') }
+            { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: getClientMessage('ODBC_CONNECTIONS') },
+            { id: 'cmdfreakusermgmt', actApiName: 'activateTopic', title: getClientMessage('USERMGMTS') },
+            { id: 'cmdfreakinfo', actApiName: 'activateTopic', title: getClientMessage('SVCINFOS') }
         ];
         initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
         var usermenuContents = [
@@ -1231,7 +1234,7 @@ function trimDropDownTitle(dropdownTitle) {
     } else if (wsize >= 992) {
         length = 16;
     } else if (wsize >= 576) {
-        length = 9;
+        length = 8;
     } else if (wsize >= 400) {
         length = 6;
     } else {
