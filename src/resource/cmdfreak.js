@@ -1087,7 +1087,7 @@ function okViewSettingModal() {
     var tmpStartRecord = parseInt($('#paramPage').val());
 
     var numOfRecords = responseData['API_GET_RECCOUNT'].Data.NumOfRecords;
-    if (tmpStartRecord <= 0 || tmpStartRecord > parseInt(numOfRecords / tmpRecordsPerPage + 1)) {
+    if (tmpStartRecord <= 0 || tmpStartRecord > (parseInt((numOfRecords - 1) / tmpRecordsPerPage) + 1)) {
         displayAlertDanger('#viewsetting_msg', getClientMessage('VIEWSETTING_INVALID_RANGE_ERROR'));
         return;
     }
