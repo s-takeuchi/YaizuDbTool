@@ -103,6 +103,7 @@ function initClientMessage() {
     addClientMessage('VIEWSETTING_PAGE', {'en':'Page:', 'ja':'ページ:'});
     addClientMessage('VIEWSETTING_INVALID_VALUE', {'en':'An invalid value is presented.', 'ja':'不正な値が指定されました。'});
     addClientMessage('VIEWSETTING_INVALID_RANGE_ERROR', {'en':'The value specified is out of range.', 'ja':'指定された値は許容範囲外です。'});
+    addClientMessage('VIEWSETTING_NO_TABLE', {'en':'The operation cannot be performed because the target table for view setting does not exist.', 'ja':'ビュー設定の対象となるテーブルが存在しないため操作を継続できません。'});
 
     //
     // Errors, Common
@@ -1035,6 +1036,11 @@ function displayViewSetting() {
     var viewSettingDlg = $('<div id="viewsetting">');
     showInputModal(getClientMessage('VIEWSETTING'), viewSettingDlg);
 
+    if (currentTablename == "") {
+        displayAlertDanger('#viewsetting', getClientMessage('VIEWSETTING_NO_TABLE'));
+        viewSettingDlg.append('<p><button type="button" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
+        return;
+    }
     if (statusCode['API_GET_RECCOUNT'] == 200) {
         // Nothing to do
     } else if (statusCode['API_GET_RECCOUNT'] == 404 || statusCode['API_GET_RECCOUNT'] == 401) {
