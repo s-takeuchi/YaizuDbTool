@@ -123,6 +123,8 @@ function initClientMessage() {
     addClientMessage('COMADD', {'en':'Add', 'ja':'追加'});
     addClientMessage('COMUPDATE', {'en':'Update', 'ja':'更新'});
     addClientMessage('COMDELETE', {'en':'Delete', 'ja':'削除'});
+    addClientMessage('NOCOLUMNS', {'en':'No columns', 'ja':'カラムが存在しません'});
+    addClientMessage('NORECORDS', {'en':'No records', 'ja':'レコードが存在しません'});
 }
 
 function getSvrMsg(respDat) {
@@ -644,7 +646,7 @@ function displayData() {
     }
 
     if (responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo === undefined) {
-        $('#cmdfreakdata').append('No columns');
+        $('#cmdfreakdata').append(getClientMessage('NOCOLUMNS'));
         return;
     }
 
@@ -678,10 +680,11 @@ function displayData() {
             bodyStr += '</tr>';
             tBody.append(bodyStr);
         }
+    } else {
+        tBody.append('<tr><td>' + getClientMessage('NORECORDS') + '</td></tr>');
     }
     cmdfreakData.append(tBody);
     cmdfreakDiv.append(cmdfreakData);
-
     $('#cmdfreakdata').append(cmdfreakDiv);
 
     if (responseData['API_GET_RECORDS'].Data.Sort !== undefined) {
