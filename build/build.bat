@@ -109,7 +109,6 @@ xcopy /y /q /i /s /e "webapp\bootstrap\bootstrap-4.4.1-dist" webapp\html\bootstr
 if exist webapp\bootstrap rmdir /S /Q webapp\bootstrap
 
 mkdir webapp\license
-mkdir webapp\html\lib
 mkdir webapp\html\img
 mkdir webapp\html\manual
 mkdir webapp\html\manual\eng
@@ -118,8 +117,6 @@ copy "..\src\resource\*.*" webapp\html
 copy "..\src\resource\img\*.*" webapp\html\img
 copy "..\doc\man\eng\*.*" webapp\html\manual\eng
 copy "..\doc\man\jpn\*.*" webapp\html\manual\jpn
-xcopy /y /q /s "..\src\etc\lib" webapp\html\lib
-xcopy /y /q /s "..\src\etc\license" webapp\license
 copy "..\..\YaizuComLib\src\stkwebapp\stkcommon.js" webapp\html
 copy "..\..\YaizuComLib\src\stkwebapp\jquery-3.2.0.min.js" webapp\html
 copy "..\..\YaizuComLib\src\stkwebapp\IcoMoon-Free.ttf" webapp\html
