@@ -34,7 +34,7 @@ StkObject* ApiGetSystem::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	AddCodeAndMsg(ResObj, 0, L"", L"");
 	StkObject* DatObj = new StkObject(L"Data");
 	DatObj->AppendChildElement(new StkObject(L"ProductName", L"CmdFreak"));
-	DatObj->AppendChildElement(new StkObject(L"Version", L"1.1.0"));
+	DatObj->AppendChildElement(new StkObject(L"Version", L"1.2.0"));
 	wchar_t BuildDate[32];
 	char BuildDateCh[32];
 	StkPlSPrintf(BuildDateCh, 32, "%s  %s", __DATE__, __TIME__);

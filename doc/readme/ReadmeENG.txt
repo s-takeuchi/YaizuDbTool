@@ -1,5 +1,5 @@
 ﻿=================================================
-CmdFreak 1.1.0
+CmdFreak 1.2.0
 =================================================
 1.CmdFreak summary
 
@@ -82,6 +82,9 @@ DBMSs supported:
 (1) Support for displaying unlimited record.
 (2) Performance improvement for multiple user access.
 
+* Version 1.1.0 ---> 1.2.0
+(1) Responsive design has been adopted for smartphone user.
+(2) User management function has been added.
 
 =================================================
 4.Installation
@@ -91,9 +94,9 @@ Follow the on-screen dialog prompts.
 Connect to the URL shown below by Web browser for use of CmdFreak after
 installation.
 
-http://<Host name or IP address of CmdFreak>:<Port number of Web server>
+http://<Host name or IP address of CmdFreak>:<Port number of Web server>/cmdfreak.html
 
-In case of installation with default parameters : http://localhost
+In case of installation with default parameters : http://localhost/cmdfreak.html
 
 
 =================================================
@@ -101,7 +104,7 @@ In case of installation with default parameters : http://localhost
 
 Please use the E-mail address below for inquiries about this product.
 
-bamboo@rj.dream.jp
+sy-takeuchi@outlook.com
 https://github.com/s-takeuchi
 
 Shinya Takeuchi
