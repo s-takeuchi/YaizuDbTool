@@ -823,10 +823,10 @@ function displayFilterModal() {
         switch (filterInfo[loopFil].opetype) {
             case 1: $('#paramOpeTxt' + loopFil).text('='); break;
             case 2: $('#paramOpeTxt' + loopFil).text('!='); break;
-            case 3: $('#paramOpeTxt' + loopFil).text('&lt;='); break;
-            case 4: $('#paramOpeTxt' + loopFil).text('&lt;'); break;
-            case 5: $('#paramOpeTxt' + loopFil).text('&gt;='); break;
-            case 6: $('#paramOpeTxt' + loopFil).text('&gt;'); break;
+            case 3: $('#paramOpeTxt' + loopFil).text('<='); break;
+            case 4: $('#paramOpeTxt' + loopFil).text('<'); break;
+            case 5: $('#paramOpeTxt' + loopFil).text('>='); break;
+            case 6: $('#paramOpeTxt' + loopFil).text('>'); break;
             case 10: $('#paramOpeTxt' + loopFil).text('contains'); break;
             case 11: $('#paramOpeTxt' + loopFil).text('does not contain'); break;
             case 20: $('#paramOpeTxt' + loopFil).text('is NULL'); $('#paramVal' + loopFil).prop('disabled', true); break;
@@ -904,10 +904,10 @@ function okFilterModal() {
             switch (paramOpe) {
                 case '=': paramOpeInt = 1; break;
                 case '!=': paramOpeInt = 2; break;
-                case '>=': paramOpeInt = 3; break;
-                case '>': paramOpeInt = 4; break;
-                case '<=': paramOpeInt = 5; break;
-                case '<': paramOpeInt = 6; break;
+                case '<=': paramOpeInt = 3; break;
+                case '<': paramOpeInt = 4; break;
+                case '>=': paramOpeInt = 5; break;
+                case '>': paramOpeInt = 6; break;
                 case 'contains': paramOpeInt = 10; break;
                 case 'does not contain': paramOpeInt = 11; break;
                 case 'is NULL': paramOpeInt = 20; break;
@@ -1119,7 +1119,7 @@ function okViewSettingModal() {
 
 function pageForward() {
     var numOfRecords = responseData['API_GET_RECCOUNT'].Data.NumOfRecords;
-    if (startRecord + 1 >= parseInt(numOfRecords / recordsPerPage + 1)) {
+    if (startRecord + 1 >= (parseInt((numOfRecords - 1) / recordsPerPage) + 1)) {
         return;
     }
 
