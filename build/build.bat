@@ -42,7 +42,7 @@ rem ########## Initializing ##########
 echo;
 echo Initializing...
 if exist webapp rmdir /S /Q webapp
-if exist deployment\cfk120.zip rmdir /S /Q deployment\cfk120.zip
+if exist deployment\cfk120.zip del deployment\cfk120.zip
 
 
 rem ########## Building ##########
@@ -128,8 +128,8 @@ echo;
 echo Making installer...
 %DEVENV% "setup\cmdfreak.sln" /rebuild Release
 mkdir deployment
-copy ..\doc\readme\ReadmeJPN.txt deployment
-copy ..\doc\readme\ReadmeENG.txt deployment
+copy ..\doc\readme\ReadmeJPN.html deployment
+copy ..\doc\readme\ReadmeENG.html deployment
 copy setup\Release\cmdfreak.msi deployment
 
 
@@ -138,10 +138,10 @@ echo;
 echo ZIP packing stage...
 cd deployment
 %SEVENZIP% a cfk120.zip cmdfreak.msi
-%SEVENZIP% a cfk120.zip ReadmeENG.txt
-%SEVENZIP% a cfk120.zip ReadmeJPN.txt
-del ReadmeENG.txt
-del ReadmeJPN.txt
+%SEVENZIP% a cfk120.zip ReadmeENG.html
+%SEVENZIP% a cfk120.zip ReadmeJPN.html
+del ReadmeENG.html
+del ReadmeJPN.html
 del cmdfreak.msi
 cd..
 

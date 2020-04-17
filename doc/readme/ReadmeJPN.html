@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<HEAD>
+<title>CmdFreak</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</HEAD>
+
+<BODY>
+
+<hr/>
+<h1>CmdFreak 1.2.0</h1>
+<hr/>
+
+<h1>1. CmdFreak概要</h1>
+
+情報システムやアプリケーションソフトウェアの多くは，それらが持つデータの永続化機構としてRDBMS(リレーショナルデータベース管理システム) を用いており，
+RDBMSの利用範囲は今後も拡大する傾向にあります。
+RDBMSは情報システムやアプリケーションソフトウェアのバックグラウンドサービスとして利用されるケースがほとんどですが， データマイニングや業務・運用の迅速化
+を目的として直接RDBMSのオリジナルデータを参照するケースがあります。 
+また，RDBMSはアプリケーションソフトウェアの特徴に応じて選定されるため，業務・運用
+の中で異なる複数のRDBMSを利用することは一般的なこととなっています。このため，複数のRDBMSを使い分けるユーザーにとって次の問題が存在していました。
+
+<ul>
+<li>RDBMSの種類に応じて異なるデータ参照ツールを利用する必要があり，そのツールの学習コストが増大する。</li> 
+<li>各クライアントに複数のデータ参照ツールをインストールする必要があり，クライアント数に比例して導入コストが増大する。</li>
+</ul>
+
+CmdFreakは，リレーショナルデータベース・ビュアー(データ参照ソフトウェア)であり，上記の問題に対して次のソリューションを提供します。
+
+<ul>
+<li>フリーのメジャーRDBMSである，MySQL, PostgreSQL, MariaDBをサポートし， これらのRDBMSに対する共通のユーザーインターフェースを介してデータの参照が可能となり
+ます。 RDBMSの種類に応じて異なるツールの操作を学ぶ必要がなく学習コストを抑えることができます。</li>
+<li>クライアント側の導入コストが実質的にゼロとなるWebアプリケーションとして動作します。 加えてWebサーバを同梱するオールインワン型のインストーラにより， 通常
+のWebアプリケーションのように，事前にWebサーバやスクリプト言語を設定しておく必要はありません。 導入に関わるコストを抑えることができます。</li>
+</ul>
+
+CmdFreakはデータベースを参照するための下記の機能を提供します。
+
+<ul>
+<li>レコード一覧の表示／ページング</li>
+<li>テーブルの選択</li>
+<li>テーブル情報の参照</li>
+<li>カラムのフィルタリング／ソーティング</li>
+<li>DBMSの選択</li>
+</ul>
+
+
+<hr/>
+<h1>2. システム要件</h1>
+
+CmdFreakは以下の環境で動作します。
+
+<ul><li>動作に必要なCPU: 2GHz以上のクロック周波数で動作するCPU</li></ul>
+
+<ul><li>動作に必要なメモリ容量: 1GBytes以上</li></ul>
+
+<ul><li>導入に必要な空きディスク容量: 20MBytes以上</li></ul>
+
+<ul><li>サポートするオペレーティングシステム／エディション:<br/>
+Windows 7<br/>
+Windows 10<br/>
+Windows Server 2012<br/>
+Windows Server 2012 R2<br/>
+Windows Server 2016<br/>
+</li></ul>
+
+<ul><li>サポートするWebブラウザ:<br/>
+Microsoft Internet Explorer 11<br/>
+Microsoft Edge<br/>
+Google Chrome<br/>
+Mozilla Firefox<br/>
+</li></ul>
+
+<ul><li>サポートするDBMS:<br/>
+ MySQL 5.5 (+ ODBC Driver: MySQL Connector/ODBC 5.2)<br/>
+ MySQL 5.7 (+ ODBC Driver: MySQL Connector/ODBC 5.3)<br/>
+ MariaDB 5.5 (+ ODBC Driver: MariaDB Connector/ODBC 2.0)<br/>
+ MariaDB 10.3 (+ ODBC Driver: MariaDB Connector/ODBC 3.0)<br/>
+ PostgreSQL 9.2 (+ ODBC Driver: psqlODBC 9.2)<br/>
+ PostgreSQL 9.6 (+ ODBC Driver: psqlODBC 9.6)<br/>
+</li></ul>
+
+
+<hr/>
+<h1>3. 変更履歴</h1>
+
+バージョン 1.0.0 ---> 1.1.0
+<ol>
+<li>表示可能なレコード数が無制限になりました。</li>
+<li>複数ユーザーからの同時操作時の処理性能を改善しました。</li>
+</ol>
+
+バージョン 1.1.0 ---> 1.2.0
+<ol>
+<li>GUIにスマートフォンでも見やすいレスポンシブデザインを採用しました。</li>
+<li>ユーザー管理機能を追加しました。</li>
+</ol>
+
+
+<hr/>
+<h1>4. インストール方法</h1>
+
+cmdfreak.msiを実行することによりインストーラが起動します。<br/>
+インストーラの指示に従いインストールを進めてください。<br/>
+インストール後，Webブラウザから以下のURLに接続することにより，CmdFreakを利用することができます。<br/>
+<p>
+http://＜CmdFreakのホスト名またはIPアドレス＞:＜Webサーバのポート番号＞/cmdfreak.html
+</p>
+<p>
+デフォルト値を指定してインストールした場合：http://localhost/cmdfreak.html
+</p>
+
+
+<hr/>
+<h1>5. 問い合わせ先</h1>
+
+本ソフトウェアに関する問い合わせは，下記メールアドレスで受け付けています。
+<p>
+sy-takeuchi@outlook.com<br/>
+https://github.com/s-takeuchi<br/>
+</p>
+竹内伸也
+
+</BODY>
+</html>
