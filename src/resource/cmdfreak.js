@@ -921,12 +921,8 @@ function okFilterModal() {
     } else {
         reqDatSw = { "Function": "disable" };
     }
-    var reqDatRc = { 'query': currentTablename };
     var contents = [{ method: 'POST', url: '/api/filterinfo/', request: reqDatDf, keystring: 'API_POST_FILTERINFO' },
-                    { method: 'POST', url: '/api/filterinfo/', request: reqDatSw, keystring: 'API_POST_FILTERINFO' },
-                    { method: 'GET', url: '/api/tableinfo/', request: reqDatRc, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' },
-                    { method: 'GET', url: '/api/reccount/', request: { 'query': currentTablename }, keystring: 'API_GET_RECCOUNT' }
+                    { method: 'POST', url: '/api/filterinfo/', request: reqDatSw, keystring: 'API_POST_FILTERINFO' }
     ];
     MultiApiCall(contents, completeFilterModal);
     closeInputModal();
@@ -941,19 +937,19 @@ function clearFilterModal() {
     ];
     var reqDatDf = { "Criteria": criteria };
     reqDatSw = { "Function": "disable" };
-    var reqDatRc = { 'query': currentTablename };
     var contents = [{ method: 'POST', url: '/api/filterinfo/', request: reqDatDf, keystring: 'API_POST_FILTERINFO' },
-                    { method: 'POST', url: '/api/filterinfo/', request: reqDatSw, keystring: 'API_POST_FILTERINFO' },
-                    { method: 'GET', url: '/api/tableinfo/', request: reqDatRc, keystring: 'API_GET_TABLEINFO_WITH_COL' },
-                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' },
-                    { method: 'GET', url: '/api/reccount/', request: { 'query': currentTablename }, keystring: 'API_GET_RECCOUNT' }
+                    { method: 'POST', url: '/api/filterinfo/', request: reqDatSw, keystring: 'API_POST_FILTERINFO' }
     ];
     MultiApiCall(contents, completeFilterModal);
     closeInputModal();
 }
 
 function completeFilterModal() {
-    displayData();
+    var contents = [{ method: 'GET', url: '/api/tableinfo/', request: { 'query': currentTablename }, keystring: 'API_GET_TABLEINFO_WITH_COL' },
+                    { method: 'GET', url: '/api/records/', request: { 'query': currentTablename, 'sort': globalSortTarget, 'sortOrder': globalSortOrder, 'limit': recordsPerPage, 'offset': startRecord * recordsPerPage }, keystring: 'API_GET_RECORDS' },
+                    { method: 'GET', url: '/api/reccount/', request: { 'query': currentTablename }, keystring: 'API_GET_RECCOUNT' }
+    ];
+    MultiApiCall(contents, displayData);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
