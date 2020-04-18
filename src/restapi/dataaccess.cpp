@@ -626,19 +626,6 @@ int DataAccess::CreateCmdFreakTables()
 			UnlockTable(L"User");
 			delete RecUser;
 		}
-		{
-			ColumnData *ColDatUser[4];
-			ColDatUser[0] = new ColumnDataInt(L"Id", 1);
-			ColDatUser[1] = new ColumnDataWStr(L"Name", L"guest");
-			ColDatUser[2] = new ColumnDataWStr(L"Password", L"guest999");
-			ColDatUser[3] = new ColumnDataInt(L"Role", 1);
-			RecordData* RecUser = new RecordData(L"User", ColDatUser, 4);
-			// Add record
-			LockTable(L"User", LOCK_EXCLUSIVE);
-			int Ret = InsertRecord(RecUser);
-			UnlockTable(L"User");
-			delete RecUser;
-		}
 
 	} else {
 		if (LoadData(Buf) != 0) {
