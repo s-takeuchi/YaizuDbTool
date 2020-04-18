@@ -5,8 +5,8 @@ void MyMsgProc::AddMsg()
 {
 	// =====================================================================================================
 	//(---)
-	MessageProc::AddJpn(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nCopyright (C) 2020 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
-	MessageProc::AddEng(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nCopyright (C) 2020 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
+	MessageProc::AddJpn(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nVersion 1.2.0\r\nCopyright (C) 2020 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
+	MessageProc::AddEng(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nVersion 1.2.0\r\nCopyright (C) 2020 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
 
 	//(★)
 	MessageProc::AddJpn(CMDFRK_CONF_NOT_FOUND, L"sample.conf が見つかりません。\r\n");
