@@ -62,8 +62,6 @@ function initClientMessage() {
     //
     addClientMessage('SVCINFO', {'en':'Information', 'ja':'情報'});
     addClientMessage('SVCINFOS', {'en':'Info', 'ja':'情報'});
-    addClientMessage('SVCINFO_OPEN_MANUAL', {'en':'Open online manual', 'ja':'オンラインマニュアルを開く'});
-    addClientMessage('SVCINFO_OPEN_MANUAL_URL', {'en':'manual/eng/index.htm', 'ja':'manual/jpn/index.htm'});
     addClientMessage('SVCINFO_TRACELOG', {
         'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.',
         'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'
@@ -519,7 +517,6 @@ function displayInformation() {
     svcInfo.append('<div style="float:left;padding-top:20px;height:55px;"><strong>' + productName + ' ' + version + '</strong></div>');
     svcInfo.append('<div style="clear:both;">');
     svcInfo.append('Copyright (C) 2020 Shinya Takeuchi<br/>All Rights Reserved.');
-    svcInfo.append('<p><button type="button" id="openManual" class="btn btn-dark" onclick="openManual()">' + getClientMessage('SVCINFO_OPEN_MANUAL') + '</button></p>');
     svcInfo.append('<p>');
     svcInfo.append('Build Time = ' + buildTime + '<br/>');
     svcInfo.append('Service Start Time = ' + startTime + '<br/>');
@@ -545,10 +542,6 @@ function displayInformation() {
 
     svcInfo.append(logData);
     svcInfo.append('<p><button type="button" id="closeSvcInfo" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
-}
-
-function openManual() {
-    window.open(getClientMessage('SVCINFO_OPEN_MANUAL_URL'));
 }
 
 ////////////////////////////////////////////////////////////////////////////////

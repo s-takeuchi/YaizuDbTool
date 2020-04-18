@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_08C5C8DC2B8845C8B16A8EAC584FBCB9"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_125280FBD70A490CA016C1D6BF7D8234"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -75,18 +69,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_23F35830C92743BEA6381B2A75128C72"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_268FD1ABA1E2486B82CDD0CF3F48200B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_26B0711EFA70450B810294DC4ADE26D2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -100,12 +82,6 @@
         "Entry"
         {
         "MsmKey" = "8:_278103EF40164F89B9BC66E01EFE150C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_27ADB49AC5B74E8885E20A437E072C79"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -177,12 +153,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_65DEF9EB781B4E0591ABA23F7783D7EF"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_66BE592DC236487E8FAA3F65906FC35B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -207,31 +177,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_6D9A38391660471D8291DCAC5F2A7F1F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6F49AE2501604EDA9750B56A6532332E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_78488E5D7F80473DBF0270EF48A63B57"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_7A7B709C9DDA4D10BE27E2F37674A82C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7D87584FAE5A49C78FDC11D14BCC4E6F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -315,12 +261,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A512B7301F8F4AB3B0E75FC296BB7F39"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_AE442557A4E049E0B4FF5BA8D4F50A5C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -394,12 +334,6 @@
         "Entry"
         {
         "MsmKey" = "8:_DCAB0A5F84D548BBB06AC997CE8A9C20"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DD7FF74ECE094471AC085B423BAAB00C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -582,26 +516,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_08C5C8DC2B8845C8B16A8EAC584FBCB9"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\manual\\eng\\style.css"
-            "TargetName" = "8:style.css"
-            "Tag" = "8:"
-            "Folder" = "8:_89B5D075C96543BDA4778F2E09DA921B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_125280FBD70A490CA016C1D6BF7D8234"
             {
             "SourcePath" = "8:..\\webapp\\docs\\CHANGES.ru"
@@ -762,46 +676,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_23F35830C92743BEA6381B2A75128C72"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\manual\\jpn\\systemstructure.gif"
-            "TargetName" = "8:systemstructure.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_D344A15A1EAE4C23A77C08670688ED40"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_268FD1ABA1E2486B82CDD0CF3F48200B"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\manual\\eng\\section01.htm"
-            "TargetName" = "8:section01.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_89B5D075C96543BDA4778F2E09DA921B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_26B0711EFA70450B810294DC4ADE26D2"
             {
             "SourcePath" = "8:..\\webapp\\html\\img\\cristal_image48c.png"
@@ -848,26 +722,6 @@
             "TargetName" = "8:bootstrap.css.map"
             "Tag" = "8:"
             "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_27ADB49AC5B74E8885E20A437E072C79"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\manual\\jpn\\style.css"
-            "TargetName" = "8:style.css"
-            "Tag" = "8:"
-            "Folder" = "8:_D344A15A1EAE4C23A77C08670688ED40"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1102,26 +956,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_65DEF9EB781B4E0591ABA23F7783D7EF"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\manual\\jpn\\frame_r.htm"
-            "TargetName" = "8:frame_r.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_D344A15A1EAE4C23A77C08670688ED40"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_66BE592DC236487E8FAA3F65906FC35B"
             {
             "SourcePath" = "8:..\\webapp\\contrib\\README"
@@ -1202,92 +1036,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6D9A38391660471D8291DCAC5F2A7F1F"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\manual\\eng\\frame_r.htm"
-            "TargetName" = "8:frame_r.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_89B5D075C96543BDA4778F2E09DA921B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6F49AE2501604EDA9750B56A6532332E"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\manual\\jpn\\section01.htm"
-            "TargetName" = "8:section01.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_D344A15A1EAE4C23A77C08670688ED40"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_78488E5D7F80473DBF0270EF48A63B57"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\manual\\eng\\index.htm"
-            "TargetName" = "8:index.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_89B5D075C96543BDA4778F2E09DA921B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7A7B709C9DDA4D10BE27E2F37674A82C"
             {
             "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap-reboot.css"
             "TargetName" = "8:bootstrap-reboot.css"
             "Tag" = "8:"
             "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7D87584FAE5A49C78FDC11D14BCC4E6F"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\manual\\jpn\\index.htm"
-            "TargetName" = "8:index.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_D344A15A1EAE4C23A77C08670688ED40"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1562,26 +1316,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A512B7301F8F4AB3B0E75FC296BB7F39"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\manual\\jpn\\section03.htm"
-            "TargetName" = "8:section03.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_D344A15A1EAE4C23A77C08670688ED40"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AE442557A4E049E0B4FF5BA8D4F50A5C"
             {
             "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\js\\bootstrap.js.map"
@@ -1828,26 +1562,6 @@
             "TargetName" = "8:nginx.exe"
             "Tag" = "8:"
             "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DD7FF74ECE094471AC085B423BAAB00C"
-            {
-            "SourcePath" = "8:..\\webapp\\html\\manual\\jpn\\section02.htm"
-            "TargetName" = "8:section02.htm"
-            "Tag" = "8:"
-            "Folder" = "8:_D344A15A1EAE4C23A77C08670688ED40"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2215,39 +1929,6 @@
                                     "Condition" = "8:"
                                     "Transitive" = "11:FALSE"
                                     "Property" = "8:_46DB553D53904F0084DDAAEBF97B1A33"
-                                        "Folders"
-                                        {
-                                        }
-                                    }
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_70E3869996CA4A64A0021E5D45C27EB6"
-                            {
-                            "Name" = "8:manual"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_DE0907EA2F30498598FC2C14A09DCCA4"
-                                "Folders"
-                                {
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_89B5D075C96543BDA4778F2E09DA921B"
-                                    {
-                                    "Name" = "8:eng"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_0BFE63C5A9C04E83A552B1EF8E42606D"
-                                        "Folders"
-                                        {
-                                        }
-                                    }
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_D344A15A1EAE4C23A77C08670688ED40"
-                                    {
-                                    "Name" = "8:jpn"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_E30B7059DE6D4CB5B6A841E675050377"
                                         "Folders"
                                         {
                                         }

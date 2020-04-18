@@ -110,13 +110,8 @@ if exist webapp\bootstrap rmdir /S /Q webapp\bootstrap
 
 mkdir webapp\license
 mkdir webapp\html\img
-mkdir webapp\html\manual
-mkdir webapp\html\manual\eng
-mkdir webapp\html\manual\jpn
 copy "..\src\resource\*.*" webapp\html
 copy "..\src\resource\img\*.*" webapp\html\img
-copy "..\doc\man\eng\*.*" webapp\html\manual\eng
-copy "..\doc\man\jpn\*.*" webapp\html\manual\jpn
 copy "..\..\YaizuComLib\src\stkwebapp\stkcommon.js" webapp\html
 copy "..\..\YaizuComLib\src\stkwebapp\jquery-3.2.0.min.js" webapp\html
 copy "..\..\YaizuComLib\src\stkwebapp\IcoMoon-Free.ttf" webapp\html
