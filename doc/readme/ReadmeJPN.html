@@ -102,17 +102,94 @@ Mozilla Firefox<br/>
 
 cmdfreak.msiを実行することによりインストーラが起動します。<br/>
 インストーラの指示に従いインストールを進めてください。<br/>
-インストール後，Webブラウザから以下のURLに接続することにより，CmdFreakを利用することができます。<br/>
+CmdFreakのインストーラは，インストール時に以下の操作を行います。<br/>
+<ul>
+<li>CmdFreakに対するWindowsファイアウォールへの例外登録。</li> 
+<li>CmdFreakサービスのシステムへの登録。</li> 
+<li>CmdFreakサービスおよびWebサーバの自動起動。</li> 
+</ul>
+CmdFreak インストール後にcmdfreak.msi を起動するとプログラムの上書きインストール(Repair) を行うことができますが， その際下記の事項について注意する必要があります。<br/>
+<ul>
+<li>上書きインストール実行前にCmdFreakのサービスを停止してください。停止せずに上書きインストールを実行すると，上書きインストール後にオペレーティングシステムの再起動が必要になります。 </li> 
+<li>上書きインストール後にWebサーバおよびCmdFreak サービスが使用するポート番号がデフォルトに変更される場合があります。必要に応じて上書きインストール後にポート番号を変更してください。</li> 
+</ul>
+
+
+<hr/>
+<h1>5. アンインストール方法</h1>
+
+cmdfreak.msi を起動してRemove CmdFreakを選択するか，コントロールパネルからCmdFreakのアンインストールを行ってください。<br/>
+CmdFreakのアンインストールは，アンインストール時に以下の操作を行います。<br/>
+<ul>
+<li>CmdFreakサービスおよびWebサーバの自動停止。</li>  
+<li>CmdFreakサービスのシステムからの削除。 </li> 
+<li>CmdFreakに対するWindowsファイアウォールからの例外削除。</li> 
+</ul>
+
+
+<hr/>
+<h1>6. CmdFreakへのログイン方法</h1>
+
+CmdFreakのインストール後，Webブラウザから下記のURLに接続してください。 CmdFreakのログインページからログインに成功し，メインコンソールが表示されていれば，インストールは問題なく完了しています。<br/>
 <p>
 http://＜CmdFreakのホスト名またはIPアドレス＞:＜Webサーバのポート番号＞/cmdfreak.html
 </p>
 <p>
 デフォルト値を指定してインストールした場合：http://localhost/cmdfreak.html
 </p>
+初期ログインユーザー名およびパスワードは次の通りです。
+<p>
+User name : admin<br/>
+Password : manager<br/>
+</p>
+メインコンソールが表示されない場合，またはエラーが表示される場合下記を確認してください。<br/>
+<ul>
+<li>ブラウザからCmdFreakへの接続でURLにホスト名を指定している場合，ホスト名からIPアドレスが名前解決できること。 名前解決できない場合，名前解決可能なホストに変更し，再度接続を試みてください。</li>
+<li>CmdFreak(nginx.exe)がWindowsのファイアウォールに例外登録されていること。 例外登録されていない場合，nginx.exe をファイアウォールの例外に登録してください。</li>
+<li>WebサーバおよびCmdFreakサービスが使用するポート番号が他のプロセスが使用するポート番号と重なっていないこと。 後述のポート番号の変更手順に従い，ポート番号が重ならないよう変更を行ってください。</li>
+</ul>
 
 
 <hr/>
-<h1>5. 問い合わせ先</h1>
+<h1>7. CmdFreakサービスの起動・停止</h1>
+
+CmdFreakサービスの起動および停止は，Windowsのスタートメニューから行います。<br/>
+<ul>
+<li>[CmdFreak]-[Start CmdFreak service] : サービス開始</li>
+<li>[CmdFreak]-[Stop CmdFreak service] : サービス停止</li>
+</ul>
+
+
+<hr/>
+<h1>8. IPアドレス／ホスト名およびポート番号の変更</h1>
+
+CmdFreakは，2種類のIPアドレスとポート番号を使用します。<br/>
+<ul>
+<li>WebサーバのIPアドレス／ホスト名とポート番号</li>
+<li>CmdFreakサービスのIPアドレス／ホスト名とポート番号</li>
+</ul>
+インストール後にこれらのIPアドレス／ホスト名およびポート番号を変更するためには，以下の手順で操作を行ってください。
+<ol>
+<li>CmdFreakサービスを停止します。</li>
+<li>
+IPアドレスおよびポート番号を変更します。<br/>
+<p>
+<u>CmdFreakサービスが使用するIPアドレスおよびポート番号を変更する場合:</u><br/>
+＜インストール先フォルダ＞\CmdFreak\stkwebapp.conf のservicehostおよびserviceport プロパティにCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
+＜インストール先フォルダ＞\CmdFreak\conf\nginx.conf のlocation /api/ セクションのproxy_pass にCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
+</p>
+<p>
+<u>Webサーバが使用するIPアドレスおよびポート番号を変更する場合:</u><br/>
+＜インストール先フォルダ＞\CmdFreak\conf\nginx.conf のlistenおよびserver_name を変更します。<br/>
+</p>
+</li>
+<li>必要に応じてファイアウォールの設定を変更します。</li>
+<li>CmdFreakサービスを起動します。</li>
+</ol>
+
+
+<hr/>
+<h1>9. 問い合わせ先</h1>
 
 本ソフトウェアに関する問い合わせは，下記メールアドレスで受け付けています。
 <p>
