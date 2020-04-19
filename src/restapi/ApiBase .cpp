@@ -11,7 +11,7 @@ void ApiBase::AddCodeAndMsg(StkObject* StkObj, int Code, wchar_t* MsgEng, wchar_
 	StkObj->AppendChildElement(new StkObject(L"MsgJpn", MsgJpn));
 }
 
-void ApiBase::PrintRequest(int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH])
+void ApiBase::PrintRequest(unsigned int Identifier, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH])
 {
 	wchar_t StrMethod[32];
 	switch (Method) {
@@ -32,14 +32,21 @@ void ApiBase::PrintRequest(int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_L
 	}
 	wchar_t LocalTimeStr[64];
 	StkPlGetWTimeInOldFormat(LocalTimeStr, true);
-	StkPlWPrintf(L"%ls   %ls %ls\r\n", LocalTimeStr, StrMethod, UrlPath);
+	StkPlWPrintf(L"%08x| %ls   %ls %ls\r\n", Identifier, LocalTimeStr, StrMethod, UrlPath);
 }
 
-void ApiBase::PrintResponse(int ResultCode)
+void ApiBase::PrintResponse(unsigned int Identifier, int ResultCode)
 {
 	wchar_t LocalTimeStr[64];
 	StkPlGetWTimeInOldFormat(LocalTimeStr, true);
-	StkPlWPrintf(L"%ls   %d\r\n", LocalTimeStr, ResultCode);
+	StkPlWPrintf(L"%08x| %ls   %d\r\n", Identifier, LocalTimeStr, ResultCode);
+}
+
+void ApiBase::DebugObject(StkObject* StkObj)
+{
+	wchar_t DebugStr[65536];
+	StkObj->ToJson(DebugStr, 65536);
+	StkPlWPrintf(L"%ls\r\n", DebugStr);
 }
 
 void ApiBase::DecodeURL(wchar_t UrlIn[StkWebAppExec::URL_PATH_LENGTH], wchar_t UrlOut[StkWebAppExec::URL_PATH_LENGTH])
@@ -133,7 +140,10 @@ bool ApiBase::IsAdminUser(wchar_t* Token)
 
 StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t* HttpHeader)
 {
-	PrintRequest(Method, UrlPath);
+	static unsigned int Identifier = 0;
+	Identifier++;
+	unsigned int LocalId = Identifier;
+	PrintRequest(LocalId, Method, UrlPath);
 
 	wchar_t Locale[3] = L"";;
 	StkStringParser::ParseInto2Params(HttpHeader, L"#Accept-Language: #", L'#', NULL, 0, Locale, 3);
@@ -143,7 +153,7 @@ StkObject* ApiBase::Execute(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWe
 
 	StkObject* RetObj = ExecuteImpl(ReqObj, Method, UrlPath, ResultCode, Locale, Token);
 
-	PrintResponse(*ResultCode);
+	PrintResponse(LocalId, *ResultCode);
 
 	return RetObj;
 }

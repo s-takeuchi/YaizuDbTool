@@ -208,10 +208,10 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 		return 0;
 	}
 
-	SQLTCHAR TmpRecord[Global::MAXNUM_COLUMNS][Global::COLUMNVAL_LENGTH];
+	SQLTCHAR TmpRecord[Global::MAXNUM_COLUMNS][Global::COLUMNVAL_LENGTH + 10]; // Why +10 ... MariaDB-Fetch returns data exceeding buffer size
 	SQLLEN ValLen[Global::MAXNUM_COLUMNS];
 	for (int LoopCol = 0; LoopCol < NumOfCols; LoopCol++) {
-		SQLBindCol(Hstmt, LoopCol + 1, SQL_C_WCHAR, TmpRecord[LoopCol], Global::COLUMNVAL_LENGTH * sizeof(SQLTCHAR), &ValLen[LoopCol]);
+		SQLBindCol(Hstmt, LoopCol + 1, SQL_C_WCHAR, TmpRecord[LoopCol], (Global::COLUMNVAL_LENGTH - 1) * sizeof(SQLTCHAR), &ValLen[LoopCol]);
 	}
 	int LoopRec = 0;
 	for (;;) {
