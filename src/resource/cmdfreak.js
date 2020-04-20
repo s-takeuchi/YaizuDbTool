@@ -647,9 +647,9 @@ function displayData() {
         return;
     }
 
-    var colCount = responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo.length;
     var colInfo = getArray(responseData['API_GET_TABLEINFO_WITH_COL'].Data.TableInfo.ColumnInfo);
     var recData = getArray(responseData['API_GET_RECORDS'].Data.Record);
+    var colCount = colInfo.length;
 
     $('#cmdfreakdata').append('<div id="dispTableName" style="overflow:hidden;text-overflow:ellipsis;text-nowrap;height:25px;background-color:#3030c0"><a onclick="transDisplayTableInfo()" href="#">' + escapeString(currentTablename) + '</a></div>');
 
