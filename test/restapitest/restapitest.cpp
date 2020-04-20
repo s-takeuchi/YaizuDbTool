@@ -9,14 +9,14 @@ void TestGetSystem(StkWebAppSend* StkWebAppSendObj)
 	StkWebAppSendObj->SetAutholization("Bearer admin manager");
 	StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/system/", NULL, &ResultCode);
 	if (ResObj == NULL) {
-		StkPlPrintf("[NG]\r\n");
+		StkPlPrintf("[NG]\n");
 		StkPlExit(1);
 	}
 	StkObject* Dat = ResObj->GetFirstChildElement();
 	bool ErrFlag = true;
 	while (Dat) {
 		if (StkPlWcsCmp(Dat->GetName(), L"Code") == 0 && Dat->GetIntValue() != 0) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		if (StkPlWcsCmp(Dat->GetName(), L"Data") == 0) {
@@ -26,17 +26,17 @@ void TestGetSystem(StkWebAppSend* StkWebAppSendObj)
 			ErrFlag = false;
 		}
 		if (StkPlWcsCmp(Dat->GetName(), L"ProductName") == 0 && StkPlWcsCmp(Dat->GetStringValue(), L"CmdFreak") != 0) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		Dat = Dat->GetNext();
 	}
 	delete ResObj;
 	if (ErrFlag) {
-		StkPlPrintf("[NG]\r\n");
+		StkPlPrintf("[NG]\n");
 		StkPlExit(1);
 	}
-	StkPlPrintf("[OK]\r\n");
+	StkPlPrintf("[OK]\n");
 }
 
 void TestGetOdbcInfoDefault(StkWebAppSend* StkWebAppSendObj)
@@ -46,14 +46,14 @@ void TestGetOdbcInfoDefault(StkWebAppSend* StkWebAppSendObj)
 	StkWebAppSendObj->SetAutholization("Bearer admin manager");
 	StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/odbcinfo/?query=default", NULL, &ResultCode);
 	if (ResObj == NULL) {
-		StkPlPrintf("[NG]\r\n");
+		StkPlPrintf("[NG]\n");
 		StkPlExit(1);
 	}
 	StkObject* Dat = ResObj->GetFirstChildElement();
 	bool ErrFlag = true;
 	while (Dat) {
 		if (StkPlWcsCmp(Dat->GetName(), L"Code") == 0 && Dat->GetIntValue() != 0) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		if (StkPlWcsCmp(Dat->GetName(), L"Data") == 0) {
@@ -64,7 +64,7 @@ void TestGetOdbcInfoDefault(StkWebAppSend* StkWebAppSendObj)
 				StkObject* MySqlObj = new StkObject(L"DbType", L"MySQL");
 				StkObject* MariaDbObj = new StkObject(L"DbType", L"MariaDB");
 				if (!Dat->Contains(PostgreObj) || !Dat->Contains(MySqlObj) || !Dat->Contains(MariaDbObj)) {
-					StkPlPrintf("[NG]\r\n");
+					StkPlPrintf("[NG]\n");
 					StkPlExit(1);
 				}
 				delete PostgreObj;
@@ -72,7 +72,7 @@ void TestGetOdbcInfoDefault(StkWebAppSend* StkWebAppSendObj)
 				delete MariaDbObj;
 				ErrFlag = false;
 			} else {
-				StkPlPrintf("[NG]\r\n");
+				StkPlPrintf("[NG]\n");
 				StkPlExit(1);
 			}
 		}
@@ -80,10 +80,10 @@ void TestGetOdbcInfoDefault(StkWebAppSend* StkWebAppSendObj)
 	}
 	delete ResObj;
 	if (ErrFlag) {
-		StkPlPrintf("[NG]\r\n");
+		StkPlPrintf("[NG]\n");
 		StkPlExit(1);
 	}
-	StkPlPrintf("[OK]\r\n");
+	StkPlPrintf("[OK]\n");
 }
 
 void TestGetOdbcInfoConfigured(StkWebAppSend* StkWebAppSendObj)
@@ -93,14 +93,14 @@ void TestGetOdbcInfoConfigured(StkWebAppSend* StkWebAppSendObj)
 	StkWebAppSendObj->SetAutholization("Bearer admin manager");
 	StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/odbcinfo/?query=configured", NULL, &ResultCode);
 	if (ResObj == NULL) {
-		StkPlPrintf("[NG]\r\n");
+		StkPlPrintf("[NG]\n");
 		StkPlExit(1);
 	}
 	StkObject* Dat = ResObj->GetFirstChildElement();
 	bool ErrFlag = true;
 	while (Dat) {
 		if (StkPlWcsCmp(Dat->GetName(), L"Code") == 0 && Dat->GetIntValue() != 0) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		if (StkPlWcsCmp(Dat->GetName(), L"Data") == 0) {
@@ -109,13 +109,13 @@ void TestGetOdbcInfoConfigured(StkWebAppSend* StkWebAppSendObj)
 				Dat->ToJson(OdbcInfoStr, 1024);
 				StkObject* UnconnObj = new StkObject(L"Status", L"unconnectable");
 				if (!Dat->Contains(UnconnObj)) {
-					StkPlPrintf("[NG]\r\n");
+					StkPlPrintf("[NG]\n");
 					StkPlExit(1);
 				}
 				delete UnconnObj;
 				ErrFlag = false;
 			} else {
-				StkPlPrintf("[NG]\r\n");
+				StkPlPrintf("[NG]\n");
 				StkPlExit(1);
 			}
 		}
@@ -123,10 +123,10 @@ void TestGetOdbcInfoConfigured(StkWebAppSend* StkWebAppSendObj)
 	}
 	delete ResObj;
 	if (ErrFlag) {
-		StkPlPrintf("[NG]\r\n");
+		StkPlPrintf("[NG]\n");
 		StkPlExit(1);
 	}
-	StkPlPrintf("[OK]\r\n");
+	StkPlPrintf("[OK]\n");
 }
 
 void TestGetUser(StkWebAppSend* StkWebAppSendObj)
@@ -143,14 +143,14 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		StkObject* Found2Obj = ResObj->Contains(Search2Obj);
 		if (ResObj == NULL || ResultCode != 200 || FoundObj == NULL || Found2Obj == NULL) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete Search2Obj;
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("GetUser (no target, no ID/PW) ... ");
@@ -160,7 +160,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* SearchObj = new StkObject(L"Code", 3124);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (ResObj == NULL || ResultCode != 401 || FoundObj == NULL || FoundObj->GetIntValue() != 3124) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		StkObject* Dat = ResObj->GetFirstChildElement();
@@ -180,12 +180,12 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 			Dat = Dat->GetNext();
 		}
 		if (CodeInt != 3124 || StkPlWcsStr(MsgEng, L"Authentication error") == NULL) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("GetUser (no target, appropriate ID/PW) ... ");
@@ -193,7 +193,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/", NULL, &ResultCode);
 		if (ResObj == NULL) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		StkObject* Dat = ResObj->GetFirstChildElement();
@@ -226,11 +226,11 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 			Dat = Dat->GetNext();
 		}
 		if (CodeInt != 0 || MsgEng[0] != L'\0' || MsgJpn[0] != L'\0' || TargetUserId != 0) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("GetUser (target=all, appropriate ID/PW, admin user) ... ");
@@ -238,7 +238,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/?target=all", NULL, &ResultCode);
 		if (ResObj == NULL) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		StkObject* Dat = ResObj->GetFirstChildElement();
@@ -268,11 +268,11 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 			Dat = Dat->GetNext();
 		}
 		if (CodeInt != 0 || MsgEng[0] != L'\0' || MsgJpn[0] != L'\0' || UserCount != 2) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("GetUser (target=all, appropriate ID/PW, normal user) ... ");
@@ -280,11 +280,11 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer guest guest999");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/?target=all", NULL, &ResultCode);
 		if (ResObj == NULL || ResultCode != 403) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 }
 
@@ -300,13 +300,13 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* SearchObj = new StkObject(L"Code", 3124);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (ResObj == NULL || ResultCode != 401 || FoundObj == NULL || FoundObj->GetIntValue() != 3124) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("PostUser (add user, appropriate ID/PW, normal user, abnormal) ... ");
@@ -316,12 +316,12 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer guest guest999");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 403) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("PostUser (add user, appropriate ID/PW, admin user, no name specification, abnormal) ... ");
@@ -333,13 +333,13 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* SearchObj = new StkObject(L"Code", 3121);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3121) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("PostUser (add user, appropriate ID/PW, admin user, no role specification, abnormal) ... ");
@@ -351,13 +351,13 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* SearchObj = new StkObject(L"Code", 3121);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3121) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("PostUser (add user, appropriate ID/PW, admin user, no password specification, abnormal) ... ");
@@ -369,13 +369,13 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* SearchObj = new StkObject(L"Code", 3133);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3133) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	int TargetId = -1;
 	{
@@ -390,7 +390,7 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		StkObject* Found2Obj = ResObj->Contains(Search2Obj);
 		if (ResObj == NULL || ResultCode != 200 || FoundObj == NULL || Found2Obj == NULL) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		Found2Obj = Found2Obj->GetFirstChildElement();
@@ -401,14 +401,14 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 			Found2Obj = Found2Obj->GetNext();
 		}
 		if (TargetId == -1) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete Search2Obj;
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("PostUser (modify user, appropriate ID/PW, normal user, abnormal) ... ");
@@ -420,12 +420,12 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer guest guest999");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 403) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("PostUser (modify user, appropriate ID/PW, admin user, w/o password change) ... ");
@@ -437,19 +437,19 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 200) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		StkObject* SearchObj = new StkObject(L"Name", L"testuser2");
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (FoundObj == NULL) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("PostUser (modify user, appropriate ID/PW, admin user, invalid user ID, abnormal) ... ");
@@ -461,19 +461,19 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 400) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		StkObject* SearchObj = new StkObject(L"Code", 3128);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (FoundObj == NULL) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("PostUser (modify user, appropriate ID/PW, normal user, try to change admin's password, abnormal) ... ");
@@ -485,19 +485,19 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer guest guest999");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 403) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		StkObject* SearchObj = new StkObject(L"Code", 3125);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (FoundObj == NULL) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("PostUser (modify user, appropriate ID/PW, normal user, own password change) ... ");
@@ -509,12 +509,12 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer guest guest999");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 200) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("PostUser (modify user, appropriate ID/PW, admin user, try to change my own data, abnormal) ... ");
@@ -526,19 +526,19 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer testuser2 testuser");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 400) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		StkObject* SearchObj = new StkObject(L"Code", 3126);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (FoundObj == NULL) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("PostUser (modify user, appropriate ID/PW, admin user, try to change user name into admin, abnormal) ... ");
@@ -550,19 +550,19 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 400) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		StkObject* SearchObj = new StkObject(L"Code", 3127);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (FoundObj == NULL) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("PostUser (modify user, appropriate ID/PW, admin user, Change only role) ... ");
@@ -574,12 +574,12 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL || ResultCode != 200) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 }
 
@@ -594,12 +594,12 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* SearchObj = new StkObject(L"Code", 3124);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (ResObj == NULL || ResultCode != 401 || FoundObj == NULL || FoundObj->GetIntValue() != 3124) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("DeleteUser (access right error, abnormal) ... ");
@@ -610,12 +610,12 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* SearchObj = new StkObject(L"Code", 3125);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (ResObj == NULL || ResultCode != 403 || FoundObj == NULL || FoundObj->GetIntValue() != 3125) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("DeleteUser (delete my own data, abnormal) ... ");
@@ -626,12 +626,12 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* SearchObj = new StkObject(L"Code", 3126);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3126) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("DeleteUser (invalid user ID, abnormal) ... ");
@@ -642,12 +642,12 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* SearchObj = new StkObject(L"Code", 3128);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3128) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 	{
 		StkPlPrintf("DeleteUser ... ");
@@ -656,11 +656,11 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_DELETE, "/api/user/2/", NULL, &ResultCode);
 		if (ResObj == NULL || ResultCode != 200) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 }
 
@@ -676,17 +676,17 @@ void TestTooManyUsers(StkWebAppSend* StkWebAppSendObj)
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
 		if (ResObj == NULL) {
-			StkPlPrintf("[NG1]\r\n");
+			StkPlPrintf("[NG1]\n");
 			StkPlExit(1);
 		}
 		StkObject* SearchObj = new StkObject(L"Code", 3134);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (Loop <= 61 && (FoundObj != NULL || ResultCode != 200)) {
-			StkPlPrintf("[NG2]\r\n");
+			StkPlPrintf("[NG2]\n");
 			StkPlExit(1);
 		}
 		if (Loop > 61 && (FoundObj == NULL || ResultCode != 400)) {
-			StkPlPrintf("[NG3]\r\n");
+			StkPlPrintf("[NG3]\n");
 			StkPlExit(1);
 		}
 		delete SearchObj;
@@ -694,7 +694,7 @@ void TestTooManyUsers(StkWebAppSend* StkWebAppSendObj)
 		delete ResObj;
 
 	}
-	StkPlPrintf("[OK]\r\n");
+	StkPlPrintf("[OK]\n");
 
 }
 
@@ -717,10 +717,10 @@ void TestPostOperationStop(StkWebAppSend* StkWebAppSendObj)
 		delete ReqObj;
 		delete ResObj;
 		if (ProperErr == false) {
-			StkPlPrintf("[NG]\r\n");
+			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	} 
 	{
 		StkPlPrintf("PostOperationStop (normal) ... ");
@@ -730,7 +730,7 @@ void TestPostOperationStop(StkWebAppSend* StkWebAppSendObj)
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/service/", ReqObj, &ResultCode);
 		delete ReqObj;
 		delete ResObj;
-		StkPlPrintf("[OK]\r\n");
+		StkPlPrintf("[OK]\n");
 	}
 }
 
