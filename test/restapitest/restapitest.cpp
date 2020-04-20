@@ -132,6 +132,27 @@ void TestGetOdbcInfoConfigured(StkWebAppSend* StkWebAppSendObj)
 void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 {
 	{
+		StkPlPrintf("GETUser (preparation) ... ");
+		int ResultCode = 0;
+		int JsonRes = 0;
+		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"guest\", \"Role\" : 1, \"Password\" : \"guest999\"}", &JsonRes);
+		StkWebAppSendObj->SetAutholization("Bearer admin manager");
+		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
+		StkObject* SearchObj = new StkObject(L"Code", 0);
+		StkObject* Search2Obj = StkObject::CreateObjectFromJson(L"\"User\" : {\"Name\" : \"guest\"}", &JsonRes);
+		StkObject* FoundObj = ResObj->Contains(SearchObj);
+		StkObject* Found2Obj = ResObj->Contains(Search2Obj);
+		if (ResObj == NULL || ResultCode != 200 || FoundObj == NULL || Found2Obj == NULL) {
+			StkPlPrintf("[NG]\r\n");
+			StkPlExit(1);
+		}
+		delete SearchObj;
+		delete Search2Obj;
+		delete ReqObj;
+		delete ResObj;
+		StkPlPrintf("[OK]\r\n");
+	}
+	{
 		StkPlPrintf("GetUser (no target, no ID/PW) ... ");
 		int ResultCode = 0;
 		StkWebAppSendObj->SetAutholization("Bearer");
