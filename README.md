@@ -21,6 +21,29 @@ CmdFreak provides the following functions for database reference:
 
 ![scr1](https://user-images.githubusercontent.com/4883168/79982466-56fab380-84e1-11ea-9b46-6769a9d2aca7.png)
 
+## System requirements
+CmdFreak works on systems with the following specifications: 
+
+- CPU: 2 GHz or more  
+- Memory:1 GB or more  
+- Free disk space: 20 MB or more  
+- Operating systems/editions supported:  
+  Windows 10  
+  Windows Server 2016  
+  Windows Server 2019  
+- Web browsers supported:  
+  Microsoft Internet Explorer 11  
+  Microsoft Edge  
+  Google Chrome  
+  Mozilla Firefox  
+- DBMSs supported:  
+  MySQL 5.7 (+ ODBC Driver: MySQL Connector/ODBC 5.3)  
+  MySQL 8.0 (+ ODBC Driver: MySQL Connector/ODBC 8.0)  
+  MariaDB 10.3 (+ ODBC Driver: MariaDB Connector/ODBC 3.0)  
+  MariaDB 10.4 (+ ODBC Driver: MariaDB Connector/ODBC 3.1)  
+  PostgreSQL 9.6 (+ ODBC Driver: psqlODBC 9.6)  
+  PostgreSQL 12.2 (+ ODBC Driver: psqlODBC 12.1)  
+
 ## Change history
 ### Version 1.1.0 ---> 1.2.0 
 
