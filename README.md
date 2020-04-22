@@ -22,12 +22,16 @@ CmdFreak provides the following functions for database reference:
 ![scr1](https://user-images.githubusercontent.com/4883168/79982466-56fab380-84e1-11ea-9b46-6769a9d2aca7.png)
 
 ## Change history
+### Version 1.1.0 ---> 1.2.0 
+
+- Responsive design has been adopted for smartphone user.
+- User management function has been added.
+
 ### Version 1.0.0 ---> 1.1.0 
 
 - Support for displaying unlimited record.
 - Performance improvement for multiple user access.
 
-### Version 1.1.0 ---> 1.2.0 
-
-- Responsive design has been adopted for smartphone user.
-- User management function has been added.
+## Download
+[1.2.0 Release: 2020/04/22](https://github.com/s-takeuchi/YaizuDbTool/releases/tag/1.2.0)  
+[1.1.0 Release: 2018/01/28](https://github.com/s-takeuchi/YaizuDbTool/releases/tag/1.1.0)  
