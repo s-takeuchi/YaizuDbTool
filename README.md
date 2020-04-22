@@ -16,3 +16,6 @@ CmdFreak provides the following functions for database reference:
 - Table information reference
 - Column filtering and sorting
 - DBMS selection
+
+![scr1](https://user-images.githubusercontent.com/4883168/79982466-56fab380-84e1-11ea-9b46-6769a9d2aca7.png)
+
