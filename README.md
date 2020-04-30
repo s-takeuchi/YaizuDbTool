@@ -1,6 +1,6 @@
-# CmdFreak
+# CmdFreak 1.2.0
 
-## CmdFreak summary
+## Summary of CmdFreak
 Several information systems and application software suites use a RDBMS (Relational Database Management System) as a persistence mechanism for their own data. The range of RDBMS usage shows a tendency of expansion. Most RDBMSs are used as a background service for information systems and application software. However, such systems can also be accessed directly for data mining, quicker commercial operation and maintenance. An appropriate RDBMS can be chosen to match the characteristics of the target information system and application software. As a result, multiple RDBMSs are often used simultaneously in the same business operation and maintenance environment. However, multiple RDBMS usage is characterized by the following problems: 
 
 - Different data reference software applications need to be provided, which may increase the learning cost.
