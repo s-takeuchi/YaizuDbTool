@@ -1170,7 +1170,7 @@ function refreshInfo() {
 }
 
 function checkLogin() {
-    sendRequestRecvResponse('GET', '/api/user/', null, 'API_GET_USER', false);
+    apiCallSync('GET', '/api/user/', null, 'API_GET_USER');
     if (statusCode['API_GET_USER'] != 200) {
         return false;
     } else {
