@@ -1169,7 +1169,7 @@ function refreshInfo() {
     MultiApiCall(contents, checkOdbcConnection);
 }
 
-function checkLogin() {
+function checkLogin(dummyId, dummyPw) {
     apiCall('GET', '/api/user/', null, 'API_GET_USER', checkLoginAfterApiCall);
 }
 
