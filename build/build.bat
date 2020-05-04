@@ -155,7 +155,6 @@ rem ########## build complete ##########
 if defined LOCALMACHINE (
   echo;
   %LCOUNTER% ..\src /subdir
-  %LCOUNTER% ..\src\resource\cmdfreak.js
 )
 
 echo;
