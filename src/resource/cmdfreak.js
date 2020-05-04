@@ -1170,9 +1170,16 @@ function refreshInfo() {
 }
 
 function checkLogin() {
-    apiCallSync('GET', '/api/user/', null, 'API_GET_USER');
-    if (statusCode['API_GET_USER'] != 200) {
-        return false;
+    apiCall('GET', '/api/user/', null, 'API_GET_USER', checkLoginAfterApiCall);
+}
+
+function checkLoginAfterApiCall() {
+    if (statusCode['API_GET_USER'] == -1 || statusCode['API_GET_USER'] == 0) {
+        setLoginResult(2);
+        return;
+    } else if (statusCode['API_GET_USER'] != 200) {
+        setLoginResult(1);
+        return;
     } else {
         var menuContents = [
             { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: getClientMessage('ODBC_CONNECTIONS') },
@@ -1193,7 +1200,8 @@ function checkLogin() {
             $('#menu-cmdfreakinfo').show();
         }
         refreshInfo();
-        return true;
+        setLoginResult(0);
+        return;
     }
 }
 
