@@ -349,7 +349,7 @@ function chgPwUpdate() {
     var specifiedNewPw = $('#newPw').val().replace(/[\n\r]/g, '');
     var specifiedConfirmNewPw = $('#confirmNewPw').val().replace(/[\n\r]/g, '');
 
-    if (loginPw !== specifiedCurrentPw) {
+    if (!isPasswordCorrect(specifiedCurrentPw)) {
         displayAlertDanger('#chgpassword_msg', getClientMessage('USER_PW_WRONG'));
         return;
     }
@@ -368,6 +368,7 @@ function chgPwFinal() {
         displayAlertSuccess('#chgpassword_msg', getClientMessage('USEROPECOMPLETED'));
         var specifiedNewPw = $('#newPw').val().replace(/[\n\r]/g, '');
         changeLoginPassword(specifiedNewPw);
+        setAuthenticationToken(getUserName() + ' ' + specifiedNewPw);
     } else {
         displayAlertDanger('#chgpassword_msg', getSvrMsg(responseData['API_OPE_USER']));
     }
@@ -1170,6 +1171,7 @@ function refreshInfo() {
 }
 
 function checkLogin(dummyId, dummyPw) {
+    setAuthenticationToken(dummyId + ' ' + dummyPw);
     apiCall('GET', '/api/user/', null, 'API_GET_USER', checkLoginAfterApiCall);
 }
 
