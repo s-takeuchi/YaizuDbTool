@@ -50,20 +50,20 @@ if exist deployment\cfk120.zip del deployment\cfk120.zip
 rem ########## Building ##########
 echo;
 echo Building stkdatagui.sln...
-%MSBUILD% "..\..\YaizuComLib\src\stkdatagui\stkdatagui.sln" /t:clean;build /p:Configuration=Release
+%MSBUILD% "..\..\YaizuComLib\src\stkdatagui\stkdatagui.sln" /t:clean;build /p:Configuration=Release /p:platform="x64"
 IF %ERRORLEVEL% NEQ 0 goto ERRORRAISED
 echo Building sample.sln...
-%MSBUILD% "..\src\restapi\sample.sln" /t:clean;build /p:Configuration=Release
+%MSBUILD% "..\src\restapi\sample.sln" /t:clean;build /p:Configuration=Release /p:platform="x64"
 IF %ERRORLEVEL% NEQ 0 goto ERRORRAISED
 echo Building stkwebappcmd.sln...
-%MSBUILD% "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.sln" /t:clean;build /p:Configuration=Release
+%MSBUILD% "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.sln" /t:clean;build /p:Configuration=Release /p:platform="x64"
 IF %ERRORLEVEL% NEQ 0 goto ERRORRAISED
 
 
 rem ########## Checking file existence ##########
 echo;
 echo Checking "stkdatagui.exe" existence...
-if not exist "..\..\YaizuComLib\src\stkdatagui\Release\stkdatagui.exe" goto ERRORRAISED
+if not exist "..\..\YaizuComLib\src\stkdatagui\x64\Release\stkdatagui.exe" goto ERRORRAISED
 echo Checking "nginx-1.12.2.zip" existence...
 if not exist "..\..\YaizuComLib\src\stkwebapp\nginx-1.12.2.zip" goto ERRORRAISED
 echo Checking "jquery-3.2.0.min.js" existence...
@@ -77,9 +77,9 @@ if not exist "..\..\YaizuComLib\src\stkwebapp\stkcommon.js" goto ERRORRAISED
 echo Checking "stkcommon.css" existence...
 if not exist "..\..\YaizuComLib\src\stkwebapp\stkcommon.css" goto ERRORRAISED
 echo Checking "sample.exe" existence...
-if not exist "..\src\restapi\Release\sample.exe" goto ERRORRAISED
+if not exist "..\src\restapi\x64\Release\sample.exe" goto ERRORRAISED
 echo Checking "stkwebappcmd.exe" existence...
-if not exist "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" goto ERRORRAISED
+if not exist "..\..\YaizuComLib\src\stkwebapp\x64\Release\stkwebappcmd.exe" goto ERRORRAISED
 echo Checking "stkwebappcmd.conf" existence...
 if not exist "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.conf" goto ERRORRAISED
 
@@ -89,13 +89,13 @@ echo;
 echo Deployment of files and folders...
 
 mkdir webapp
-copy "..\..\YaizuComLib\src\stkdatagui\Release\stkdatagui.exe" webapp
+copy "..\..\YaizuComLib\src\stkdatagui\x64\Release\stkdatagui.exe" webapp
 copy "..\LICENSE" webapp\LICENSE.cmdfreak
-copy "..\src\restapi\Release\sample.exe" webapp
+copy "..\src\restapi\x64\Release\sample.exe" webapp
 copy "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.conf" webapp
 copy "..\src\restapi\sample.dat" webapp
 copy "..\src\restapi\sample.conf" webapp
-copy "..\..\YaizuComLib\src\stkwebapp\Release\stkwebappcmd.exe" webapp
+copy "..\..\YaizuComLib\src\stkwebapp\x64\Release\stkwebappcmd.exe" webapp
 
 mkdir webapp\nginx
 copy "..\..\YaizuComLib\src\stkwebapp\nginx-1.12.2.zip" webapp\nginx

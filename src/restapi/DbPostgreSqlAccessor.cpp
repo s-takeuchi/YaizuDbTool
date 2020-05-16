@@ -93,7 +93,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 	SQLTCHAR ColTypeCnv[Global::COLUMNTYPE_LENGTH];
 	SQLTCHAR TmpIsNull[10];
 	int TmpColumnMaxLen;
-	SQLINTEGER ColumneNameLen, ColumneTypeLen, ColumneMaxLen, IsNullLen;
+	SQLLEN ColumneNameLen, ColumneTypeLen, ColumneMaxLen, IsNullLen;
 	SQLBindCol(Hstmt, 4, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), &ColumneNameLen);
 	SQLBindCol(Hstmt, 7, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLTCHAR), &IsNullLen);
 	SQLBindCol(Hstmt, 8, SQL_C_WCHAR, ColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), &ColumneTypeLen);

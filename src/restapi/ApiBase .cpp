@@ -54,7 +54,7 @@ void ApiBase::DecodeURL(wchar_t UrlIn[StkWebAppExec::URL_PATH_LENGTH], wchar_t U
 	char TmpUrlBc[StkWebAppExec::URL_PATH_LENGTH] = "";
 	char TmpUrlAc[StkWebAppExec::URL_PATH_LENGTH] = "";
 	StkPlConvWideCharToUtf8(TmpUrlBc, StkWebAppExec::URL_PATH_LENGTH, UrlIn);
-	int TmpUrlBcLen = StkPlStrLen(TmpUrlBc);
+	int TmpUrlBcLen = (int)StkPlStrLen(TmpUrlBc);
 	int AcIndex = 0;
 	for (int BcIndex = 0; BcIndex < TmpUrlBcLen; BcIndex++) {
 		if (TmpUrlBc[BcIndex] == '%' && BcIndex + 2 < TmpUrlBcLen) {

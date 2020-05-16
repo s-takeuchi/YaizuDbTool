@@ -49,31 +49,31 @@ rem ########## Building ##########
 echo;
 echo Building sample.sln...
 rem Considering execution privilege, .exe is built as Debug. (Debug=AsInvoker, Release=AsAdmin)
-%MSBUILD% "..\src\restapi\sample.sln" /t:clean;build /p:Configuration=Debug
+%MSBUILD% "..\src\restapi\sample.sln" /t:clean;build /p:Configuration=Debug /p:platform="x64"
 IF %ERRORLEVEL% NEQ 0 goto ERRORRAISED
 echo Building restapitest.sln...
-%MSBUILD% "..\test\restapitest\restapitest.sln" /t:clean;build /p:Configuration=Release
+%MSBUILD% "..\test\restapitest\restapitest.sln" /t:clean;build /p:Configuration=Release /p:platform="x64"
 IF %ERRORLEVEL% NEQ 0 goto ERRORRAISED
 
 
 rem ########## Checking file existence ##########
 echo;
 echo Checking "sample.exe" existence...
-if not exist "..\src\restapi\Debug\sample.exe" goto ERRORRAISED
+if not exist "..\src\restapi\x64\Debug\sample.exe" goto ERRORRAISED
 echo Checking "restapitest.exe" existence...
-if not exist "..\test\restapitest\Release\restapitest.exe" goto ERRORRAISED
+if not exist "..\test\restapitest\x64\Release\restapitest.exe" goto ERRORRAISED
 
 
 rem ########## Deployment of files and folders ##########
 echo;
 echo Deployment of files and folders...
 mkdir webapp
-copy "..\src\restapi\Debug\sample.exe" webapp
+copy "..\src\restapi\x64\Debug\sample.exe" webapp
 copy "..\src\restapi\sample.dat" webapp
 copy "..\src\restapi\sample.conf" webapp
 echo servicehost=localhost>> webapp\sample.conf
 echo serviceport=10008>> webapp\sample.conf
-copy "..\test\restapitest\Release\restapitest.exe" webapp
+copy "..\test\restapitest\x64\Release\restapitest.exe" webapp
 
 
 rem ########## Testing ##########

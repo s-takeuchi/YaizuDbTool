@@ -92,8 +92,8 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 	SQLTCHAR TmpColumnType[Global::COLUMNTYPE_LENGTH];
 	SQLTCHAR ColTypeCnv[Global::COLUMNTYPE_LENGTH];
 	SQLTCHAR TmpIsNull[10];
-	SQLINTEGER ColumneNameLen = 0;
-	SQLINTEGER ColumneTypeLen = 0;
+	SQLLEN ColumneNameLen = 0;
+	SQLLEN ColumneTypeLen = 0;
 	SQLBindCol(Hstmt, 1, SQL_C_WCHAR, TmpColumnNameTmp, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), &ColumneNameLen);
 	SQLBindCol(Hstmt, 2, SQL_C_WCHAR, TmpColumnTypeTmp, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), &ColumneTypeLen);
 	SQLBindCol(Hstmt, 4, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLTCHAR), NULL);
