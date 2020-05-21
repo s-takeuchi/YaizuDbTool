@@ -48,8 +48,8 @@ function initClientMessage() {
     addClientMessage('ODBC_CONNECTION', {'en':'ODBC Connections', 'ja':'ODBC接続'});
     addClientMessage('ODBC_CONNECTIONS', {'en':'ODBC Conn', 'ja':'ODBC接続'});
     addClientMessage('ODBC_CONNSTR_GUIDE', {
-        'en':'Configure ODBC connection.<br>Select the connection target DBMS and specify the ODBC connection string.<br>As this is 32-bit application software, this string should be specified for the use of a 32-bit ODBC driver. As a prerequisite, a 32-bit ODBC driver needs to be installed on the operating system where CmdFreak is installed.<br>',
-        'ja':'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは32ビットアプリケーションのため，ODBC接続文字列には，32ビット版ODBCドライバを使用するように指定を行ってください。CmdFreakをインストールしたオペレーティングシステムには，あらかじめ32ビット版ODBCドライバがインストールされている必要があります。<br>'
+        'en':'Configure ODBC connection.<br>Select the connection target DBMS and specify the ODBC connection string.<br>As this is 64-bit application software, this string should be specified for the use of a 64-bit ODBC driver. As a prerequisite, a 64-bit ODBC driver needs to be installed on the operating system where CmdFreak is installed.<br>',
+        'ja':'ODBC接続の設定を行います。<br>接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>本ソフトウェアは64ビットアプリケーションのため，ODBC接続文字列には，64ビット版ODBCドライバを使用するように指定を行ってください。CmdFreakをインストールしたオペレーティングシステムには，あらかじめ64ビット版ODBCドライバがインストールされている必要があります。<br>'
     });
     addClientMessage('ODBC_SELECTION', {'en':'Select DBMS : ', 'ja':'DBMSの選択 : '});
     addClientMessage('ODBC_CONFAILURE', {
