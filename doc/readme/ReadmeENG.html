@@ -184,13 +184,29 @@ Change listen and server_name in &lt;Installation folder&gt;\CmdFreak\conf\nginx
 
 
 <hr/>
+<h1>9. Connection using SSL/TLS</h1>
+In order to connect to CmdFreak using SSL/TLS from browser, following steps are required.<br/>
+<ol>
+<li>Stop CmdFreak service.</li>
+<li>
+Add SSL/TLS settings to nginx.conf.<br/>
+Add followings to server directive in &lt;Installation folder&gt;\CmdFreak\conf\nginx.conf<br/>
+ssl on;<br/>
+ssl_certificate "D:\\work\\repo\\YaizuComLib\\test\stksockettest\\server.crt";<br/>
+ssl_certificate_key "D:\\work\\repo\\YaizuComLib\\test\\stksockettest\\server.key";<br/>
+</li>
+<li>Start CmdFreak service.</li>
+</ol>
+
+
+<hr/>
 <h1>10. About ODBC driver</h1>
 CmdFreak uses ODBC for connecting to RDBMS. Therefore ODBC driver needs to be installed into same server where CmdFreak works. ODBC driver needs to be choosen depending on the type of target RDBMS. For example, If you want to use MySQL, ODBC driver for MySQL is required.
 CmdFreak works as a 64-bit application hense ODBC driver has to be 64-bit edition of driver. ODBC driver is provided by the vendor who provides RDBMS. Download it from the vendoer Web site.<br/>
 
 
 <hr/>
-<h1>10. Management limitations</h1>
+<h1>11. Management limitations</h1>
 <ul>
 <li>Maximum length of table name: 64</li>	
 <li>Maximum length of column name: 64</li>	
@@ -201,7 +217,7 @@ CmdFreak works as a 64-bit application hense ODBC driver has to be 64-bit editio
 
 
 <hr/>
-<h1>11. Contact</h1>
+<h1>12. Contact</h1>
 
 Please use the E-mail address below for inquiries about this product.
 <p>

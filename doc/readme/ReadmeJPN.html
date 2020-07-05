@@ -187,13 +187,29 @@ IPアドレスおよびポート番号を変更します。<br/>
 
 
 <hr/>
-<h1>9. ODBCドライバについて</h1>
+<h1>9. SSL/TLSによる接続</h1>
+ブラウザからSSL/TLSでCmdFreakに接続するためには，以下の手順で操作をおこなってください。<br/>
+<ol>
+<li>CmdFreakサービスを停止します。</li>
+<li>
+nginx.confにSSL/TLS接続のための設定を追加します。<br/>
+＜インストール先フォルダ＞\CmdFreak\conf\nginx.conf のserverディレクティブに以下の記述を追加します。<br/>
+ssl on;<br/>
+ssl_certificate "D:\\work\\repo\\YaizuComLib\\test\stksockettest\\server.crt";<br/>
+ssl_certificate_key "D:\\work\\repo\\YaizuComLib\\test\\stksockettest\\server.key";<br/>
+</li>
+<li>CmdFreakサービスを起動します。</li>
+</ol>
+
+
+<hr/>
+<h1>10. ODBCドライバについて</h1>
 CmdFreakはRDBMSへの接続にODBCを使用しているため，CmdFreakが動作するサーバに予めODBCドライバをインストールしてください。 ODBCドライバは接続対象のRDBMSの種類に応じたものである必要があります。例えばMySQLにはMySQL用のODBCドライバが必要になります。
 CmdFreakは64ビットアプリケーションとして動作するため，ODBCドライバも64ビット版を用意してください。 ODBCドライバはRDBMSを提供するベンダーが公開しています。対象ベンダーのWebサイト等から入手してください。<br/>
 
 
 <hr/>
-<h1>10. 管理上限</h1>
+<h1>11. 管理上限</h1>
 <ul>
 <li>最大テーブル名長(文字): 64</li>	
 <li>最大カラム名長(文字): 64</li>	
@@ -204,7 +220,7 @@ CmdFreakは64ビットアプリケーションとして動作するため，ODBC
 
 
 <hr/>
-<h1>11. 問い合わせ先</h1>
+<h1>12. 問い合わせ先</h1>
 
 本ソフトウェアに関する問い合わせは，下記メールアドレスで受け付けています。
 <p>
