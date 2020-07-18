@@ -173,12 +173,12 @@ CmdFreakは，2種類のIPアドレスとポート番号を使用します。<br
 IPアドレスおよびポート番号を変更します。<br/>
 <p>
 <u>CmdFreakサービスが使用するIPアドレスおよびポート番号を変更する場合:</u><br/>
-＜インストール先フォルダ＞\CmdFreak\sample.conf のservicehostおよびserviceport プロパティにCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
-＜インストール先フォルダ＞\CmdFreak\conf\nginx.conf のlocation /api/ セクションのproxy_pass にCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
+＜インストール先フォルダ＞\sample.conf のservicehostおよびserviceport プロパティにCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
+＜インストール先フォルダ＞\conf\nginx.conf のlocation /api/ セクションのproxy_pass にCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
 </p>
 <p>
 <u>Webサーバが使用するIPアドレスおよびポート番号を変更する場合:</u><br/>
-＜インストール先フォルダ＞\CmdFreak\conf\nginx.conf のlistenおよびserver_name を変更します。<br/>
+＜インストール先フォルダ＞\conf\nginx.conf のlistenおよびserver_name を変更します。<br/>
 </p>
 </li>
 <li>必要に応じてファイアウォールの設定を変更します。</li>
@@ -193,11 +193,12 @@ IPアドレスおよびポート番号を変更します。<br/>
 <li>CmdFreakサービスを停止します。</li>
 <li>
 nginx.confにSSL/TLS接続のための設定を追加します。<br/>
-＜インストール先フォルダ＞\CmdFreak\conf\nginx.conf のserverディレクティブに以下の記述を追加します。<br/>
+＜インストール先フォルダ＞\conf\nginx.conf のserverディレクティブに以下の記述を追加します。<br/>
 ssl on;<br/>
 ssl_certificate "D:\\work\\server.crt";<br/>
 ssl_certificate_key "D:\\work\\server.key";<br/>
 </li>
+<li>listenポート番号を443または適切なHTTPSポート番号に変更します。</li>
 <li>CmdFreakサービスを起動します。</li>
 </ol>
 
