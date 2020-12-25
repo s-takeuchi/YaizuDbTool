@@ -34,7 +34,7 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t U
 
 	if (lstrcmp(TableName, L"") != 0) {
 		wchar_t TableNameAc[768];
-		DecodeURL(TableName, TableNameAc);
+		DecodeURL(TableName, 768, TableNameAc, 768);
 
 		// If ?query=TableName is specified...
 		StkObject* SearchTgtObj = new StkObject(L"Name", TableNameAc);

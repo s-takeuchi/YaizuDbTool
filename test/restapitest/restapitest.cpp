@@ -737,6 +737,7 @@ void TestPostOperationStop(StkWebAppSend* StkWebAppSendObj)
 int main(int Argc, char* Argv[])
 {
 	StkWebAppSend* StkWebAppSendObj = new StkWebAppSend(10, L"localhost", 10008);
+	StkWebAppSendObj->SetTimeoutInterval(10000);
 	TestGetSystem(StkWebAppSendObj);
 	TestGetOdbcInfoDefault(StkWebAppSendObj);
 	TestGetOdbcInfoConfigured(StkWebAppSendObj);

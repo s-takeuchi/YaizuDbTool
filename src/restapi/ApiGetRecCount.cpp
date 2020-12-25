@@ -25,7 +25,7 @@ StkObject* ApiGetRecCount::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t Ur
 	wchar_t TableName[768] = L"";
 	StkStringParser::ParseInto2Params(UrlPath, L"$?query=$", L'$', Dummy, 256, TableName, 768);
 	wchar_t TableNameAc[768] = L"";
-	DecodeURL(TableName, TableNameAc);
+	DecodeURL(TableName, 768, TableNameAc, 768);
 
 	wchar_t ConnStr[256];
 	int Init;

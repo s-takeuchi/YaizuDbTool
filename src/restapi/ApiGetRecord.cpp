@@ -37,13 +37,13 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 		if (StkStringParser::ParseInto3Params(UrlPath, L"$query=$&$", L'$', Dummy1, 512, TableName, 512, Dummy2, 512) != 1) {
 			StkStringParser::ParseInto2Params(UrlPath, L"$query=$", L'$', Dummy1, 512, TableName, 512);
 		}
-		DecodeURL(TableName, TableNameAc);
+		DecodeURL(TableName, 512, TableNameAc, 512);
 	}
 	if (StkPlWcsStr(UrlPath, L"sort=") != NULL) {
 		if (StkStringParser::ParseInto3Params(UrlPath, L"$sort=$&$", L'$', Dummy1, 512, SortColumnName, 512, Dummy2, 512) != 1) {
 			StkStringParser::ParseInto2Params(UrlPath, L"$sort=$", L'$', Dummy1, 512, SortColumnName, 512);
 		}
-		DecodeURL(SortColumnName, SortColumnNameAc);
+		DecodeURL(SortColumnName, 512, SortColumnNameAc, 512);
 	}
 	if (StkPlWcsStr(UrlPath, L"sortOrder=") != NULL) {
 		if (StkStringParser::ParseInto3Params(UrlPath, L"$sortOrder=$&$", L'$', Dummy1, 512, SortOrder, 512, Dummy2, 512) != 1) {
