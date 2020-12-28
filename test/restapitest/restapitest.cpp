@@ -157,9 +157,9 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 		int ResultCode = 0;
 		StkWebAppSendObj->SetAutholization("Bearer");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_GET, "/api/user/", NULL, &ResultCode);
-		StkObject* SearchObj = new StkObject(L"Code", 3124);
+		StkObject* SearchObj = new StkObject(L"Code", 2001);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
-		if (ResObj == NULL || ResultCode != 401 || FoundObj == NULL || FoundObj->GetIntValue() != 3124) {
+		if (ResObj == NULL || ResultCode != 401 || FoundObj == NULL || FoundObj->GetIntValue() != 2001) {
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
@@ -179,7 +179,7 @@ void TestGetUser(StkWebAppSend* StkWebAppSendObj)
 			}
 			Dat = Dat->GetNext();
 		}
-		if (CodeInt != 3124 || StkPlWcsStr(MsgEng, L"Authentication error") == NULL) {
+		if (CodeInt != 2001 || StkPlWcsStr(MsgEng, L"Authentication error") == NULL) {
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
@@ -297,9 +297,9 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"testuser\", \"Role\" : 0, \"Password\" : \"testuser\"}", &JsonRes);
 		StkWebAppSendObj->SetAutholization("Bearer error@a.a error");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
-		StkObject* SearchObj = new StkObject(L"Code", 3124);
+		StkObject* SearchObj = new StkObject(L"Code", 2001);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
-		if (ResObj == NULL || ResultCode != 401 || FoundObj == NULL || FoundObj->GetIntValue() != 3124) {
+		if (ResObj == NULL || ResultCode != 401 || FoundObj == NULL || FoundObj->GetIntValue() != 2001) {
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
@@ -330,9 +330,9 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Role\" : 0, \"Password\" : \"testuser\"}", &JsonRes);
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
-		StkObject* SearchObj = new StkObject(L"Code", 3121);
+		StkObject* SearchObj = new StkObject(L"Code", 2005);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
-		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3121) {
+		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 2005) {
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
@@ -348,9 +348,9 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"testuser\", \"Password\" : \"testuser\"}", &JsonRes);
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
-		StkObject* SearchObj = new StkObject(L"Code", 3121);
+		StkObject* SearchObj = new StkObject(L"Code", 2005);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
-		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3121) {
+		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 2005) {
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
@@ -366,9 +366,9 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 		StkObject* ReqObj = StkObject::CreateObjectFromJson(L"{\"Name\" : \"testuser\", \"Role\" : 0}", &JsonRes);
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_POST, "/api/user/", ReqObj, &ResultCode);
-		StkObject* SearchObj = new StkObject(L"Code", 3133);
+		StkObject* SearchObj = new StkObject(L"Code", 2013);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
-		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3133) {
+		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 2013) {
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
@@ -464,7 +464,7 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
-		StkObject* SearchObj = new StkObject(L"Code", 3128);
+		StkObject* SearchObj = new StkObject(L"Code", 2003);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (FoundObj == NULL) {
 			StkPlPrintf("[NG]\n");
@@ -488,7 +488,7 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
-		StkObject* SearchObj = new StkObject(L"Code", 3125);
+		StkObject* SearchObj = new StkObject(L"Code", 2002);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (FoundObj == NULL) {
 			StkPlPrintf("[NG]\n");
@@ -529,7 +529,7 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
-		StkObject* SearchObj = new StkObject(L"Code", 3126);
+		StkObject* SearchObj = new StkObject(L"Code", 2004);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (FoundObj == NULL) {
 			StkPlPrintf("[NG]\n");
@@ -553,7 +553,7 @@ void TestPostUser(StkWebAppSend* StkWebAppSendObj)
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
-		StkObject* SearchObj = new StkObject(L"Code", 3127);
+		StkObject* SearchObj = new StkObject(L"Code", 2012);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (FoundObj == NULL) {
 			StkPlPrintf("[NG]\n");
@@ -591,9 +591,9 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		int JsonRes = 0;
 		StkWebAppSendObj->SetAutholization("Bearer error@a.a error");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_DELETE, "/api/user/0/", NULL, &ResultCode);
-		StkObject* SearchObj = new StkObject(L"Code", 3124);
+		StkObject* SearchObj = new StkObject(L"Code", 2001);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
-		if (ResObj == NULL || ResultCode != 401 || FoundObj == NULL || FoundObj->GetIntValue() != 3124) {
+		if (ResObj == NULL || ResultCode != 401 || FoundObj == NULL || FoundObj->GetIntValue() != 2001) {
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
@@ -607,9 +607,9 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		int JsonRes = 0;
 		StkWebAppSendObj->SetAutholization("Bearer guest guest");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_DELETE, "/api/user/0/", NULL, &ResultCode);
-		StkObject* SearchObj = new StkObject(L"Code", 3125);
+		StkObject* SearchObj = new StkObject(L"Code", 2002);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
-		if (ResObj == NULL || ResultCode != 403 || FoundObj == NULL || FoundObj->GetIntValue() != 3125) {
+		if (ResObj == NULL || ResultCode != 403 || FoundObj == NULL || FoundObj->GetIntValue() != 2002) {
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
@@ -623,9 +623,9 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		int JsonRes = 0;
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_DELETE, "/api/user/0/", NULL, &ResultCode);
-		StkObject* SearchObj = new StkObject(L"Code", 3126);
+		StkObject* SearchObj = new StkObject(L"Code", 2004);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
-		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3126) {
+		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 2004) {
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
@@ -639,9 +639,9 @@ void TestDeleteUser(StkWebAppSend* StkWebAppSendObj)
 		int JsonRes = 0;
 		StkWebAppSendObj->SetAutholization("Bearer admin manager");
 		StkObject* ResObj = StkWebAppSendObj->SendRequestRecvResponse(StkWebAppSend::STKWEBAPP_METHOD_DELETE, "/api/user/100/", NULL, &ResultCode);
-		StkObject* SearchObj = new StkObject(L"Code", 3128);
+		StkObject* SearchObj = new StkObject(L"Code", 2003);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
-		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 3128) {
+		if (ResObj == NULL || ResultCode != 400 || FoundObj == NULL || FoundObj->GetIntValue() != 2003) {
 			StkPlPrintf("[NG]\n");
 			StkPlExit(1);
 		}
@@ -679,7 +679,7 @@ void TestTooManyUsers(StkWebAppSend* StkWebAppSendObj)
 			StkPlPrintf("[NG1]\n");
 			StkPlExit(1);
 		}
-		StkObject* SearchObj = new StkObject(L"Code", 3134);
+		StkObject* SearchObj = new StkObject(L"Code", 2011);
 		StkObject* FoundObj = ResObj->Contains(SearchObj);
 		if (Loop <= 61 && (FoundObj != NULL || ResultCode != 200)) {
 			StkPlPrintf("[NG2]\n");

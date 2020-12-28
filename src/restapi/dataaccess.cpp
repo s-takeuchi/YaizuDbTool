@@ -1,8 +1,9 @@
 ﻿#include "dataaccess.h"
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
-#include "..\Global.h"
-#include "..\..\..\YaizuComLib\src\stkdata\stkdata.h"
-#include "..\..\..\YaizuComLib\src\stkdata\stkdataapi.h"
+#include "../Global.h"
+#include "../../../YaizuComLib/src/stkdata/stkdata.h"
+#include "../../../YaizuComLib/src/stkdata/stkdataapi.h"
+#include "../../../YaizuComLib/src/stkwebapp_um/stkwebapp_um.h"
 
 DataAccess* DataAccess::ThisInstance;
 
@@ -521,21 +522,6 @@ int DataAccess::CreateCmdFreakTables()
 			return -1;
 		}
 
-		// Log table
-		ColumnDefInt ColDefLogId(L"Id");
-		ColumnDefWStr ColDefLogTime(L"Time", Global::MAXLEN_OF_LOGTIME);
-		ColumnDefWStr ColDefLogMsgEn(L"MessageEn", Global::MAXLEN_OF_LOGMSG);
-		ColumnDefWStr ColDefLogMsgJa(L"MessageJa", Global::MAXLEN_OF_LOGMSG);
-		TableDef TabDefLog(L"Log", Global::MAXNUM_OF_LOGRECORDS);
-		TabDefLog.AddColumnDef(&ColDefLogId);
-		TabDefLog.AddColumnDef(&ColDefLogTime);
-		TabDefLog.AddColumnDef(&ColDefLogMsgEn);
-		TabDefLog.AddColumnDef(&ColDefLogMsgJa);
-		if (CreateTable(&TabDefLog) != 0) {
-			UnlockAllTable();
-			return -1;
-		}
-
 		// FilterSw table
 		ColumnDefInt ColDefSwitch(L"Switch");
 		TableDef TabDefFilterSw(L"FilterSw", 5);
@@ -556,21 +542,6 @@ int DataAccess::CreateCmdFreakTables()
 		TabDefFilter.AddColumnDef(&ColDefOperation);
 		TabDefFilter.AddColumnDef(&ColDefValue);
 		if (CreateTable(&TabDefFilter) != 0) {
-			UnlockAllTable();
-			return -1;
-		}
-
-		// User table
-		ColumnDefInt ColDefUserId(L"Id");
-		ColumnDefWStr ColDefUserName(L"Name", Global::MAXLEN_OF_USERNAME);
-		ColumnDefWStr ColDefUserPassword(L"Password", Global::MAXLEN_OF_PASSWORD);
-		ColumnDefInt ColDefUserRole(L"Role");
-		TableDef TabDefUser(L"User", Global::MAXNUM_OF_USERRECORDS);
-		TabDefUser.AddColumnDef(&ColDefUserId);
-		TabDefUser.AddColumnDef(&ColDefUserName);
-		TabDefUser.AddColumnDef(&ColDefUserPassword);
-		TabDefUser.AddColumnDef(&ColDefUserRole);
-		if (CreateTable(&TabDefUser) != 0) {
 			UnlockAllTable();
 			return -1;
 		}
@@ -612,20 +583,7 @@ int DataAccess::CreateCmdFreakTables()
 			delete RecDatFilter;
 		}
 
-		// Add records for User
-		{
-			ColumnData *ColDatUser[4];
-			ColDatUser[0] = new ColumnDataInt(L"Id", 0);
-			ColDatUser[1] = new ColumnDataWStr(L"Name", L"admin");
-			ColDatUser[2] = new ColumnDataWStr(L"Password", L"manager");
-			ColDatUser[3] = new ColumnDataInt(L"Role", 0);
-			RecordData* RecUser = new RecordData(L"User", ColDatUser, 4);
-			// Add record
-			LockTable(L"User", LOCK_EXCLUSIVE);
-			int Ret = InsertRecord(RecUser);
-			UnlockTable(L"User");
-			delete RecUser;
-		}
+		StkWebAppUm_CreateTable();
 
 	} else {
 		if (LoadData(Buf) != 0) {
