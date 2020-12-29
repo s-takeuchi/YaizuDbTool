@@ -13,7 +13,6 @@ var globalSortOrder = '';
 var globalSortTarget = '';
 
 function initClientMessage() {
-
     //
     // ODBC configuration
     //
@@ -99,37 +98,6 @@ function initClientMessage() {
     addClientMessage('COMDELETE', {'en':'Delete', 'ja':'削除'});
     addClientMessage('NOCOLUMNS', {'en':'No columns', 'ja':'カラムが存在しません'});
     addClientMessage('NORECORDS', {'en':'No records', 'ja':'レコードが存在しません'});
-}
-
-function getSvrMsg(respDat) {
-    if (getClientLanguage() == 1) {
-        return getClientMessage('SERVER_ERROR') + '<br/>' + respDat.MsgJpn;
-    } else {
-        return getClientMessage('SERVER_ERROR') + '<br/>' + respDat.MsgEng;
-    }
-}
-
-function getArray(targetObject) {
-    if (targetObject === undefined) {
-        return null;
-    }
-    var targetArray = [];
-    if (targetObject instanceof Array) {
-        return targetObject;
-    } else {
-        targetArray.push(targetObject);
-        return targetArray;
-    }
-}
-
-function escapeString(tmpStr) {
-    var csReplaced = tmpStr;
-    csReplaced = csReplaced.replace(/&/g, "&amp;");
-    csReplaced = csReplaced.replace(/</g, "&lt;");
-    csReplaced = csReplaced.replace(/>/g, "&gt;");
-    csReplaced = csReplaced.replace(/\"/g, "&quot;");
-    csReplaced = csReplaced.replace(/\'/g, "&#39;");
-    return csReplaced;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
