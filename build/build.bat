@@ -76,6 +76,8 @@ echo Checking "stkcommon.js" existence...
 if not exist "..\..\YaizuComLib\src\stkwebapp\stkcommon.js" goto ERRORRAISED
 echo Checking "stkcommon.css" existence...
 if not exist "..\..\YaizuComLib\src\stkwebapp\stkcommon.css" goto ERRORRAISED
+echo Checking "stkcommon_um.js" existence...
+if not exist "..\..\YaizuComLib\src\stkwebapp_um\stkcommon_um.js" goto ERRORRAISED
 echo Checking "sample.exe" existence...
 if not exist "..\src\restapi\x64\Release\sample.exe" goto ERRORRAISED
 echo Checking "stkwebappcmd.exe" existence...
@@ -119,6 +121,7 @@ copy "..\src\resource\*.*" webapp\html
 copy "..\src\resource\img\*.*" webapp\html\img
 copy "..\..\YaizuComLib\src\stkwebapp\stkcommon.js" webapp\html
 copy "..\..\YaizuComLib\src\stkwebapp\stkcommon.css" webapp\html
+copy "..\..\YaizuComLib\src\stkwebapp_um\stkcommon_um.js" webapp\html
 copy "..\..\YaizuComLib\src\stkwebapp\jquery-3.2.0.min.js" webapp\html
 copy "..\..\YaizuComLib\src\stkwebapp\IcoMoon-Free.ttf" webapp\html
 copy "..\..\YaizuComLib\src\stkwebapp\IcoMoon-Free.css" webapp\html
