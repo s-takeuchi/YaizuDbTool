@@ -14,6 +14,12 @@ var globalSortTarget = '';
 
 function initClientMessage() {
     //
+    // User management
+    //
+    addClientMessage('USERMGMTS', {'en':'User Mgmt', 'ja':'ユーザー管理'});
+    addClientMessage('USER_CHG_PW', {'en':'Change Password', 'ja':'パスワードの変更'});
+
+    //
     // ODBC configuration
     //
     addClientMessage('ODBC_CONNECTION', {'en':'ODBC Connections', 'ja':'ODBC接続'});
@@ -1025,7 +1031,6 @@ $(window).resize(function () {
 
 window.onload = function () {
     initClientMessage();
-    initClientMessage4Um();
     var contents = [{ method: 'GET', url: '/api/language/', request: null, keystring: 'API_GET_LANG' }];
     MultiApiCall(contents, initCmdFreak);
 }
