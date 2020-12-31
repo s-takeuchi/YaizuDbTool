@@ -8,7 +8,6 @@
 #include "dataaccess.h"
 #include "MyMsgProc.h"
 #include "ApiGetSystem.h"
-#include "ApiGetLanguage.h"
 #include "ApiOdbcInfo.h"
 #include "ApiGetTableInfo.h"
 #include "ApiGetRecord.h"
@@ -25,9 +24,6 @@ void CmdFreakRestApi(wchar_t* IpAddr, int Port, int SendBufSize)
 	ApiGetSystem* ApiGetSystemObj = new ApiGetSystem();
 	Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/system/", (StkWebAppExec*)ApiGetSystemObj);
 	ApiGetSystemObj->SetNumOfThreads(7);
-
-	ApiGetLanguage* ApiGetLanguageObj = new ApiGetLanguage();
-	Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/language/", (StkWebAppExec*)ApiGetLanguageObj);
 
 	ApiOdbcInfo* ApiGetOdbcInfoObj = new ApiOdbcInfo();
 	Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/odbcinfo/$", (StkWebAppExec*)ApiGetOdbcInfoObj);

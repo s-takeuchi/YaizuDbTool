@@ -33,10 +33,6 @@ void MyMsgProc::AddMsg()
 	//
 
 	//(★)
-	MessageProc::AddJpn(CMDFRK_NO_CLIENTLOCALE, L"クライアントのロケールを検知できません。");
-	MessageProc::AddEng(CMDFRK_NO_CLIENTLOCALE, L"Client locale cannot be detected.");
-
-	//(★)
 	MessageProc::AddJpn(CMDFRK_REQ_NOT_SUFFICIENT, L"必要なパラメータがリクエストに含まれていません。");
 	MessageProc::AddEng(CMDFRK_REQ_NOT_SUFFICIENT, L"The necessary parameter(s) is/are not contained in the request.");
 
@@ -56,57 +52,9 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddJpn(CMDFRK_ACCESS_RIGHT_ERROR, L"アクセス権限エラーが発生しました。");
 	MessageProc::AddEng(CMDFRK_ACCESS_RIGHT_ERROR, L"Access right error occurred.");
 
-	//(★)
-	MessageProc::AddJpn(CMDFRK_CANNOT_MODIFY_YOUR_INFO, L"自分自身のユーザー情報を変更することはできません。");
-	MessageProc::AddEng(CMDFRK_CANNOT_MODIFY_YOUR_INFO, L"You cannot modify user information yourself.");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_SAME_USER_NAME_EXIST, L"すでに同名のユーザーが存在するため，ユーザー情報を追加または変更できません。");
-	MessageProc::AddEng(CMDFRK_SAME_USER_NAME_EXIST, L"You cannot add / modify user information because the user who has the same name you specified exists.");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_USER_DOES_NOT_EXIST, L"指定したユーザーは存在しません。");
-	MessageProc::AddEng(CMDFRK_USER_DOES_NOT_EXIST, L"The specified user does not exist.");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_INVALID_USER_NAME, L"指定されたユーザー名に使用禁止文字が含まれています。");
-	MessageProc::AddEng(CMDFRK_INVALID_USER_NAME, L"The specified user name contains prohibited character(s).");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_INVALID_LEN_OF_USER_NAME, L"ユーザー名は4文字以上である必要があります。");
-	MessageProc::AddEng(CMDFRK_INVALID_LEN_OF_USER_NAME, L"The user name needs to contain at least 4 characters.");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_INVALID_PASSWORD, L"指定されたパスワードに使用禁止文字が含まれています。");
-	MessageProc::AddEng(CMDFRK_INVALID_PASSWORD, L"The specified password contains prohibited character(s).");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_INVALID_LEN_OF_PASSWORD, L"パスワードは4文字以上である必要があります。");
-	MessageProc::AddEng(CMDFRK_INVALID_LEN_OF_PASSWORD, L"The password needs to contain at least 4 characters.");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_PASSWORD_REQUIRED_FOR_ADD, L"ユーザーを追加する場合，パスワードを指定する必要があります。");
-	MessageProc::AddEng(CMDFRK_PASSWORD_REQUIRED_FOR_ADD, L"In case user addition, a password needs to be specified.");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_EXCEEDED_MAX_NUM_OF_USER, L"登録可能なユーザーの最大数を超えました。");
-	MessageProc::AddEng(CMDFRK_EXCEEDED_MAX_NUM_OF_USER, L"The number of users has been exceeded the maximum.");
-
 	//
 	// Logging
 	//
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_USER_ADD, L"新規にユーザーを追加しました。 [%ls]");
-	MessageProc::AddEng(CMDFRK_USER_ADD, L"New user has been added. [%ls]");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_USER_DELETE, L"ユーザーを削除しました。 [%ls]");
-	MessageProc::AddEng(CMDFRK_USER_DELETE, L"A user has been deleted. [%ls]");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_USER_EDIT, L"ユーザー情報を変更しました。 [%ls]");
-	MessageProc::AddEng(CMDFRK_USER_EDIT, L"A user information has been modified. [%ls]");
 
 	//(NC6)
 	MessageProc::AddJpn(CMDFRK_LOG_DBMSCHANGE, L"ODBC接続の設定を変更しました。");
