@@ -922,7 +922,7 @@ function checkLoginAfterApiCall() {
         ];
         initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
         var usermenuContents = [
-            { id: 'cmdfreakchgpw', actApiName: 'activateTopic', title: getClientMessage('USER_CHG_PW') },
+            { actApiName: 'transDisplayChgPassword()', title: getClientMessage('USER_CHG_PW') },
         ];
         addRsUserMenu(usermenuContents);
         var userRole = responseData['API_GET_USER'].Data.User.Role;
@@ -948,9 +948,6 @@ function activateTopic(id) {
     }
     if (id === 'cmdfreakusermgmt') {
         transDisplayUser();
-    }
-    if (id === 'cmdfreakchgpw') {
-        transDisplayChgPassword();
     }
 }
 
