@@ -283,10 +283,7 @@ function displayInformation() {
 ////////////////////////////////////////////////////////////////////////////////
 
 function checkOdbcConnection() {
-    $('.container-fluid').remove();
-    var containerFluidWorkSpace = $('<div class="container-fluid" style="margin:0px;padding:0px">');
-    containerFluidWorkSpace.append('<div id="cmdfreakdata"></div>');
-    $('body').append(containerFluidWorkSpace);
+    drowContainerFluid('<div id="cmdfreakdata"></div>');
 
     if (statusCode['API_GET_ODBCINFO_CONFIGURED'] == 200 && statusCode['API_GET_TABLEINFO'] == 200) {
         // Nothing to do
@@ -355,10 +352,7 @@ function selectTable(index) {
 ////////////////////////////////////////////////////////////////////////////////
 
 function displayData() {
-    $('.container-fluid').remove();
-    var containerFluidWorkSpace = $('<div class="container-fluid" style="margin:0px;padding:0px">');
-    containerFluidWorkSpace.append('<div id="cmdfreakdata"></div>');
-    $('body').append(containerFluidWorkSpace);
+    drowContainerFluid('<div id="cmdfreakdata"></div>');
 
     if (statusCode['API_GET_TABLEINFO_WITH_COL'] == -1 || statusCode['API_GET_TABLEINFO_WITH_COL'] == 0) {
         displayAlertDanger('#cmdfreakdata', getClientMessage('CONNERR'));
@@ -919,13 +913,13 @@ function checkLoginAfterApiCall() {
         var menuContents = [];
         if (userRole == 0) {
             menuContents = [
-                { id: 'cmdfreakconfig', actApiName: 'transDisplayOdbcConfig()', title: getClientMessage('ODBC_CONNECTIONS') },
-                { id: 'cmdfreakusermgmt', actApiName: 'transDisplayUser()', title: getClientMessage('USERMGMTS') },
-                { id: 'cmdfreakinfo', actApiName: 'transDisplayInformation()', title: getClientMessage('SVCINFOS') }
+                { actApiName: 'transDisplayOdbcConfig()', title: getClientMessage('ODBC_CONNECTIONS') },
+                { actApiName: 'transDisplayUser()', title: getClientMessage('USERMGMTS') },
+                { actApiName: 'transDisplayInformation()', title: getClientMessage('SVCINFOS') }
             ];
         } else {
             menuContents = [
-                { id: 'cmdfreakinfo', actApiName: 'transDisplayInformation()', title: getClientMessage('SVCINFOS') }
+                { actApiName: 'transDisplayInformation()', title: getClientMessage('SVCINFOS') }
             ];
         }
         initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
