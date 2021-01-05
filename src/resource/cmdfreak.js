@@ -915,39 +915,29 @@ function checkLoginAfterApiCall() {
         setLoginResult(1);
         return;
     } else {
-        var menuContents = [
-            { id: 'cmdfreakconfig', actApiName: 'activateTopic', title: getClientMessage('ODBC_CONNECTIONS') },
-            { id: 'cmdfreakusermgmt', actApiName: 'activateTopic', title: getClientMessage('USERMGMTS') },
-            { id: 'cmdfreakinfo', actApiName: 'activateTopic', title: getClientMessage('SVCINFOS') }
-        ];
+        var userRole = responseData['API_GET_USER'].Data.User.Role;
+        var menuContents = [];
+        if (userRole == 0) {
+            menuContents = [
+                { id: 'cmdfreakconfig', actApiName: 'transDisplayOdbcConfig()', title: getClientMessage('ODBC_CONNECTIONS') },
+                { id: 'cmdfreakusermgmt', actApiName: 'transDisplayUser()', title: getClientMessage('USERMGMTS') },
+                { id: 'cmdfreakinfo', actApiName: 'transDisplayInformation()', title: getClientMessage('SVCINFOS') }
+            ];
+        } else {
+            menuContents = [
+                { id: 'cmdfreakinfo', actApiName: 'transDisplayInformation()', title: getClientMessage('SVCINFOS') }
+            ];
+        }
         initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
+
         var usermenuContents = [
             { actApiName: 'transDisplayChgPassword()', title: getClientMessage('USER_CHG_PW') },
         ];
         addRsUserMenu(usermenuContents);
-        var userRole = responseData['API_GET_USER'].Data.User.Role;
-        if (userRole == 0) {
-            $('#menu-cmdfreakinfo').show();
-            $('#menu-cmdfreakusermgmt').show();
-            $('#menu-cmdfreakconfig').show();
-        } else {
-            $('#menu-cmdfreakinfo').show();
-        }
+
         refreshInfo();
         setLoginResult(0);
         return;
-    }
-}
-
-function activateTopic(id) {
-    if (id === 'cmdfreakinfo') {
-        transDisplayInformation();
-    }
-    if (id === 'cmdfreakconfig') {
-        transDisplayOdbcConfig();
-    }
-    if (id === 'cmdfreakusermgmt') {
-        transDisplayUser();
     }
 }
 
