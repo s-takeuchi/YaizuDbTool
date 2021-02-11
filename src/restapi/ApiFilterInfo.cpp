@@ -1,4 +1,5 @@
-﻿#include "MyMsgProc.h"
+﻿#include "../../../YaizuComLib/src/stkwebapp_um/stkwebapp_um.h"
+#include "MyMsgProc.h"
 #include "ApiFilterInfo.h"
 #include "dataaccess.h"
 #include "..\Global.h"
@@ -86,7 +87,7 @@ StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode)
 	}
 
 	if (UpdatedFlag) {
-		DataAccess::GetInstance()->AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_FILTERCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_FILTERCHANGE));
+		StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_FILTERCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_FILTERCHANGE));
 	}
 
 	StkObject* ResObj = new StkObject(L"");
