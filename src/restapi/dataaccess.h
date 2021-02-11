@@ -11,6 +11,8 @@ private:
 	DataAccess();
 	~DataAccess();
 
+	static const int LatestDbVersion = 3;
+
 public:
 	// Get this instance
 	static DataAccess* GetInstance();
@@ -29,4 +31,7 @@ public:
 	bool AddUser(wchar_t[Global::MAXLEN_OF_USERNAME], int, wchar_t[Global::MAXLEN_OF_PASSWORD]);
 	bool UpdateUser(int, wchar_t[Global::MAXLEN_OF_USERNAME], int, wchar_t[Global::MAXLEN_OF_PASSWORD]);
 	bool DeleteUser(int);
+
+	int GetDbVersion();
+	int DbUpdate_NonVer_V3();
 };

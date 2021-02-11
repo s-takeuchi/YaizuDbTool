@@ -91,18 +91,6 @@ int main(int Argc, char* Argv[])
 		StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_EXEC_NOT_FOUND));
 		return -1;
 	}
-	/*
-	GetModuleFileName(NULL, Buf, 255);
-	wchar_t* Addr = (wchar_t*)StkPlWcsStr(Buf, L"\\sample.exe");
-	if (Addr != NULL) {
-		*Addr = L'\0';
-		SetCurrentDirectory(Buf);
-		StkPlPrintf("Current Directory = %S\r\n", Buf);
-	} else {
-		StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_EXEC_NOT_FOUND));
-		return -1;
-	}
-	*/
 
 	wchar_t IpAddr[256];
 	int Port;
@@ -143,7 +131,11 @@ int main(int Argc, char* Argv[])
 		StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_NOT_FOUND));
 		return -1;
 	}
-
+	int DbVersion = DatAc->GetDbVersion();
+	if (DbVersion == -1) {
+		DbVersion = DatAc->DbUpdate_NonVer_V3();
+	}
+	
 	StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTART), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTART));
 
 	// Exec rest api

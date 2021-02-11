@@ -474,7 +474,7 @@
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_5C8D1A550878401E993235CCEA3BE1E6"
             {
             "Name" = "8:stkwebappcmd.exe"
-            "Condition" = "8:"
+            "Condition" = "8:NOT Installed"
             "Object" = "8:_2C2037B9A5FF43EAA007A64BC19E469C"
             "FileType" = "3:2"
             "InstallAction" = "3:2"
@@ -686,7 +686,7 @@
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
+            "Permanent" = "11:TRUE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"

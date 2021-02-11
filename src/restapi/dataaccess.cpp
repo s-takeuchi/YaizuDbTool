@@ -330,6 +330,38 @@ bool DataAccess::DeleteUser(int Id)
 	return true;
 }
 
+// Get DB version
+int DataAccess::GetDbVersion()
+{
+	// Check whether "Property" table exists
+	int RetLk = LockTable(L"Property", LOCK_SHARE);
+	if (RetLk == -1) {
+		return -1;
+	}
+	UnlockTable(L"Property");
+	return StkWebAppUm_GetPropertyValueInt(L"DbVersion");
+}
+
+int DataAccess::DbUpdate_NonVer_V3()
+{
+	// Property table
+	ColumnDefWStr ColDefPropertyName(L"Name", 256);
+	ColumnDefInt ColDefPropertyValueInt(L"ValueInt");
+	ColumnDefWStr ColDefPropertyValueWStr(L"ValueWStr", 256);
+	TableDef TabDefProperty(L"Property", 1024);
+	TabDefProperty.AddColumnDef(&ColDefPropertyName);
+	TabDefProperty.AddColumnDef(&ColDefPropertyValueInt);
+	TabDefProperty.AddColumnDef(&ColDefPropertyValueWStr);
+	if (CreateTable(&TabDefProperty) != 0) {
+		UnlockAllTable();
+		return -1;
+	}
+	StkWebAppUm_SetPropertyValueInt(L"MaxUserId", 1);
+	StkWebAppUm_SetPropertyValueInt(L"MaxLogId", 1);
+	StkWebAppUm_SetPropertyValueInt(L"DbVersion", LatestDbVersion);
+	return 3;
+}
+
 // Stops AutoSave function and save the latest data
 // Return : always zero returned
 int DataAccess::StopAutoSave()
@@ -432,7 +464,7 @@ int DataAccess::CreateCmdFreakTables()
 		}
 
 		StkWebAppUm_CreateTable();
-
+		StkWebAppUm_SetPropertyValueInt(L"DbVersion", LatestDbVersion);
 	} else {
 		if (LoadData(Buf) != 0) {
 			UnlockAllTable();
