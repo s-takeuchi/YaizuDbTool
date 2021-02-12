@@ -344,7 +344,7 @@ int DataAccess::GetDbVersion()
 
 int DataAccess::DbUpdate_NonVer_V3()
 {
-	// Property table
+	// Create Property table
 	ColumnDefWStr ColDefPropertyName(L"Name", 256);
 	ColumnDefInt ColDefPropertyValueInt(L"ValueInt");
 	ColumnDefWStr ColDefPropertyValueWStr(L"ValueWStr", 256);
@@ -356,8 +356,40 @@ int DataAccess::DbUpdate_NonVer_V3()
 		UnlockAllTable();
 		return -1;
 	}
-	StkWebAppUm_SetPropertyValueInt(L"MaxUserId", 1);
-	StkWebAppUm_SetPropertyValueInt(L"MaxLogId", 1);
+
+	// Get maximum user ID
+	LockTable(L"User", LOCK_SHARE);
+	RecordData* RecDatUser = GetRecord(L"User");
+	UnlockTable(L"User");
+	int MaxUserId = 0;
+	while (RecDatUser) {
+		ColumnDataInt* ColDatId = (ColumnDataInt*)RecDatUser->GetColumn(0);
+		int CurUserId = ColDatId->GetValue();
+		if (CurUserId > MaxUserId) {
+			MaxUserId = CurUserId;
+		}
+		RecDatUser = RecDatUser->GetNextRecord();
+	}
+	delete RecDatUser;
+
+	// Get maximum log ID
+	LockTable(L"Log", LOCK_SHARE);
+	RecordData* RecDatLog = GetRecord(L"Log");
+	UnlockTable(L"Log");
+	int MaxLogId = 0;
+	while (RecDatLog) {
+		ColumnDataInt* ColDatId = (ColumnDataInt*)RecDatLog->GetColumn(0);
+		int CurLogId = ColDatId->GetValue();
+		if (CurLogId > MaxLogId) {
+			MaxLogId = CurLogId;
+		}
+		RecDatLog = RecDatLog->GetNextRecord();
+	}
+	delete RecDatLog;
+
+	// Set Property values
+	StkWebAppUm_SetPropertyValueInt(L"MaxUserId", MaxUserId);
+	StkWebAppUm_SetPropertyValueInt(L"MaxLogId", MaxLogId);
 	StkWebAppUm_SetPropertyValueInt(L"DbVersion", LatestDbVersion);
 	return 3;
 }
