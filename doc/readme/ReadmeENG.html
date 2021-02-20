@@ -8,7 +8,7 @@
 <BODY>
 
 <hr/>
-<h1>CmdFreak 1.2.0</h1>
+<h1>CmdFreak 1.3.0</h1>
 <hr/>
 
 <h1>1. CmdFreak summary</h1>
@@ -111,7 +111,23 @@ Overwrite installation(Repair) can be performed if cmdfreak.msi is executed afte
 
 
 <hr/>
-<h1>5. Uninstallation</h1>
+<h1>5. Upgrade installation</h1>
+
+In order to upgrade from CmdFreak 1.2.0, perform installation according to following steps.<br/>
+<ol>
+<li>Stop CmdFreak service.</li>
+<li>Copy &lt;Installation folder&gt;\sample.dat file to other folder.</li>
+<li>Uninstall CmdFreak 1.2.0.</li>
+<li>Install CmdFreak 1.3.0.</li>
+<li>Stop CmdFreak service.</li>
+<li>Copy and overwrite to &lt;Installation folder&gt;\sample.dat file from sample.dat which is copied in previous step.</li>
+<li>Modify &lt;Installation folder&gt;\conf\nginx.conf and &lt;Installation folder&gt;sample.conf if necessary.</li>
+<li>Start CmdFreak service.</li>
+</ol>
+
+
+<hr/>
+<h1>6. Uninstallation</h1>
 
 Select Remove CmdFreak with execution of cmdfreak.msi or perform uninstallation of CmdFreak from Control Panel.<br/>
 CmdFreak uninstallation performs following things during uninstallation.<br/>
@@ -123,7 +139,7 @@ CmdFreak uninstallation performs following things during uninstallation.<br/>
 
 
 <hr/>
-<h1>6. Login to CmdFreak</h1>
+<h1>7. Login to CmdFreak</h1>
 
 Connect to the URL shown below by Web browser for use of CmdFreak after installation. If main console is displayed after login sequence of CmdFreak, it shows the installation is successfully completed.<br/>
 <p>
@@ -146,7 +162,7 @@ If main console is not appeared or an error ocurred, confirm the things shown be
 
 
 <hr/>
-<h1>7. Start/Stop CmdFreak service</h1>
+<h1>8. Start/Stop CmdFreak service</h1>
 
 Start and stop of CmdFreak service can be performed by Windows start menu.<br/>
 <ul>
@@ -156,7 +172,7 @@ Start and stop of CmdFreak service can be performed by Windows start menu.<br/>
 
 
 <hr/>
-<h1>8. Change IP address/host name and port number</h1>
+<h1>9. Change IP address/host name and port number</h1>
 
 CmdFreak uses two kinds of IP addresses/host names and ports.<br/>
 <ul>
@@ -184,7 +200,7 @@ Change listen and server_name in &lt;Installation folder&gt;\conf\nginx.conf<br/
 
 
 <hr/>
-<h1>9. Connection using SSL/TLS</h1>
+<h1>10. Connection using SSL/TLS</h1>
 In order to connect to CmdFreak using SSL/TLS from browser, following steps are required.<br/>
 <ol>
 <li>Stop CmdFreak service.</li>
@@ -201,13 +217,13 @@ ssl_certificate_key "D:\\work\\server.key";<br/>
 
 
 <hr/>
-<h1>10. About ODBC driver</h1>
+<h1>11. About ODBC driver</h1>
 CmdFreak uses ODBC for connecting to RDBMS. Therefore ODBC driver needs to be installed into same server where CmdFreak works. ODBC driver needs to be choosen depending on the type of target RDBMS. For example, If you want to use MySQL, ODBC driver for MySQL is required.
 CmdFreak works as a 64-bit application hense ODBC driver has to be 64-bit edition of driver. ODBC driver is provided by the vendor who provides RDBMS. Download it from the vendoer Web site.<br/>
 
 
 <hr/>
-<h1>11. Management limitations</h1>
+<h1>12. Management limitations</h1>
 <ul>
 <li>Maximum length of table name: 64</li>	
 <li>Maximum length of column name: 64</li>	
@@ -218,7 +234,7 @@ CmdFreak works as a 64-bit application hense ODBC driver has to be 64-bit editio
 
 
 <hr/>
-<h1>12. Contact</h1>
+<h1>13. Contact</h1>
 
 Please use the E-mail address below for inquiries about this product.
 <p>
