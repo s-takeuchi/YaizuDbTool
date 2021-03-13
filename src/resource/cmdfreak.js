@@ -16,7 +16,7 @@ function initClientMessage() {
     //
     // User management
     //
-    addClientMessage('USERMGMTS', {'en':'User Mgmt', 'ja':'ユーザー管理'});
+    addClientMessage('USERMGMTS', {'en':'User Management', 'ja':'ユーザー管理'});
     addClientMessage('USER_CHG_PW', {'en':'Change Password', 'ja':'パスワードの変更'});
 
     //
