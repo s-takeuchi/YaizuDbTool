@@ -914,7 +914,6 @@ function checkLoginAfterApiCall() {
         if (userRole == 0) {
             menuContents = [
                 { actApiName: 'transDisplayOdbcConfig()', title: getClientMessage('ODBC_CONNECTIONS') },
-                { actApiName: 'transDisplayUser()', title: getClientMessage('USERMGMTS') },
                 { actApiName: 'transDisplayInformation()', title: getClientMessage('SVCINFOS') }
             ];
         } else {
@@ -924,9 +923,17 @@ function checkLoginAfterApiCall() {
         }
         initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
 
-        var usermenuContents = [
-            { actApiName: 'transDisplayChgPassword()', title: getClientMessage('USER_CHG_PW') },
-        ];
+        let usermenuContents = [];
+        if (userRole == 1) {
+            usermenuContents = [
+                { actApiName: 'transDisplayChgPassword()', title: getClientMessage('USER_CHG_PW') }
+            ];
+        } else {
+            usermenuContents = [
+                { actApiName: 'transDisplayUser()', title: getClientMessage('USERMGMTS') },
+                { actApiName: 'transDisplayChgPassword()', title: getClientMessage('USER_CHG_PW') }
+            ];
+        }
         addRsUserMenu(usermenuContents);
 
         refreshInfo();
