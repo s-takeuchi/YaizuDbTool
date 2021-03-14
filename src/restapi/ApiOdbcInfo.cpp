@@ -11,7 +11,8 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 {
 	StkObject* ResObj = new StkObject(L"");
 	wchar_t YourName[Global::MAXLEN_OF_USERNAME] = L"";
-	if (!CheckCredentials(Token, YourName)) {
+	int YourId = -1;
+	if (!CheckCredentials(Token, YourName, &YourId)) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_AUTH_ERROR, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_AUTH_ERROR), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_AUTH_ERROR));
 		*ResultCode = 401;
 		return ResObj;
@@ -109,7 +110,8 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 	StkObject* ResObj = new StkObject(L"");
 
 	wchar_t YourName[Global::MAXLEN_OF_USERNAME] = L"";
-	if (!CheckCredentials(Token, YourName)) {
+	int YourId = -1;
+	if (!CheckCredentials(Token, YourName, &YourId)) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_AUTH_ERROR, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_AUTH_ERROR), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_AUTH_ERROR));
 		*ResultCode = 401;
 		return ResObj;
@@ -168,7 +170,7 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 		DatObj->AppendChildElement(DatObjDb);
 		ResObj->AppendChildElement(DatObj);
 
-		StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_DBMSCHANGE));
+		StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), YourId);
 		*ResultCode = 200;
 	}
 

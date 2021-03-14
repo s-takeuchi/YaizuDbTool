@@ -136,12 +136,12 @@ int main(int Argc, char* Argv[])
 		DbVersion = DatAc->DbUpdate_NonVer_V3();
 	}
 	
-	StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTART), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTART));
+	StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTART), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTART), -1);
 
 	// Exec rest api
 	CmdFreakRestApi(IpAddr, Port, SendBufSize);
 
-	StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTOP), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTOP));
+	StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTOP), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTOP), -1);
 
 	// Stop AutoSave
 	DatAc->StopAutoSave();

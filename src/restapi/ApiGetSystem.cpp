@@ -25,7 +25,8 @@ StkObject* ApiGetSystem::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 {
 	StkObject* ResObj = new StkObject(L"");
 	wchar_t YourName[Global::MAXLEN_OF_USERNAME] = L"";
-	if (!CheckCredentials(Token, YourName)) {
+	int YourId = -1;
+	if (!CheckCredentials(Token, YourName, &YourId)) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_AUTH_ERROR, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_AUTH_ERROR), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_AUTH_ERROR));
 		*ResultCode = 401;
 		return ResObj;

@@ -5,7 +5,7 @@ class ApiFilterInfo : public ApiBase
 {
 private:
 	StkObject* GetFilterInfo(wchar_t[StkWebAppExec::URL_PATH_LENGTH], int*);
-	StkObject* PostFilterInfo(StkObject*, int*);
+	StkObject* PostFilterInfo(StkObject*, int*, int);
 
 protected:
 	StkObject* ExecuteImpl(StkObject*, int, wchar_t[StkWebAppExec::URL_PATH_LENGTH], int*, wchar_t[3], wchar_t*);

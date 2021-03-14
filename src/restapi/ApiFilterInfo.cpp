@@ -37,7 +37,7 @@ StkObject* ApiFilterInfo::GetFilterInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_
 	return ResObj;
 }
 
-StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode)
+StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode, int UserId)
 {
 	StkObject* CurObj = NULL;
 	if (ReqObj != NULL) {
@@ -87,7 +87,7 @@ StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode)
 	}
 
 	if (UpdatedFlag) {
-		StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_FILTERCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_FILTERCHANGE));
+		StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_FILTERCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_FILTERCHANGE), UserId);
 	}
 
 	StkObject* ResObj = new StkObject(L"");
@@ -99,7 +99,8 @@ StkObject* ApiFilterInfo::PostFilterInfo(StkObject* ReqObj, int* ResultCode)
 StkObject* ApiFilterInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3], wchar_t* Token)
 {
 	wchar_t YourName[Global::MAXLEN_OF_USERNAME] = L"";
-	if (!CheckCredentials(Token, YourName)) {
+	int YourId = -1;
+	if (!CheckCredentials(Token, YourName, &YourId)) {
 		StkObject* ResObj = new StkObject(L"");
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_AUTH_ERROR, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_AUTH_ERROR), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_AUTH_ERROR));
 		*ResultCode = 401;
@@ -110,7 +111,7 @@ StkObject* ApiFilterInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t Url
 		return GetFilterInfo(UrlPath, ResultCode);
 	} else
 	if (Method & STKWEBAPP_METHOD_POST) {
-		return PostFilterInfo(ReqObj, ResultCode);
+		return PostFilterInfo(ReqObj, ResultCode, YourId);
 	}
 	return NULL;
 }
