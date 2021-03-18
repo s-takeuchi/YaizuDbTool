@@ -344,53 +344,116 @@ int DataAccess::GetDbVersion()
 
 int DataAccess::DbUpdate_NonVer_V3()
 {
-	// Create Property table
-	ColumnDefWStr ColDefPropertyName(L"Name", 256);
-	ColumnDefInt ColDefPropertyValueInt(L"ValueInt");
-	ColumnDefWStr ColDefPropertyValueWStr(L"ValueWStr", 256);
-	TableDef TabDefProperty(L"Property", 1024);
-	TabDefProperty.AddColumnDef(&ColDefPropertyName);
-	TabDefProperty.AddColumnDef(&ColDefPropertyValueInt);
-	TabDefProperty.AddColumnDef(&ColDefPropertyValueWStr);
-	if (CreateTable(&TabDefProperty) != 0) {
-		UnlockAllTable();
-		return -1;
-	}
-
-	// Get maximum user ID
-	LockTable(L"User", LOCK_SHARE);
-	RecordData* RecDatUser = GetRecord(L"User");
-	UnlockTable(L"User");
-	int MaxUserId = 0;
-	while (RecDatUser) {
-		ColumnDataInt* ColDatId = (ColumnDataInt*)RecDatUser->GetColumn(0);
-		int CurUserId = ColDatId->GetValue();
-		if (CurUserId > MaxUserId) {
-			MaxUserId = CurUserId;
+	{
+		// Create Property table
+		ColumnDefWStr ColDefPropertyName(L"Name", 256);
+		ColumnDefInt ColDefPropertyValueInt(L"ValueInt");
+		ColumnDefWStr ColDefPropertyValueWStr(L"ValueWStr", 256);
+		TableDef TabDefProperty(L"Property", 1024);
+		TabDefProperty.AddColumnDef(&ColDefPropertyName);
+		TabDefProperty.AddColumnDef(&ColDefPropertyValueInt);
+		TabDefProperty.AddColumnDef(&ColDefPropertyValueWStr);
+		if (CreateTable(&TabDefProperty) != 0) {
+			UnlockAllTable();
+			return -1;
 		}
-		RecDatUser = RecDatUser->GetNextRecord();
 	}
-	delete RecDatUser;
 
-	// Get maximum log ID
-	LockTable(L"Log", LOCK_SHARE);
-	RecordData* RecDatLog = GetRecord(L"Log");
-	UnlockTable(L"Log");
-	int MaxLogId = 0;
-	while (RecDatLog) {
-		ColumnDataInt* ColDatId = (ColumnDataInt*)RecDatLog->GetColumn(0);
-		int CurLogId = ColDatId->GetValue();
-		if (CurLogId > MaxLogId) {
-			MaxLogId = CurLogId;
+	{
+		//Property setting
+
+		// Get maximum user ID
+		LockTable(L"User", LOCK_SHARE);
+		RecordData* RecDatUser = GetRecord(L"User");
+		UnlockTable(L"User");
+		int MaxUserId = 0;
+		while (RecDatUser) {
+			ColumnDataInt* ColDatId = (ColumnDataInt*)RecDatUser->GetColumn(0);
+			int CurUserId = ColDatId->GetValue();
+			if (CurUserId > MaxUserId) {
+				MaxUserId = CurUserId;
+			}
+			RecDatUser = RecDatUser->GetNextRecord();
 		}
-		RecDatLog = RecDatLog->GetNextRecord();
-	}
-	delete RecDatLog;
+		delete RecDatUser;
 
-	// Set Property values
-	StkWebAppUm_SetPropertyValueInt(L"MaxUserId", MaxUserId);
-	StkWebAppUm_SetPropertyValueInt(L"MaxLogId", MaxLogId);
-	StkWebAppUm_SetPropertyValueInt(L"DbVersion", LatestDbVersion);
+		// Get maximum log ID
+		LockTable(L"Log", LOCK_SHARE);
+		RecordData* RecDatLog = GetRecord(L"Log");
+		UnlockTable(L"Log");
+		int MaxLogId = 0;
+		while (RecDatLog) {
+			ColumnDataInt* ColDatId = (ColumnDataInt*)RecDatLog->GetColumn(0);
+			int CurLogId = ColDatId->GetValue();
+			if (CurLogId > MaxLogId) {
+				MaxLogId = CurLogId;
+			}
+			RecDatLog = RecDatLog->GetNextRecord();
+		}
+		delete RecDatLog;
+
+		// Set Property values
+		StkWebAppUm_SetPropertyValueInt(L"MaxUserId", MaxUserId);
+		StkWebAppUm_SetPropertyValueInt(L"MaxLogId", MaxLogId);
+		StkWebAppUm_SetPropertyValueInt(L"DbVersion", LatestDbVersion);
+	}
+
+	{
+		// Log migration
+		
+		// Log table migration (Step.1 Create new table)
+		ColumnDefInt ColDefLogId(L"Id");
+		ColumnDefWStr ColDefLogTime(L"Time", Global::MAXLEN_OF_LOGTIME);
+		ColumnDefInt ColDefLogUserId(L"UserId");
+		ColumnDefWStr ColDefLogMsgEn(L"MessageEn", Global::MAXLEN_OF_LOGMSG);
+		ColumnDefWStr ColDefLogMsgJa(L"MessageJa", Global::MAXLEN_OF_LOGMSG);
+		TableDef TabDefLog(L"LogNew", Global::MAXNUM_OF_LOGRECORDS);
+		TabDefLog.AddColumnDef(&ColDefLogId);
+		TabDefLog.AddColumnDef(&ColDefLogTime);
+		TabDefLog.AddColumnDef(&ColDefLogUserId);
+		TabDefLog.AddColumnDef(&ColDefLogMsgEn);
+		TabDefLog.AddColumnDef(&ColDefLogMsgJa);
+		if (CreateTable(&TabDefLog) != 0) {
+			UnlockAllTable();
+			return -1;
+		}
+		// Log table migration (Step.2 data acquisition)
+		LockTable(L"Log", LOCK_EXCLUSIVE);
+		RecordData* RecDatLog = GetRecord(L"Log");
+		UnlockTable(L"Log");
+		// Log table migration (Step.3 data migration)
+		LockTable(L"LogNew", LOCK_EXCLUSIVE);
+		RecordData* CurrRecDat = RecDatLog;
+		while (CurrRecDat != NULL) {
+			ColumnDataInt* ColDatId = (ColumnDataInt*)CurrRecDat->GetColumn(0);
+			ColumnDataWStr* ColDatTime = (ColumnDataWStr*)CurrRecDat->GetColumn(1);
+			ColumnDataWStr* ColDatMsgEn = (ColumnDataWStr*)CurrRecDat->GetColumn(2);
+			ColumnDataWStr* ColDatMsgJa = (ColumnDataWStr*)CurrRecDat->GetColumn(3);
+			if (ColDatId != NULL &&
+				ColDatTime != NULL && ColDatTime->GetValue() != NULL &&
+				ColDatMsgEn != NULL && ColDatMsgEn->GetValue() != NULL &&
+				ColDatMsgJa != NULL && ColDatMsgJa->GetValue() != NULL) {
+				// New record information
+				ColumnData *ColDatLog[5];
+				ColDatLog[0] = new ColumnDataInt(L"Id", ColDatId->GetValue());
+				ColDatLog[1] = new ColumnDataWStr(L"Time", ColDatTime->GetValue());
+				ColDatLog[2] = new ColumnDataInt(L"UserId", -2);
+				ColDatLog[3] = new ColumnDataWStr(L"MessageEn", ColDatMsgEn->GetValue());
+				ColDatLog[4] = new ColumnDataWStr(L"MessageJa", ColDatMsgJa->GetValue());
+				RecordData* RecDatLog = new RecordData(L"LogNew", ColDatLog, 5);
+				// Add record
+				int Ret = InsertRecord(RecDatLog);
+				delete RecDatLog;
+			}
+			CurrRecDat = CurrRecDat->GetNextRecord();
+		}
+		delete RecDatLog;
+		UnlockTable(L"LogNew");
+		// Log table migration (Step.4 delete old table)
+		DeleteTable(L"Log");
+		RenameTable(L"LogNew", L"Log");
+	}
+
 	return 3;
 }
 
