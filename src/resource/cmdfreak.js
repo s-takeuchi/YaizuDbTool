@@ -382,9 +382,9 @@ function displayData() {
     $('#cmdfreakdata').append('<div id="dispTableName" style="overflow:hidden;text-overflow:ellipsis;text-nowrap;height:25px;background-color:#3030c0"><a onclick="transDisplayTableInfo()" href="#">' + escapeString(currentTablename) + '</a></div>');
 
     var cmdfreakDiv = $('<div class="table-responsive text-nowrap">')
-    var cmdfreakData = $('<table class="table table-striped table-bordered table-sm">');
+    var cmdfreakData = $('<table class="table stktable table-striped table-sm">');
 
-    var tHead = $('<thead class="thead-dark">');
+    var tHead = $('<thead class="thead-light">');
     var headStr = '<tr>';
     for (var loop = 0; loop < colCount; loop++) {
         var targetTitle = escapeString(colInfo[loop].title);
