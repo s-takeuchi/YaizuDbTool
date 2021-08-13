@@ -922,7 +922,7 @@ function checkLoginAfterApiCall() {
                 { actApiName: 'transDisplayInformation()', title: getClientMessage('SVCINFOS') }
             ];
         }
-        initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents);
+        initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents, 'refreshInfo()');
 
         let usermenuContents = [];
         if (userRole == 1) {
