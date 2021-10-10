@@ -14,12 +14,11 @@
 #include "ApiGetRecCount.h"
 #include "ApiFilterInfo.h"
 
-void CmdFreakRestApi(wchar_t* IpAddr, int Port, int SendBufSize)
+void CmdFreakRestApi(wchar_t* IpAddr, int Port)
 {
 	int Ids[7] = {11, 12, 13, 14, 15, 16, 17};
 
 	StkWebApp* Soc = new StkWebApp(Ids, 7, IpAddr, Port);
-	Soc->SetSendBufSize(SendBufSize);
 
 	ApiGetSystem* ApiGetSystemObj = new ApiGetSystem();
 	Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/system/", (StkWebAppExec*)ApiGetSystemObj);
@@ -94,7 +93,6 @@ int main(int Argc, char* Argv[])
 
 	wchar_t IpAddr[256];
 	int Port;
-	int SendBufSize = 20000000;
 
 	// Load properties
 	StkProperties *Prop = new StkProperties();
@@ -113,10 +111,6 @@ int main(int Argc, char* Argv[])
 		}
 		StkPlPrintf("serviceport property = %d\r\n", Port);
 
-		if (Prop->GetPropertyInt("sendbufsize", &SendBufSize) != 0) {
-			// nothing to do
-		}
-		StkPlPrintf("send buffer size = %d\r\n", SendBufSize);
 	} else {
 		StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CONF_NOT_FOUND));
 		return -1;
@@ -139,7 +133,7 @@ int main(int Argc, char* Argv[])
 	StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTART), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTART), -1);
 
 	// Exec rest api
-	CmdFreakRestApi(IpAddr, Port, SendBufSize);
+	CmdFreakRestApi(IpAddr, Port);
 
 	StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTOP), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTOP), -1);
 
