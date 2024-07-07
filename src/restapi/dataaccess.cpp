@@ -433,10 +433,16 @@ int DataAccess::DbUpdate_NonVer_V3()
 				ColDatTime != NULL && ColDatTime->GetValue() != NULL &&
 				ColDatMsgEn != NULL && ColDatMsgEn->GetValue() != NULL &&
 				ColDatMsgJa != NULL && ColDatMsgJa->GetValue() != NULL) {
+
+				// Time conversion
+				long long LocalTime = StkPlGetUnixTimeFromIso8601W(ColDatTime->GetValue());
+				wchar_t LocalTimeInStr[64] = L"";
+				StkPlSwPrintf(LocalTimeInStr, 64, L"%016x", LocalTime);
+
 				// New record information
-				ColumnData *ColDatLog[5];
+				ColumnData* ColDatLog[5];
 				ColDatLog[0] = new ColumnDataInt(L"Id", ColDatId->GetValue());
-				ColDatLog[1] = new ColumnDataWStr(L"Time", ColDatTime->GetValue());
+				ColDatLog[1] = new ColumnDataWStr(L"Time", LocalTimeInStr);
 				ColDatLog[2] = new ColumnDataInt(L"UserId", -2);
 				ColDatLog[3] = new ColumnDataWStr(L"MessageEn", ColDatMsgEn->GetValue());
 				ColDatLog[4] = new ColumnDataWStr(L"MessageJa", ColDatMsgJa->GetValue());
