@@ -18,7 +18,7 @@ function initClientMessage() {
     //
     addClientMessage('USERMGMTS', {'en':'User Management', 'ja':'ユーザー管理'});
     addClientMessage('USER_CHG_PW', {'en':'Change Password', 'ja':'パスワードの変更'});
-    addClientMessage('OPE_LOG', {'en':'Operation log', 'ja':'操作ログ'});
+    addClientMessage('EVENT_LOG', {'en':'Event log', 'ja':'イベントログ'});
 
     //
     // ODBC configuration
@@ -927,12 +927,12 @@ function checkLoginAfterApiCall() {
         let usermenuContents = [];
         if (userRole == 1) {
             usermenuContents = [
-                { actApiName: 'transDisplayLogInfo()', title: getClientMessage('OPE_LOG') },
+                { actApiName: 'transDisplayLogInfo()', title: getClientMessage('EVENT_LOG') },
                 { actApiName: 'transDisplayChgPassword()', title: getClientMessage('USER_CHG_PW') }
             ];
         } else {
             usermenuContents = [
-                { actApiName: 'transDisplayLogInfo()', title: getClientMessage('OPE_LOG') },
+                { actApiName: 'transDisplayLogInfo()', title: getClientMessage('EVENT_LOG') },
                 { actApiName: 'transDisplayUser()', title: getClientMessage('USERMGMTS') },
                 { actApiName: 'transDisplayChgPassword()', title: getClientMessage('USER_CHG_PW') }
             ];
