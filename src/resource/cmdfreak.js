@@ -40,12 +40,6 @@ function initClientMessage() {
     //
     addClientMessage('SVCINFO', {'en':'Information', 'ja':'情報'});
     addClientMessage('SVCINFOS', {'en':'Info', 'ja':'情報'});
-    addClientMessage('SVCINFO_TRACELOG', {
-        'en':'The trace log is displayed below.<br>Times are as per the time zone of the web server\'s location.',
-        'ja':'以下にトレースログが表示されます。<br>表示される時刻はWebサーバーが配置された地域の時刻となります。'
-    });
-    addClientMessage('SVCINFO_LOGTIME', {'en':'Logging time', 'ja':'ログ出力時刻'});
-    addClientMessage('SVCINFO_LOGMSG', {'en':'Message', 'ja':'メッセージ'});
 
     //
     // Filtering dialog
@@ -207,10 +201,7 @@ function closeDbmsConfig() {
 ////////////////////////////////////////////////////////////////////////////////
 
 function transDisplayInformation() {
-    var contents = [{ method: 'GET', url: '/api/logs/', request: null, keystring: 'API_GET_LOGS' },
-                    { method: 'GET', url: '/api/system/', request: null, keystring: 'API_GET_SYSTEM' }
-    ];
-    MultiApiCall(contents, displayInformation);
+    apiCall('GET', '/api/system/', null, 'API_GET_SYSTEM', displayInformation);
 }
 
 function displayInformation() {
@@ -234,18 +225,6 @@ function displayInformation() {
         svcInfo.append('<p><button type="button" id="closeSvcInfo" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
         return;
     }
-    var Logs = [];
-    if (statusCode['API_GET_LOGS'] == 200) {
-        if (responseData['API_GET_LOGS'].Data.Log instanceof Array) {
-            Logs = responseData['API_GET_LOGS'].Data.Log;
-        } else if (responseData['API_GET_LOGS'].Data.Log) {
-            Logs.push(responseData['API_GET_LOGS'].Data.Log);
-        }
-    } else {
-        displayAlertDanger('#svcinfo', getClientMessage('CONNERR'));
-        svcInfo.append('<p><button type="button" id="closeSvcInfo" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
-        return;
-    }
 
     svcInfo.append('<div style="float:left;padding-right:15px;"><img src="img/cristal_image48c.png"/></div>');
     svcInfo.append('<div style="float:left;padding-top:20px;height:55px;"><strong>' + productName + ' ' + version + '</strong></div>');
@@ -255,26 +234,7 @@ function displayInformation() {
     svcInfo.append('Build Time = ' + buildTime + '<br/>');
     svcInfo.append('Service Start Time = ' + startTime + '<br/>');
     svcInfo.append('</p>');
-    svcInfo.append('<p>' + getClientMessage('SVCINFO_TRACELOG') + '</p>');
 
-    var logData = $('<table>');
-    logData.addClass('table table-striped');
-
-    var tHead = $('<thead class="thead-dark">');
-    tHead.append('<tr><th>' + getClientMessage('SVCINFO_LOGTIME') + '</th><th>' + getClientMessage('SVCINFO_LOGMSG') + '</th></tr>');
-    logData.append(tHead);
-
-    var tBody = $('<tbody>');
-    for (var Loop = 0; Loop < Logs.length; Loop++) {
-        if (getClientLanguage() == 1) {
-            tBody.append('<tr><td>' + Logs[Loop].Time + '</td><td>' + Logs[Loop].MsgJa + '</td></tr>');
-        } else {
-            tBody.append('<tr><td>' + Logs[Loop].Time + '</td><td>' + Logs[Loop].MsgEn + '</td></tr>');
-        }
-    }
-    logData.append(tBody);
-
-    svcInfo.append(logData);
     svcInfo.append('<p><button type="button" id="closeSvcInfo" class="btn btn-dark" onclick="closeInputModal()">' + getClientMessage('DLG_CLOSE') + '</button></p>');
 }
 
