@@ -840,7 +840,7 @@ function initCmdFreak() {
     } else {
         setClientLanguage(0);
     }
-    showLoginModal(checkLogin);
+    showLoginModalAndCheck(doAfterLogin);
 }
 
 function refreshInfo() {
@@ -857,52 +857,36 @@ function refreshInfo() {
     MultiApiCall(contents, checkOdbcConnection);
 }
 
-function checkLogin(dummyId, dummyPw) {
-    setAuthenticationToken(dummyId + ' ' + dummyPw);
-    apiCall('GET', '/api/user/', null, 'API_GET_USER', checkLoginAfterApiCall);
-}
-
-function checkLoginAfterApiCall() {
-    if (statusCode['API_GET_USER'] == -1 || statusCode['API_GET_USER'] == 0) {
-        setLoginResult(2);
-        return;
-    } else if (statusCode['API_GET_USER'] != 200) {
-        setLoginResult(1);
-        return;
+function doAfterLogin() {
+    var userRole = responseData['API_GET_USER'].Data.User.Role;
+    var menuContents = [];
+    if (userRole == 0) {
+        menuContents = [
+            { actApiName: 'transDisplayOdbcConfig()', title: getClientMessage('ODBC_CONNECTIONS') },
+            { actApiName: 'transDisplayInformation()', title: getClientMessage('SVCINFOS') }
+        ];
     } else {
-        var userRole = responseData['API_GET_USER'].Data.User.Role;
-        var menuContents = [];
-        if (userRole == 0) {
-            menuContents = [
-                { actApiName: 'transDisplayOdbcConfig()', title: getClientMessage('ODBC_CONNECTIONS') },
-                { actApiName: 'transDisplayInformation()', title: getClientMessage('SVCINFOS') }
-            ];
-        } else {
-            menuContents = [
-                { actApiName: 'transDisplayInformation()', title: getClientMessage('SVCINFOS') }
-            ];
-        }
-        initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents, 'refreshInfo()');
-
-        let usermenuContents = [];
-        if (userRole == 1) {
-            usermenuContents = [
-                { actApiName: 'transDisplayLogInfo()', title: getClientMessage('EVENT_LOG') },
-                { actApiName: 'transDisplayChgPassword()', title: getClientMessage('USER_CHG_PW') }
-            ];
-        } else {
-            usermenuContents = [
-                { actApiName: 'transDisplayLogInfo()', title: getClientMessage('EVENT_LOG') },
-                { actApiName: 'transDisplayUser()', title: getClientMessage('USERMGMTS') },
-                { actApiName: 'transDisplayChgPassword()', title: getClientMessage('USER_CHG_PW') }
-            ];
-        }
-        addRsUserMenu(usermenuContents);
-
-        refreshInfo();
-        setLoginResult(0);
-        return;
+        menuContents = [
+            { actApiName: 'transDisplayInformation()', title: getClientMessage('SVCINFOS') }
+        ];
     }
+    initMainPage('CmdFreak', 'img/cristal_image48c.png', menuContents, 'refreshInfo()');
+
+    let usermenuContents = [];
+    if (userRole == 1) {
+        usermenuContents = [
+            { actApiName: 'transDisplayLogInfo()', title: getClientMessage('EVENT_LOG') },
+            { actApiName: 'transDisplayChgPassword()', title: getClientMessage('USER_CHG_PW') }
+        ];
+    } else {
+        usermenuContents = [
+            { actApiName: 'transDisplayLogInfo()', title: getClientMessage('EVENT_LOG') },
+            { actApiName: 'transDisplayUser()', title: getClientMessage('USERMGMTS') },
+            { actApiName: 'transDisplayChgPassword()', title: getClientMessage('USER_CHG_PW') }
+        ];
+    }
+    addRsUserMenu(usermenuContents);
+    refreshInfo();
 }
 
 function trimDropDownTitle(dropdownTitle) {
