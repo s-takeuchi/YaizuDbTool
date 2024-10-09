@@ -12,7 +12,7 @@ void ApiGetSystem::GetLocalTimeWStr()
 {
 	int Year, MonA, Day, Hour, Min, Sec;
 	StkPlGetTime(&Year, &MonA, &Day, &Hour, &Min, &Sec, true);
-	wchar_t *Mon[] = {L"Jan", L"Feb", L"Mar", L"Apr", L"May", L"Jun", L"Jul", L"Aug", L"Sep", L"Oct", L"Nov", L"Dec"};
+	const wchar_t *Mon[] = {L"Jan", L"Feb", L"Mar", L"Apr", L"May", L"Jun", L"Jul", L"Aug", L"Sep", L"Oct", L"Nov", L"Dec"};
 	StkPlSwPrintf(LocalTimeStr, 32, L"%ls %d %d %02d:%02d:%02d", Mon[MonA - 1], Day, Year, Hour, Min, Sec);
 }
 
