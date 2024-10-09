@@ -1,10 +1,10 @@
 #include "MyMsgProc.h"
 #include "ApiGetRecCount.h"
 #include "dataaccess.h"
-#include "..\Global.h"
+#include "../Global.h"
 #include "OdbcManager.h"
 #include "DbAccessor.h"
-#include "..\..\..\YaizuComLib\src\commonfunc\StkStringParser.h"
+#include "../../../YaizuComLib/src/commonfunc/StkStringParser.h"
 
 StkObject* ApiGetRecCount::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3], wchar_t* Token)
 {

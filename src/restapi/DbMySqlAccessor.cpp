@@ -1,6 +1,6 @@
 ﻿#include <windows.h>
 #include "DbMySqlAccessor.h"
-#include "..\Global.h"
+#include "../Global.h"
 #include "dataaccess.h"
 
 DbMySqlAccessor::DbMySqlAccessor()

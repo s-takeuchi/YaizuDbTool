@@ -1,6 +1,6 @@
 ﻿#include <windows.h>
 #include "DbMariaDbAccessor.h"
-#include "..\Global.h"
+#include "../Global.h"
 #include "dataaccess.h"
 
 DbMariaDbAccessor::DbMariaDbAccessor()

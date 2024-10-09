@@ -1,5 +1,5 @@
 ﻿#include "OdbcManager.h"
-#include "..\Global.h"
+#include "../Global.h"
 #include "DbAccessor.h"
 #include "DbPostgreSqlAccessor.h"
 #include "DbMariaDbAccessor.h"

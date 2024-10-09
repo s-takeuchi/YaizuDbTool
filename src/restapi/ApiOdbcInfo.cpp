@@ -3,7 +3,7 @@
 #include "MyMsgProc.h"
 #include "ApiOdbcInfo.h"
 #include "dataaccess.h"
-#include "..\Global.h"
+#include "../Global.h"
 #include "OdbcManager.h"
 #include "DbAccessor.h"
 

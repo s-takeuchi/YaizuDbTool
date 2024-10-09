@@ -1,8 +1,8 @@
 ﻿#include <windows.h>
 #include "DbAccessor.h"
-#include "..\Global.h"
+#include "../Global.h"
 #include "dataaccess.h"
-#include "..\..\..\YaizuComLib\src\commonfunc\StkObject.h"
+#include "../../../YaizuComLib/src/commonfunc/StkObject.h"
 
 DbAccessor::DbAccessor()
 {
