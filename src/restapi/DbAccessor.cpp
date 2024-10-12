@@ -14,7 +14,7 @@ DbAccessor::~DbAccessor()
 {
 }
 
-int DbAccessor::Test(wchar_t ConnStr[Global::MAX_PARAM_LENGTH])
+int DbAccessor::Test(SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH])
 {
 	SQLTCHAR StateMsg[10];
 	SQLTCHAR Msg[1024];

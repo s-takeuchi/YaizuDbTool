@@ -105,7 +105,8 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t* Token)
 {
 	int DbmsType = -1;
-	SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH] = L"";
+	SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH];
+	StkPlLStrCpy((wchar_t*)ConnStr, L"");
 
 	StkObject* ResObj = new StkObject(L"");
 
@@ -147,11 +148,11 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 				*ResultCode = 400;
 				return ResObj;
 			}
-			StkPlLStrCpy(ConnStr, Elem->GetStringValue());
+			StkPlLStrCpy((wchar_t*)ConnStr, Elem->GetStringValue());
 		}
 		Elem = Elem->GetNext();
 	}
-	if (DbmsType == -1 || StkPlWcsCmp(ConnStr, L"") == 0) {
+	if (DbmsType == -1 || StkPlWcsCmp((wchar_t*)ConnStr, L"") == 0) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT),  MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
 		*ResultCode = 400;
 	} else {
