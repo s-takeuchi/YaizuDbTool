@@ -1,4 +1,6 @@
-﻿#include <windows.h>
+﻿#ifdef WIN32
+    #include <windows.h>
+#endif
 #include "DbAccessor.h"
 #include "../Global.h"
 #include "dataaccess.h"

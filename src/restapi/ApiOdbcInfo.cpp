@@ -44,17 +44,17 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 
 		StkObject* DatObjMariaDb = new StkObject(L"OdbcInfo");
 		DatObjMariaDb->AppendChildElement(new StkObject(L"DbType", L"MariaDB"));
-		DatObjMariaDb->AppendChildElement(new StkObject(L"ConnStr", ConnStrMariaDb));
+		DatObjMariaDb->AppendChildElement(new StkObject(L"ConnStr", (wchar_t*)ConnStrMariaDb));
 		DatObj->AppendChildElement(DatObjMariaDb);
 
 		StkObject* DatObjPostgreSql = new StkObject(L"OdbcInfo");
 		DatObjPostgreSql->AppendChildElement(new StkObject(L"DbType", L"PostgreSQL"));
-		DatObjPostgreSql->AppendChildElement(new StkObject(L"ConnStr", ConnStrPostgreSql));
+		DatObjPostgreSql->AppendChildElement(new StkObject(L"ConnStr", (wchar_t*)ConnStrPostgreSql));
 		DatObj->AppendChildElement(DatObjPostgreSql);
 
 		StkObject* DatObjMySql = new StkObject(L"OdbcInfo");
 		DatObjMySql->AppendChildElement(new StkObject(L"DbType", L"MySQL"));
-		DatObjMySql->AppendChildElement(new StkObject(L"ConnStr", ConnStrMySql));
+		DatObjMySql->AppendChildElement(new StkObject(L"ConnStr", (wchar_t*)ConnStrMySql));
 		DatObj->AppendChildElement(DatObjMySql);
 		ResObj->AppendChildElement(DatObj);
 		*ResultCode = 200;
@@ -68,13 +68,13 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 		int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 		wchar_t DbmsTypeStr[16];
 		if (Init == 1) {
-			lstrcpy(DbmsTypeStr, L"Init");
+			StkPlLStrCpy(DbmsTypeStr, L"Init");
 		} else if (DbmsType == OdbcManager::MARIADB_ACCESSOR) {
-			lstrcpy(DbmsTypeStr, L"MariaDB");
+			StkPlLStrCpy(DbmsTypeStr, L"MariaDB");
 		} else if (DbmsType == OdbcManager::POSTGRESQL_ACCESSOR) {
-			lstrcpy(DbmsTypeStr, L"PostgreSQL");
+			StkPlLStrCpy(DbmsTypeStr, L"PostgreSQL");
 		} else if (DbmsType == OdbcManager::MYSQL_ACCESSOR) {
-			lstrcpy(DbmsTypeStr, L"MySQL");
+			StkPlLStrCpy(DbmsTypeStr, L"MySQL");
 		} else {
 		}
 
@@ -125,19 +125,19 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 
 	StkObject* Elem = ReqObj->GetFirstChildElement();
 	while (Elem) {
-		if (!lstrcmp(Elem->GetName(), L"DbType") && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
-			if (!lstrcmp(Elem->GetStringValue(), L"MariaDB")) {
+		if (!StkPlWcsCmp(Elem->GetName(), L"DbType") && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
+			if (!StkPlWcsCmp(Elem->GetStringValue(), L"MariaDB")) {
 				DbmsType = OdbcManager::MARIADB_ACCESSOR;
 			} else
-			if (!lstrcmp(Elem->GetStringValue(), L"PostgreSQL")) {
+			if (!StkPlWcsCmp(Elem->GetStringValue(), L"PostgreSQL")) {
 				DbmsType = OdbcManager::POSTGRESQL_ACCESSOR;
 			} else
-			if (!lstrcmp(Elem->GetStringValue(), L"MySQL")) {
+			if (!StkPlWcsCmp(Elem->GetStringValue(), L"MySQL")) {
 				DbmsType = OdbcManager::MYSQL_ACCESSOR;
 			}
 		}
-		if (!lstrcmp(Elem->GetName(), L"ConnStr") && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
-			int LenOfConnStr = lstrlen(Elem->GetStringValue());
+		if (!StkPlWcsCmp(Elem->GetName(), L"ConnStr") && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
+			size_t LenOfConnStr = StkPlWcsLen(Elem->GetStringValue());
 			if (LenOfConnStr >= 256) {
 				wchar_t TmpMsgEng[StkWebAppExec::URL_PATH_LENGTH];
 				wchar_t TmpMsgJpn[StkWebAppExec::URL_PATH_LENGTH];
@@ -147,11 +147,11 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 				*ResultCode = 400;
 				return ResObj;
 			}
-			lstrcpy(ConnStr, Elem->GetStringValue());
+			StkPlLStrCpy(ConnStr, Elem->GetStringValue());
 		}
 		Elem = Elem->GetNext();
 	}
-	if (DbmsType == -1 || lstrcmp(ConnStr, L"") == 0) {
+	if (DbmsType == -1 || StkPlWcsCmp(ConnStr, L"") == 0) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT),  MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
 		*ResultCode = 400;
 	} else {
