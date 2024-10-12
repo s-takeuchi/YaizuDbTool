@@ -83,7 +83,7 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 		DatObjDb->AppendChildElement(new StkObject(L"ConnStr", ConnStr));
 
 		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
-		int Ret = Da->Test(ConnStr);
+		int Ret = Da->Test((SQLTCHAR*)ConnStr);
 		if (Ret == SQL_SUCCESS) {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"connectable"));
 		} else {
