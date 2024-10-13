@@ -199,13 +199,13 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 		SQLTCHAR SqlSortBuf[128];
 		StkPlLStrCpy((wchar_t*)SqlSortBuf, L"");
 		StkPlSwPrintf((wchar_t*)SqlSortBuf, 128, L" order by %ls %ls", SortTarget, SortOrder);
-		StkPlWcsCat((wchar_t*)SqlBuf, 1024, SqlSortBuf);
+		StkPlWcsCat((wchar_t*)SqlBuf, 1024, (wchar_t*)SqlSortBuf);
 	}
 	if (Limit != -1 && Offset != -1) {
 		SQLTCHAR SqlLimitBuf[128];
 		StkPlLStrCpy((wchar_t*)SqlLimitBuf, L"");
 		StkPlSwPrintf((wchar_t*)SqlLimitBuf, 128, L" limit %d offset %d", Limit, Offset);
-		StkPlWcsCat((wchar_t*)SqlBuf, 1024, SqlLimitBuf);
+		StkPlWcsCat((wchar_t*)SqlBuf, 1024, (wchar_t*)SqlLimitBuf);
 	}
 	StkPlWcsCat((wchar_t*)SqlBuf, 1024, L";");
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
