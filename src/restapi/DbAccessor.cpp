@@ -92,7 +92,7 @@ int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, wchar_t ColumnNameCnv
 			}
 			if (FirstCond == true) {
 				StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" where ");
-				FirstCond = FALSE;
+				FirstCond = false;
 			} else {
 				StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" and ");
 			}
@@ -114,7 +114,7 @@ int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, wchar_t ColumnNameCnv
 				if (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11) {
 					StkPlWcsCat((wchar_t*)SqlBuf, 1024, L"%");
 				}
-				lstrcat((wchar_t*)SqlBuf, Value[Loop - 1]);
+				StkPlWcsCat((wchar_t*)SqlBuf, 1024, Value[Loop - 1]);
 				if (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11) {
 					StkPlWcsCat((wchar_t*)SqlBuf, 1024, L"%");
 				}
@@ -122,7 +122,7 @@ int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, wchar_t ColumnNameCnv
 			}
 		}
 	}
-	StkPlWcsCat(SqlBuf, 1024, L";");
+	StkPlWcsCat((wchar_t*)SqlBuf, 1024, L";");
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	if (Ret != SQL_SUCCESS) {
 		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
@@ -163,9 +163,9 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 			if (StkPlWcsCmp(ColumnNameCnv[Loop - 1], L"\"*\"") == 0 || StkPlWcsCmp(ColumnNameCnv[Loop - 1], L"`*`") == 0 || OpeType[Loop - 1] == 0) {
 				continue;
 			}
-			if (FirstCond == TRUE) {
+			if (FirstCond == true) {
 				StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" where ");
-				FirstCond = FALSE;
+				FirstCond = false;
 			} else {
 				StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" and ");
 			}
@@ -199,15 +199,15 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 		SQLTCHAR SqlSortBuf[128];
 		StkPlLStrCpy((wchar_t*)SqlSortBuf, L"");
 		StkPlSwPrintf((wchar_t*)SqlSortBuf, 128, L" order by %ls %ls", SortTarget, SortOrder);
-		StkPlWcsCat(SqlBuf, 1024, SqlSortBuf);
+		StkPlWcsCat((wchar_t*)SqlBuf, 1024, SqlSortBuf);
 	}
 	if (Limit != -1 && Offset != -1) {
 		SQLTCHAR SqlLimitBuf[128];
 		StkPlLStrCpy((wchar_t*)SqlLimitBuf, L"");
-		StkPlSwPrintf(SqlLimitBuf, 128, L" limit %d offset %d", Limit, Offset);
-		StkPlWcsCat(SqlBuf, 1024, SqlLimitBuf);
+		StkPlSwPrintf((wchar_t*)SqlLimitBuf, 128, L" limit %d offset %d", Limit, Offset);
+		StkPlWcsCat((wchar_t*)SqlBuf, 1024, SqlLimitBuf);
 	}
-	StkPlWcsCat(SqlBuf, 1024, L";");
+	StkPlWcsCat((wchar_t*)SqlBuf, 1024, L";");
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	if (Ret != SQL_SUCCESS) {
 		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
@@ -248,8 +248,8 @@ SQLRETURN DbAccessor::OpenDatabase(SQLTCHAR* ConnectStr, SQLTCHAR StateMsg[10], 
 {
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
-	StkPlLStrCpy(Msg, L"");
-	StkPlLStrCpy(StateMsg, L"");
+	StkPlLStrCpy((wchar_t*)Msg, L"");
+	StkPlLStrCpy((wchar_t*)StateMsg, L"");
 
 	// Alloc environment handle
 	if (SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &Henv) == SQL_ERROR) {
@@ -288,8 +288,8 @@ SQLRETURN DbAccessor::CloseDatabase(SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMA
 {
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
-	StkPlLStrCpy(Msg, L"");
-	StkPlLStrCpy(StateMsg, L"");
+	StkPlLStrCpy((wchar_t*)Msg, L"");
+	StkPlLStrCpy((wchar_t*)StateMsg, L"");
 
 	// Free statement handle
 	if (SQLFreeHandle(SQL_HANDLE_STMT, Hstmt) == SQL_ERROR) {
