@@ -33,7 +33,7 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t U
 	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 	Da->GetTables(DatObj, StateMsg, Msg, 1024);
 
-	if (lstrcmp(TableName, L"") != 0) {
+	if (StkPlWcsCmp(TableName, L"") != 0) {
 		wchar_t TableNameAc[768];
 		DecodeURL(TableName, 768, TableNameAc, 768);
 
@@ -46,7 +46,7 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t U
 			StkObject* DatObj2 = new StkObject(L"Data");
 			DatObj2->AppendChildElement(TblInfObj);
 
-			Da->GetColumnInfoByTableName(TableNameAc, TblInfObj, StateMsg, Msg, 1024);
+			Da->GetColumnInfoByTableName((SQLTCHAR*)TableNameAc, TblInfObj, StateMsg, Msg, 1024);
 
 			*ResultCode = 200;
 			AddCodeAndMsg(ResObj, 0, L"", L"");
