@@ -16,12 +16,12 @@ DbPostgreSqlAccessor::~DbPostgreSqlAccessor()
 
 void DbPostgreSqlAccessor::GetDefaultConnStr(SQLTCHAR DefConnStr[Global::MAX_PARAM_LENGTH])
 {
-	lstrcpy(DefConnStr, L"Driver={PostgreSQL Unicode};Server=127.0.0.1;Database=DATABASE_NAME;UID=UID;PWD=PWD;Port=5432;");
+	StkPlLStrCpy((wchar_t*)DefConnStr, L"Driver={PostgreSQL Unicode};Server=127.0.0.1;Database=DATABASE_NAME;UID=UID;PWD=PWD;Port=5432;");
 }
 
 int DbPostgreSqlAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
 {
-	int LenOfTableName = lstrlen((wchar_t*)TableName);
+	size_t LenOfTableName = StkPlWcsLen((wchar_t*)TableName);
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
@@ -33,11 +33,11 @@ int DbPostgreSqlAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
-		SqlEncoding(ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);
+		SqlEncoding((SQLTCHAR*)ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);
 		if (FilterSwitch && (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11)) {
-			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
+			SqlEncoding((SQLTCHAR*)Value[Loop - 1], ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
 		} else {
-			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_VALUE);
+			SqlEncoding((SQLTCHAR*)Value[Loop - 1], ValueCnv[Loop - 1], TYPE_VALUE);
 		}
 	}
 
@@ -53,11 +53,11 @@ SQLRETURN DbPostgreSqlAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10],
 	wchar_t ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase(ConnStr, StateMsg, Msg, MsgLen);
+	Ret = OpenDatabase((SQLTCHAR*)ConnStr, StateMsg, Msg, MsgLen);
 	if (Ret != SQL_SUCCESS) {
 		return Ret;
 	}
-	Ret = GetTablesCommon(L"select relname as TABLE_NAME from pg_stat_user_tables;", Obj, StateMsg, Msg, MsgLen);
+	Ret = GetTablesCommon((SQLTCHAR*)L"select relname as TABLE_NAME from pg_stat_user_tables;", Obj, StateMsg, Msg, MsgLen);
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
 
 	return Ret;
@@ -72,17 +72,17 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 	wchar_t ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase(ConnStr, StateMsg, Msg, MsgLen);
+	Ret = OpenDatabase((SQLTCHAR*)ConnStr, StateMsg, Msg, MsgLen);
 	if (Ret != SQL_SUCCESS) {
 		return 0;
 	}
 
-	int LenOfTableName = lstrlen((wchar_t*)TableName);
+	size_t LenOfTableName = StkPlWcsLen((wchar_t*)TableName);
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_VALUE);
 
 	SQLTCHAR SqlBuf[1024];
-	StkPlSwPrintf(SqlBuf, 1024, L"SELECT * FROM information_schema.columns WHERE table_schema='public' and table_name='%ls';", EcdTableName);
+	StkPlSwPrintf((wchar_t*)SqlBuf, 1024, L"SELECT * FROM information_schema.columns WHERE table_schema='public' and table_name='%ls';", EcdTableName);
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	delete EcdTableName;
 	if (Ret != SQL_SUCCESS) {
@@ -110,18 +110,18 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 			return 0;
 		}
 		if (ColumneMaxLen != SQL_NULL_DATA) {
-			StkPlSwPrintf(TmpColumnType, Global::COLUMNTYPE_LENGTH, L"%ls(%d)", ColumnType, TmpColumnMaxLen);
+			StkPlSwPrintf((wchar_t*)TmpColumnType, Global::COLUMNTYPE_LENGTH, L"%ls(%d)", ColumnType, TmpColumnMaxLen);
 		} else {
-			lstrcpy(TmpColumnType, ColumnType);
+			StkPlLStrCpy((wchar_t*)TmpColumnType, ColumnType);
 		}
 		ConvertAttrType(TmpColumnType, ColTypeCnv);
 		StkObject* ClmObj = new StkObject(L"ColumnInfo");
-		ClmObj->AppendChildElement(new StkObject(L"title", TmpColumnName));
+		ClmObj->AppendChildElement(new StkObject(L"title", (wchar_t*)TmpColumnName));
 		ClmObj->AppendChildElement(new StkObject(L"width", 100));
-		ClmObj->AppendChildElement(new StkObject(L"dataType", ColTypeCnv));
+		ClmObj->AppendChildElement(new StkObject(L"dataType", (wchar_t*)ColTypeCnv));
 		ClmObj->AppendChildElement(new StkObject(L"dataIndx", Loop));
-		ClmObj->AppendChildElement(new StkObject(L"coltype", TmpColumnType));
-		ClmObj->AppendChildElement(new StkObject(L"isnull", TmpIsNull));
+		ClmObj->AppendChildElement(new StkObject(L"coltype", (wchar_t*)TmpColumnType));
+		ClmObj->AppendChildElement(new StkObject(L"isnull", (wchar_t*)TmpIsNull));
 		TblObj->AppendChildElement(ClmObj);
 	}
 	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
@@ -135,19 +135,19 @@ int DbPostgreSqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCo
 	wchar_t ConnStr[256];
 	int Init;
 
-	int LenOfTableName = lstrlen((wchar_t*)TableName);
+	size_t LenOfTableName = StkPlWcsLen((wchar_t*)TableName);
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
 	SQLTCHAR* EcdSortTarget = NULL;
 	if (SortTarget != NULL && *SortTarget != L'\0') {
-		int LenOfSortTarget = lstrlen((wchar_t*)SortTarget);
+		size_t LenOfSortTarget = StkPlWcsLen((wchar_t*)SortTarget);
 		EcdSortTarget = new  SQLTCHAR[LenOfSortTarget * 4 + 2];
 		SqlEncoding(SortTarget, EcdSortTarget, TYPE_KEY);
 	}
 
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase(ConnStr, StateMsg, Msg, MsgLen);
+	Ret = OpenDatabase((SQLTCHAR*)ConnStr, StateMsg, Msg, MsgLen);
 
 	wchar_t ColumnName[5][Global::COLUMNNAME_LENGTH];
 	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2];
@@ -157,15 +157,15 @@ int DbPostgreSqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCo
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
-		SqlEncoding(ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);
+		SqlEncoding((SQLTCHAR*)ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);
 		if (FilterSwitch && (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11)) {
-			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
+			SqlEncoding((SQLTCHAR*)Value[Loop - 1], ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
 		} else {
-			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_VALUE);
+			SqlEncoding((SQLTCHAR*)Value[Loop - 1], ValueCnv[Loop - 1], TYPE_VALUE);
 		}
 	}
 
-	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, EcdSortTarget, SortOrder, Limit, Offset, StateMsg, Msg, MsgLen);
+	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, (wchar_t*)EcdSortTarget, (wchar_t*)SortOrder, Limit, Offset, StateMsg, Msg, MsgLen);
 
 	delete EcdTableName;
 	if (EcdSortTarget != NULL) {
@@ -177,27 +177,27 @@ int DbPostgreSqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCo
 
 int DbPostgreSqlAccessor::ConvertAttrType(SQLTCHAR InAttr[Global::COLUMNTYPE_LENGTH], SQLTCHAR OutAttr[Global::COLUMNTYPE_LENGTH])
 {
-	if (wcsstr(InAttr, L"bigint") != NULL ||
-		wcsstr(InAttr, L"integer") != NULL ||
-		wcsstr(InAttr, L"smallint") != NULL ||
-		wcsstr(InAttr, L"bigserial") != NULL ||
-		wcsstr(InAttr, L"serial") != NULL ||
-		wcsstr(InAttr, L"smallserial") != NULL) {
-		lstrcpy(OutAttr, L"integer");
+	if (StkPlWcsStr((wchar_t*)InAttr, L"bigint") != NULL ||
+		StkPlWcsStr((wchar_t*)InAttr, L"integer") != NULL ||
+		StkPlWcsStr((wchar_t*)InAttr, L"smallint") != NULL ||
+		StkPlWcsStr((wchar_t*)InAttr, L"bigserial") != NULL ||
+		StkPlWcsStr((wchar_t*)InAttr, L"serial") != NULL ||
+		StkPlWcsStr((wchar_t*)InAttr, L"smallserial") != NULL) {
+		StkPlLStrCpy((wchar_t*)OutAttr, L"integer");
 		return 0;
 	}
-	if (wcsstr(InAttr, L"real") != NULL ||
-		wcsstr(InAttr, L"double precision") != NULL) {
-		lstrcpy(OutAttr, L"float");
+	if (StkPlWcsStr((wchar_t*)InAttr, L"real") != NULL ||
+		StkPlWcsStr((wchar_t*)InAttr, L"double precision") != NULL) {
+		StkPlLStrCpy((wchar_t*)OutAttr, L"float");
 		return 0;
 	}
-	lstrcpy(OutAttr, L"string");
+	StkPlLStrCpy((wchar_t*)OutAttr, L"string");
 	return 0;
 }
 
 void DbPostgreSqlAccessor::SqlEncoding(SQLTCHAR* InSql, SQLTCHAR* OutSql, int Type)
 {
-	int LenOfInSql = lstrlen(InSql);
+	size_t LenOfInSql = StkPlWcsLen((wchar_t*)InSql);
 	int OutSqlIndex = 0;
 	if (Type == TYPE_KEY) {
 		OutSql[0] = L'\"';
@@ -205,27 +205,27 @@ void DbPostgreSqlAccessor::SqlEncoding(SQLTCHAR* InSql, SQLTCHAR* OutSql, int Ty
 	}
 	for (int Loop = 0; Loop < LenOfInSql; Loop++) {
 		if (InSql[Loop] == L'\"' && Type == TYPE_KEY) {
-			lstrcpy(&OutSql[OutSqlIndex], L"\"\"");
+			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\"\"");
 			OutSqlIndex += 2;
 			continue;
 		}
 		if (InSql[Loop] == L'\'' && (Type == TYPE_VALUE || Type == TYPE_LIKE_VALUE)) {
-			lstrcpy(&OutSql[OutSqlIndex], L"\'\'");
+			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\'\'");
 			OutSqlIndex += 2;
 			continue;
 		}
 		if (InSql[Loop] == L'\\' && Type == TYPE_LIKE_VALUE) {
-			lstrcpy(&OutSql[OutSqlIndex], L"\\\\");
+			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\\\\");
 			OutSqlIndex += 2;
 			continue;
 		}
 		if (InSql[Loop] == L'%' && Type == TYPE_LIKE_VALUE) {
-			lstrcpy(&OutSql[OutSqlIndex], L"\\%");
+			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\\%");
 			OutSqlIndex += 2;
 			continue;
 		}
 		if (InSql[Loop] == L'_' && Type == TYPE_LIKE_VALUE) {
-			lstrcpy(&OutSql[OutSqlIndex], L"\\_");
+			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\\_");
 			OutSqlIndex += 2;
 			continue;
 		}
