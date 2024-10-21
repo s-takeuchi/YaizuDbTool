@@ -1,4 +1,6 @@
-﻿#include <windows.h>
+﻿#ifdef WIN32
+	#include <windows.h>
+#endif
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "DbPostgreSqlAccessor.h"
 #include "../Global.h"
