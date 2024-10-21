@@ -33,11 +33,11 @@ int DbPostgreSqlAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
-		SqlEncoding((SQLTCHAR*)ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);
+		SqlEncoding((SQLTCHAR*)ColumnName[Loop - 1], (SQLTCHAR*)ColumnNameCnv[Loop - 1], TYPE_KEY);
 		if (FilterSwitch && (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11)) {
-			SqlEncoding((SQLTCHAR*)Value[Loop - 1], ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
+			SqlEncoding((SQLTCHAR*)Value[Loop - 1], (SQLTCHAR*)ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
 		} else {
-			SqlEncoding((SQLTCHAR*)Value[Loop - 1], ValueCnv[Loop - 1], TYPE_VALUE);
+			SqlEncoding((SQLTCHAR*)Value[Loop - 1], (SQLTCHAR*)ValueCnv[Loop - 1], TYPE_VALUE);
 		}
 	}
 
@@ -112,7 +112,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 		if (ColumneMaxLen != SQL_NULL_DATA) {
 			StkPlSwPrintf((wchar_t*)TmpColumnType, Global::COLUMNTYPE_LENGTH, L"%ls(%d)", ColumnType, TmpColumnMaxLen);
 		} else {
-			StkPlLStrCpy((wchar_t*)TmpColumnType, ColumnType);
+			StkPlLStrCpy((wchar_t*)TmpColumnType, (wchar_t*)ColumnType);
 		}
 		ConvertAttrType(TmpColumnType, ColTypeCnv);
 		StkObject* ClmObj = new StkObject(L"ColumnInfo");
@@ -157,11 +157,11 @@ int DbPostgreSqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCo
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
-		SqlEncoding((SQLTCHAR*)ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);
+		SqlEncoding((SQLTCHAR*)ColumnName[Loop - 1], (SQLTCHAR*)ColumnNameCnv[Loop - 1], TYPE_KEY);
 		if (FilterSwitch && (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11)) {
-			SqlEncoding((SQLTCHAR*)Value[Loop - 1], ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
+			SqlEncoding((SQLTCHAR*)Value[Loop - 1], (SQLTCHAR*)ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
 		} else {
-			SqlEncoding((SQLTCHAR*)Value[Loop - 1], ValueCnv[Loop - 1], TYPE_VALUE);
+			SqlEncoding((SQLTCHAR*)Value[Loop - 1], (SQLTCHAR*)ValueCnv[Loop - 1], TYPE_VALUE);
 		}
 	}
 
