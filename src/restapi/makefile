@@ -1,7 +1,7 @@
 LDFLAGS = -L/usr/local/lib64 -L/usr/local/lib
-LIBS    = -lssl -lcrypto -lstdc++
+LIBS    = -lssl -lcrypto -lstdc++ -lodbc -lodbcinst
 
-sample : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o
+sample : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o
 	cd ../../../YaizuComLib/src/stkpl; make
 	cp ../../../YaizuComLib/src/stkpl/stkpl.a .
 	cd ../../../YaizuComLib/src/stkwebapp; make
@@ -17,7 +17,7 @@ sample : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCoun
 	cd ../../../YaizuComLib/src/stkdata; make
 	cp ../../../YaizuComLib/src/stkdata/stkdata.a .
 
-	g++ -o sample CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o  ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o stkpl.a stkwebapp.a stkwebapp_um.a commonfunc.a stksocket.a stkthread.a stkdata.a -std=c++1z -lstdc++fs -pthread -static-libgcc $(LDFLAGS) $(LIBS)
+	g++ -o sample CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o  ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o stkpl.a stkwebapp.a stkwebapp_um.a commonfunc.a stksocket.a stkthread.a stkdata.a -std=c++1z -lstdc++fs -pthread -static-libgcc $(LDFLAGS) $(LIBS)
 
 CmdFreakRestApi.o : CmdFreakRestApi.cpp
 	g++ -c CmdFreakRestApi.cpp -std=c++1z
@@ -45,6 +45,21 @@ ApiFilterInfo.o : ApiFilterInfo.cpp
 
 ApiOdbcInfo.o : ApiOdbcInfo.cpp
 	g++ -c ApiOdbcInfo.cpp -std=c++1z
+
+DbAccessor.o : DbAccessor.cpp
+	g++ -c DbAccessor.cpp -std=c++1z
+
+DbMariaDbAccessor.o : DbMariaDbAccessor.cpp
+	g++ -c DbMariaDbAccessor.cpp -std=c++1z
+
+DbMySqlAccessor.o : DbMySqlAccessor.cpp
+	g++ -c DbMySqlAccessor.cpp -std=c++1z
+
+DbPostgreSqlAccessor.o : DbPostgreSqlAccessor.cpp
+	g++ -c DbPostgreSqlAccessor.cpp -std=c++1z
+
+OdbcManager.o : OdbcManager.cpp
+	g++ -c OdbcManager.cpp -std=c++1z
 
 clean :
 	rm -f *.o *.a sample
