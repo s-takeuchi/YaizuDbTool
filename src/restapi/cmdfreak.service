@@ -1,0 +1,13 @@
+[Unit]
+Description=CmdFreak
+After=network.service
+
+[Service]
+Type=simple
+Restart=no
+ExecStart=/usr/bin/cmdfreak
+ExecStop=/usr/bin/stopcmdfreak sample.conf /usr/bin/cmdfreak
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
