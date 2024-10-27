@@ -42,7 +42,7 @@ cp $BUILDDIR/SOURCES/bootstrap-4.4.1-dist/js/* $BUILDDIR/SOURCES
 cd $BUILDDIR
 SPEC=cmdfreak.spec
 cat <<EOF > ./$SPEC
-Name:    CmdFreak
+Name:    cmdfreak
 Version: 1.0
 Release: 0.el8
 Summary: CmdFreak
