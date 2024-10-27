@@ -5,7 +5,9 @@
 #include "../../../YaizuComLib/src/stkwebapp/StkWebApp.h"
 #include "../../../YaizuComLib/src/stkwebapp/StkWebAppExec.h"
 #include "../../../YaizuComLib/src/stkwebapp_um/stkwebapp_um.h"
+#include "../../../YaizuComLib/src/commonfunc/msgproc.h"
 #include "dataaccess.h"
+#include "../Global.h"
 #include "MyMsgProc.h"
 #include "ApiGetSystem.h"
 #include "ApiOdbcInfo.h"
@@ -76,20 +78,31 @@ int main(int Argc, char* Argv[])
 	MyMsgProc::AddMsg();
 	StkWebAppUm_Init();
 
-	// Display product name
-	StkPlPrintf("%s\r\n", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CMDFRKSRV));
+	// Logging starts
+	char LogBuf[1024] = "";
+	wchar_t LoggingPath[FILENAME_MAX] = L"";
+#ifdef WIN32
+	StkPlGetFullPathFromFileName(L"serval.log", LoggingPath);
+#else
+	StkPlWcsCpy(LoggingPath, FILENAME_MAX, L"/var/log/serval.log");
+#endif
+	MessageProc::StartLogging(LoggingPath);
+	MessageProc::AddLog("----------------------------------------", MessageProc::LOG_TYPE_INFO);
+	MessageProc::AddLog("CmdFreak service program", MessageProc::LOG_TYPE_INFO);
+	StkPlSPrintf(LogBuf, 1024, "Service started  [Ver=%s, Build=%s %s]", SERVICE_VERSION, __DATE__, __TIME__);
+	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
 
 	// Acquire current path
-	wchar_t Buf[FILENAME_MAX];
-	wchar_t BufWoFileName[FILENAME_MAX];
-
-	StkPlGetFullPathFromFileName(L"\\sample.exe", Buf);
-	if (StkPlGetFullPathWithoutFileName(Buf, BufWoFileName) == 0) {
-		ChangeCurrentDirectory(BufWoFileName);
-	} else {
-		StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_EXEC_NOT_FOUND));
-		return -1;
-	}
+	//wchar_t Buf[FILENAME_MAX];
+	//wchar_t BufWoFileName[FILENAME_MAX];
+	//
+	//StkPlGetFullPathFromFileName(L"\\sample.exe", Buf);
+	//if (StkPlGetFullPathWithoutFileName(Buf, BufWoFileName) == 0) {
+	//	ChangeCurrentDirectory(BufWoFileName);
+	//} else {
+	//	StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_EXEC_NOT_FOUND));
+	//	return -1;
+	//}
 
 	wchar_t IpAddr[256];
 	int Port;
@@ -110,25 +123,26 @@ int main(int Argc, char* Argv[])
 			return -1;
 		}
 		StkPlPrintf("serviceport property = %d\r\n", Port);
-
+		MessageProc::AddLog("sample.conf is loaded.", MessageProc::LOG_TYPE_INFO);
 	} else {
-		StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_CONF_NOT_FOUND));
+		MessageProc::AddLog("sample.conf is not found.", MessageProc::LOG_TYPE_FATAL);
 		return -1;
 	}
-	StkPlPrintf("\r\n");
 
 	// DataAccess instance
 	DataAccess* DatAc = DataAccess::GetInstance();
 
 	// Initialize data tables and start AutoSave
 	if (DatAc->CreateCmdFreakTables() != 0) {
-		StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_NOT_FOUND));
+		MessageProc::AddLog("sample.dat is not found.", MessageProc::LOG_TYPE_FATAL);
 		return -1;
 	}
 	int DbVersion = DatAc->GetDbVersion();
 	if (DbVersion == -1) {
 		DbVersion = DatAc->DbUpdate_NonVer_V3();
 	}
+	StkPlSPrintf(LogBuf, 1024, "sample.dat is loaded. (DB version = %d)", DbVersion);
+	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
 	
 	StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTART), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTART), -1);
 
@@ -139,6 +153,10 @@ int main(int Argc, char* Argv[])
 
 	// Stop AutoSave
 	DatAc->StopAutoSave();
+
+	// Logging ends
+	MessageProc::AddLog("Service ended", MessageProc::LOG_TYPE_INFO);
+	MessageProc::StopLogging();
 
 	return 0;
 }

@@ -4,9 +4,6 @@ class MyMsgProc
 {
 public:
 	// Command line message
-	static const int CMDFRK_CMDFRKSRV                 = 3100;
-	static const int CMDFRK_CONF_NOT_FOUND            = 3111;
-	static const int CMDFRK_DAT_NOT_FOUND             = 3112;
 	static const int CMDFRK_DAT_SERVICEHOST_NOT_FOUND = 3113;
 	static const int CMDFRK_DAT_SERVICEPORT_NOT_FOUND = 3114;
 	static const int CMDFRK_EXEC_NOT_FOUND            = 3115;

@@ -1,4 +1,5 @@
 #pragma once
+#define SERVICE_VERSION "1.3.0"
 
 class Global
 {

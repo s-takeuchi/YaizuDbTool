@@ -4,17 +4,6 @@
 void MyMsgProc::AddMsg()
 {
 	// =====================================================================================================
-	//(---)
-	MessageProc::AddJpn(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nVersion 1.2.0\r\nCopyright (C) 2020 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
-	MessageProc::AddEng(CMDFRK_CMDFRKSRV, L"CmdFreak service program\r\nVersion 1.2.0\r\nCopyright (C) 2020 Shinya Takeuchi\r\nAll Rights Reserved.\r\n");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_CONF_NOT_FOUND, L"sample.conf が見つかりません。\r\n");
-	MessageProc::AddEng(CMDFRK_CONF_NOT_FOUND, L"sample.conf does not found.\r\n");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_DAT_NOT_FOUND, L"sample.dat が見つかりません。\r\n");
-	MessageProc::AddEng(CMDFRK_DAT_NOT_FOUND, L"sample.dat does not found.\r\n");
 
 	//(★)
 	MessageProc::AddJpn(CMDFRK_DAT_SERVICEHOST_NOT_FOUND, L"servicehost がsample.confの中に見つかりません。\r\n");
