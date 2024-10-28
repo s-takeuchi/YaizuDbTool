@@ -88,41 +88,32 @@ int main(int Argc, char* Argv[])
 #endif
 	MessageProc::StartLogging(LoggingPath);
 	MessageProc::AddLog("----------------------------------------", MessageProc::LOG_TYPE_INFO);
-	MessageProc::AddLog("CmdFreak service program", MessageProc::LOG_TYPE_INFO);
+	MessageProc::AddLog("------- CmdFreak service program -------", MessageProc::LOG_TYPE_INFO);
 	StkPlSPrintf(LogBuf, 1024, "Service started  [Ver=%s, Build=%s %s]", SERVICE_VERSION, __DATE__, __TIME__);
 	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
-
-	// Acquire current path
-	//wchar_t Buf[FILENAME_MAX];
-	//wchar_t BufWoFileName[FILENAME_MAX];
-	//
-	//StkPlGetFullPathFromFileName(L"\\sample.exe", Buf);
-	//if (StkPlGetFullPathWithoutFileName(Buf, BufWoFileName) == 0) {
-	//	ChangeCurrentDirectory(BufWoFileName);
-	//} else {
-	//	StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_EXEC_NOT_FOUND));
-	//	return -1;
-	//}
 
 	wchar_t IpAddr[256];
 	int Port;
 
 	// Load properties
-	StkProperties *Prop = new StkProperties();
+	StkProperties* Prop = new StkProperties();
 	if (Prop->GetProperties(L"sample.conf") == 0) {
 		char IpAddrTmp[256];
 		if (Prop->GetPropertyStr("servicehost", IpAddrTmp) != 0) {
-			StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_SERVICEHOST_NOT_FOUND));
+			MessageProc::AddLog("servicehost is not found in sample.conf.", MessageProc::LOG_TYPE_FATAL);
 			return -1;
 		}
-		StkPlPrintf("servicehost property = %s\r\n", IpAddrTmp);
+		StkPlSPrintf(LogBuf, 1024, "servicehost property = %s", IpAddrTmp);
+		MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
 		StkPlConvUtf8ToWideChar(IpAddr, 256, IpAddrTmp);
 
 		if (Prop->GetPropertyInt("serviceport", &Port) != 0) {
-			StkPlPrintf("%s", MyMsgProc::GetMsgSjis(MyMsgProc::CMDFRK_DAT_SERVICEPORT_NOT_FOUND));
+			MessageProc::AddLog("serviceport is not found in sample.conf.", MessageProc::LOG_TYPE_FATAL);
 			return -1;
 		}
-		StkPlPrintf("serviceport property = %d\r\n", Port);
+		StkPlSPrintf(LogBuf, 1024, "serviceport property = %d", Port);
+		MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
+
 		MessageProc::AddLog("sample.conf is loaded.", MessageProc::LOG_TYPE_INFO);
 	} else {
 		MessageProc::AddLog("sample.conf is not found.", MessageProc::LOG_TYPE_FATAL);
@@ -135,6 +126,8 @@ int main(int Argc, char* Argv[])
 	// Initialize data tables and start AutoSave
 	if (DatAc->CreateCmdFreakTables() != 0) {
 		MessageProc::AddLog("sample.dat is not found.", MessageProc::LOG_TYPE_FATAL);
+		// Stop AutoSave
+		DatAc->StopAutoSave();
 		return -1;
 	}
 	int DbVersion = DatAc->GetDbVersion();
@@ -143,13 +136,15 @@ int main(int Argc, char* Argv[])
 	}
 	StkPlSPrintf(LogBuf, 1024, "sample.dat is loaded. (DB version = %d)", DbVersion);
 	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
-	
+
 	StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTART), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTART), -1);
+	MessageProc::AddLog("Main process has started.", MessageProc::LOG_TYPE_INFO);
 
 	// Exec rest api
 	CmdFreakRestApi(IpAddr, Port);
 
 	StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTOP), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTOP), -1);
+	MessageProc::AddLog("Main process has ended.", MessageProc::LOG_TYPE_INFO);
 
 	// Stop AutoSave
 	DatAc->StopAutoSave();

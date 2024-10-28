@@ -3,11 +3,6 @@
 class MyMsgProc
 {
 public:
-	// Command line message
-	static const int CMDFRK_DAT_SERVICEHOST_NOT_FOUND = 3113;
-	static const int CMDFRK_DAT_SERVICEPORT_NOT_FOUND = 3114;
-	static const int CMDFRK_EXEC_NOT_FOUND            = 3115;
-
 	// Errors
 	static const int CMDFRK_REQ_NOT_SUFFICIENT        = 3121;
 	static const int CMDFRK_TABLE_NOT_EXIST           = 3122;

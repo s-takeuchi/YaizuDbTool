@@ -5,18 +5,6 @@ void MyMsgProc::AddMsg()
 {
 	// =====================================================================================================
 
-	//(★)
-	MessageProc::AddJpn(CMDFRK_DAT_SERVICEHOST_NOT_FOUND, L"servicehost がsample.confの中に見つかりません。\r\n");
-	MessageProc::AddEng(CMDFRK_DAT_SERVICEHOST_NOT_FOUND, L"servicehost does not found in sample.conf.\r\n");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_DAT_SERVICEPORT_NOT_FOUND, L"serviceport がsample.confの中に見つかりません。\r\n");
-	MessageProc::AddEng(CMDFRK_DAT_SERVICEPORT_NOT_FOUND, L"serviceport does not found in sample.conf.\r\n");
-
-	//(★)
-	MessageProc::AddJpn(CMDFRK_EXEC_NOT_FOUND, L"実行ファイルが見つかりません。\r\n");
-	MessageProc::AddEng(CMDFRK_EXEC_NOT_FOUND, L"The executable file does not found.\r\n");
-
 	//
 	// Errors
 	//
