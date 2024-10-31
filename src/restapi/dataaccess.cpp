@@ -483,6 +483,16 @@ int DataAccess::CreateCmdFreakTables()
 	// Make full path name and call AutoSave
 	wchar_t Buf[FILENAME_MAX];
 	StkPlGetFullPathFromFileName(DataFileName, Buf);
+	size_t WorkDatLength = StkPlGetFileSize(Buf);
+	if (WorkDatLength == (size_t)-1) {
+#ifdef WIN32
+		return -1;
+#endif
+#ifndef WIN32
+		StkPlSwPrintf(Buf, FILENAME_MAX, L"/etc/%ls", DataFileName);
+#endif
+	}
+
 	AutoSave(Buf, 30, true);
 
 	LockAllTable(2);
