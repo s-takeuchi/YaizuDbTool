@@ -496,7 +496,7 @@ int DataAccess::CreateCmdFreakTables()
 	AutoSave(Buf, 30, true);
 
 	LockAllTable(2);
-	if (StkPlGetFileSize(DataFileName) == 0) {
+	if (StkPlGetFileSize(Buf) == 0) {
 
 		// OdbcConfig table
 		ColumnDefInt ColDefOdbcId(L"OdbcId");
