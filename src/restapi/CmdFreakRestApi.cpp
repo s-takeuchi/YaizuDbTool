@@ -82,9 +82,9 @@ int main(int Argc, char* Argv[])
 	char LogBuf[1024] = "";
 	wchar_t LoggingPath[FILENAME_MAX] = L"";
 #ifdef WIN32
-	StkPlGetFullPathFromFileName(L"serval.log", LoggingPath);
+	StkPlGetFullPathFromFileName(L"cmdfreak.log", LoggingPath);
 #else
-	StkPlWcsCpy(LoggingPath, FILENAME_MAX, L"/var/log/serval.log");
+	StkPlWcsCpy(LoggingPath, FILENAME_MAX, L"/var/log/cmdfreak.log");
 #endif
 	MessageProc::StartLogging(LoggingPath);
 	MessageProc::AddLog("----------------------------------------", MessageProc::LOG_TYPE_INFO);
