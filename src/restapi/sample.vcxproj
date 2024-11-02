@@ -121,7 +121,6 @@
     <ClCompile Include="OdbcManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Global.h" />
     <ClInclude Include="ApiFilterInfo.h" />
     <ClInclude Include="ApiGetRecCount.h" />
     <ClInclude Include="ApiGetRecord.h" />
@@ -133,6 +132,7 @@
     <ClInclude Include="DbMariaDbAccessor.h" />
     <ClInclude Include="DbMySqlAccessor.h" />
     <ClInclude Include="DbPostgreSqlAccessor.h" />
+    <ClInclude Include="Global.h" />
     <ClInclude Include="MyMsgProc.h" />
     <ClInclude Include="OdbcManager.h" />
     <ClInclude Include="resource.h" />

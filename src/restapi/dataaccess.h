@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
-#include "../Global.h"
+#include "Global.h"
 
 class DataAccess
 {

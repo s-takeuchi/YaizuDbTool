@@ -1,6 +1,6 @@
 ﻿#include "dataaccess.h"
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
-#include "../Global.h"
+#include "Global.h"
 #include "../../../YaizuComLib/src/stkdata/stkdata.h"
 #include "../../../YaizuComLib/src/stkdata/stkdataapi.h"
 #include "../../../YaizuComLib/src/stkwebapp_um/stkwebapp_um.h"

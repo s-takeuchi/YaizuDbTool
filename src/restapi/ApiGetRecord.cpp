@@ -1,7 +1,7 @@
 ﻿#include "MyMsgProc.h"
 #include "ApiGetRecord.h"
 #include "dataaccess.h"
-#include "../Global.h"
+#include "Global.h"
 #include "OdbcManager.h"
 #include "DbAccessor.h"
 #include "../../../YaizuComLib/src/commonfunc/StkStringParser.h"

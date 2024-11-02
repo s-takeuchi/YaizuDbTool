@@ -2,7 +2,7 @@
 	#include <windows.h>
 #endif
 #include "DbMariaDbAccessor.h"
-#include "../Global.h"
+#include "Global.h"
 #include "dataaccess.h"
 
 DbMariaDbAccessor::DbMariaDbAccessor()

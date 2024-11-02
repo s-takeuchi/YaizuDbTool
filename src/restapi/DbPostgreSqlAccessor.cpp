@@ -3,7 +3,7 @@
 #endif
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "DbPostgreSqlAccessor.h"
-#include "../Global.h"
+#include "Global.h"
 #include "dataaccess.h"
 
 DbPostgreSqlAccessor::DbPostgreSqlAccessor()

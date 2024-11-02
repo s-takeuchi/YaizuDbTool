@@ -7,7 +7,7 @@
 #include "../../../YaizuComLib/src/stkwebapp_um/stkwebapp_um.h"
 #include "../../../YaizuComLib/src/commonfunc/msgproc.h"
 #include "dataaccess.h"
-#include "../Global.h"
+#include "Global.h"
 #include "MyMsgProc.h"
 #include "ApiGetSystem.h"
 #include "ApiOdbcInfo.h"

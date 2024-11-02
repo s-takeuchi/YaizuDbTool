@@ -5,7 +5,7 @@
 #include <sql.h>
 #include <sqlext.h>
 #include "../../../YaizuComLib/src/commonfunc/StkObject.h"
-#include "../Global.h"
+#include "Global.h"
 
 class DbAccessor
 {

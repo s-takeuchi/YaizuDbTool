@@ -1,6 +1,6 @@
 ﻿#include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "MyMsgProc.h"
-#include "../Global.h"
+#include "Global.h"
 #include "ApiGetSystem.h"
 
 ApiGetSystem::ApiGetSystem()

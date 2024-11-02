@@ -4,7 +4,7 @@
 #endif
 #include <sql.h>
 #include <sqlext.h>
-#include "../Global.h"
+#include "Global.h"
 #include "DbAccessor.h"
 
 class DbMySqlAccessor : public DbAccessor

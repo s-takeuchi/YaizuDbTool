@@ -2,7 +2,7 @@
 	#include <windows.h>
 #endif
 #include "DbMySqlAccessor.h"
-#include "../Global.h"
+#include "Global.h"
 #include "dataaccess.h"
 
 DbMySqlAccessor::DbMySqlAccessor()

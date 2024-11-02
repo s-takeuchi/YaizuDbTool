@@ -2,7 +2,7 @@
 #include "MyMsgProc.h"
 #include "ApiFilterInfo.h"
 #include "dataaccess.h"
-#include "../Global.h"
+#include "Global.h"
 
 StkObject* ApiFilterInfo::GetFilterInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode)
 {
