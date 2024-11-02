@@ -137,14 +137,12 @@ int main(int Argc, char* Argv[])
 	StkPlSPrintf(LogBuf, 1024, "sample.dat is loaded. (DB version = %d)", DbVersion);
 	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
 
-	StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTART), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTART), -1);
-	MessageProc::AddLog("Main process has started.", MessageProc::LOG_TYPE_INFO);
+	Global::EventLogging(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTART), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTART), -1);
 
 	// Exec rest api
 	CmdFreakRestApi(IpAddr, Port);
 
-	StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTOP), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTOP), -1);
-	MessageProc::AddLog("Main process has ended.", MessageProc::LOG_TYPE_INFO);
+	Global::EventLogging(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTOP), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTOP), -1);
 
 	// Stop AutoSave
 	DatAc->StopAutoSave();

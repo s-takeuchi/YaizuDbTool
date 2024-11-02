@@ -117,6 +117,7 @@
     <ClCompile Include="DbMariaDbAccessor.cpp" />
     <ClCompile Include="DbMySqlAccessor.cpp" />
     <ClCompile Include="DbPostgreSqlAccessor.cpp" />
+    <ClCompile Include="Global.cpp" />
     <ClCompile Include="MyMsgProc.cpp" />
     <ClCompile Include="OdbcManager.cpp" />
   </ItemGroup>

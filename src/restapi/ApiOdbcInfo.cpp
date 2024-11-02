@@ -171,7 +171,7 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 		DatObj->AppendChildElement(DatObjDb);
 		ResObj->AppendChildElement(DatObj);
 
-		StkWebAppUm_AddLogMsg(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), YourId);
+		Global::EventLogging(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), YourId);
 		*ResultCode = 200;
 	}
 

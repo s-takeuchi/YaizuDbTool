@@ -21,4 +21,6 @@ public:
 	static const int MAXLEN_OF_USERNAME = 32;
 	static const int MAXLEN_OF_PASSWORD = 32;
 	static const int MAXNUM_OF_USERRECORDS = 64;
+
+	static void EventLogging(wchar_t*, wchar_t*, int);
 };
