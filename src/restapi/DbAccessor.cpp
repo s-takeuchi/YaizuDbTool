@@ -21,12 +21,12 @@ int DbAccessor::Test(SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH], wchar_t ErrMsg[
 	int Ret = 0;
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg, 1024);
 	if (Ret != SQL_SUCCESS) {
-		StkPlSwPrintf(ErrMsg, 1024, L"%ls : %ls", StateMsg, Msg);
+		StkPlSwPrintf(ErrMsg, 1024, L"%ls : %ls", (StateMsg == NULL)? L"null" : StateMsg, (Msg == NULL)? L"null" : Msg);
 		return Ret;
 	}
 	Ret = CloseDatabase(StateMsg, Msg, 1024);
 	if (Ret != SQL_SUCCESS) {
-		StkPlSwPrintf(ErrMsg, 1024, L"%ls : %ls", StateMsg, Msg);
+		StkPlSwPrintf(ErrMsg, 1024, L"%ls : %ls", (StateMsg == NULL)? L"null" : StateMsg, (Msg == NULL)? L"null" : Msg);
 		return Ret;
 	}
 	StkPlWcsCpy(ErrMsg, 1024, L"");
