@@ -31,8 +31,8 @@ function initClientMessage() {
     });
     addClientMessage('ODBC_SELECTION', {'en':'Select DBMS : ', 'ja':'DBMSの選択 : '});
     addClientMessage('ODBC_CONFAILURE', {
-        'en':'DBMS connection failed.<br>This may be caused by one of the following issues:<br>- The DBMS is not working properly.<br>- No ODBC driver is installed.<br>- The ODBC connection string is invalid.<br>- There are issues with the DBMS on the network.<br>',
-        'ja':'DBMSとの接続に失敗しました。<br>次の要因が考えられます。<br>- DBMSが適切に起動していない。<br>- ODBCドライバがインストールされていない。<br>- ODBCの接続文字列が不正。<br>- DBMSとの接続経路に何らかの問題がある。<br>'
+        'en':'DBMS connection failed.<br>This may be caused by one of the following issues:<br>- The DBMS is not working properly.<br>- No ODBC driver is installed.<br>- The ODBC connection string is invalid.<br>- There are issues with the DBMS on the network.<br>The detailed information:<br>',
+        'ja':'DBMSとの接続に失敗しました。<br>次の要因が考えられます。<br>- DBMSが適切に起動していない。<br>- ODBCドライバがインストールされていない。<br>- ODBCの接続文字列が不正。<br>- DBMSとの接続経路に何らかの問題がある。<br>詳細情報：<br>'
     });
 
     //
@@ -260,7 +260,9 @@ function checkOdbcConnection() {
         return;
     }
     if (responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo.Status === 'unconnectable') {
-        displayAlertDanger('#cmdfreakdata', getClientMessage('ODBC_CONFAILURE'));
+        displayAlertDanger('#cmdfreakdata',
+            getClientMessage('ODBC_CONFAILURE')
+            + responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo.Message);
         return;
     }
     displayTableList();

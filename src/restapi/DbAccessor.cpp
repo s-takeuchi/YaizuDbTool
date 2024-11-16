@@ -14,19 +14,22 @@ DbAccessor::~DbAccessor()
 {
 }
 
-int DbAccessor::Test(SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH])
+int DbAccessor::Test(SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH], wchar_t ErrMsg[1024])
 {
 	SQLTCHAR StateMsg[10];
 	SQLTCHAR Msg[1024];
 	int Ret = 0;
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg, 1024);
 	if (Ret != SQL_SUCCESS) {
+		StkPlSwPrintf(ErrMsg, 1024, L"%ls : %ls", StateMsg, Msg);
 		return Ret;
 	}
 	Ret = CloseDatabase(StateMsg, Msg, 1024);
 	if (Ret != SQL_SUCCESS) {
+		StkPlSwPrintf(ErrMsg, 1024, L"%ls : %ls", StateMsg, Msg);
 		return Ret;
 	}
+	StkPlWcsCpy(ErrMsg, 1024, L"");
 	return SQL_SUCCESS;
 }
 
