@@ -1,7 +1,7 @@
 LDFLAGS = -L/usr/local/lib64 -L/usr/local/lib
 LIBS    = -lssl -lcrypto -lstdc++ -lodbc -lodbcinst
 
-cmdfreak : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o
+cmdfreak : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o Global.o
 	cd ../../../YaizuComLib/src/stkpl; make
 	cp ../../../YaizuComLib/src/stkpl/stkpl.a .
 	cd ../../../YaizuComLib/src/stkwebapp; make
@@ -17,7 +17,7 @@ cmdfreak : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCo
 	cd ../../../YaizuComLib/src/stkdata; make
 	cp ../../../YaizuComLib/src/stkdata/stkdata.a .
 
-	g++ -o cmdfreak CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o  ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o stkpl.a stkwebapp.a stkwebapp_um.a commonfunc.a stksocket.a stkthread.a stkdata.a -std=c++1z -lstdc++fs -pthread -static-libgcc $(LDFLAGS) $(LIBS)
+	g++ -o cmdfreak CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o  ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o Global.o stkpl.a stkwebapp.a stkwebapp_um.a commonfunc.a stksocket.a stkthread.a stkdata.a -std=c++1z -lstdc++fs -pthread -static-libgcc $(LDFLAGS) $(LIBS)
 
 CmdFreakRestApi.o : CmdFreakRestApi.cpp
 	g++ -c CmdFreakRestApi.cpp -std=c++1z
@@ -60,6 +60,9 @@ DbPostgreSqlAccessor.o : DbPostgreSqlAccessor.cpp
 
 OdbcManager.o : OdbcManager.cpp
 	g++ -c OdbcManager.cpp -std=c++1z
+
+Global.o : Global.cpp
+	g++ -c Global.cpp -std=c++1z
 
 clean :
 	rm -f *.o *.a cmdfreak
