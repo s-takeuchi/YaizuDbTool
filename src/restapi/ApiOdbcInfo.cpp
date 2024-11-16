@@ -1,4 +1,5 @@
 ﻿#include "../../../YaizuComLib/src/stkpl/StkPl.h"
+#include "../../../YaizuComLib/src/commonfunc/msgproc.h"
 #include "../../../YaizuComLib/src/stkwebapp_um/stkwebapp_um.h"
 #include "MyMsgProc.h"
 #include "ApiOdbcInfo.h"
@@ -90,6 +91,7 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 		} else {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"unconnectable"));
 			DatObjDb->AppendChildElement(new StkObject(L"Message", ErrMsg));
+			MessageProc::AddLog(ErrMsg, MessageProc::LOG_TYPE_ERROR);
 		}
 		OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 
@@ -170,6 +172,7 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 		} else {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"unconnectable"));
 			DatObjDb->AppendChildElement(new StkObject(L"Message", ErrMsg));
+			MessageProc::AddLog(ErrMsg, MessageProc::LOG_TYPE_ERROR);
 		}
 		OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 		DatObj->AppendChildElement(DatObjDb);
