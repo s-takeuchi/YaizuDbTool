@@ -493,8 +493,6 @@ int DataAccess::CreateCmdFreakTables()
 #endif
 	}
 
-	AutoSave(Buf, 30, true);
-
 	LockAllTable(2);
 	if (StkPlGetFileSize(Buf) == 0) {
 
@@ -536,6 +534,7 @@ int DataAccess::CreateCmdFreakTables()
 			UnlockAllTable();
 			return -1;
 		}
+		UnlockAllTable();
 
 		int Ret;
 
@@ -576,13 +575,15 @@ int DataAccess::CreateCmdFreakTables()
 
 		StkWebAppUm_CreateTable();
 		StkWebAppUm_SetPropertyValueInt(L"DbVersion", LatestDbVersion);
+		AutoSave(Buf, 30, true);
+		return 0;
 	} else {
 		if (LoadData(Buf) != 0) {
 			UnlockAllTable();
 			return -1;
 		}
+		UnlockAllTable();
+		AutoSave(Buf, 30, true);
+		return 0;
 	}
-	UnlockAllTable();
-
-	return 0;
 }
