@@ -1,8 +1,9 @@
 ﻿#include "dataaccess.h"
-#include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "Global.h"
+#include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "../../../YaizuComLib/src/stkdata/stkdata.h"
 #include "../../../YaizuComLib/src/stkdata/stkdataapi.h"
+#include "../../../YaizuComLib/src/commonfunc/msgproc.h"
 #include "../../../YaizuComLib/src/stkwebapp_um/stkwebapp_um.h"
 
 DataAccess* DataAccess::ThisInstance;
@@ -484,7 +485,11 @@ int DataAccess::CreateCmdFreakTables()
 	wchar_t Buf[FILENAME_MAX];
 	StkPlGetFullPathFromFileName(DataFileName, Buf);
 	size_t WorkDatLength = StkPlGetFileSize(Buf);
+	wchar_t LogBuf[1024] = L"";
 	if (WorkDatLength == (size_t)-1) {
+		StkPlSwPrintf(LogBuf, 1024, L"The data file was not found at [%ls]", Buf);
+		MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
+
 #ifdef WIN32
 		return -1;
 #endif
@@ -492,9 +497,13 @@ int DataAccess::CreateCmdFreakTables()
 		StkPlSwPrintf(Buf, FILENAME_MAX, L"/etc/%ls", DataFileName);
 #endif
 	}
+	StkPlWcsCpy(DataFileName, FILENAME_MAX, Buf);
+	StkPlSwPrintf(LogBuf, 1024, L"The data file path = [%ls]", Buf);
+	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
 
 	LockAllTable(2);
 	if (StkPlGetFileSize(Buf) == 0) {
+		MessageProc::AddLog("Execute database initialization", MessageProc::LOG_TYPE_INFO);
 
 		// OdbcConfig table
 		ColumnDefInt ColDefOdbcId(L"OdbcId");
