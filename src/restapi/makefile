@@ -1,5 +1,6 @@
 LDFLAGS = -L/usr/local/lib64 -L/usr/local/lib
 LIBS    = -lssl -lcrypto -lstdc++ -lodbc -lodbcinst
+CCOPTS    = -DUNICODE -DSQL_WCHART_CONVERT -std=c++1z
 
 cmdfreak : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o Global.o
 	cd ../../../YaizuComLib/src/stkpl; make
@@ -20,49 +21,49 @@ cmdfreak : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCo
 	g++ -o cmdfreak CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o  ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o Global.o stkpl.a stkwebapp.a stkwebapp_um.a commonfunc.a stksocket.a stkthread.a stkdata.a -std=c++1z -lstdc++fs -pthread -static-libgcc $(LDFLAGS) $(LIBS)
 
 CmdFreakRestApi.o : CmdFreakRestApi.cpp
-	g++ -c CmdFreakRestApi.cpp -std=c++1z
+	g++ -c CmdFreakRestApi.cpp $(CCOPTS)
 
 MyMsgProc.o : MyMsgProc.cpp
-	g++ -c MyMsgProc.cpp -std=c++1z
+	g++ -c MyMsgProc.cpp $(CCOPTS)
 
 dataaccess.o : dataaccess.cpp
-	g++ -c dataaccess.cpp -std=c++1z
+	g++ -c dataaccess.cpp $(CCOPTS)
 
 ApiGetSystem.o : ApiGetSystem.cpp
-	g++ -c ApiGetSystem.cpp -std=c++1z
+	g++ -c ApiGetSystem.cpp $(CCOPTS)
 
 ApiGetRecCount.o : ApiGetRecCount.cpp
-	g++ -c ApiGetRecCount.cpp -std=c++1z
+	g++ -c ApiGetRecCount.cpp $(CCOPTS)
 
 ApiGetRecord.o : ApiGetRecord.cpp
-	g++ -c ApiGetRecord.cpp -std=c++1z
+	g++ -c ApiGetRecord.cpp $(CCOPTS)
 
 ApiGetTableInfo.o : ApiGetTableInfo.cpp
-	g++ -c ApiGetTableInfo.cpp -std=c++1z
+	g++ -c ApiGetTableInfo.cpp $(CCOPTS)
 
 ApiFilterInfo.o : ApiFilterInfo.cpp
-	g++ -c ApiFilterInfo.cpp -std=c++1z
+	g++ -c ApiFilterInfo.cpp $(CCOPTS)
 
 ApiOdbcInfo.o : ApiOdbcInfo.cpp
-	g++ -c ApiOdbcInfo.cpp -std=c++1z
+	g++ -c ApiOdbcInfo.cpp $(CCOPTS)
 
 DbAccessor.o : DbAccessor.cpp
-	g++ -c DbAccessor.cpp -std=c++1z
+	g++ -c DbAccessor.cpp $(CCOPTS)
 
 DbMariaDbAccessor.o : DbMariaDbAccessor.cpp
-	g++ -c DbMariaDbAccessor.cpp -std=c++1z
+	g++ -c DbMariaDbAccessor.cpp $(CCOPTS)
 
 DbMySqlAccessor.o : DbMySqlAccessor.cpp
-	g++ -c DbMySqlAccessor.cpp -std=c++1z
+	g++ -c DbMySqlAccessor.cpp $(CCOPTS)
 
 DbPostgreSqlAccessor.o : DbPostgreSqlAccessor.cpp
-	g++ -c DbPostgreSqlAccessor.cpp -std=c++1z
+	g++ -c DbPostgreSqlAccessor.cpp $(CCOPTS)
 
 OdbcManager.o : OdbcManager.cpp
-	g++ -c OdbcManager.cpp -std=c++1z
+	g++ -c OdbcManager.cpp $(CCOPTS)
 
 Global.o : Global.cpp
-	g++ -c Global.cpp -std=c++1z
+	g++ -c Global.cpp $(CCOPTS)
 
 clean :
 	rm -f *.o *.a cmdfreak
