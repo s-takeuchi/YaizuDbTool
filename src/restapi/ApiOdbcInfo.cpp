@@ -92,6 +92,7 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"unconnectable"));
 			DatObjDb->AppendChildElement(new StkObject(L"Message", ErrMsg));
 			MessageProc::AddLog(ErrMsg, MessageProc::LOG_TYPE_ERROR);
+			MessageProc::AddLogBin("ODBC:", (char*)ErrMsg, (int)StkPlWcsLen(ErrMsg) * 2, MessageProc::LOG_TYPE_INFO);
 		}
 		OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 
