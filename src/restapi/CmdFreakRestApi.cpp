@@ -134,7 +134,7 @@ int main(int Argc, char* Argv[])
 	if (DbVersion == -1) {
 		DbVersion = DatAc->DbUpdate_NonVer_V3();
 	}
-	StkPlSPrintf(LogBuf, 1024, "sample.dat is loaded. (DB version = %d)", DbVersion);
+	StkPlSPrintf(LogBuf, 1024, "Stkdata is now available (DB version = %d)", DbVersion);
 	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
 
 	Global::EventLogging(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTART), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTART), -1);

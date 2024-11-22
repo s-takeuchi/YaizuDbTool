@@ -503,7 +503,7 @@ int DataAccess::CreateCmdFreakTables()
 
 	LockAllTable(2);
 	if (StkPlGetFileSize(Buf) == 0) {
-		MessageProc::AddLog("Execute database initialization", MessageProc::LOG_TYPE_INFO);
+		MessageProc::AddLog("Execute stkdata initialization", MessageProc::LOG_TYPE_INFO);
 
 		// OdbcConfig table
 		ColumnDefInt ColDefOdbcId(L"OdbcId");
