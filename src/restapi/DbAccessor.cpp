@@ -28,13 +28,11 @@ int DbAccessor::Test(SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH], wchar_t ErrMsg[
 	SqlwchartconvertDef = true;
 #endif
 #ifndef WIN32
-	StkPlSPrintf(LogBuf, 1024, "unixODBC definition [UNICODE=%s, SQL_WCHART_CONVER=%s]",
+	StkPlSPrintf(LogBuf, 1024, "unixODBC definition [UNICODE=%s, SQL_WCHART_CONVER=%s]; Size of SQLTCHAR=%d",
 		(UnicodeDef == true)? "true" : "false",
-		(SqlwchartconvertDef == true)? "true" : "false"
+		(SqlwchartconvertDef == true)? "true" : "false",
+		sizeof(SQLTCHAR)
 	);
-	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
-
-	StkPlSPrintf(LogBuf, 1024, "Size of SQLTCHAR=%d", sizeof(SQLTCHAR));
 	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
 #endif
 
