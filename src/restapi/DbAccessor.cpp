@@ -5,6 +5,7 @@
 #include "Global.h"
 #include "dataaccess.h"
 #include "../../../YaizuComLib/src/commonfunc/StkObject.h"
+#include "../../../YaizuComLib/src/commonfunc/msgproc.h"
 
 DbAccessor::DbAccessor()
 {
@@ -16,6 +17,27 @@ DbAccessor::~DbAccessor()
 
 int DbAccessor::Test(SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH], wchar_t ErrMsg[1024])
 {
+	char LogBuf[1024] = "";
+	bool UnicodeDef = false;
+	bool SqlwchartconvertDef = false;
+
+#ifdef UNICODE
+	UnicodeDef = true;
+#endif
+#ifdef SQL_WCHART_CONVERT
+	SqlwchartconvertDef = true;
+#endif
+#ifndef WIN32
+	StkPlSPrintf(LogBuf, 1024, "unixODBC definition [UNICODE=%s, SQL_WCHART_CONVER=%s]",
+		(UnicodeDef == true)? "true" : "false",
+		(SqlwchartconvertDef == true)? "true" : "false"
+	);
+	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
+
+	StkPlSPrintf(LogBuf, 1024, "Size of SQLTCHAR=%d", sizeof(SQLTCHAR));
+	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
+#endif
+
 	SQLTCHAR StateMsg[10];
 	SQLTCHAR Msg[1024];
 	int Ret = 0;
@@ -42,7 +64,7 @@ SQLRETURN DbAccessor::GetTablesCommon(SQLTCHAR* Query, StkObject* Obj, SQLTCHAR 
 	// SQLExecDirect
 	Ret = SQLExecDirect(Hstmt, Query, SQL_NTS);
 	if (Ret != SQL_SUCCESS) {
-		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return Ret;
 	}
 	SQLTCHAR TableName[Global::TABLENAME_LENGTH];
@@ -54,7 +76,7 @@ SQLRETURN DbAccessor::GetTablesCommon(SQLTCHAR* Query, StkObject* Obj, SQLTCHAR 
 		Ret = SQLFetch(Hstmt);
 		if (Ret == SQL_NO_DATA_FOUND) break;
 		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO) {
-			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+			SQLGetDiagRecW(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 			return Ret;
 		}
 		StkObject* TblInfObj = new StkObject(L"TableInfo");
@@ -128,7 +150,7 @@ int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, wchar_t ColumnNameCnv
 	StkPlWcsCat((wchar_t*)SqlBuf, 1024, L";");
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	if (Ret != SQL_SUCCESS) {
-		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return 0;
 	}
 	DWORD TmpNumOfRec;
@@ -213,7 +235,7 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 	StkPlWcsCat((wchar_t*)SqlBuf, 1024, L";");
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	if (Ret != SQL_SUCCESS) {
-		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return 0;
 	}
 
@@ -227,7 +249,7 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 		Ret = SQLFetch(Hstmt);
 		if (Ret == SQL_NO_DATA_FOUND) break;
 		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO) {
-			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+			SQLGetDiagRecW(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 			return 0;
 		}
 		StkObject* RecObj = new StkObject(L"Record");
@@ -257,7 +279,7 @@ SQLRETURN DbAccessor::OpenDatabase(SQLTCHAR* ConnectStr, SQLTCHAR StateMsg[10], 
 	// Alloc environment handle
 	if (SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &Henv) == SQL_ERROR) {
 		if (Henv != SQL_NULL_HENV) {
-			SQLGetDiagRec(SQL_HANDLE_ENV, Henv, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+			SQLGetDiagRecW(SQL_HANDLE_ENV, Henv, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		}
 		return SQL_ERROR;
 	}
@@ -265,22 +287,22 @@ SQLRETURN DbAccessor::OpenDatabase(SQLTCHAR* ConnectStr, SQLTCHAR StateMsg[10], 
 
 	// Alloc DB connection handle
 	if (SQLAllocHandle(SQL_HANDLE_DBC, Henv, &Hdbc) == SQL_ERROR) {
-		SQLGetDiagRec(SQL_HANDLE_ENV, Henv, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_ENV, Henv, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return SQL_ERROR;
 	}
 
 	// SQLDriverConnect
 	SQLTCHAR ConnOut[255]; // This will not be refered from anywhere
 	SQLSMALLINT ConnOutLen; // This will not be refered from anywhere
-	SQLRETURN Ret = SQLDriverConnect(Hdbc, NULL, ConnectStr, SQL_NTS, ConnOut, 255, &ConnOutLen, SQL_DRIVER_COMPLETE);
+	SQLRETURN Ret = SQLDriverConnectW(Hdbc, NULL, ConnectStr, SQL_NTS, ConnOut, 255, &ConnOutLen, SQL_DRIVER_COMPLETE);
 	if (Ret == SQL_ERROR || Ret == SQL_SUCCESS_WITH_INFO) {
-		SQLGetDiagRec(SQL_HANDLE_DBC, Hdbc, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_DBC, Hdbc, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return Ret;
 	}
 
 	// Alloc statement handle 
 	if (SQLAllocHandle(SQL_HANDLE_STMT, Hdbc, &Hstmt) == SQL_ERROR) {
-		SQLGetDiagRec(SQL_HANDLE_DBC, Hdbc, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_DBC, Hdbc, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return SQL_ERROR;
 	}
 
@@ -296,26 +318,26 @@ SQLRETURN DbAccessor::CloseDatabase(SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMA
 
 	// Free statement handle
 	if (SQLFreeHandle(SQL_HANDLE_STMT, Hstmt) == SQL_ERROR) {
-		SQLGetDiagRec(SQL_HANDLE_DBC, Hdbc, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_DBC, Hdbc, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return SQL_ERROR;
 	}
 
 	// SQLDisconnect
 	SQLRETURN Ret = SQLDisconnect(Hdbc);
 	if (Ret == SQL_ERROR || Ret == SQL_SUCCESS_WITH_INFO) {
-		SQLGetDiagRec(SQL_HANDLE_DBC, Hdbc, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_DBC, Hdbc, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return Ret;
 	}
 
 	// Free DB connection handle
 	if (SQLFreeHandle(SQL_HANDLE_DBC, Hdbc) == SQL_ERROR) {
-		SQLGetDiagRec(SQL_HANDLE_ENV, Henv, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_ENV, Henv, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return SQL_ERROR;
 	}
 
 	// Free environment handle
 	if (SQLFreeHandle(SQL_HANDLE_ENV, Henv) == SQL_ERROR) {
-		SQLGetDiagRec(SQL_HANDLE_ENV, Henv, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_ENV, Henv, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
 		return SQL_ERROR;
 	}
 
