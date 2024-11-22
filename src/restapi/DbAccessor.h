@@ -15,7 +15,7 @@ protected:
 	SQLHSTMT Hstmt;
 
 protected:
-	SQLRETURN OpenDatabase(SQLTCHAR*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
+	SQLRETURN OpenDatabase(wchar_t*, wchar_t[10], wchar_t[1024]);
 	SQLRETURN CloseDatabase(SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
 
 	SQLRETURN GetTablesCommon(SQLTCHAR*, StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);

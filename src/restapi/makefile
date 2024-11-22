@@ -1,6 +1,6 @@
 LDFLAGS = -L/usr/local/lib64 -L/usr/local/lib
 LIBS    = -lssl -lcrypto -lstdc++ -lodbc -lodbcinst
-CCOPTS    = -DUNICODE -DSQL_WCHART_CONVERT -std=c++1z
+CCOPTS    = -DUNICODE -std=c++1z
 
 cmdfreak : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o Global.o
 	cd ../../../YaizuComLib/src/stkpl; make
