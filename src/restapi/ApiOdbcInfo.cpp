@@ -85,7 +85,7 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 
 		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 		wchar_t ErrMsg[1024] = L"";
-		int Ret = Da->Test((SQLTCHAR*)ConnStr, ErrMsg);
+		int Ret = Da->Test(ConnStr, ErrMsg);
 		if (Ret == SQL_SUCCESS) {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"connectable"));
 		} else {
@@ -110,7 +110,7 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t* Token)
 {
 	int DbmsType = -1;
-	SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH];
+	wchar_t ConnStr[Global::MAX_PARAM_LENGTH];
 	StkPlLStrCpy((wchar_t*)ConnStr, L"");
 
 	StkObject* ResObj = new StkObject(L"");
@@ -144,7 +144,7 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 		}
 		if (!StkPlWcsCmp(Elem->GetName(), L"ConnStr") && Elem->GetType() == StkObject::STKOBJECT_ELEM_STRING) {
 			size_t LenOfConnStr = StkPlWcsLen(Elem->GetStringValue());
-			if (LenOfConnStr >= 256) {
+			if (LenOfConnStr >= 254) {
 				wchar_t TmpMsgEng[StkWebAppExec::URL_PATH_LENGTH];
 				wchar_t TmpMsgJpn[StkWebAppExec::URL_PATH_LENGTH];
 				StkPlSwPrintf(TmpMsgEng, StkWebAppExec::URL_PATH_LENGTH, L"%ls (Param=%ls, Length=%d, Max Length=255)", MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_PARAM_LENGTH_TOO_LONG), L"ConnStr", LenOfConnStr);
@@ -153,11 +153,11 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 				*ResultCode = 400;
 				return ResObj;
 			}
-			StkPlLStrCpy((wchar_t*)ConnStr, Elem->GetStringValue());
+			StkPlLStrCpy(ConnStr, Elem->GetStringValue());
 		}
 		Elem = Elem->GetNext();
 	}
-	if (DbmsType == -1 || StkPlWcsCmp((wchar_t*)ConnStr, L"") == 0) {
+	if (DbmsType == -1 || StkPlWcsCmp(ConnStr, L"") == 0) {
 		AddCodeAndMsg(ResObj, MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT),  MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_REQ_NOT_SUFFICIENT));
 		*ResultCode = 400;
 	} else {

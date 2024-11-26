@@ -30,7 +30,7 @@ public:
 	DbAccessor();
 	virtual ~DbAccessor();
 
-	virtual int Test(SQLTCHAR[Global::MAX_PARAM_LENGTH], wchar_t[1024]);
+	virtual int Test(wchar_t[Global::MAX_PARAM_LENGTH], wchar_t[1024]);
 
 	virtual int GetNumOfRecords(SQLTCHAR*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT) = 0;
 	int GetNumOfRecordsCommon(SQLTCHAR*, wchar_t[5][Global::COLUMNNAME_LENGTH * 4 + 2], int[5], wchar_t[5][Global::COLUMNVAL_LENGTH * 4 + 2], SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);

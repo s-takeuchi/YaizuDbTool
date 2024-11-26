@@ -15,7 +15,7 @@ DbAccessor::~DbAccessor()
 {
 }
 
-int DbAccessor::Test(SQLTCHAR ConnStr[Global::MAX_PARAM_LENGTH], wchar_t ErrMsg[1024])
+int DbAccessor::Test(wchar_t ConnStr[Global::MAX_PARAM_LENGTH], wchar_t ErrMsg[1024])
 {
 	char LogBuf[1024] = "";
 	bool UnicodeDef = false;
@@ -273,7 +273,7 @@ SQLRETURN DbAccessor::OpenDatabase(wchar_t* ConnectStr, wchar_t StateMsg[10], wc
 #ifdef WIN32
 	StkPlWcsCpy(CvtConnectStr, 256, ConnectStr);
 #else
-	StkPlConvWideCharToUtf16(CvtConnectStr, 256, ConnectStr);
+	StkPlConvWideCharToUtf16((char16_t*)CvtConnectStr, 256, ConnectStr);
 #endif
 	SQLTCHAR CvtStateMsg[10];
 	SQLTCHAR CvtMsg[1024];
@@ -291,8 +291,8 @@ SQLRETURN DbAccessor::OpenDatabase(wchar_t* ConnectStr, wchar_t StateMsg[10], wc
 		StkPlWcsCpy(StateMsg, 10, CvtStateMsg);
 		StkPlWcsCpy(Msg, 1024, CvtMsg);
 #else
-		StkPlConvUtf16ToWideChar(StateMsg, 10, CvtStateMsg);
-		StkPlConvUtf16ToWideChar(Msg, 1024, CvtMsg);
+		StkPlConvUtf16ToWideChar(StateMsg, 10, (char16_t*)CvtStateMsg);
+		StkPlConvUtf16ToWideChar(Msg, 1024, (char16_t*)CvtMsg);
 #endif
 		return SQL_ERROR;
 	}
@@ -305,8 +305,8 @@ SQLRETURN DbAccessor::OpenDatabase(wchar_t* ConnectStr, wchar_t StateMsg[10], wc
 		StkPlWcsCpy(StateMsg, 10, CvtStateMsg);
 		StkPlWcsCpy(Msg, 1024, CvtMsg);
 #else
-		StkPlConvUtf16ToWideChar(StateMsg, 10, CvtStateMsg);
-		StkPlConvUtf16ToWideChar(Msg, 1024, CvtMsg);
+		StkPlConvUtf16ToWideChar(StateMsg, 10, (char16_t*)CvtStateMsg);
+		StkPlConvUtf16ToWideChar(Msg, 1024, (char16_t*)CvtMsg);
 #endif
 		return SQL_ERROR;
 	}
@@ -321,8 +321,8 @@ SQLRETURN DbAccessor::OpenDatabase(wchar_t* ConnectStr, wchar_t StateMsg[10], wc
 		StkPlWcsCpy(StateMsg, 10, CvtStateMsg);
 		StkPlWcsCpy(Msg, 1024, CvtMsg);
 #else
-		StkPlConvUtf16ToWideChar(StateMsg, 10, CvtStateMsg);
-		StkPlConvUtf16ToWideChar(Msg, 1024, CvtMsg);
+		StkPlConvUtf16ToWideChar(StateMsg, 10, (char16_t*)CvtStateMsg);
+		StkPlConvUtf16ToWideChar(Msg, 1024, (char16_t*)CvtMsg);
 #endif
 		return Ret;
 	}
@@ -334,8 +334,8 @@ SQLRETURN DbAccessor::OpenDatabase(wchar_t* ConnectStr, wchar_t StateMsg[10], wc
 		StkPlWcsCpy(StateMsg, 10, CvtStateMsg);
 		StkPlWcsCpy(Msg, 1024, CvtMsg);
 #else
-		StkPlConvUtf16ToWideChar(StateMsg, 10, CvtStateMsg);
-		StkPlConvUtf16ToWideChar(Msg, 1024, CvtMsg);
+		StkPlConvUtf16ToWideChar(StateMsg, 10, (char16_t*)CvtStateMsg);
+		StkPlConvUtf16ToWideChar(Msg, 1024, (char16_t*)CvtMsg);
 #endif
 		return SQL_ERROR;
 	}
