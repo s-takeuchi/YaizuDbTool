@@ -36,15 +36,15 @@ int DbAccessor::Test(wchar_t ConnStr[Global::MAX_PARAM_LENGTH], wchar_t ErrMsg[1
 	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
 #endif
 
-	SQLTCHAR StateMsg[10];
-	SQLTCHAR Msg[1024];
+	wchar_t StateMsg[10];
+	wchar_t Msg[1024];
 	int Ret = 0;
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
 	if (Ret != SQL_SUCCESS) {
 		StkPlSwPrintf(ErrMsg, 1024, L"ODBC: %ls %ls", (StateMsg == NULL)? L"null" : (wchar_t*)StateMsg, (Msg == NULL)? L"null" : (wchar_t*)Msg);
 		return Ret;
 	}
-	Ret = CloseDatabase(StateMsg, Msg, 1024);
+	Ret = CloseDatabase((SQLTCHAR*)StateMsg, (SQLTCHAR*)Msg, 1024);
 	if (Ret != SQL_SUCCESS) {
 		StkPlSwPrintf(ErrMsg, 1024, L"ODBC: %ls %ls", (StateMsg == NULL)? L"null" : (wchar_t*)StateMsg, (Msg == NULL)? L"null" : (wchar_t*)Msg);
 		return Ret;
@@ -98,7 +98,7 @@ int DbAccessor::GetNumOfRecordsCommon(SQLTCHAR* TableName, wchar_t ColumnNameCnv
 	wchar_t ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase((SQLTCHAR*)ConnStr, StateMsg, Msg);
+	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
 	if (Ret != SQL_SUCCESS) {
 		return Ret;
 	}
