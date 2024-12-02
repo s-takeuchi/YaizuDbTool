@@ -22,8 +22,8 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t U
 		return ResObj;
 	}
 
-	SQLTCHAR StateMsg[10];
-	SQLTCHAR Msg[1024];
+	wchar_t StateMsg[10];
+	wchar_t Msg[1024];
 
 	StkObject* DatObj = new StkObject(L"Data");
 
@@ -31,7 +31,7 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t U
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
-	Da->GetTables(DatObj, StateMsg, Msg, 1024);
+	Da->GetTables(DatObj, StateMsg, Msg);
 
 	if (StkPlWcsCmp(TableName, L"") != 0) {
 		wchar_t TableNameAc[768];
@@ -46,7 +46,7 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t U
 			StkObject* DatObj2 = new StkObject(L"Data");
 			DatObj2->AppendChildElement(TblInfObj);
 
-			Da->GetColumnInfoByTableName((SQLTCHAR*)TableNameAc, TblInfObj, StateMsg, Msg, 1024);
+			Da->GetColumnInfoByTableName((SQLTCHAR*)TableNameAc, TblInfObj, StateMsg, Msg);
 
 			*ResultCode = 200;
 			AddCodeAndMsg(ResObj, 0, L"", L"");

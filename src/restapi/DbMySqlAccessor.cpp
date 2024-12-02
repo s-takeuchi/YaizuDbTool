@@ -18,7 +18,7 @@ void DbMySqlAccessor::GetDefaultConnStr(SQLTCHAR DefConnStr[Global::MAX_PARAM_LE
 	StkPlLStrCpy((wchar_t*)DefConnStr, L"Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Port=3306;Option=131072;Stmt=;Database=DATABASE_NAME;Uid=UID;Pwd=PWD;");
 }
 
-int DbMySqlAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+int DbMySqlAccessor::GetNumOfRecords(SQLTCHAR* TableName, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	size_t LenOfTableName = StkPlWcsLen((wchar_t*)TableName);
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
@@ -40,12 +40,12 @@ int DbMySqlAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg[10],
 		}
 	}
 
-	int Ret = GetNumOfRecordsCommon(EcdTableName, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg, MsgLen);
+	int Ret = GetNumOfRecordsCommon(EcdTableName, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg);
 	delete EcdTableName;
 	return Ret;
 }
 
-SQLRETURN DbMySqlAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+SQLRETURN DbMySqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLRETURN Ret = 0;
 
@@ -56,14 +56,17 @@ SQLRETURN DbMySqlAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10], SQLT
 	if (Ret != SQL_SUCCESS) {
 		return Ret;
 	}
-	Ret = GetTablesCommon((SQLTCHAR*)L"show tables;", Obj, StateMsg, Msg, MsgLen);
-	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
+	Ret = GetTablesCommon((SQLTCHAR*)L"show tables;", Obj, StateMsg, Msg);
+	Ret = CloseDatabase(StateMsg, Msg);
 
 	return Ret;
 }
 
-int DbMySqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* TblObj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+int DbMySqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* TblObj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
+	SQLTCHAR CvtStateMsg[10];
+	SQLTCHAR CvtMsg[1024];
+
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	SQLRETURN Ret = 0;
@@ -85,7 +88,8 @@ int DbMySqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* Tb
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	delete EcdTableName;
 	if (Ret != SQL_SUCCESS) {
-		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+		ConvertMessage(StateMsg, Msg, CvtStateMsg, CvtMsg);
 		return 0;
 	}
 	SQLTCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
@@ -101,7 +105,8 @@ int DbMySqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* Tb
 		Ret = SQLFetch(Hstmt);
 		if (Ret == SQL_NO_DATA_FOUND) break;
 		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO) {
-			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+			ConvertMessage(StateMsg, Msg, CvtStateMsg, CvtMsg);
 			return 0;
 		}
 		ConvertAttrType(TmpColumnType, ColTypeCnv);
@@ -114,12 +119,12 @@ int DbMySqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* Tb
 		ClmObj->AppendChildElement(new StkObject(L"isnull", (wchar_t*)TmpIsNull));
 		TblObj->AppendChildElement(ClmObj);
 	}
-	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
+	Ret = CloseDatabase(StateMsg, Msg);
 
 	return Loop;
 }
 
-int DbMySqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, StkObject* DatObj, SQLTCHAR* SortTarget, SQLTCHAR* SortOrder, int Limit, int Offset, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+int DbMySqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, StkObject* DatObj, SQLTCHAR* SortTarget, SQLTCHAR* SortOrder, int Limit, int Offset, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLRETURN Ret = 0;
 	wchar_t ConnStr[256];
@@ -155,13 +160,13 @@ int DbMySqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, S
 		}
 	}
 
-	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, (wchar_t*)EcdSortTarget, (wchar_t*)SortOrder, Limit, Offset, StateMsg, Msg, MsgLen);
+	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, (wchar_t*)EcdSortTarget, (wchar_t*)SortOrder, Limit, Offset, StateMsg, Msg);
 
 	delete EcdTableName;
 	if (EcdSortTarget != NULL) {
 		delete EcdSortTarget;
 	}
-	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
+	Ret = CloseDatabase(StateMsg, Msg);
 	return NumOfRecs;
 }
 

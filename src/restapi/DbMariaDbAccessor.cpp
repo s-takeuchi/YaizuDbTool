@@ -18,7 +18,7 @@ void DbMariaDbAccessor::GetDefaultConnStr(SQLTCHAR DefConnStr[Global::MAX_PARAM_
 	StkPlLStrCpy((wchar_t*)DefConnStr, L"Driver={MariaDB ODBC 3.1 Driver};Server=localhost;UID=UID;PWD=PWD;DB=DATABASE_NAME;Port=3306;");
 }
 
-int DbMariaDbAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+int DbMariaDbAccessor::GetNumOfRecords(SQLTCHAR* TableName, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	size_t LenOfTableName = StkPlWcsLen((wchar_t*)TableName);
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
@@ -40,12 +40,12 @@ int DbMariaDbAccessor::GetNumOfRecords(SQLTCHAR* TableName, SQLTCHAR StateMsg[10
 		}
 	}
 
-	int Ret = GetNumOfRecordsCommon(EcdTableName, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg, MsgLen);
+	int Ret = GetNumOfRecordsCommon(EcdTableName, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg);
 	delete EcdTableName;
 	return Ret;
 }
 
-SQLRETURN DbMariaDbAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+SQLRETURN DbMariaDbAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLRETURN Ret = 0;
 
@@ -56,14 +56,17 @@ SQLRETURN DbMariaDbAccessor::GetTables(StkObject* Obj, SQLTCHAR StateMsg[10], SQ
 	if (Ret != SQL_SUCCESS) {
 		return Ret;
 	}
-	Ret = GetTablesCommon((SQLTCHAR*)L"show tables;", Obj, StateMsg, Msg, MsgLen);
-	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
+	Ret = GetTablesCommon((SQLTCHAR*)L"show tables;", Obj, StateMsg, Msg);
+	Ret = CloseDatabase(StateMsg, Msg);
 
 	return Ret;
 }
 
-int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* TblObj, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* TblObj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
+	SQLTCHAR CvtStateMsg[10];
+	SQLTCHAR CvtMsg[1024];
+
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	SQLRETURN Ret = 0;
@@ -85,7 +88,8 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
 	delete EcdTableName;
 	if (Ret != SQL_SUCCESS) {
-		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+		ConvertMessage(StateMsg, Msg, CvtStateMsg, CvtMsg);
 		return 0;
 	}
 	SQLTCHAR TmpColumnNameTmp[Global::COLUMNNAME_LENGTH * 2]; // For adaptation to the bug of MariaDB ODBC connector
@@ -105,7 +109,8 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 		Ret = SQLFetch(Hstmt);
 		if (Ret == SQL_NO_DATA_FOUND) break;
 		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO) {
-			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, StateMsg, &Native, Msg, MsgLen, &ActualMsgLen);
+			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+			ConvertMessage(StateMsg, Msg, CvtStateMsg, CvtMsg);
 			return 0;
 		}
 		StkPlWcsCpy((wchar_t*)TmpColumnName, (size_t)Global::COLUMNNAME_LENGTH, (wchar_t*)TmpColumnNameTmp); // For adaptation to the bug of MariaDB ODBC connector
@@ -120,12 +125,12 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 		ClmObj->AppendChildElement(new StkObject(L"isnull", (wchar_t*)TmpIsNull));
 		TblObj->AppendChildElement(ClmObj);
 	}
-	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
+	Ret = CloseDatabase(StateMsg, Msg);
 
 	return Loop;
 }
 
-int DbMariaDbAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, StkObject* DatObj, SQLTCHAR* SortTarget, SQLTCHAR* SortOrder, int Limit, int Offset, SQLTCHAR StateMsg[10], SQLTCHAR* Msg, SQLSMALLINT MsgLen)
+int DbMariaDbAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, StkObject* DatObj, SQLTCHAR* SortTarget, SQLTCHAR* SortOrder, int Limit, int Offset, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLRETURN Ret = 0;
 	wchar_t ConnStr[256];
@@ -161,13 +166,13 @@ int DbMariaDbAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols,
 		}
 	}
 
-	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, (wchar_t*)EcdSortTarget, (wchar_t*)SortOrder, Limit, Offset, StateMsg, Msg, MsgLen);
+	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, (wchar_t*)EcdSortTarget, (wchar_t*)SortOrder, Limit, Offset, StateMsg, Msg);
 
 	delete EcdTableName;
 	if (EcdSortTarget != NULL) {
 		delete EcdSortTarget;
 	}
-	Ret = CloseDatabase(StateMsg, Msg, MsgLen);
+	Ret = CloseDatabase(StateMsg, Msg);
 	return NumOfRecs;
 }
 

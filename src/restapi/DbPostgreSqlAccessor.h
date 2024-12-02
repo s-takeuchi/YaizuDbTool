@@ -19,10 +19,10 @@ public:
 	virtual ~DbPostgreSqlAccessor();
 
 	virtual void GetDefaultConnStr(SQLTCHAR[Global::MAX_PARAM_LENGTH]);
-	virtual int GetNumOfRecords(SQLTCHAR*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
-	virtual SQLRETURN GetTables(StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
-	virtual int GetColumnInfoByTableName(SQLTCHAR*,	StkObject*, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
-	virtual int GetRecordsByTableName(SQLTCHAR*, int, StkObject*, SQLTCHAR*, SQLTCHAR*, int, int, SQLTCHAR[10], SQLTCHAR*, SQLSMALLINT);
+	virtual int GetNumOfRecords(SQLTCHAR*, wchar_t[10], wchar_t[1024]);
+	virtual SQLRETURN GetTables(StkObject*, wchar_t[10], wchar_t[1024]);
+	virtual int GetColumnInfoByTableName(SQLTCHAR*,	StkObject*, wchar_t[10], wchar_t[1024]);
+	virtual int GetRecordsByTableName(SQLTCHAR*, int, StkObject*, SQLTCHAR*, SQLTCHAR*, int, int, wchar_t[10], wchar_t[1024]);
 	virtual int ConvertAttrType(SQLTCHAR[Global::COLUMNTYPE_LENGTH], SQLTCHAR[Global::COLUMNTYPE_LENGTH]);
 	virtual void SqlEncoding(SQLTCHAR*, SQLTCHAR*, int);
 };

@@ -69,14 +69,14 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 
-	SQLTCHAR StateMsg[10];
-	SQLTCHAR Msg[1024];
+	wchar_t StateMsg[10];
+	wchar_t Msg[1024];
 
 	// Get table names
 	DbAccessor* DaTableName = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 	StkObject* TableNameObj = new StkObject(L"TableName");
 	StkObject* TargetTableNameObj = new StkObject(L"Name", TableNameAc);
-	DaTableName->GetTables(TableNameObj, StateMsg, Msg, 1024);
+	DaTableName->GetTables(TableNameObj, StateMsg, Msg);
 	bool TblFound = false;
 	if (TableNameObj->Contains(TargetTableNameObj) != NULL) {
 		TblFound = true;
@@ -93,10 +93,10 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	// Get records
 	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 	StkObject* ColumnObj = new StkObject(L"Column");
-	int NumOfCols = Da->GetColumnInfoByTableName((SQLTCHAR*)TableNameAc, ColumnObj, StateMsg, Msg, 1024);
+	int NumOfCols = Da->GetColumnInfoByTableName((SQLTCHAR*)TableNameAc, ColumnObj, StateMsg, Msg);
 	delete ColumnObj;
 	StkObject* DatObj = new StkObject(L"Data");
-	int NumOfRecs = Da->GetRecordsByTableName((SQLTCHAR*)TableNameAc, NumOfCols, DatObj, (SQLTCHAR*)SortColumnNameAc, (SQLTCHAR*)SortOrder, LimitInt, OffsetInt, StateMsg, Msg, 1024);
+	int NumOfRecs = Da->GetRecordsByTableName((SQLTCHAR*)TableNameAc, NumOfCols, DatObj, (SQLTCHAR*)SortColumnNameAc, (SQLTCHAR*)SortOrder, LimitInt, OffsetInt, StateMsg, Msg);
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 
 	if (SortColumnNameAc != NULL && *SortColumnNameAc != L'\0') {
