@@ -48,5 +48,4 @@ public:
 	virtual void GetDefaultConnStr(SQLTCHAR[Global::MAX_PARAM_LENGTH]) = 0;
 
 	virtual void SqlEncoding(SQLTCHAR*, SQLTCHAR*, int) = 0;
-
 };

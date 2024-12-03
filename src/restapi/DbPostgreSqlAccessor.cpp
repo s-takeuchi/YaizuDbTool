@@ -53,7 +53,7 @@ SQLRETURN DbPostgreSqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], 
 	wchar_t ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase((SQLTCHAR*)ConnStr, StateMsg, Msg);
+	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
 	if (Ret != SQL_SUCCESS) {
 		return Ret;
 	}
@@ -75,7 +75,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObjec
 	wchar_t ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase((SQLTCHAR*)ConnStr, StateMsg, Msg);
+	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
 	if (Ret != SQL_SUCCESS) {
 		return 0;
 	}
@@ -152,7 +152,7 @@ int DbPostgreSqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCo
 	}
 
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase((SQLTCHAR*)ConnStr, StateMsg, Msg);
+	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
 
 	wchar_t ColumnName[5][Global::COLUMNNAME_LENGTH];
 	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2];

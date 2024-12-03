@@ -52,7 +52,7 @@ SQLRETURN DbMySqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar
 	wchar_t ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase((SQLTCHAR*)ConnStr, StateMsg, Msg);
+	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
 	if (Ret != SQL_SUCCESS) {
 		return Ret;
 	}
@@ -74,7 +74,7 @@ int DbMySqlAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* Tb
 	wchar_t ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase((SQLTCHAR*)ConnStr, StateMsg, Msg);
+	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
 	if (Ret != SQL_SUCCESS) {
 		return 0;
 	}
@@ -142,7 +142,7 @@ int DbMySqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, S
 	}
 
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase((SQLTCHAR*)ConnStr, StateMsg, Msg);
+	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
 
 	wchar_t ColumnName[5][Global::COLUMNNAME_LENGTH];
 	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2];
