@@ -23,9 +23,9 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 		AddCodeAndMsg(ResObj, 0, L"", L"");
 		StkObject* DatObj = new StkObject(L"Data");
 
-		SQLTCHAR ConnStrPostgreSql[Global::MAX_PARAM_LENGTH];
-		SQLTCHAR ConnStrMariaDb[Global::MAX_PARAM_LENGTH];
-		SQLTCHAR ConnStrMySql[Global::MAX_PARAM_LENGTH];
+		wchar_t ConnStrPostgreSql[Global::MAX_PARAM_LENGTH];
+		wchar_t ConnStrMariaDb[Global::MAX_PARAM_LENGTH];
+		wchar_t ConnStrMySql[Global::MAX_PARAM_LENGTH];
 
 		DbAccessor* DaMariaDb    = NULL;
 		DbAccessor* DaPostgreSql = NULL;
@@ -45,17 +45,17 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 
 		StkObject* DatObjMariaDb = new StkObject(L"OdbcInfo");
 		DatObjMariaDb->AppendChildElement(new StkObject(L"DbType", L"MariaDB"));
-		DatObjMariaDb->AppendChildElement(new StkObject(L"ConnStr", (wchar_t*)ConnStrMariaDb));
+		DatObjMariaDb->AppendChildElement(new StkObject(L"ConnStr", ConnStrMariaDb));
 		DatObj->AppendChildElement(DatObjMariaDb);
 
 		StkObject* DatObjPostgreSql = new StkObject(L"OdbcInfo");
 		DatObjPostgreSql->AppendChildElement(new StkObject(L"DbType", L"PostgreSQL"));
-		DatObjPostgreSql->AppendChildElement(new StkObject(L"ConnStr", (wchar_t*)ConnStrPostgreSql));
+		DatObjPostgreSql->AppendChildElement(new StkObject(L"ConnStr", ConnStrPostgreSql));
 		DatObj->AppendChildElement(DatObjPostgreSql);
 
 		StkObject* DatObjMySql = new StkObject(L"OdbcInfo");
 		DatObjMySql->AppendChildElement(new StkObject(L"DbType", L"MySQL"));
-		DatObjMySql->AppendChildElement(new StkObject(L"ConnStr", (wchar_t*)ConnStrMySql));
+		DatObjMySql->AppendChildElement(new StkObject(L"ConnStr", ConnStrMySql));
 		DatObj->AppendChildElement(DatObjMySql);
 		ResObj->AppendChildElement(DatObj);
 		*ResultCode = 200;

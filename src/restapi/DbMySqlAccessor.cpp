@@ -13,9 +13,9 @@ DbMySqlAccessor::~DbMySqlAccessor()
 {
 }
 
-void DbMySqlAccessor::GetDefaultConnStr(SQLTCHAR DefConnStr[Global::MAX_PARAM_LENGTH])
+void DbMySqlAccessor::GetDefaultConnStr(wchar_t DefConnStr[Global::MAX_PARAM_LENGTH])
 {
-	StkPlLStrCpy((wchar_t*)DefConnStr, L"Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Port=3306;Option=131072;Stmt=;Database=DATABASE_NAME;Uid=UID;Pwd=PWD;");
+	StkPlLStrCpy(DefConnStr, L"Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Port=3306;Option=131072;Stmt=;Database=DATABASE_NAME;Uid=UID;Pwd=PWD;");
 }
 
 int DbMySqlAccessor::GetNumOfRecords(SQLTCHAR* TableName, wchar_t StateMsg[10], wchar_t Msg[1024])
@@ -190,9 +190,9 @@ int DbMySqlAccessor::ConvertAttrType(SQLTCHAR InAttr[Global::COLUMNTYPE_LENGTH],
 	return 0;
 }
 
-void DbMySqlAccessor::SqlEncoding(SQLTCHAR* InSql, SQLTCHAR* OutSql, int Type)
+void DbMySqlAccessor::SqlEncoding(wchar_t* InSql, wchar_t* OutSql, int Type)
 {
-	size_t LenOfInSql = StkPlWcsLen((wchar_t*)InSql);
+	size_t LenOfInSql = StkPlWcsLen(InSql);
 	int OutSqlIndex = 0;
 	if (Type == TYPE_KEY) {
 		OutSql[0] = L'`';
@@ -200,32 +200,32 @@ void DbMySqlAccessor::SqlEncoding(SQLTCHAR* InSql, SQLTCHAR* OutSql, int Type)
 	}
 	for (int Loop = 0; Loop < LenOfInSql; Loop++) {
 		if (InSql[Loop] == L'`' && Type == TYPE_KEY) {
-			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"``");
+			StkPlLStrCpy(&OutSql[OutSqlIndex], L"``");
 			OutSqlIndex += 2;
 			continue;
 		}
 		if (InSql[Loop] == L'\'' && (Type == TYPE_VALUE || Type == TYPE_LIKE_VALUE)) {
-			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\'\'");
+			StkPlLStrCpy(&OutSql[OutSqlIndex], L"\'\'");
 			OutSqlIndex += 2;
 			continue;
 		}
 		if (InSql[Loop] == L'\\' && Type == TYPE_VALUE) {
-			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\\\\");
+			StkPlLStrCpy(&OutSql[OutSqlIndex], L"\\\\");
 			OutSqlIndex += 2;
 			continue;
 		}
 		if (InSql[Loop] == L'\\' && Type == TYPE_LIKE_VALUE) {
-			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\\\\\\\\");
+			StkPlLStrCpy(&OutSql[OutSqlIndex], L"\\\\\\\\");
 			OutSqlIndex += 4;
 			continue;
 		}
 		if (InSql[Loop] == L'%' && Type == TYPE_LIKE_VALUE) {
-			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\\%");
+			StkPlLStrCpy(&OutSql[OutSqlIndex], L"\\%");
 			OutSqlIndex += 2;
 			continue;
 		}
 		if (InSql[Loop] == L'_' && Type == TYPE_LIKE_VALUE) {
-			StkPlLStrCpy((wchar_t*) & OutSql[OutSqlIndex], L"\\_");
+			StkPlLStrCpy(&OutSql[OutSqlIndex], L"\\_");
 			OutSqlIndex += 2;
 			continue;
 		}

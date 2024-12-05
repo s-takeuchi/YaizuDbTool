@@ -29,23 +29,6 @@ void DbAccessor::ConvertMessage(wchar_t StateMsg[10], wchar_t Msg[1024], const S
 int DbAccessor::Test(wchar_t ConnStr[Global::MAX_PARAM_LENGTH], wchar_t ErrMsg[1024])
 {
 	char LogBuf[1024] = "";
-	bool UnicodeDef = false;
-	bool SqlwchartconvertDef = false;
-
-#ifdef UNICODE
-	UnicodeDef = true;
-#endif
-#ifdef SQL_WCHART_CONVERT
-	SqlwchartconvertDef = true;
-#endif
-#ifndef WIN32
-	StkPlSPrintf(LogBuf, 1024, "unixODBC definition [UNICODE=%s, SQL_WCHART_CONVER=%s]; Size of SQLTCHAR=%d",
-		(UnicodeDef == true)? "true" : "false",
-		(SqlwchartconvertDef == true)? "true" : "false",
-		sizeof(SQLTCHAR)
-	);
-	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
-#endif
 
 	wchar_t StateMsg[10];
 	wchar_t Msg[1024];

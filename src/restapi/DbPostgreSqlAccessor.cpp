@@ -14,9 +14,9 @@ DbPostgreSqlAccessor::~DbPostgreSqlAccessor()
 {
 }
 
-void DbPostgreSqlAccessor::GetDefaultConnStr(SQLTCHAR DefConnStr[Global::MAX_PARAM_LENGTH])
+void DbPostgreSqlAccessor::GetDefaultConnStr(wchar_t DefConnStr[Global::MAX_PARAM_LENGTH])
 {
-	StkPlLStrCpy((wchar_t*)DefConnStr, L"Driver={PostgreSQL Unicode};Server=127.0.0.1;Database=DATABASE_NAME;UID=UID;PWD=PWD;Port=5432;");
+	StkPlLStrCpy(DefConnStr, L"Driver={PostgreSQL Unicode};Server=127.0.0.1;Database=DATABASE_NAME;UID=UID;PWD=PWD;Port=5432;");
 }
 
 int DbPostgreSqlAccessor::GetNumOfRecords(SQLTCHAR* TableName, wchar_t StateMsg[10], wchar_t Msg[1024])
@@ -200,9 +200,9 @@ int DbPostgreSqlAccessor::ConvertAttrType(SQLTCHAR InAttr[Global::COLUMNTYPE_LEN
 	return 0;
 }
 
-void DbPostgreSqlAccessor::SqlEncoding(SQLTCHAR* InSql, SQLTCHAR* OutSql, int Type)
+void DbPostgreSqlAccessor::SqlEncoding(wchar_t* InSql, wchar_t* OutSql, int Type)
 {
-	size_t LenOfInSql = StkPlWcsLen((wchar_t*)InSql);
+	size_t LenOfInSql = StkPlWcsLen(InSql);
 	int OutSqlIndex = 0;
 	if (Type == TYPE_KEY) {
 		OutSql[0] = L'\"';
@@ -210,27 +210,27 @@ void DbPostgreSqlAccessor::SqlEncoding(SQLTCHAR* InSql, SQLTCHAR* OutSql, int Ty
 	}
 	for (int Loop = 0; Loop < LenOfInSql; Loop++) {
 		if (InSql[Loop] == L'\"' && Type == TYPE_KEY) {
-			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\"\"");
+			StkPlLStrCpy(&OutSql[OutSqlIndex], L"\"\"");
 			OutSqlIndex += 2;
 			continue;
 		}
 		if (InSql[Loop] == L'\'' && (Type == TYPE_VALUE || Type == TYPE_LIKE_VALUE)) {
-			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\'\'");
+			StkPlLStrCpy(&OutSql[OutSqlIndex], L"\'\'");
 			OutSqlIndex += 2;
 			continue;
 		}
 		if (InSql[Loop] == L'\\' && Type == TYPE_LIKE_VALUE) {
-			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\\\\");
+			StkPlLStrCpy(&OutSql[OutSqlIndex], L"\\\\");
 			OutSqlIndex += 2;
 			continue;
 		}
 		if (InSql[Loop] == L'%' && Type == TYPE_LIKE_VALUE) {
-			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\\%");
+			StkPlLStrCpy(&OutSql[OutSqlIndex], L"\\%");
 			OutSqlIndex += 2;
 			continue;
 		}
 		if (InSql[Loop] == L'_' && Type == TYPE_LIKE_VALUE) {
-			StkPlLStrCpy((wchar_t*)&OutSql[OutSqlIndex], L"\\_");
+			StkPlLStrCpy(&OutSql[OutSqlIndex], L"\\_");
 			OutSqlIndex += 2;
 			continue;
 		}
