@@ -6,6 +6,7 @@
 #include "dataaccess.h"
 #include "../../../YaizuComLib/src/commonfunc/StkObject.h"
 #include "../../../YaizuComLib/src/commonfunc/msgproc.h"
+#include "../../../YaizuComLib/src/stkpl/StkPl.h"
 
 DbAccessor::DbAccessor()
 {
@@ -47,7 +48,7 @@ int DbAccessor::Test(wchar_t ConnStr[Global::MAX_PARAM_LENGTH], wchar_t ErrMsg[1
 	return SQL_SUCCESS;
 }
 
-SQLRETURN DbAccessor::GetTablesCommon(SQLTCHAR* Query, StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
+SQLRETURN DbAccessor::GetTablesCommon(wchar_t* Query, StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLTCHAR CvtStateMsg[10];
 	SQLTCHAR CvtMsg[1024];
@@ -56,7 +57,10 @@ SQLRETURN DbAccessor::GetTablesCommon(SQLTCHAR* Query, StkObject* Obj, wchar_t S
 	SQLRETURN Ret = 0;
 
 	// SQLExecDirect
-	Ret = SQLExecDirect(Hstmt, Query, SQL_NTS);
+	SQLTCHAR* CvtQuery = (SQLTCHAR*)StkPlCreateUtf16FromWideChar(Query);
+	Ret = SQLExecDirect(Hstmt, CvtQuery, SQL_NTS);
+	delete CvtQuery;
+
 	if (Ret != SQL_SUCCESS) {
 		SQLGetDiagRecW(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, CvtStateMsg, CvtMsg);

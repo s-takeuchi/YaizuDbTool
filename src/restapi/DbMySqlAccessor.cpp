@@ -56,7 +56,7 @@ SQLRETURN DbMySqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar
 	if (Ret != SQL_SUCCESS) {
 		return Ret;
 	}
-	Ret = GetTablesCommon((SQLTCHAR*)L"show tables;", Obj, StateMsg, Msg);
+	Ret = GetTablesCommon(L"show tables;", Obj, StateMsg, Msg);
 	Ret = CloseDatabase(StateMsg, Msg);
 
 	return Ret;

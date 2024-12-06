@@ -57,7 +57,7 @@ SQLRETURN DbPostgreSqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], 
 	if (Ret != SQL_SUCCESS) {
 		return Ret;
 	}
-	Ret = GetTablesCommon((SQLTCHAR*)L"select relname as TABLE_NAME from pg_stat_user_tables;", Obj, StateMsg, Msg);
+	Ret = GetTablesCommon(L"select relname as TABLE_NAME from pg_stat_user_tables;", Obj, StateMsg, Msg);
 	Ret = CloseDatabase(StateMsg, Msg);
 
 	return Ret;

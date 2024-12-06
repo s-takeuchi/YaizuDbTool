@@ -56,7 +56,7 @@ SQLRETURN DbMariaDbAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wch
 	if (Ret != SQL_SUCCESS) {
 		return Ret;
 	}
-	Ret = GetTablesCommon((SQLTCHAR*)L"show tables;", Obj, StateMsg, Msg);
+	Ret = GetTablesCommon(L"show tables;", Obj, StateMsg, Msg);
 	Ret = CloseDatabase(StateMsg, Msg);
 
 	return Ret;
