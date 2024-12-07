@@ -136,19 +136,19 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject
 	return Loop;
 }
 
-int DbPostgreSqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, StkObject* DatObj, SQLTCHAR* SortTarget, SQLTCHAR* SortOrder, int Limit, int Offset, wchar_t StateMsg[10], wchar_t Msg[1024])
+int DbPostgreSqlAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCols, StkObject* DatObj, wchar_t* SortTarget, wchar_t* SortOrder, int Limit, int Offset, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLRETURN Ret = 0;
 	wchar_t ConnStr[256];
 	int Init;
 
-	size_t LenOfTableName = StkPlWcsLen((wchar_t*)TableName);
+	size_t LenOfTableName = StkPlWcsLen(TableName);
 	wchar_t* EcdTableName = new wchar_t[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
 	wchar_t* EcdSortTarget = NULL;
 	if (SortTarget != NULL && *SortTarget != L'\0') {
-		size_t LenOfSortTarget = StkPlWcsLen((wchar_t*)SortTarget);
+		size_t LenOfSortTarget = StkPlWcsLen(SortTarget);
 		EcdSortTarget = new  wchar_t[LenOfSortTarget * 4 + 2];
 		SqlEncoding(SortTarget, EcdSortTarget, TYPE_KEY);
 	}
@@ -172,7 +172,7 @@ int DbPostgreSqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCo
 		}
 	}
 
-	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, (wchar_t*)EcdSortTarget, (wchar_t*)SortOrder, Limit, Offset, StateMsg, Msg);
+	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, EcdSortTarget, SortOrder, Limit, Offset, StateMsg, Msg);
 
 	delete EcdTableName;
 	if (EcdSortTarget != NULL) {

@@ -80,7 +80,9 @@ SQLRETURN DbAccessor::GetTablesCommon(wchar_t* Query, StkObject* Obj, wchar_t St
 			return Ret;
 		}
 		StkObject* TblInfObj = new StkObject(L"TableInfo");
-		TblInfObj->AppendChildElement(new StkObject(L"Name", (wchar_t*)TableName));
+		wchar_t* CvtTableName = StkPlCreateWideCharFromUtf16((char16_t*)TableName);
+		TblInfObj->AppendChildElement(new StkObject(L"Name", (wchar_t*)CvtTableName));
+		delete CvtTableName;
 		Obj->AppendChildElement(TblInfObj);
 		Loop++;
 		if (Loop >= Global::MAXNUM_TABLES) {
@@ -169,7 +171,7 @@ int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[
 	return (int)TmpNumOfRec;
 }
 
-int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
+int DbAccessor::GetRecordsByTableNameCommon(wchar_t* TableName,
 	int NumOfCols, StkObject* Obj,
 	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], wchar_t Value[5][Global::COLUMNVAL_LENGTH * 4 + 2],
 	wchar_t SortTarget[Global::COLUMNNAME_LENGTH * 4 + 2],
@@ -185,10 +187,10 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 
-	SQLTCHAR SqlBuf[1024];
-	StkPlLStrCpy((wchar_t*)SqlBuf, L"");
+	wchar_t SqlBuf[1024];
+	StkPlLStrCpy(SqlBuf, L"");
 
-	StkPlSwPrintf((wchar_t*)SqlBuf, 1024, L"select * from %ls", TableName);
+	StkPlSwPrintf(SqlBuf, 1024, L"select * from %ls", TableName);
 	bool FirstCond = true;
 	if (FilterSwitch) {
 		for (int Loop = 1; Loop <= 5; Loop++) {
@@ -196,51 +198,53 @@ int DbAccessor::GetRecordsByTableNameCommon(SQLTCHAR* TableName,
 				continue;
 			}
 			if (FirstCond == true) {
-				StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" where ");
+				StkPlWcsCat(SqlBuf, 1024, L" where ");
 				FirstCond = false;
 			} else {
-				StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" and ");
+				StkPlWcsCat(SqlBuf, 1024, L" and ");
 			}
-			StkPlWcsCat((wchar_t*)SqlBuf, 1024, ColumnNameCnv[Loop - 1]);
+			StkPlWcsCat(SqlBuf, 1024, ColumnNameCnv[Loop - 1]);
 			switch (OpeType[Loop - 1]) {
-			case 1:  StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" = "); break;
-			case 2:  StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" <> "); break;
-			case 3:  StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" <= "); break;
-			case 4:  StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" < "); break;
-			case 5:  StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" >= "); break;
-			case 6:  StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" > "); break;
-			case 10: StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" like "); break;
-			case 11: StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" not like "); break;
-			case 20: StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" is null "); break;
-			case 21: StkPlWcsCat((wchar_t*)SqlBuf, 1024, L" is not null "); break;
+			case 1:  StkPlWcsCat(SqlBuf, 1024, L" = "); break;
+			case 2:  StkPlWcsCat(SqlBuf, 1024, L" <> "); break;
+			case 3:  StkPlWcsCat(SqlBuf, 1024, L" <= "); break;
+			case 4:  StkPlWcsCat(SqlBuf, 1024, L" < "); break;
+			case 5:  StkPlWcsCat(SqlBuf, 1024, L" >= "); break;
+			case 6:  StkPlWcsCat(SqlBuf, 1024, L" > "); break;
+			case 10: StkPlWcsCat(SqlBuf, 1024, L" like "); break;
+			case 11: StkPlWcsCat(SqlBuf, 1024, L" not like "); break;
+			case 20: StkPlWcsCat(SqlBuf, 1024, L" is null "); break;
+			case 21: StkPlWcsCat(SqlBuf, 1024, L" is not null "); break;
 			}
 			if (OpeType[Loop - 1] != 20 && OpeType[Loop - 1] != 21) {
-				StkPlWcsCat((wchar_t*)SqlBuf, 1024, L"'");
+				StkPlWcsCat(SqlBuf, 1024, L"'");
 				if (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11) {
-					StkPlWcsCat((wchar_t*)SqlBuf, 1024, L"%");
+					StkPlWcsCat(SqlBuf, 1024, L"%");
 				}
-				StkPlWcsCat((wchar_t*)SqlBuf, 1024, Value[Loop - 1]);
+				StkPlWcsCat(SqlBuf, 1024, Value[Loop - 1]);
 				if (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11) {
-					StkPlWcsCat((wchar_t*)SqlBuf, 1024, L"%");
+					StkPlWcsCat(SqlBuf, 1024, L"%");
 				}
-				StkPlWcsCat((wchar_t*)SqlBuf, 1024, L"'");
+				StkPlWcsCat(SqlBuf, 1024, L"'");
 			}
 		}
 	}
 	if (SortTarget != NULL && *SortTarget != L'\0') {
-		SQLTCHAR SqlSortBuf[128];
-		StkPlLStrCpy((wchar_t*)SqlSortBuf, L"");
-		StkPlSwPrintf((wchar_t*)SqlSortBuf, 128, L" order by %ls %ls", SortTarget, SortOrder);
-		StkPlWcsCat((wchar_t*)SqlBuf, 1024, (wchar_t*)SqlSortBuf);
+		wchar_t SqlSortBuf[128];
+		StkPlLStrCpy(SqlSortBuf, L"");
+		StkPlSwPrintf(SqlSortBuf, 128, L" order by %ls %ls", SortTarget, SortOrder);
+		StkPlWcsCat(SqlBuf, 1024, SqlSortBuf);
 	}
 	if (Limit != -1 && Offset != -1) {
-		SQLTCHAR SqlLimitBuf[128];
-		StkPlLStrCpy((wchar_t*)SqlLimitBuf, L"");
-		StkPlSwPrintf((wchar_t*)SqlLimitBuf, 128, L" limit %d offset %d", Limit, Offset);
-		StkPlWcsCat((wchar_t*)SqlBuf, 1024, (wchar_t*)SqlLimitBuf);
+		wchar_t SqlLimitBuf[128];
+		StkPlLStrCpy(SqlLimitBuf, L"");
+		StkPlSwPrintf(SqlLimitBuf, 128, L" limit %d offset %d", Limit, Offset);
+		StkPlWcsCat(SqlBuf, 1024, SqlLimitBuf);
 	}
-	StkPlWcsCat((wchar_t*)SqlBuf, 1024, L";");
-	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
+	StkPlWcsCat(SqlBuf, 1024, L";");
+	char16_t* CvtSqlBuf = StkPlCreateUtf16FromWideChar(SqlBuf);
+	Ret = SQLExecDirect(Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
+	delete CvtSqlBuf;
 	if (Ret != SQL_SUCCESS) {
 		SQLGetDiagRecW(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, CvtStateMsg, CvtMsg);

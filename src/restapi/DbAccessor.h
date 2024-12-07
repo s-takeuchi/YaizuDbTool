@@ -20,7 +20,7 @@ protected:
 
 	SQLRETURN GetTablesCommon(wchar_t*, StkObject*, wchar_t[10], wchar_t[1024]);
 
-	virtual int GetRecordsByTableNameCommon(SQLTCHAR*, int, StkObject* RecObj,
+	virtual int GetRecordsByTableNameCommon(wchar_t*, int, StkObject* RecObj,
 		wchar_t[5][Global::COLUMNNAME_LENGTH * 4 + 2], int[5], wchar_t[5][Global::COLUMNVAL_LENGTH * 4 + 2],
 		wchar_t[Global::COLUMNNAME_LENGTH * 4 + 2], wchar_t[5],
 		int, int,
@@ -41,7 +41,7 @@ public:
 
 	virtual int GetColumnInfoByTableName(wchar_t*,	StkObject*, wchar_t[10], wchar_t[1024]) = 0;
 
-	virtual int GetRecordsByTableName(SQLTCHAR*, int, StkObject*, SQLTCHAR*, SQLTCHAR*, int, int, wchar_t[10], wchar_t[1024]) = 0;
+	virtual int GetRecordsByTableName(wchar_t*, int, StkObject*, wchar_t*, wchar_t*, int, int, wchar_t[10], wchar_t[1024]) = 0;
 
 	virtual int ConvertAttrType(SQLTCHAR[Global::COLUMNTYPE_LENGTH], SQLTCHAR[Global::COLUMNTYPE_LENGTH]) = 0;
 
