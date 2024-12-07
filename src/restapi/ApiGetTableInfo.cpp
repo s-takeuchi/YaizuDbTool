@@ -46,7 +46,7 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t U
 			StkObject* DatObj2 = new StkObject(L"Data");
 			DatObj2->AppendChildElement(TblInfObj);
 
-			Da->GetColumnInfoByTableName((SQLTCHAR*)TableNameAc, TblInfObj, StateMsg, Msg);
+			Da->GetColumnInfoByTableName(TableNameAc, TblInfObj, StateMsg, Msg);
 
 			*ResultCode = 200;
 			AddCodeAndMsg(ResObj, 0, L"", L"");

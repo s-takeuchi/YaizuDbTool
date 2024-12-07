@@ -93,7 +93,7 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	// Get records
 	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 	StkObject* ColumnObj = new StkObject(L"Column");
-	int NumOfCols = Da->GetColumnInfoByTableName((SQLTCHAR*)TableNameAc, ColumnObj, StateMsg, Msg);
+	int NumOfCols = Da->GetColumnInfoByTableName(TableNameAc, ColumnObj, StateMsg, Msg);
 	delete ColumnObj;
 	StkObject* DatObj = new StkObject(L"Data");
 	int NumOfRecs = Da->GetRecordsByTableName((SQLTCHAR*)TableNameAc, NumOfCols, DatObj, (SQLTCHAR*)SortColumnNameAc, (SQLTCHAR*)SortOrder, LimitInt, OffsetInt, StateMsg, Msg);

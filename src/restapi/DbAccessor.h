@@ -39,7 +39,7 @@ public:
 
 	virtual SQLRETURN GetTables(StkObject*, wchar_t[10], wchar_t[1024]) = 0;
 
-	virtual int GetColumnInfoByTableName(SQLTCHAR*,	StkObject*, wchar_t[10], wchar_t[1024]) = 0;
+	virtual int GetColumnInfoByTableName(wchar_t*,	StkObject*, wchar_t[10], wchar_t[1024]) = 0;
 
 	virtual int GetRecordsByTableName(SQLTCHAR*, int, StkObject*, SQLTCHAR*, SQLTCHAR*, int, int, wchar_t[10], wchar_t[1024]) = 0;
 
@@ -47,5 +47,5 @@ public:
 
 	virtual void GetDefaultConnStr(SQLTCHAR[Global::MAX_PARAM_LENGTH]) = 0;
 
-	virtual void SqlEncoding(SQLTCHAR*, SQLTCHAR*, int) = 0;
+	virtual void SqlEncoding(wchar_t*, wchar_t*, int) = 0;
 };

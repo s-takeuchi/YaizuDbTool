@@ -62,7 +62,7 @@ SQLRETURN DbMariaDbAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wch
 	return Ret;
 }
 
-int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* TblObj, wchar_t StateMsg[10], wchar_t Msg[1024])
+int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* TblObj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLTCHAR CvtStateMsg[10];
 	SQLTCHAR CvtMsg[1024];
@@ -79,13 +79,15 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(SQLTCHAR* TableName, StkObject* 
 		return 0;
 	}
 
-	size_t LenOfTableName = StkPlWcsLen((wchar_t*)TableName);
+	size_t LenOfTableName = StkPlWcsLen(TableName);
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
-	SQLTCHAR SqlBuf[1024];
-	StkPlSwPrintf((wchar_t*)SqlBuf, 1024, L"show full columns from %ls;", (wchar_t*)EcdTableName);
-	Ret = SQLExecDirect(Hstmt, SqlBuf, SQL_NTS);
+	wchar_t SqlBuf[1024];
+	StkPlSwPrintf(SqlBuf, 1024, L"show full columns from %ls;", (wchar_t*)EcdTableName);
+	char16_t* CvtSqlBuf = StkPlCreateUtf16FromWideChar(SqlBuf);
+	Ret = SQLExecDirect(Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
+	delete CvtSqlBuf;
 	delete EcdTableName;
 	if (Ret != SQL_SUCCESS) {
 		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
