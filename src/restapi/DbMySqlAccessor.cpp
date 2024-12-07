@@ -21,7 +21,7 @@ void DbMySqlAccessor::GetDefaultConnStr(wchar_t DefConnStr[Global::MAX_PARAM_LEN
 int DbMySqlAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	size_t LenOfTableName = StkPlWcsLen((wchar_t*)TableName);
-	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
+	wchar_t* EcdTableName = new wchar_t[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
 	wchar_t ColumnName[5][Global::COLUMNNAME_LENGTH];
@@ -32,11 +32,11 @@ int DbMySqlAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[10], w
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
-		SqlEncoding((SQLTCHAR*)ColumnName[Loop - 1], (SQLTCHAR*)ColumnNameCnv[Loop - 1], TYPE_KEY);
+		SqlEncoding(ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);
 		if (FilterSwitch && (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11)) {
-			SqlEncoding((SQLTCHAR*)Value[Loop - 1], (SQLTCHAR*)ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
+			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
 		} else {
-			SqlEncoding((SQLTCHAR*)Value[Loop - 1], (SQLTCHAR*)ValueCnv[Loop - 1], TYPE_VALUE);
+			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_VALUE);
 		}
 	}
 
@@ -80,7 +80,7 @@ int DbMySqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* Tbl
 	}
 
 	size_t LenOfTableName = StkPlWcsLen(TableName);
-	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
+	wchar_t* EcdTableName = new wchar_t[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
 	wchar_t SqlBuf[1024];
@@ -133,13 +133,13 @@ int DbMySqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, S
 	int Init;
 
 	size_t LenOfTableName = StkPlWcsLen((wchar_t*)TableName);
-	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];
+	wchar_t* EcdTableName = new wchar_t[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
-	SQLTCHAR* EcdSortTarget = NULL;
+	wchar_t* EcdSortTarget = NULL;
 	if (SortTarget != NULL && *SortTarget != L'\0') {
 		size_t LenOfSortTarget = StkPlWcsLen((wchar_t*)SortTarget);
-		EcdSortTarget = new  SQLTCHAR[LenOfSortTarget * 4 + 2];
+		EcdSortTarget = new  wchar_t[LenOfSortTarget * 4 + 2];
 		SqlEncoding(SortTarget, EcdSortTarget, TYPE_KEY);
 	}
 
@@ -154,11 +154,11 @@ int DbMySqlAccessor::GetRecordsByTableName(SQLTCHAR* TableName, int NumOfCols, S
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
-		SqlEncoding((SQLTCHAR*)ColumnName[Loop - 1], (SQLTCHAR*)ColumnNameCnv[Loop - 1], TYPE_KEY);
+		SqlEncoding(ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);
 		if (FilterSwitch && (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11)) {
-			SqlEncoding((SQLTCHAR*)Value[Loop - 1], (SQLTCHAR*)ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
+			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
 		} else {
-			SqlEncoding((SQLTCHAR*)Value[Loop - 1], (SQLTCHAR*)ValueCnv[Loop - 1], TYPE_VALUE);
+			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_VALUE);
 		}
 	}
 
