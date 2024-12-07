@@ -45,7 +45,7 @@ public:
 
 	virtual int ConvertAttrType(SQLTCHAR[Global::COLUMNTYPE_LENGTH], SQLTCHAR[Global::COLUMNTYPE_LENGTH]) = 0;
 
-	virtual void GetDefaultConnStr(SQLTCHAR[Global::MAX_PARAM_LENGTH]) = 0;
+	virtual void GetDefaultConnStr(wchar_t[Global::MAX_PARAM_LENGTH]) = 0;
 
 	virtual void SqlEncoding(wchar_t*, wchar_t*, int) = 0;
 };
