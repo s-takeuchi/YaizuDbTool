@@ -18,11 +18,11 @@ protected:
 	SQLRETURN OpenDatabase(wchar_t*, wchar_t[10], wchar_t[1024]);
 	SQLRETURN CloseDatabase(wchar_t[10], wchar_t[1024]);
 
-	SQLRETURN GetTablesCommon(wchar_t*, StkObject*, wchar_t[10], wchar_t[1024]);
+	SQLRETURN GetTablesCommon(const wchar_t*, StkObject*, wchar_t[10], wchar_t[1024]);
 
-	virtual int GetRecordsByTableNameCommon(wchar_t*, int, StkObject* RecObj,
-		wchar_t[5][Global::COLUMNNAME_LENGTH * 4 + 2], int[5], wchar_t[5][Global::COLUMNVAL_LENGTH * 4 + 2],
-		wchar_t[Global::COLUMNNAME_LENGTH * 4 + 2], wchar_t[5],
+	virtual int GetRecordsByTableNameCommon(const wchar_t*, int, StkObject* RecObj,
+		wchar_t[5][Global::COLUMNNAME_LENGTH * 4 + 2], int[5], const wchar_t[5][Global::COLUMNVAL_LENGTH * 4 + 2],
+		const wchar_t[Global::COLUMNNAME_LENGTH * 4 + 2], const wchar_t[5],
 		int, int,
 		wchar_t[10], wchar_t[1024]);
 

@@ -48,7 +48,7 @@ int DbAccessor::Test(wchar_t ConnStr[Global::MAX_PARAM_LENGTH], wchar_t ErrMsg[1
 	return SQL_SUCCESS;
 }
 
-SQLRETURN DbAccessor::GetTablesCommon(wchar_t* Query, StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
+SQLRETURN DbAccessor::GetTablesCommon(const wchar_t* Query, StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLTCHAR CvtStateMsg[10];
 	SQLTCHAR CvtMsg[1024];
@@ -171,11 +171,11 @@ int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[
 	return (int)TmpNumOfRec;
 }
 
-int DbAccessor::GetRecordsByTableNameCommon(wchar_t* TableName,
+int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
 	int NumOfCols, StkObject* Obj,
-	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], wchar_t Value[5][Global::COLUMNVAL_LENGTH * 4 + 2],
-	wchar_t SortTarget[Global::COLUMNNAME_LENGTH * 4 + 2],
-	wchar_t SortOrder[5],
+	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], const wchar_t Value[5][Global::COLUMNVAL_LENGTH * 4 + 2],
+	const wchar_t SortTarget[Global::COLUMNNAME_LENGTH * 4 + 2],
+	const wchar_t SortOrder[5],
 	int Limit, int Offset,
 	wchar_t StateMsg[10], wchar_t Msg[1024])
 {
