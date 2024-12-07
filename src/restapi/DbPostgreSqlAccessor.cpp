@@ -19,7 +19,7 @@ void DbPostgreSqlAccessor::GetDefaultConnStr(wchar_t DefConnStr[Global::MAX_PARA
 	StkPlLStrCpy(DefConnStr, L"Driver={PostgreSQL Unicode};Server=127.0.0.1;Database=DATABASE_NAME;UID=UID;PWD=PWD;Port=5432;");
 }
 
-int DbPostgreSqlAccessor::GetNumOfRecords(SQLTCHAR* TableName, wchar_t StateMsg[10], wchar_t Msg[1024])
+int DbPostgreSqlAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	size_t LenOfTableName = StkPlWcsLen((wchar_t*)TableName);
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];

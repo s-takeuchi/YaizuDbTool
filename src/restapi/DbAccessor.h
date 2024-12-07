@@ -34,8 +34,8 @@ public:
 
 	virtual int Test(wchar_t[Global::MAX_PARAM_LENGTH], wchar_t[1024]);
 
-	virtual int GetNumOfRecords(SQLTCHAR*, wchar_t[10], wchar_t[1024]) = 0;
-	int GetNumOfRecordsCommon(SQLTCHAR*, wchar_t[5][Global::COLUMNNAME_LENGTH * 4 + 2], int[5], wchar_t[5][Global::COLUMNVAL_LENGTH * 4 + 2], wchar_t[10], wchar_t[1024]);
+	virtual int GetNumOfRecords(wchar_t*, wchar_t[10], wchar_t[1024]) = 0;
+	int GetNumOfRecordsCommon(wchar_t*, wchar_t[5][Global::COLUMNNAME_LENGTH * 4 + 2], int[5], wchar_t[5][Global::COLUMNVAL_LENGTH * 4 + 2], wchar_t[10], wchar_t[1024]);
 
 	virtual SQLRETURN GetTables(StkObject*, wchar_t[10], wchar_t[1024]) = 0;
 

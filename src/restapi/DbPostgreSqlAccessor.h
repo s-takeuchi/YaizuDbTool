@@ -19,7 +19,7 @@ public:
 	virtual ~DbPostgreSqlAccessor();
 
 	virtual void GetDefaultConnStr(wchar_t[Global::MAX_PARAM_LENGTH]);
-	virtual int GetNumOfRecords(SQLTCHAR*, wchar_t[10], wchar_t[1024]);
+	virtual int GetNumOfRecords(wchar_t*, wchar_t[10], wchar_t[1024]);
 	virtual SQLRETURN GetTables(StkObject*, wchar_t[10], wchar_t[1024]);
 	virtual int GetColumnInfoByTableName(SQLTCHAR*,	StkObject*, wchar_t[10], wchar_t[1024]);
 	virtual int GetRecordsByTableName(SQLTCHAR*, int, StkObject*, SQLTCHAR*, SQLTCHAR*, int, int, wchar_t[10], wchar_t[1024]);

@@ -18,7 +18,7 @@ void DbMariaDbAccessor::GetDefaultConnStr(wchar_t DefConnStr[Global::MAX_PARAM_L
 	StkPlLStrCpy(DefConnStr, L"Driver={MariaDB ODBC 3.1 Driver};Server=localhost;UID=UID;PWD=PWD;DB=DATABASE_NAME;Port=3306;");
 }
 
-int DbMariaDbAccessor::GetNumOfRecords(SQLTCHAR* TableName, wchar_t StateMsg[10], wchar_t Msg[1024])
+int DbMariaDbAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	size_t LenOfTableName = StkPlWcsLen((wchar_t*)TableName);
 	SQLTCHAR* EcdTableName = new SQLTCHAR[LenOfTableName * 4 + 2];

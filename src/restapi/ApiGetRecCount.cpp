@@ -56,7 +56,7 @@ StkObject* ApiGetRecCount::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t Ur
 	// Get records
 	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 	StkObject* ColumnObj = new StkObject(L"Column");
-	int NumOfRecs = Da->GetNumOfRecords((SQLTCHAR*)TableNameAc, StateMsg, Msg);
+	int NumOfRecs = Da->GetNumOfRecords(TableNameAc, StateMsg, Msg);
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 
 	StkObject* DataObj = new StkObject(L"Data");
