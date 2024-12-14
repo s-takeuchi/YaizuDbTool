@@ -96,7 +96,6 @@ int DbMySqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* Tbl
 	}
 	SQLTCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
 	SQLTCHAR TmpColumnType[Global::COLUMNTYPE_LENGTH];
-	SQLTCHAR ColTypeCnv[Global::COLUMNTYPE_LENGTH];
 	SQLTCHAR TmpIsNull[10];
 	SQLBindCol(Hstmt, 1, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), NULL);
 	SQLBindCol(Hstmt, 2, SQL_C_WCHAR, TmpColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), NULL);
@@ -111,15 +110,25 @@ int DbMySqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* Tbl
 			ConvertMessage(StateMsg, Msg, CvtStateMsg, CvtMsg);
 			return 0;
 		}
-		ConvertAttrType(TmpColumnType, ColTypeCnv);
+
+		wchar_t* TmpColumnNameCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpColumnName);
+		wchar_t* TmpColumnTypeCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpColumnType);
+		wchar_t* TmpIsNullCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpIsNull);
+
+		wchar_t ColTypeCnv[Global::COLUMNTYPE_LENGTH];
+		ConvertAttrType(TmpColumnTypeCnv, ColTypeCnv);
 		StkObject* ClmObj = new StkObject(L"ColumnInfo");
-		ClmObj->AppendChildElement(new StkObject(L"title", (wchar_t*)TmpColumnName));
+		ClmObj->AppendChildElement(new StkObject(L"title", TmpColumnNameCnv));
 		ClmObj->AppendChildElement(new StkObject(L"width", 100));
-		ClmObj->AppendChildElement(new StkObject(L"dataType", (wchar_t*)ColTypeCnv));
+		ClmObj->AppendChildElement(new StkObject(L"dataType", ColTypeCnv));
 		ClmObj->AppendChildElement(new StkObject(L"dataIndx", Loop));
-		ClmObj->AppendChildElement(new StkObject(L"coltype", (wchar_t*)TmpColumnType));
-		ClmObj->AppendChildElement(new StkObject(L"isnull", (wchar_t*)TmpIsNull));
+		ClmObj->AppendChildElement(new StkObject(L"coltype", TmpColumnTypeCnv));
+		ClmObj->AppendChildElement(new StkObject(L"isnull", TmpIsNullCnv));
 		TblObj->AppendChildElement(ClmObj);
+
+		delete TmpColumnNameCnv;
+		delete TmpColumnTypeCnv;
+		delete TmpIsNullCnv;
 	}
 	Ret = CloseDatabase(StateMsg, Msg);
 
@@ -172,23 +181,23 @@ int DbMySqlAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCols, St
 	return NumOfRecs;
 }
 
-int DbMySqlAccessor::ConvertAttrType(SQLTCHAR InAttr[Global::COLUMNTYPE_LENGTH], SQLTCHAR OutAttr[Global::COLUMNTYPE_LENGTH])
+int DbMySqlAccessor::ConvertAttrType(wchar_t InAttr[Global::COLUMNTYPE_LENGTH], wchar_t OutAttr[Global::COLUMNTYPE_LENGTH])
 {
-	if (StkPlWcsStr((wchar_t*)InAttr, L"bigint") != NULL ||
-		StkPlWcsStr((wchar_t*)InAttr, L"int") != NULL ||
-		StkPlWcsStr((wchar_t*)InAttr, L"mediumint") != NULL ||
-		StkPlWcsStr((wchar_t*)InAttr, L"smallint") != NULL ||
-		StkPlWcsStr((wchar_t*)InAttr, L"tinyint") != NULL) {
-		StkPlLStrCpy((wchar_t*)OutAttr, L"integer");
+	if (StkPlWcsStr(InAttr, L"bigint") != NULL ||
+		StkPlWcsStr(InAttr, L"int") != NULL ||
+		StkPlWcsStr(InAttr, L"mediumint") != NULL ||
+		StkPlWcsStr(InAttr, L"smallint") != NULL ||
+		StkPlWcsStr(InAttr, L"tinyint") != NULL) {
+		StkPlLStrCpy(OutAttr, L"integer");
 		return 0;
 	}
-	if (StkPlWcsStr((wchar_t*)InAttr, L"float") != NULL ||
-		StkPlWcsStr((wchar_t*)InAttr, L"double") != NULL ||
-		StkPlWcsStr((wchar_t*)InAttr, L"double precision") != NULL) {
-		StkPlLStrCpy((wchar_t*)OutAttr, L"float");
+	if (StkPlWcsStr(InAttr, L"float") != NULL ||
+		StkPlWcsStr(InAttr, L"double") != NULL ||
+		StkPlWcsStr(InAttr, L"double precision") != NULL) {
+		StkPlLStrCpy(OutAttr, L"float");
 		return 0;
 	}
-	StkPlLStrCpy((wchar_t*)OutAttr, L"string");
+	StkPlLStrCpy(OutAttr, L"string");
 	return 0;
 }
 

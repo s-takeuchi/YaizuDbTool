@@ -43,7 +43,7 @@ public:
 
 	virtual int GetRecordsByTableName(wchar_t*, int, StkObject*, wchar_t*, wchar_t*, int, int, wchar_t[10], wchar_t[1024]) = 0;
 
-	virtual int ConvertAttrType(SQLTCHAR[Global::COLUMNTYPE_LENGTH], SQLTCHAR[Global::COLUMNTYPE_LENGTH]) = 0;
+	virtual int ConvertAttrType(wchar_t[Global::COLUMNTYPE_LENGTH], wchar_t[Global::COLUMNTYPE_LENGTH]) = 0;
 
 	virtual void GetDefaultConnStr(wchar_t[Global::MAX_PARAM_LENGTH]) = 0;
 

@@ -5,7 +5,6 @@
 #include "Global.h"
 #include "dataaccess.h"
 #include "../../../YaizuComLib/src/commonfunc/StkObject.h"
-#include "../../../YaizuComLib/src/commonfunc/msgproc.h"
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
 
 DbAccessor::DbAccessor()

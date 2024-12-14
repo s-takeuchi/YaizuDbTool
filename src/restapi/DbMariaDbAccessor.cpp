@@ -96,9 +96,6 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 	}
 	SQLTCHAR TmpColumnNameTmp[Global::COLUMNNAME_LENGTH * 2]; // For adaptation to the bug of MariaDB ODBC connector
 	SQLTCHAR TmpColumnTypeTmp[Global::COLUMNTYPE_LENGTH * 2]; // For adaptation to the bug of MariaDB ODBC connector
-	SQLTCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
-	SQLTCHAR TmpColumnType[Global::COLUMNTYPE_LENGTH];
-	SQLTCHAR ColTypeCnv[Global::COLUMNTYPE_LENGTH];
 	SQLTCHAR TmpIsNull[10];
 	SQLLEN ColumneNameLen = 0;
 	SQLLEN ColumneTypeLen = 0;
@@ -115,8 +112,17 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 			ConvertMessage(StateMsg, Msg, CvtStateMsg, CvtMsg);
 			return 0;
 		}
-		StkPlWcsCpy((wchar_t*)TmpColumnName, (size_t)Global::COLUMNNAME_LENGTH, (wchar_t*)TmpColumnNameTmp); // For adaptation to the bug of MariaDB ODBC connector
-		StkPlWcsCpy((wchar_t*)TmpColumnType, (size_t)Global::COLUMNTYPE_LENGTH, (wchar_t*)TmpColumnTypeTmp); // For adaptation to the bug of MariaDB ODBC connector
+
+		wchar_t* TmpColumnNameTmpCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpColumnNameTmp);
+		wchar_t* TmpColumnTypeTmpCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpColumnTypeTmp);
+		wchar_t* TmpIsNullCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpIsNull);
+
+		wchar_t TmpColumnName[Global::COLUMNNAME_LENGTH];
+		wchar_t TmpColumnType[Global::COLUMNTYPE_LENGTH];
+		StkPlWcsCpy(TmpColumnName, (size_t)Global::COLUMNNAME_LENGTH, TmpColumnNameTmpCnv); // For adaptation to the bug of MariaDB ODBC connector
+		StkPlWcsCpy(TmpColumnType, (size_t)Global::COLUMNTYPE_LENGTH, TmpColumnTypeTmpCnv); // For adaptation to the bug of MariaDB ODBC connector
+
+		wchar_t ColTypeCnv[Global::COLUMNTYPE_LENGTH];
 		ConvertAttrType(TmpColumnType, ColTypeCnv);
 		StkObject* ClmObj = new StkObject(L"ColumnInfo");
 		ClmObj->AppendChildElement(new StkObject(L"title", (wchar_t*)TmpColumnName));
@@ -126,6 +132,10 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 		ClmObj->AppendChildElement(new StkObject(L"coltype", (wchar_t*)TmpColumnType));
 		ClmObj->AppendChildElement(new StkObject(L"isnull", (wchar_t*)TmpIsNull));
 		TblObj->AppendChildElement(ClmObj);
+
+		delete TmpColumnNameTmpCnv;
+		delete TmpColumnTypeTmpCnv;
+		delete TmpIsNullCnv;
 	}
 	Ret = CloseDatabase(StateMsg, Msg);
 
@@ -178,7 +188,7 @@ int DbMariaDbAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCols, 
 	return NumOfRecs;
 }
 
-int DbMariaDbAccessor::ConvertAttrType(SQLTCHAR InAttr[Global::COLUMNTYPE_LENGTH], SQLTCHAR OutAttr[Global::COLUMNTYPE_LENGTH])
+int DbMariaDbAccessor::ConvertAttrType(wchar_t InAttr[Global::COLUMNTYPE_LENGTH], wchar_t OutAttr[Global::COLUMNTYPE_LENGTH])
 {
 	if (StkPlWcsStr((wchar_t*)InAttr, L"bigint") != NULL ||
 		StkPlWcsStr((wchar_t*)InAttr, L"int") != NULL ||
