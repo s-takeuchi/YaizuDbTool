@@ -268,11 +268,14 @@ int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
 		for (int LoopCol = 0; LoopCol < NumOfCols; LoopCol++) {
 			wchar_t IndStr[5];
 			StkPlSwPrintf(IndStr, 5, L"%d", LoopCol);
+
 			if (ValLen[LoopCol] == -1) {
 				RecObj->AppendChildElement(new StkObject(IndStr, L""));
 			} else {
 				TmpRecord[LoopCol][Global::COLUMNVAL_LENGTH - 1] = '\0';
-				RecObj->AppendChildElement(new StkObject(IndStr, (wchar_t*)TmpRecord[LoopCol]));
+				wchar_t* TmpRecordCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpRecord[LoopCol]);
+				RecObj->AppendChildElement(new StkObject(IndStr, TmpRecordCnv));
+				delete TmpRecordCnv;
 			}
 		}
 		Obj->AppendChildElement(RecObj);
