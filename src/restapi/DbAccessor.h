@@ -15,8 +15,8 @@ protected:
 	SQLHSTMT Hstmt;
 
 protected:
-	SQLRETURN OpenDatabase(wchar_t*, wchar_t[10], wchar_t[1024]);
-	SQLRETURN CloseDatabase(wchar_t[10], wchar_t[1024]);
+	int OpenDatabase(wchar_t*, wchar_t[10], wchar_t[1024]);
+	int CloseDatabase(wchar_t[10], wchar_t[1024]);
 
 	SQLRETURN GetTablesCommon(const wchar_t*, StkObject*, wchar_t[10], wchar_t[1024]);
 
@@ -26,7 +26,7 @@ protected:
 		int, int,
 		wchar_t[10], wchar_t[1024]);
 
-	void ConvertMessage(wchar_t[10], wchar_t[1024], const SQLTCHAR[10], const SQLTCHAR[1024]);
+	void ConvertMessage(wchar_t[10], wchar_t[1024], const char16_t[10], const char16_t[1024]);
 
 public:
 	DbAccessor();

@@ -92,7 +92,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject
 	delete EcdTableName;
 	if (Ret != SQL_SUCCESS) {
 		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
-		ConvertMessage(StateMsg, Msg, CvtStateMsg, CvtMsg);
+		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return 0;
 	}
 	SQLTCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
@@ -111,7 +111,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject
 		if (Ret == SQL_NO_DATA_FOUND) break;
 		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO && ColumneMaxLen != SQL_NULL_DATA) {
 			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
-			ConvertMessage(StateMsg, Msg, CvtStateMsg, CvtMsg);
+			ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 			return 0;
 		}
 

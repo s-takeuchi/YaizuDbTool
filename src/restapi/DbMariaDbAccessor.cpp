@@ -91,7 +91,7 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 	delete EcdTableName;
 	if (Ret != SQL_SUCCESS) {
 		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
-		ConvertMessage(StateMsg, Msg, CvtStateMsg, CvtMsg);
+		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return 0;
 	}
 	SQLTCHAR TmpColumnNameTmp[Global::COLUMNNAME_LENGTH * 2]; // For adaptation to the bug of MariaDB ODBC connector
@@ -109,7 +109,7 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 		if (Ret == SQL_NO_DATA_FOUND) break;
 		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO) {
 			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
-			ConvertMessage(StateMsg, Msg, CvtStateMsg, CvtMsg);
+			ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 			return 0;
 		}
 
