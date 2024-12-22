@@ -1,10 +1,21 @@
 ﻿#ifdef WIN32
 	#include <windows.h>
 #endif
+#include <sql.h>
+#include <sqlext.h>
+
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "DbPostgreSqlAccessor.h"
 #include "Global.h"
 #include "dataaccess.h"
+
+class DbAccessor::Impl
+{
+public:
+	SQLHENV  Henv;
+	SQLHDBC  Hdbc;
+	SQLHSTMT Hstmt;
+};
 
 DbPostgreSqlAccessor::DbPostgreSqlAccessor()
 {
@@ -87,11 +98,11 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject
 	wchar_t SqlBuf[1024];
 	StkPlSwPrintf(SqlBuf, 1024, L"SELECT * FROM information_schema.columns WHERE table_schema='public' and table_name='%ls';", EcdTableName);
 	char16_t* CvtSqlBuf = StkPlCreateUtf16FromWideChar(SqlBuf);
-	Ret = SQLExecDirect(Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
+	Ret = SQLExecDirect(pImpl->Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
 	delete CvtSqlBuf;
 	delete EcdTableName;
 	if (Ret != SQL_SUCCESS) {
-		SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+		SQLGetDiagRec(SQL_HANDLE_STMT, pImpl->Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return 0;
 	}
@@ -100,17 +111,17 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject
 	SQLTCHAR TmpIsNull[10];
 	int TmpColumnMaxLen;
 	SQLLEN ColumneNameLen, ColumneTypeLen, ColumneMaxLen, IsNullLen;
-	SQLBindCol(Hstmt, 4, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), &ColumneNameLen);
-	SQLBindCol(Hstmt, 7, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLTCHAR), &IsNullLen);
-	SQLBindCol(Hstmt, 8, SQL_C_WCHAR, ColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), &ColumneTypeLen);
-	SQLBindCol(Hstmt, 9, SQL_C_SLONG, &TmpColumnMaxLen, 0, &ColumneMaxLen);
+	SQLBindCol(pImpl->Hstmt, 4, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), &ColumneNameLen);
+	SQLBindCol(pImpl->Hstmt, 7, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLTCHAR), &IsNullLen);
+	SQLBindCol(pImpl->Hstmt, 8, SQL_C_WCHAR, ColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), &ColumneTypeLen);
+	SQLBindCol(pImpl->Hstmt, 9, SQL_C_SLONG, &TmpColumnMaxLen, 0, &ColumneMaxLen);
 
 	int Loop = 0;
 	for (; Loop < Global::MAXNUM_COLUMNS; Loop++) {
-		Ret = SQLFetch(Hstmt);
+		Ret = SQLFetch(pImpl->Hstmt);
 		if (Ret == SQL_NO_DATA_FOUND) break;
 		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO && ColumneMaxLen != SQL_NULL_DATA) {
-			SQLGetDiagRec(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+			SQLGetDiagRec(SQL_HANDLE_STMT, pImpl->Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 			ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 			return 0;
 		}

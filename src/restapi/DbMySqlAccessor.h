@@ -2,8 +2,6 @@
 #ifdef WIN32
 	#include <windows.h>
 #endif
-#include <sql.h>
-#include <sqlext.h>
 #include "Global.h"
 #include "DbAccessor.h"
 

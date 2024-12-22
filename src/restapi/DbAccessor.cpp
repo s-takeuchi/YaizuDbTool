@@ -1,18 +1,31 @@
 ﻿#ifdef WIN32
     #include <windows.h>
 #endif
+#include <sql.h>
+#include <sqlext.h>
+
 #include "DbAccessor.h"
 #include "Global.h"
 #include "dataaccess.h"
 #include "../../../YaizuComLib/src/commonfunc/StkObject.h"
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
 
+class DbAccessor::Impl
+{
+public:
+	SQLHENV  Henv;
+	SQLHDBC  Hdbc;
+	SQLHSTMT Hstmt;
+};
+
 DbAccessor::DbAccessor()
 {
+	pImpl = new Impl;
 }
 
 DbAccessor::~DbAccessor()
 {
+	delete pImpl;
 }
 
 void DbAccessor::ConvertMessage(wchar_t StateMsg[10], wchar_t Msg[1024], const char16_t SqlStateMsg[10], const char16_t SqlMsg[1024])
@@ -54,24 +67,24 @@ int DbAccessor::GetTablesCommon(const wchar_t* Query, StkObject* Obj, wchar_t St
 
 	// SQLExecDirect
 	SQLTCHAR* CvtQuery = (SQLTCHAR*)StkPlCreateUtf16FromWideChar(Query);
-	Ret = SQLExecDirect(Hstmt, CvtQuery, SQL_NTS);
+	Ret = SQLExecDirect(pImpl->Hstmt, CvtQuery, SQL_NTS);
 	delete CvtQuery;
 
 	if (Ret != SQL_SUCCESS) {
-		SQLGetDiagRecW(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_STMT, pImpl->Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
 	SQLTCHAR TableName[Global::TABLENAME_LENGTH];
-	SQLBindCol(Hstmt, 1, SQL_C_WCHAR, TableName, Global::TABLENAME_LENGTH * sizeof(SQLTCHAR), NULL);
+	SQLBindCol(pImpl->Hstmt, 1, SQL_C_WCHAR, TableName, Global::TABLENAME_LENGTH * sizeof(SQLTCHAR), NULL);
 
 	bool InitFlag = true;
 	int Loop = 0;
 	for (;;) {
-		Ret = SQLFetch(Hstmt);
+		Ret = SQLFetch(pImpl->Hstmt);
 		if (Ret == SQL_NO_DATA_FOUND) break;
 		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO) {
-			SQLGetDiagRecW(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+			SQLGetDiagRecW(SQL_HANDLE_STMT, pImpl->Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 			ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 			return -1;
 		}
@@ -149,16 +162,16 @@ int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[
 	}
 	StkPlWcsCat(SqlBuf, 1024, L";");
 	char16_t* CvtSqlBuf = StkPlCreateUtf16FromWideChar(SqlBuf);
-	Ret = SQLExecDirect(Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
+	Ret = SQLExecDirect(pImpl->Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
 	delete CvtSqlBuf;
 	if (Ret != SQL_SUCCESS) {
-		SQLGetDiagRecW(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_STMT, pImpl->Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return 0;
 	}
 	DWORD TmpNumOfRec;
-	SQLBindCol(Hstmt, 1, SQL_C_SLONG, &TmpNumOfRec, 0, NULL);
-	Ret = SQLFetch(Hstmt);
+	SQLBindCol(pImpl->Hstmt, 1, SQL_C_SLONG, &TmpNumOfRec, 0, NULL);
+	Ret = SQLFetch(pImpl->Hstmt);
 
 	Ret = CloseDatabase(StateMsg, Msg);
 	if (Ret != 0) {
@@ -239,10 +252,10 @@ int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
 	}
 	StkPlWcsCat(SqlBuf, 1024, L";");
 	char16_t* CvtSqlBuf = StkPlCreateUtf16FromWideChar(SqlBuf);
-	Ret = SQLExecDirect(Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
+	Ret = SQLExecDirect(pImpl->Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
 	delete CvtSqlBuf;
 	if (Ret != SQL_SUCCESS) {
-		SQLGetDiagRecW(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_STMT, pImpl->Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return 0;
 	}
@@ -250,14 +263,14 @@ int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
 	SQLTCHAR TmpRecord[Global::MAXNUM_COLUMNS][Global::COLUMNVAL_LENGTH + 10]; // Why +10 ... MariaDB-Fetch returns data exceeding buffer size
 	SQLLEN ValLen[Global::MAXNUM_COLUMNS];
 	for (int LoopCol = 0; LoopCol < NumOfCols; LoopCol++) {
-		SQLBindCol(Hstmt, LoopCol + 1, SQL_C_WCHAR, TmpRecord[LoopCol], (Global::COLUMNVAL_LENGTH - 1) * sizeof(SQLTCHAR), &ValLen[LoopCol]);
+		SQLBindCol(pImpl->Hstmt, LoopCol + 1, SQL_C_WCHAR, TmpRecord[LoopCol], (Global::COLUMNVAL_LENGTH - 1) * sizeof(SQLTCHAR), &ValLen[LoopCol]);
 	}
 	int LoopRec = 0;
 	for (;;) {
-		Ret = SQLFetch(Hstmt);
+		Ret = SQLFetch(pImpl->Hstmt);
 		if (Ret == SQL_NO_DATA_FOUND) break;
 		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO) {
-			SQLGetDiagRecW(SQL_HANDLE_STMT, Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+			SQLGetDiagRecW(SQL_HANDLE_STMT, pImpl->Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 			ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 			return 0;
 		}
@@ -295,18 +308,18 @@ int DbAccessor::OpenDatabase(wchar_t* ConnectStr, wchar_t StateMsg[10], wchar_t 
 	StkPlLStrCpy(StateMsg, L"");
 
 	// Alloc environment handle
-	if (SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &Henv) == SQL_ERROR) {
-		if (Henv != SQL_NULL_HENV) {
-			SQLGetDiagRecW(SQL_HANDLE_ENV, Henv, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+	if (SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &(pImpl->Henv)) == SQL_ERROR) {
+		if (pImpl->Henv != SQL_NULL_HENV) {
+			SQLGetDiagRecW(SQL_HANDLE_ENV, pImpl->Henv, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		}
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
-	SQLSetEnvAttr(Henv, SQL_ATTR_ODBC_VERSION, reinterpret_cast<SQLPOINTER>(SQL_OV_ODBC3), 0);
+	SQLSetEnvAttr(pImpl->Henv, SQL_ATTR_ODBC_VERSION, reinterpret_cast<SQLPOINTER>(SQL_OV_ODBC3), 0);
 
 	// Alloc DB connection handle
-	if (SQLAllocHandle(SQL_HANDLE_DBC, Henv, &Hdbc) == SQL_ERROR) {
-		SQLGetDiagRecW(SQL_HANDLE_ENV, Henv, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+	if (SQLAllocHandle(SQL_HANDLE_DBC, pImpl->Henv, &(pImpl->Hdbc)) == SQL_ERROR) {
+		SQLGetDiagRecW(SQL_HANDLE_ENV, pImpl->Henv, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
@@ -314,16 +327,16 @@ int DbAccessor::OpenDatabase(wchar_t* ConnectStr, wchar_t StateMsg[10], wchar_t 
 	// SQLDriverConnect
 	SQLTCHAR ConnOut[255]; // This will not be refered from anywhere
 	SQLSMALLINT ConnOutLen; // This will not be refered from anywhere
-	SQLRETURN Ret = SQLDriverConnectW(Hdbc, NULL, CvtConnectStr, SQL_NTS, ConnOut, 255, &ConnOutLen, SQL_DRIVER_COMPLETE);
+	SQLRETURN Ret = SQLDriverConnectW(pImpl->Hdbc, NULL, CvtConnectStr, SQL_NTS, ConnOut, 255, &ConnOutLen, SQL_DRIVER_COMPLETE);
 	if (Ret == SQL_ERROR || Ret == SQL_SUCCESS_WITH_INFO) {
-		SQLGetDiagRecW(SQL_HANDLE_DBC, Hdbc, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_DBC, pImpl->Hdbc, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
 
 	// Alloc statement handle 
-	if (SQLAllocHandle(SQL_HANDLE_STMT, Hdbc, &Hstmt) == SQL_ERROR) {
-		SQLGetDiagRecW(SQL_HANDLE_DBC, Hdbc, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+	if (SQLAllocHandle(SQL_HANDLE_STMT, pImpl->Hdbc, &pImpl->Hstmt) == SQL_ERROR) {
+		SQLGetDiagRecW(SQL_HANDLE_DBC, pImpl->Hdbc, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
@@ -342,30 +355,30 @@ int DbAccessor::CloseDatabase(wchar_t StateMsg[10], wchar_t Msg[1024])
 	StkPlLStrCpy((wchar_t*)StateMsg, L"");
 
 	// Free statement handle
-	if (SQLFreeHandle(SQL_HANDLE_STMT, Hstmt) == SQL_ERROR) {
-		SQLGetDiagRecW(SQL_HANDLE_DBC, Hdbc, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+	if (SQLFreeHandle(SQL_HANDLE_STMT, pImpl->Hstmt) == SQL_ERROR) {
+		SQLGetDiagRecW(SQL_HANDLE_DBC, pImpl->Hdbc, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
 
 	// SQLDisconnect
-	SQLRETURN Ret = SQLDisconnect(Hdbc);
+	SQLRETURN Ret = SQLDisconnect(pImpl->Hdbc);
 	if (Ret == SQL_ERROR || Ret == SQL_SUCCESS_WITH_INFO) {
-		SQLGetDiagRecW(SQL_HANDLE_DBC, Hdbc, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+		SQLGetDiagRecW(SQL_HANDLE_DBC, pImpl->Hdbc, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
 
 	// Free DB connection handle
-	if (SQLFreeHandle(SQL_HANDLE_DBC, Hdbc) == SQL_ERROR) {
-		SQLGetDiagRecW(SQL_HANDLE_ENV, Henv, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+	if (SQLFreeHandle(SQL_HANDLE_DBC, pImpl->Hdbc) == SQL_ERROR) {
+		SQLGetDiagRecW(SQL_HANDLE_ENV, pImpl->Henv, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
 
 	// Free environment handle
-	if (SQLFreeHandle(SQL_HANDLE_ENV, Henv) == SQL_ERROR) {
-		SQLGetDiagRecW(SQL_HANDLE_ENV, Henv, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
+	if (SQLFreeHandle(SQL_HANDLE_ENV, pImpl->Henv) == SQL_ERROR) {
+		SQLGetDiagRecW(SQL_HANDLE_ENV, pImpl->Henv, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}

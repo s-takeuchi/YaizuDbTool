@@ -2,17 +2,14 @@
 #ifdef WIN32
     #include <windows.h>
 #endif
-#include <sql.h>
-#include <sqlext.h>
 #include "../../../YaizuComLib/src/commonfunc/StkObject.h"
 #include "Global.h"
 
 class DbAccessor
 {
 protected:
-	SQLHENV  Henv;
-	SQLHDBC  Hdbc;
-	SQLHSTMT Hstmt;
+	class Impl;
+	Impl* pImpl;
 
 protected:
 	int OpenDatabase(wchar_t*, wchar_t[10], wchar_t[1024]);
