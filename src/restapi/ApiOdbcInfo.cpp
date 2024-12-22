@@ -86,7 +86,7 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 		wchar_t ErrMsg[1024] = L"";
 		int Ret = Da->Test(ConnStr, ErrMsg);
-		if (Ret == SQL_SUCCESS) {
+		if (Ret == 0) {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"connectable"));
 		} else {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"unconnectable"));
@@ -167,7 +167,7 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 		wchar_t ErrMsg[1024] = L"";
 		int Ret = Da->Test(ConnStr, ErrMsg);
-		if (Ret == SQL_SUCCESS) {
+		if (Ret == 0) {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"connectable"));
 		} else {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"unconnectable"));

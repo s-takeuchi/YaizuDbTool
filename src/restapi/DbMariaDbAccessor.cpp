@@ -45,7 +45,7 @@ int DbMariaDbAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[10],
 	return Ret;
 }
 
-SQLRETURN DbMariaDbAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
+int DbMariaDbAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLRETURN Ret = 0;
 
@@ -53,7 +53,7 @@ SQLRETURN DbMariaDbAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wch
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
-	if (Ret != SQL_SUCCESS) {
+	if (Ret != 0) {
 		return Ret;
 	}
 	Ret = GetTablesCommon(L"show tables;", Obj, StateMsg, Msg);
@@ -75,7 +75,7 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
-	if (Ret != SQL_SUCCESS) {
+	if (Ret != 0) {
 		return 0;
 	}
 

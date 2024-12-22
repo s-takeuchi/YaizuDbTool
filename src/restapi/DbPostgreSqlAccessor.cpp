@@ -46,7 +46,7 @@ int DbPostgreSqlAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[1
 	return Ret;
 }
 
-SQLRETURN DbPostgreSqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
+int DbPostgreSqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLRETURN Ret = 0;
 
@@ -54,7 +54,7 @@ SQLRETURN DbPostgreSqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], 
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
-	if (Ret != SQL_SUCCESS) {
+	if (Ret != 0) {
 		return Ret;
 	}
 	Ret = GetTablesCommon(L"select relname as TABLE_NAME from pg_stat_user_tables;", Obj, StateMsg, Msg);
@@ -76,7 +76,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
-	if (Ret != SQL_SUCCESS) {
+	if (Ret != 0) {
 		return 0;
 	}
 

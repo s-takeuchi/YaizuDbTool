@@ -45,7 +45,7 @@ int DbMySqlAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[10], w
 	return Ret;
 }
 
-SQLRETURN DbMySqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
+int DbMySqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLRETURN Ret = 0;
 
@@ -53,7 +53,7 @@ SQLRETURN DbMySqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
-	if (Ret != SQL_SUCCESS) {
+	if (Ret != 0) {
 		return Ret;
 	}
 	Ret = GetTablesCommon(L"show tables;", Obj, StateMsg, Msg);
@@ -75,7 +75,7 @@ int DbMySqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* Tbl
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
-	if (Ret != SQL_SUCCESS) {
+	if (Ret != 0) {
 		return 0;
 	}
 
