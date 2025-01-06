@@ -169,7 +169,7 @@ int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return 0;
 	}
-	DWORD TmpNumOfRec;
+	DWORD TmpNumOfRec = 0;
 	SQLBindCol(pImpl->Hstmt, 1, SQL_C_SLONG, &TmpNumOfRec, 0, NULL);
 	Ret = SQLFetch(pImpl->Hstmt);
 

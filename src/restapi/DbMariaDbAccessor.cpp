@@ -52,7 +52,7 @@ int DbMariaDbAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[10],
 	}
 
 	int Ret = GetNumOfRecordsCommon(EcdTableName, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg);
-	delete EcdTableName;
+	delete [] EcdTableName;
 	return Ret;
 }
 
@@ -99,7 +99,7 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 	char16_t* CvtSqlBuf = StkPlCreateUtf16FromWideChar(SqlBuf);
 	Ret = SQLExecDirect(pImpl->Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
 	delete CvtSqlBuf;
-	delete EcdTableName;
+	delete [] EcdTableName;
 	if (Ret != SQL_SUCCESS) {
 		SQLGetDiagRec(SQL_HANDLE_STMT, pImpl->Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
@@ -191,9 +191,9 @@ int DbMariaDbAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCols, 
 
 	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, EcdSortTarget, SortOrder, Limit, Offset, StateMsg, Msg);
 
-	delete EcdTableName;
+	delete [] EcdTableName;
 	if (EcdSortTarget != NULL) {
-		delete EcdSortTarget;
+		delete [] EcdSortTarget;
 	}
 	Ret = CloseDatabase(StateMsg, Msg);
 	return NumOfRecs;
