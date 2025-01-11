@@ -59,14 +59,14 @@ int DbAccessor::Test(wchar_t ConnStr[Global::MAX_PARAM_LENGTH], wchar_t ErrMsg[1
 // Return 0: Success, -1:Error
 int DbAccessor::GetTablesCommon(const wchar_t* Query, StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
-	SQLTCHAR CvtStateMsg[10];
-	SQLTCHAR CvtMsg[1024];
+	SQLWCHAR CvtStateMsg[10];
+	SQLWCHAR CvtMsg[1024];
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	SQLRETURN Ret = 0;
 
 	// SQLExecDirect
-	SQLTCHAR* CvtQuery = (SQLTCHAR*)StkPlCreateUtf16FromWideChar(Query);
+	SQLWCHAR* CvtQuery = (SQLWCHAR*)StkPlCreateUtf16FromWideChar(Query);
 	Ret = SQLExecDirect(pImpl->Hstmt, CvtQuery, SQL_NTS);
 	delete CvtQuery;
 
@@ -75,8 +75,8 @@ int DbAccessor::GetTablesCommon(const wchar_t* Query, StkObject* Obj, wchar_t St
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
-	SQLTCHAR TableName[Global::TABLENAME_LENGTH];
-	SQLBindCol(pImpl->Hstmt, 1, SQL_C_WCHAR, TableName, Global::TABLENAME_LENGTH * sizeof(SQLTCHAR), NULL);
+	SQLWCHAR TableName[Global::TABLENAME_LENGTH];
+	SQLBindCol(pImpl->Hstmt, 1, SQL_C_WCHAR, TableName, Global::TABLENAME_LENGTH * sizeof(SQLWCHAR), NULL);
 
 	bool InitFlag = true;
 	int Loop = 0;
@@ -104,8 +104,8 @@ int DbAccessor::GetTablesCommon(const wchar_t* Query, StkObject* Obj, wchar_t St
 
 int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], wchar_t Value[5][Global::COLUMNVAL_LENGTH * 4 + 2], wchar_t StateMsg[10], wchar_t Msg[1024])
 {
-	SQLTCHAR CvtStateMsg[10];
-	SQLTCHAR CvtMsg[1024];
+	SQLWCHAR CvtStateMsg[10];
+	SQLWCHAR CvtMsg[1024];
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	SQLRETURN Ret = 0;
@@ -162,7 +162,7 @@ int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[
 	}
 	StkPlWcsCat(SqlBuf, 1024, L";");
 	char16_t* CvtSqlBuf = StkPlCreateUtf16FromWideChar(SqlBuf);
-	Ret = SQLExecDirect(pImpl->Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
+	Ret = SQLExecDirect(pImpl->Hstmt, (SQLWCHAR*)CvtSqlBuf, SQL_NTS);
 	delete CvtSqlBuf;
 	if (Ret != SQL_SUCCESS) {
 		SQLGetDiagRecW(SQL_HANDLE_STMT, pImpl->Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
@@ -188,8 +188,8 @@ int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
 	int Limit, int Offset,
 	wchar_t StateMsg[10], wchar_t Msg[1024])
 {
-	SQLTCHAR CvtStateMsg[10];
-	SQLTCHAR CvtMsg[1024];
+	SQLWCHAR CvtStateMsg[10];
+	SQLWCHAR CvtMsg[1024];
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	SQLRETURN Ret = 0;
@@ -252,7 +252,7 @@ int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
 	}
 	StkPlWcsCat(SqlBuf, 1024, L";");
 	char16_t* CvtSqlBuf = StkPlCreateUtf16FromWideChar(SqlBuf);
-	Ret = SQLExecDirect(pImpl->Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
+	Ret = SQLExecDirect(pImpl->Hstmt, (SQLWCHAR*)CvtSqlBuf, SQL_NTS);
 	delete CvtSqlBuf;
 	if (Ret != SQL_SUCCESS) {
 		SQLGetDiagRecW(SQL_HANDLE_STMT, pImpl->Hstmt, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
@@ -260,10 +260,10 @@ int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
 		return 0;
 	}
 
-	SQLTCHAR TmpRecord[Global::MAXNUM_COLUMNS][Global::COLUMNVAL_LENGTH + 10]; // Why +10 ... MariaDB-Fetch returns data exceeding buffer size
+	SQLWCHAR TmpRecord[Global::MAXNUM_COLUMNS][Global::COLUMNVAL_LENGTH + 10]; // Why +10 ... MariaDB-Fetch returns data exceeding buffer size
 	SQLLEN ValLen[Global::MAXNUM_COLUMNS];
 	for (int LoopCol = 0; LoopCol < NumOfCols; LoopCol++) {
-		SQLBindCol(pImpl->Hstmt, LoopCol + 1, SQL_C_WCHAR, TmpRecord[LoopCol], (Global::COLUMNVAL_LENGTH - 1) * sizeof(SQLTCHAR), &ValLen[LoopCol]);
+		SQLBindCol(pImpl->Hstmt, LoopCol + 1, SQL_C_WCHAR, TmpRecord[LoopCol], (Global::COLUMNVAL_LENGTH - 1) * sizeof(SQLWCHAR), &ValLen[LoopCol]);
 	}
 	int LoopRec = 0;
 	for (;;) {
@@ -297,11 +297,11 @@ int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
 // Return 0: Success, -1:Error
 int DbAccessor::OpenDatabase(wchar_t* ConnectStr, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
-	SQLTCHAR CvtConnectStr[256];
+	SQLWCHAR CvtConnectStr[256];
 	StkPlConvWideCharToUtf16((char16_t*)CvtConnectStr, 256, ConnectStr);
 
-	SQLTCHAR CvtStateMsg[10];
-	SQLTCHAR CvtMsg[1024];
+	SQLWCHAR CvtStateMsg[10];
+	SQLWCHAR CvtMsg[1024];
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	StkPlLStrCpy(Msg, L"");
@@ -325,7 +325,7 @@ int DbAccessor::OpenDatabase(wchar_t* ConnectStr, wchar_t StateMsg[10], wchar_t 
 	}
 
 	// SQLDriverConnect
-	SQLTCHAR ConnOut[255]; // This will not be refered from anywhere
+	SQLWCHAR ConnOut[255]; // This will not be refered from anywhere
 	SQLSMALLINT ConnOutLen; // This will not be refered from anywhere
 	SQLRETURN Ret = SQLDriverConnectW(pImpl->Hdbc, NULL, CvtConnectStr, SQL_NTS, ConnOut, 255, &ConnOutLen, SQL_DRIVER_COMPLETE);
 	if (Ret == SQL_ERROR || Ret == SQL_SUCCESS_WITH_INFO) {
@@ -347,8 +347,8 @@ int DbAccessor::OpenDatabase(wchar_t* ConnectStr, wchar_t StateMsg[10], wchar_t 
 // Return 0: Success, -1:Error
 int DbAccessor::CloseDatabase(wchar_t StateMsg[10], wchar_t Msg[1024])
 {
-	SQLTCHAR CvtStateMsg[10];
-	SQLTCHAR CvtMsg[1024];
+	SQLWCHAR CvtStateMsg[10];
+	SQLWCHAR CvtMsg[1024];
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	StkPlLStrCpy((wchar_t*)Msg, L"");

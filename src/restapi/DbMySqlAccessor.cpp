@@ -75,8 +75,8 @@ int DbMySqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar_t Msg
 
 int DbMySqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* TblObj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
-	SQLTCHAR CvtStateMsg[10];
-	SQLTCHAR CvtMsg[1024];
+	SQLWCHAR CvtStateMsg[10];
+	SQLWCHAR CvtMsg[1024];
 
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
@@ -97,7 +97,7 @@ int DbMySqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* Tbl
 	wchar_t SqlBuf[1024];
 	StkPlSwPrintf(SqlBuf, 1024, L"show full columns from %ls;", (wchar_t*)EcdTableName);
 	char16_t* CvtSqlBuf = StkPlCreateUtf16FromWideChar(SqlBuf);
-	Ret = SQLExecDirect(pImpl->Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
+	Ret = SQLExecDirect(pImpl->Hstmt, (SQLWCHAR*)CvtSqlBuf, SQL_NTS);
 	delete CvtSqlBuf;
 	delete [] EcdTableName;
 	if (Ret != SQL_SUCCESS) {
@@ -105,12 +105,12 @@ int DbMySqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* Tbl
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return 0;
 	}
-	SQLTCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
-	SQLTCHAR TmpColumnType[Global::COLUMNTYPE_LENGTH];
-	SQLTCHAR TmpIsNull[10];
-	SQLBindCol(pImpl->Hstmt, 1, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), NULL);
-	SQLBindCol(pImpl->Hstmt, 2, SQL_C_WCHAR, TmpColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), NULL);
-	SQLBindCol(pImpl->Hstmt, 4, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLTCHAR), NULL);
+	SQLWCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
+	SQLWCHAR TmpColumnType[Global::COLUMNTYPE_LENGTH];
+	SQLWCHAR TmpIsNull[10];
+	SQLBindCol(pImpl->Hstmt, 1, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLWCHAR), NULL);
+	SQLBindCol(pImpl->Hstmt, 2, SQL_C_WCHAR, TmpColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLWCHAR), NULL);
+	SQLBindCol(pImpl->Hstmt, 4, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLWCHAR), NULL);
 
 	int Loop = 0;
 	for (; Loop < Global::MAXNUM_COLUMNS; Loop++) {

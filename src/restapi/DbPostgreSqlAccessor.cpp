@@ -76,8 +76,8 @@ int DbPostgreSqlAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar_
 
 int DbPostgreSqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* TblObj, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
-	SQLTCHAR CvtStateMsg[10];
-	SQLTCHAR CvtMsg[1024];
+	SQLWCHAR CvtStateMsg[10];
+	SQLWCHAR CvtMsg[1024];
 
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
@@ -98,7 +98,7 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject
 	wchar_t SqlBuf[1024];
 	StkPlSwPrintf(SqlBuf, 1024, L"SELECT * FROM information_schema.columns WHERE table_schema='public' and table_name='%ls';", EcdTableName);
 	char16_t* CvtSqlBuf = StkPlCreateUtf16FromWideChar(SqlBuf);
-	Ret = SQLExecDirect(pImpl->Hstmt, (SQLTCHAR*)CvtSqlBuf, SQL_NTS);
+	Ret = SQLExecDirect(pImpl->Hstmt, (SQLWCHAR*)CvtSqlBuf, SQL_NTS);
 	delete CvtSqlBuf;
 	delete [] EcdTableName;
 	if (Ret != SQL_SUCCESS) {
@@ -106,14 +106,14 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return 0;
 	}
-	SQLTCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
-	SQLTCHAR ColumnType[Global::COLUMNTYPE_LENGTH];
-	SQLTCHAR TmpIsNull[10];
+	SQLWCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
+	SQLWCHAR ColumnType[Global::COLUMNTYPE_LENGTH];
+	SQLWCHAR TmpIsNull[10];
 	int TmpColumnMaxLen;
 	SQLLEN ColumneNameLen, ColumneTypeLen, ColumneMaxLen, IsNullLen;
-	SQLBindCol(pImpl->Hstmt, 4, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLTCHAR), &ColumneNameLen);
-	SQLBindCol(pImpl->Hstmt, 7, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLTCHAR), &IsNullLen);
-	SQLBindCol(pImpl->Hstmt, 8, SQL_C_WCHAR, ColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLTCHAR), &ColumneTypeLen);
+	SQLBindCol(pImpl->Hstmt, 4, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLWCHAR), &ColumneNameLen);
+	SQLBindCol(pImpl->Hstmt, 7, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLWCHAR), &IsNullLen);
+	SQLBindCol(pImpl->Hstmt, 8, SQL_C_WCHAR, ColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLWCHAR), &ColumneTypeLen);
 	SQLBindCol(pImpl->Hstmt, 9, SQL_C_SLONG, &TmpColumnMaxLen, 0, &ColumneMaxLen);
 
 	int Loop = 0;
