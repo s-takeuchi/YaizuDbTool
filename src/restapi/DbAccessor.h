@@ -17,11 +17,13 @@ protected:
 
 	int GetTablesCommon(const wchar_t*, StkObject*, wchar_t[10], wchar_t[1024]);
 
-	virtual int GetRecordsByTableNameCommon(const wchar_t*, int, StkObject* RecObj,
+	int GetRecordsByTableNameCommon(const wchar_t*, int, StkObject* RecObj,
 		wchar_t[5][Global::COLUMNNAME_LENGTH * 4 + 2], int[5], const wchar_t[5][Global::COLUMNVAL_LENGTH * 4 + 2],
 		const wchar_t[Global::COLUMNNAME_LENGTH * 4 + 2], const wchar_t[5],
-		int, int,
-		wchar_t[10], wchar_t[1024]);
+		int, int, wchar_t[10], wchar_t[1024]);
+
+	int GetNumOfRecordsCommon(wchar_t*, wchar_t[5][Global::COLUMNNAME_LENGTH * 4 + 2],
+		int[5], wchar_t[5][Global::COLUMNVAL_LENGTH * 4 + 2], wchar_t[10], wchar_t[1024]);
 
 	void ConvertMessage(wchar_t[10], wchar_t[1024], const char16_t[10], const char16_t[1024]);
 
@@ -32,7 +34,6 @@ public:
 	virtual int Test(wchar_t[Global::MAX_PARAM_LENGTH], wchar_t[1024]);
 
 	virtual int GetNumOfRecords(wchar_t*, wchar_t[10], wchar_t[1024]) = 0;
-	int GetNumOfRecordsCommon(wchar_t*, wchar_t[5][Global::COLUMNNAME_LENGTH * 4 + 2], int[5], wchar_t[5][Global::COLUMNVAL_LENGTH * 4 + 2], wchar_t[10], wchar_t[1024]);
 
 	virtual int GetTables(StkObject*, wchar_t[10], wchar_t[1024]) = 0;
 
