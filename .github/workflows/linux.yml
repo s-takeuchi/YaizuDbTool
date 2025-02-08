@@ -27,4 +27,4 @@ jobs:
     - name: exec test
       run: |
         cd build
-        : # ./test.sh
+        ./test.sh

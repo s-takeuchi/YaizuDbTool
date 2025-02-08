@@ -15,7 +15,7 @@ cp cmdfreak $BUILDDIR
 cp sample.conf $BUILDDIR
 cp sample.dat $BUILDDIR
 echo servicehost=localhost >> $BUILDDIR/sample.conf
-echo serviceport=10009 >> $BUILDDIR/sample.conf
+echo serviceport=10008 >> $BUILDDIR/sample.conf
 cd ../../test/restapitest
 make all
 cp restapitest $BUILDDIR
