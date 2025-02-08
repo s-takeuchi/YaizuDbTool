@@ -19,6 +19,7 @@ jobs:
         make
         sudo make install
         cd ..
+        apt-get install unixodbc unixodbc-dev
         git clone -q --branch=master https://github.com/s-takeuchi/YaizuComLib.git ../YaizuComLib
         git checkout master
         cd build
