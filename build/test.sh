@@ -11,11 +11,11 @@ mkdir -p $BUILDDIR
 # Build
 cd ../src/restapi
 make all
-cp serval $BUILDDIR
+cp cmdfreak $BUILDDIR
 cp sample.conf $BUILDDIR
 cp sample.dat $BUILDDIR
-echo servicehost=localhost >> $BUILDDIR/serval.conf
-echo serviceport=10009 >> $BUILDDIR/serval.conf
+echo servicehost=localhost >> $BUILDDIR/sample.conf
+echo serviceport=10009 >> $BUILDDIR/sample.conf
 cd ../../test/restapitest
 make all
 cp restapitest $BUILDDIR
@@ -25,6 +25,6 @@ cp restapitest $BUILDDIR
 cd $BUILDDIR
 echo
 echo Test starts
-./sample&
+./cmdfreak&
 ./restapitest
 echo Test ends
