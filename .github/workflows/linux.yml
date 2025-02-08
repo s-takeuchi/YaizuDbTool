@@ -1,0 +1,29 @@
+name: YaizuDbTool Linux CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: exec build
+      run: |
+        wget https://www.openssl.org/source/openssl-3.1.4.tar.gz
+        tar -zxf openssl-3.1.4.tar.gz
+        cd openssl-3.1.4
+        ./config
+        make
+        sudo make install
+        cd ..
+        git clone -q --branch=master https://github.com/s-takeuchi/YaizuComLib.git ../YaizuComLib
+        git checkout master
+        cd build
+        ./build.sh
+    - name: exec test
+      run: |
+        cd build
+        : # ./test.sh
