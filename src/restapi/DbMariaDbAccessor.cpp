@@ -107,12 +107,13 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 	}
 	SQLWCHAR TmpColumnNameTmp[Global::COLUMNNAME_LENGTH * 2]; // For adaptation to the bug of MariaDB ODBC connector
 	SQLWCHAR TmpColumnTypeTmp[Global::COLUMNTYPE_LENGTH * 2]; // For adaptation to the bug of MariaDB ODBC connector
-	SQLWCHAR TmpIsNull[10];
+	SQLWCHAR TmpIsNullTmp[10];
 	SQLLEN ColumneNameLen = 0;
 	SQLLEN ColumneTypeLen = 0;
+	SQLLEN IsNullLen = 0;
 	SQLBindCol(pImpl->Hstmt, 1, SQL_C_WCHAR, TmpColumnNameTmp, Global::COLUMNNAME_LENGTH * sizeof(SQLWCHAR), &ColumneNameLen);
 	SQLBindCol(pImpl->Hstmt, 2, SQL_C_WCHAR, TmpColumnTypeTmp, Global::COLUMNTYPE_LENGTH * sizeof(SQLWCHAR), &ColumneTypeLen);
-	SQLBindCol(pImpl->Hstmt, 4, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLWCHAR), NULL);
+	SQLBindCol(pImpl->Hstmt, 4, SQL_C_WCHAR, TmpIsNullTmp, 10 * sizeof(SQLWCHAR), NULL);
 
 	int Loop = 0;
 	for (; Loop < Global::MAXNUM_COLUMNS; Loop++) {
@@ -126,12 +127,14 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 
 		wchar_t* TmpColumnNameTmpCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpColumnNameTmp);
 		wchar_t* TmpColumnTypeTmpCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpColumnTypeTmp);
-		wchar_t* TmpIsNullCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpIsNull);
+		wchar_t* TmpIsNullCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpIsNullTmp);
 
 		wchar_t TmpColumnName[Global::COLUMNNAME_LENGTH];
 		wchar_t TmpColumnType[Global::COLUMNTYPE_LENGTH];
-		StkPlWcsCpy(TmpColumnName, (size_t)Global::COLUMNNAME_LENGTH, TmpColumnNameTmpCnv); // For adaptation to the bug of MariaDB ODBC connector
-		StkPlWcsCpy(TmpColumnType, (size_t)Global::COLUMNTYPE_LENGTH, TmpColumnTypeTmpCnv); // For adaptation to the bug of MariaDB ODBC connector
+		wchar_t TmpIsNull[10];
+		StkPlWcsCpy(TmpColumnName, (size_t)Global::COLUMNNAME_LENGTH, TmpColumnNameTmpCnv);	// For adaptation to the bug of MariaDB ODBC connector
+		StkPlWcsCpy(TmpColumnType, (size_t)Global::COLUMNTYPE_LENGTH, TmpColumnTypeTmpCnv);	// For adaptation to the bug of MariaDB ODBC connector
+		StkPlWcsCpy(TmpIsNull, (size_t)10, TmpIsNullCnv);									// For adaptation to the bug of MariaDB ODBC connector
 
 		wchar_t ColTypeCnv[Global::COLUMNTYPE_LENGTH];
 		ConvertAttrType(TmpColumnType, ColTypeCnv);
