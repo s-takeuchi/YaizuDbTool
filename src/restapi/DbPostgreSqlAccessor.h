@@ -12,7 +12,7 @@ private:
 	static const int TYPE_LIKE_VALUE = 2;
 
 public:
-	DbPostgreSqlAccessor();
+	DbPostgreSqlAccessor(wchar_t*);
 	~DbPostgreSqlAccessor();
 
 	void GetDefaultConnStr(wchar_t[MAX_PARAM_LENGTH]);

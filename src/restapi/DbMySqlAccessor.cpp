@@ -15,7 +15,7 @@ public:
 	SQLHSTMT Hstmt;
 };
 
-DbMySqlAccessor::DbMySqlAccessor()
+DbMySqlAccessor::DbMySqlAccessor(wchar_t* TmpConnStr) : DbAccessor(TmpConnStr)
 {
 }
 

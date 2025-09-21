@@ -12,7 +12,7 @@ private:
 	static const int TYPE_LIKE_VALUE = 2;
 
 public:
-	DbMariaDbAccessor();
+	DbMariaDbAccessor(wchar_t*);
 	~DbMariaDbAccessor();
 
 	void GetDefaultConnStr(wchar_t[MAX_PARAM_LENGTH]);

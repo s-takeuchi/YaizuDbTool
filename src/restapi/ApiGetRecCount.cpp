@@ -36,7 +36,7 @@ StkObject* ApiGetRecCount::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t Ur
 	wchar_t Msg[1024];
 
 	// Get table names
-	DbAccessor* DaTableName = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
+	DbAccessor* DaTableName = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType, L"");
 	StkObject* TableNameObj = new StkObject(L"TableName");
 	StkObject* TargetTableNameObj = new StkObject(L"Name", TableNameAc);
 	DaTableName->GetTables(TableNameObj, StateMsg, Msg);
@@ -54,7 +54,7 @@ StkObject* ApiGetRecCount::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t Ur
 	}
 
 	// Get records
-	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
+	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType, L"");
 	StkObject* ColumnObj = new StkObject(L"Column");
 	int NumOfRecs = Da->GetNumOfRecords(TableNameAc, StateMsg, Msg);
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);

@@ -12,7 +12,7 @@ private:
 	static const int TYPE_LIKE_VALUE = 2;
 
 public:
-	DbMySqlAccessor();
+	DbMySqlAccessor(wchar_t*);
 	~DbMySqlAccessor();
 
 	void GetDefaultConnStr(wchar_t[MAX_PARAM_LENGTH]);

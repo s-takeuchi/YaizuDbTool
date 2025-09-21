@@ -12,18 +12,24 @@
 class DbAccessor::Impl
 {
 public:
+	wchar_t* ConnectionString;
+
 	SQLHENV  Henv;
 	SQLHDBC  Hdbc;
 	SQLHSTMT Hstmt;
 };
 
-DbAccessor::DbAccessor()
+DbAccessor::DbAccessor(wchar_t* TmpConnStr)
 {
 	pImpl = new Impl;
+	size_t Len = StkPlWcsLen(TmpConnStr);
+	pImpl->ConnectionString = new wchar_t[Len + 1];
+	StkPlWcsCpy(pImpl->ConnectionString, Len + 1, TmpConnStr);
 }
 
 DbAccessor::~DbAccessor()
 {
+	delete[] pImpl->ConnectionString;
 	delete pImpl;
 }
 

@@ -15,7 +15,7 @@ public:
 	SQLHSTMT Hstmt;
 };
 
-DbMariaDbAccessor::DbMariaDbAccessor() : DbAccessor()
+DbMariaDbAccessor::DbMariaDbAccessor(wchar_t* TmpConnStr) : DbAccessor(TmpConnStr)
 {
 }
 

@@ -26,16 +26,16 @@ OdbcManager* OdbcManager::GetInstance()
 	return ThisInstance;
 }
 
-DbAccessor* OdbcManager::CreateAccessorObject(int Type)
+DbAccessor* OdbcManager::CreateAccessorObject(int Type, wchar_t* ConnStr)
 {
 	if (Type == POSTGRESQL_ACCESSOR) {
-		return new DbPostgreSqlAccessor();
+		return new DbPostgreSqlAccessor(ConnStr);
 	}
 	if (Type == MARIADB_ACCESSOR) {
-		return new DbMariaDbAccessor();
+		return new DbMariaDbAccessor(ConnStr);
 	}
 	if (Type == MYSQL_ACCESSOR) {
-		return new DbMySqlAccessor();
+		return new DbMySqlAccessor(ConnStr);
 	}
 	return NULL;
 }

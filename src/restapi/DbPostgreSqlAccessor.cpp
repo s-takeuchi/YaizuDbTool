@@ -16,7 +16,7 @@ public:
 	SQLHSTMT Hstmt;
 };
 
-DbPostgreSqlAccessor::DbPostgreSqlAccessor()
+DbPostgreSqlAccessor::DbPostgreSqlAccessor(wchar_t* TmpConnStr) : DbAccessor(TmpConnStr)
 {
 }
 
