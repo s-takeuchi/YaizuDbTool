@@ -1,6 +1,5 @@
 ﻿#include "OdbcManager.h"
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
-#include "Global.h"
 #include "DbAccessor.h"
 #include "DbPostgreSqlAccessor.h"
 #include "DbMariaDbAccessor.h"

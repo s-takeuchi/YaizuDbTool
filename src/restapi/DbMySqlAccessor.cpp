@@ -5,7 +5,6 @@
 #include <sqlext.h>
 
 #include "DbMySqlAccessor.h"
-#include "Global.h"
 #include "dataaccess.h"
 
 class DbAccessor::Impl
@@ -24,7 +23,7 @@ DbMySqlAccessor::~DbMySqlAccessor()
 {
 }
 
-void DbMySqlAccessor::GetDefaultConnStr(wchar_t DefConnStr[Global::MAX_PARAM_LENGTH])
+void DbMySqlAccessor::GetDefaultConnStr(wchar_t DefConnStr[MAX_PARAM_LENGTH])
 {
 	StkPlLStrCpy(DefConnStr, L"Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Port=3306;Option=131072;Stmt=;Database=DATABASE_NAME;Uid=UID;Pwd=PWD;");
 }
@@ -35,11 +34,11 @@ int DbMySqlAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[10], w
 	wchar_t* EcdTableName = new wchar_t[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
-	wchar_t ColumnName[5][Global::COLUMNNAME_LENGTH];
-	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2];
+	wchar_t ColumnName[5][COLUMNNAME_LENGTH];
+	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2];
 	int OpeType[5];
-	wchar_t Value[5][Global::COLUMNVAL_LENGTH];
-	wchar_t ValueCnv[5][Global::COLUMNVAL_LENGTH * 4 + 2];
+	wchar_t Value[5][COLUMNVAL_LENGTH];
+	wchar_t ValueCnv[5][COLUMNVAL_LENGTH * 4 + 2];
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
@@ -105,15 +104,15 @@ int DbMySqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* Tbl
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return 0;
 	}
-	SQLWCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
-	SQLWCHAR TmpColumnType[Global::COLUMNTYPE_LENGTH];
+	SQLWCHAR TmpColumnName[COLUMNNAME_LENGTH];
+	SQLWCHAR TmpColumnType[COLUMNTYPE_LENGTH];
 	SQLWCHAR TmpIsNull[10];
-	SQLBindCol(pImpl->Hstmt, 1, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLWCHAR), NULL);
-	SQLBindCol(pImpl->Hstmt, 2, SQL_C_WCHAR, TmpColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLWCHAR), NULL);
+	SQLBindCol(pImpl->Hstmt, 1, SQL_C_WCHAR, TmpColumnName, COLUMNNAME_LENGTH * sizeof(SQLWCHAR), NULL);
+	SQLBindCol(pImpl->Hstmt, 2, SQL_C_WCHAR, TmpColumnType, COLUMNTYPE_LENGTH * sizeof(SQLWCHAR), NULL);
 	SQLBindCol(pImpl->Hstmt, 4, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLWCHAR), NULL);
 
 	int Loop = 0;
-	for (; Loop < Global::MAXNUM_COLUMNS; Loop++) {
+	for (; Loop < MAXNUM_COLUMNS; Loop++) {
 		Ret = SQLFetch(pImpl->Hstmt);
 		if (Ret == SQL_NO_DATA_FOUND) break;
 		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO) {
@@ -126,7 +125,7 @@ int DbMySqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* Tbl
 		wchar_t* TmpColumnTypeCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpColumnType);
 		wchar_t* TmpIsNullCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpIsNull);
 
-		wchar_t ColTypeCnv[Global::COLUMNTYPE_LENGTH];
+		wchar_t ColTypeCnv[COLUMNTYPE_LENGTH];
 		ConvertAttrType(TmpColumnTypeCnv, ColTypeCnv);
 		StkObject* ClmObj = new StkObject(L"ColumnInfo");
 		ClmObj->AppendChildElement(new StkObject(L"title", TmpColumnNameCnv));
@@ -166,11 +165,11 @@ int DbMySqlAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCols, St
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
 
-	wchar_t ColumnName[5][Global::COLUMNNAME_LENGTH];
-	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2];
+	wchar_t ColumnName[5][COLUMNNAME_LENGTH];
+	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2];
 	int OpeType[5];
-	wchar_t Value[5][Global::COLUMNVAL_LENGTH];
-	wchar_t ValueCnv[5][Global::COLUMNVAL_LENGTH * 4 + 2];
+	wchar_t Value[5][COLUMNVAL_LENGTH];
+	wchar_t ValueCnv[5][COLUMNVAL_LENGTH * 4 + 2];
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
@@ -192,7 +191,7 @@ int DbMySqlAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCols, St
 	return NumOfRecs;
 }
 
-int DbMySqlAccessor::ConvertAttrType(wchar_t InAttr[Global::COLUMNTYPE_LENGTH], wchar_t OutAttr[Global::COLUMNTYPE_LENGTH])
+int DbMySqlAccessor::ConvertAttrType(wchar_t InAttr[COLUMNTYPE_LENGTH], wchar_t OutAttr[COLUMNTYPE_LENGTH])
 {
 	if (StkPlWcsStr(InAttr, L"bigint") != NULL ||
 		StkPlWcsStr(InAttr, L"int") != NULL ||

@@ -5,7 +5,6 @@
 #include <sqlext.h>
 
 #include "DbMariaDbAccessor.h"
-#include "Global.h"
 #include "dataaccess.h"
 
 class DbAccessor::Impl
@@ -24,7 +23,7 @@ DbMariaDbAccessor::~DbMariaDbAccessor()
 {
 }
 
-void DbMariaDbAccessor::GetDefaultConnStr(wchar_t DefConnStr[Global::MAX_PARAM_LENGTH])
+void DbMariaDbAccessor::GetDefaultConnStr(wchar_t DefConnStr[MAX_PARAM_LENGTH])
 {
 	StkPlLStrCpy(DefConnStr, L"Driver={MariaDB ODBC 3.1 Driver};Server=localhost;UID=UID;PWD=PWD;DB=DATABASE_NAME;Port=3306;");
 }
@@ -35,11 +34,11 @@ int DbMariaDbAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[10],
 	wchar_t* EcdTableName = new wchar_t[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
-	wchar_t ColumnName[5][Global::COLUMNNAME_LENGTH];
-	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2];
+	wchar_t ColumnName[5][COLUMNNAME_LENGTH];
+	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2];
 	int OpeType[5];
-	wchar_t Value[5][Global::COLUMNVAL_LENGTH];
-	wchar_t ValueCnv[5][Global::COLUMNVAL_LENGTH * 4 + 2];
+	wchar_t Value[5][COLUMNVAL_LENGTH];
+	wchar_t ValueCnv[5][COLUMNVAL_LENGTH * 4 + 2];
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
@@ -105,18 +104,18 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return 0;
 	}
-	SQLWCHAR TmpColumnNameTmp[Global::COLUMNNAME_LENGTH * 2]; // For adaptation to the bug of MariaDB ODBC connector
-	SQLWCHAR TmpColumnTypeTmp[Global::COLUMNTYPE_LENGTH * 2]; // For adaptation to the bug of MariaDB ODBC connector
+	SQLWCHAR TmpColumnNameTmp[COLUMNNAME_LENGTH * 2]; // For adaptation to the bug of MariaDB ODBC connector
+	SQLWCHAR TmpColumnTypeTmp[COLUMNTYPE_LENGTH * 2]; // For adaptation to the bug of MariaDB ODBC connector
 	SQLWCHAR TmpIsNullTmp[10];
 	SQLLEN ColumneNameLen = 0;
 	SQLLEN ColumneTypeLen = 0;
 	SQLLEN IsNullLen = 0;
-	SQLBindCol(pImpl->Hstmt, 1, SQL_C_WCHAR, TmpColumnNameTmp, Global::COLUMNNAME_LENGTH * sizeof(SQLWCHAR), &ColumneNameLen);
-	SQLBindCol(pImpl->Hstmt, 2, SQL_C_WCHAR, TmpColumnTypeTmp, Global::COLUMNTYPE_LENGTH * sizeof(SQLWCHAR), &ColumneTypeLen);
+	SQLBindCol(pImpl->Hstmt, 1, SQL_C_WCHAR, TmpColumnNameTmp, COLUMNNAME_LENGTH * sizeof(SQLWCHAR), &ColumneNameLen);
+	SQLBindCol(pImpl->Hstmt, 2, SQL_C_WCHAR, TmpColumnTypeTmp, COLUMNTYPE_LENGTH * sizeof(SQLWCHAR), &ColumneTypeLen);
 	SQLBindCol(pImpl->Hstmt, 4, SQL_C_WCHAR, TmpIsNullTmp, 10 * sizeof(SQLWCHAR), &IsNullLen);
 
 	int Loop = 0;
-	for (; Loop < Global::MAXNUM_COLUMNS; Loop++) {
+	for (; Loop < MAXNUM_COLUMNS; Loop++) {
 		Ret = SQLFetch(pImpl->Hstmt);
 		if (Ret == SQL_NO_DATA_FOUND) break;
 		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO) {
@@ -129,14 +128,14 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 		wchar_t* TmpColumnTypeTmpCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpColumnTypeTmp);
 		wchar_t* TmpIsNullCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpIsNullTmp);
 
-		wchar_t TmpColumnName[Global::COLUMNNAME_LENGTH];
-		wchar_t TmpColumnType[Global::COLUMNTYPE_LENGTH];
+		wchar_t TmpColumnName[COLUMNNAME_LENGTH];
+		wchar_t TmpColumnType[COLUMNTYPE_LENGTH];
 		wchar_t TmpIsNull[10];
-		StkPlWcsCpy(TmpColumnName, (size_t)Global::COLUMNNAME_LENGTH, TmpColumnNameTmpCnv);	// For adaptation to the bug of MariaDB ODBC connector
-		StkPlWcsCpy(TmpColumnType, (size_t)Global::COLUMNTYPE_LENGTH, TmpColumnTypeTmpCnv);	// For adaptation to the bug of MariaDB ODBC connector
+		StkPlWcsCpy(TmpColumnName, (size_t)COLUMNNAME_LENGTH, TmpColumnNameTmpCnv);	// For adaptation to the bug of MariaDB ODBC connector
+		StkPlWcsCpy(TmpColumnType, (size_t)COLUMNTYPE_LENGTH, TmpColumnTypeTmpCnv);	// For adaptation to the bug of MariaDB ODBC connector
 		StkPlWcsCpy(TmpIsNull, 10, TmpIsNullCnv);											// For adaptation to the bug of MariaDB ODBC connector
 
-		wchar_t ColTypeCnv[Global::COLUMNTYPE_LENGTH];
+		wchar_t ColTypeCnv[COLUMNTYPE_LENGTH];
 		ConvertAttrType(TmpColumnType, ColTypeCnv);
 		StkObject* ClmObj = new StkObject(L"ColumnInfo");
 		ClmObj->AppendChildElement(new StkObject(L"title", (wchar_t*)TmpColumnName));
@@ -176,11 +175,11 @@ int DbMariaDbAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCols, 
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
 
-	wchar_t ColumnName[5][Global::COLUMNNAME_LENGTH];
-	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2];
+	wchar_t ColumnName[5][COLUMNNAME_LENGTH];
+	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2];
 	int OpeType[5];
-	wchar_t Value[5][Global::COLUMNVAL_LENGTH];
-	wchar_t ValueCnv[5][Global::COLUMNVAL_LENGTH * 4 + 2];
+	wchar_t Value[5][COLUMNVAL_LENGTH];
+	wchar_t ValueCnv[5][COLUMNVAL_LENGTH * 4 + 2];
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
@@ -202,7 +201,7 @@ int DbMariaDbAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCols, 
 	return NumOfRecs;
 }
 
-int DbMariaDbAccessor::ConvertAttrType(wchar_t InAttr[Global::COLUMNTYPE_LENGTH], wchar_t OutAttr[Global::COLUMNTYPE_LENGTH])
+int DbMariaDbAccessor::ConvertAttrType(wchar_t InAttr[COLUMNTYPE_LENGTH], wchar_t OutAttr[COLUMNTYPE_LENGTH])
 {
 	if (StkPlWcsStr((wchar_t*)InAttr, L"bigint") != NULL ||
 		StkPlWcsStr((wchar_t*)InAttr, L"int") != NULL ||

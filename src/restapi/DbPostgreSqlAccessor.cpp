@@ -6,7 +6,6 @@
 
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
 #include "DbPostgreSqlAccessor.h"
-#include "Global.h"
 #include "dataaccess.h"
 
 class DbAccessor::Impl
@@ -25,7 +24,7 @@ DbPostgreSqlAccessor::~DbPostgreSqlAccessor()
 {
 }
 
-void DbPostgreSqlAccessor::GetDefaultConnStr(wchar_t DefConnStr[Global::MAX_PARAM_LENGTH])
+void DbPostgreSqlAccessor::GetDefaultConnStr(wchar_t DefConnStr[MAX_PARAM_LENGTH])
 {
 	StkPlLStrCpy(DefConnStr, L"Driver={PostgreSQL Unicode};Server=127.0.0.1;Database=DATABASE_NAME;UID=UID;PWD=PWD;Port=5432;");
 }
@@ -36,11 +35,11 @@ int DbPostgreSqlAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[1
 	wchar_t* EcdTableName = new wchar_t[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
-	wchar_t ColumnName[5][Global::COLUMNNAME_LENGTH];
-	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2];
+	wchar_t ColumnName[5][COLUMNNAME_LENGTH];
+	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2];
 	int OpeType[5];
-	wchar_t Value[5][Global::COLUMNVAL_LENGTH];
-	wchar_t ValueCnv[5][Global::COLUMNVAL_LENGTH * 4 + 2];
+	wchar_t Value[5][COLUMNVAL_LENGTH];
+	wchar_t ValueCnv[5][COLUMNVAL_LENGTH * 4 + 2];
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
@@ -106,18 +105,18 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return 0;
 	}
-	SQLWCHAR TmpColumnName[Global::COLUMNNAME_LENGTH];
-	SQLWCHAR ColumnType[Global::COLUMNTYPE_LENGTH];
+	SQLWCHAR TmpColumnName[COLUMNNAME_LENGTH];
+	SQLWCHAR ColumnType[COLUMNTYPE_LENGTH];
 	SQLWCHAR TmpIsNull[10];
 	int TmpColumnMaxLen;
 	SQLLEN ColumneNameLen, ColumneTypeLen, ColumneMaxLen, IsNullLen;
-	SQLBindCol(pImpl->Hstmt, 4, SQL_C_WCHAR, TmpColumnName, Global::COLUMNNAME_LENGTH * sizeof(SQLWCHAR), &ColumneNameLen);
+	SQLBindCol(pImpl->Hstmt, 4, SQL_C_WCHAR, TmpColumnName, COLUMNNAME_LENGTH * sizeof(SQLWCHAR), &ColumneNameLen);
 	SQLBindCol(pImpl->Hstmt, 7, SQL_C_WCHAR, TmpIsNull, 10 * sizeof(SQLWCHAR), &IsNullLen);
-	SQLBindCol(pImpl->Hstmt, 8, SQL_C_WCHAR, ColumnType, Global::COLUMNTYPE_LENGTH * sizeof(SQLWCHAR), &ColumneTypeLen);
+	SQLBindCol(pImpl->Hstmt, 8, SQL_C_WCHAR, ColumnType, COLUMNTYPE_LENGTH * sizeof(SQLWCHAR), &ColumneTypeLen);
 	SQLBindCol(pImpl->Hstmt, 9, SQL_C_SLONG, &TmpColumnMaxLen, 0, &ColumneMaxLen);
 
 	int Loop = 0;
-	for (; Loop < Global::MAXNUM_COLUMNS; Loop++) {
+	for (; Loop < MAXNUM_COLUMNS; Loop++) {
 		Ret = SQLFetch(pImpl->Hstmt);
 		if (Ret == SQL_NO_DATA_FOUND) break;
 		if (Ret != SQL_SUCCESS && Ret != SQL_SUCCESS_WITH_INFO && ColumneMaxLen != SQL_NULL_DATA) {
@@ -130,13 +129,13 @@ int DbPostgreSqlAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject
 		wchar_t* TmpIsNullCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpIsNull);
 		wchar_t* ColumnTypeCnv = StkPlCreateWideCharFromUtf16((char16_t*)ColumnType);
 
-		wchar_t TmpColumnType[Global::COLUMNTYPE_LENGTH];
+		wchar_t TmpColumnType[COLUMNTYPE_LENGTH];
 		if (ColumneMaxLen != SQL_NULL_DATA) {
-			StkPlSwPrintf(TmpColumnType, Global::COLUMNTYPE_LENGTH, L"%ls(%d)", ColumnTypeCnv, TmpColumnMaxLen);
+			StkPlSwPrintf(TmpColumnType, COLUMNTYPE_LENGTH, L"%ls(%d)", ColumnTypeCnv, TmpColumnMaxLen);
 		} else {
 			StkPlLStrCpy(TmpColumnType, ColumnTypeCnv);
 		}
-		wchar_t ColTypeCnv[Global::COLUMNTYPE_LENGTH];
+		wchar_t ColTypeCnv[COLUMNTYPE_LENGTH];
 		ConvertAttrType(TmpColumnType, ColTypeCnv);
 		StkObject* ClmObj = new StkObject(L"ColumnInfo");
 		ClmObj->AppendChildElement(new StkObject(L"title", TmpColumnNameCnv));
@@ -176,11 +175,11 @@ int DbPostgreSqlAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCol
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
 
-	wchar_t ColumnName[5][Global::COLUMNNAME_LENGTH];
-	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2];
+	wchar_t ColumnName[5][COLUMNNAME_LENGTH];
+	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2];
 	int OpeType[5];
-	wchar_t Value[5][Global::COLUMNVAL_LENGTH];
-	wchar_t ValueCnv[5][Global::COLUMNVAL_LENGTH * 4 + 2];
+	wchar_t Value[5][COLUMNVAL_LENGTH];
+	wchar_t ValueCnv[5][COLUMNVAL_LENGTH * 4 + 2];
 	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 	for (int Loop = 1; Loop <= 5; Loop++) {
 		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
@@ -202,7 +201,7 @@ int DbPostgreSqlAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCol
 	return NumOfRecs;
 }
 
-int DbPostgreSqlAccessor::ConvertAttrType(wchar_t InAttr[Global::COLUMNTYPE_LENGTH], wchar_t OutAttr[Global::COLUMNTYPE_LENGTH])
+int DbPostgreSqlAccessor::ConvertAttrType(wchar_t InAttr[COLUMNTYPE_LENGTH], wchar_t OutAttr[COLUMNTYPE_LENGTH])
 {
 	if (StkPlWcsStr((wchar_t*)InAttr, L"bigint") != NULL ||
 		StkPlWcsStr((wchar_t*)InAttr, L"integer") != NULL ||

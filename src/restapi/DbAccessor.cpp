@@ -5,7 +5,6 @@
 #include <sqlext.h>
 
 #include "DbAccessor.h"
-#include "Global.h"
 #include "dataaccess.h"
 #include "../../../YaizuComLib/src/commonfunc/StkObject.h"
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
@@ -35,7 +34,7 @@ void DbAccessor::ConvertMessage(wchar_t StateMsg[10], wchar_t Msg[1024], const c
 }
 
 // Return 0: Success, -1:Error
-int DbAccessor::Test(wchar_t ConnStr[Global::MAX_PARAM_LENGTH], wchar_t ErrMsg[1024])
+int DbAccessor::Test(wchar_t ConnStr[MAX_PARAM_LENGTH], wchar_t ErrMsg[1024])
 {
 	char LogBuf[1024] = "";
 
@@ -75,8 +74,8 @@ int DbAccessor::GetTablesCommon(const wchar_t* Query, StkObject* Obj, wchar_t St
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
-	SQLWCHAR TableName[Global::TABLENAME_LENGTH];
-	SQLBindCol(pImpl->Hstmt, 1, SQL_C_WCHAR, TableName, Global::TABLENAME_LENGTH * sizeof(SQLWCHAR), NULL);
+	SQLWCHAR TableName[TABLENAME_LENGTH];
+	SQLBindCol(pImpl->Hstmt, 1, SQL_C_WCHAR, TableName, TABLENAME_LENGTH * sizeof(SQLWCHAR), NULL);
 
 	bool InitFlag = true;
 	int Loop = 0;
@@ -94,7 +93,7 @@ int DbAccessor::GetTablesCommon(const wchar_t* Query, StkObject* Obj, wchar_t St
 		delete CvtTableName;
 		Obj->AppendChildElement(TblInfObj);
 		Loop++;
-		if (Loop >= Global::MAXNUM_TABLES) {
+		if (Loop >= MAXNUM_TABLES) {
 			break;
 		}
 	}
@@ -102,7 +101,7 @@ int DbAccessor::GetTablesCommon(const wchar_t* Query, StkObject* Obj, wchar_t St
 	return 0;
 }
 
-int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], wchar_t Value[5][Global::COLUMNVAL_LENGTH * 4 + 2], wchar_t StateMsg[10], wchar_t Msg[1024])
+int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], wchar_t Value[5][COLUMNVAL_LENGTH * 4 + 2], wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLWCHAR CvtStateMsg[10];
 	SQLWCHAR CvtMsg[1024];
@@ -182,8 +181,8 @@ int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[
 
 int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
 	int NumOfCols, StkObject* Obj,
-	wchar_t ColumnNameCnv[5][Global::COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], const wchar_t Value[5][Global::COLUMNVAL_LENGTH * 4 + 2],
-	const wchar_t SortTarget[Global::COLUMNNAME_LENGTH * 4 + 2],
+	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], const wchar_t Value[5][COLUMNVAL_LENGTH * 4 + 2],
+	const wchar_t SortTarget[COLUMNNAME_LENGTH * 4 + 2],
 	const wchar_t SortOrder[5],
 	int Limit, int Offset,
 	wchar_t StateMsg[10], wchar_t Msg[1024])
@@ -260,10 +259,10 @@ int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
 		return 0;
 	}
 
-	SQLWCHAR TmpRecord[Global::MAXNUM_COLUMNS][Global::COLUMNVAL_LENGTH + 10]; // Why +10 ... MariaDB-Fetch returns data exceeding buffer size
-	SQLLEN ValLen[Global::MAXNUM_COLUMNS];
+	SQLWCHAR TmpRecord[MAXNUM_COLUMNS][COLUMNVAL_LENGTH + 10]; // Why +10 ... MariaDB-Fetch returns data exceeding buffer size
+	SQLLEN ValLen[MAXNUM_COLUMNS];
 	for (int LoopCol = 0; LoopCol < NumOfCols; LoopCol++) {
-		SQLBindCol(pImpl->Hstmt, LoopCol + 1, SQL_C_WCHAR, TmpRecord[LoopCol], (Global::COLUMNVAL_LENGTH - 1) * sizeof(SQLWCHAR), &ValLen[LoopCol]);
+		SQLBindCol(pImpl->Hstmt, LoopCol + 1, SQL_C_WCHAR, TmpRecord[LoopCol], (COLUMNVAL_LENGTH - 1) * sizeof(SQLWCHAR), &ValLen[LoopCol]);
 	}
 	int LoopRec = 0;
 	for (;;) {
@@ -282,7 +281,7 @@ int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
 			if (ValLen[LoopCol] == -1) {
 				RecObj->AppendChildElement(new StkObject(IndStr, L""));
 			} else {
-				TmpRecord[LoopCol][Global::COLUMNVAL_LENGTH - 1] = '\0';
+				TmpRecord[LoopCol][COLUMNVAL_LENGTH - 1] = '\0';
 				wchar_t* TmpRecordCnv = StkPlCreateWideCharFromUtf16((char16_t*)TmpRecord[LoopCol]);
 				RecObj->AppendChildElement(new StkObject(IndStr, TmpRecordCnv));
 				delete TmpRecordCnv;

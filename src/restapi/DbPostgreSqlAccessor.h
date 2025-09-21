@@ -2,7 +2,6 @@
 #ifdef WIN32
 	#include <windows.h>
 #endif
-#include "Global.h"
 #include "DbAccessor.h"
 
 class DbPostgreSqlAccessor : public DbAccessor
@@ -16,11 +15,11 @@ public:
 	DbPostgreSqlAccessor();
 	~DbPostgreSqlAccessor();
 
-	void GetDefaultConnStr(wchar_t[Global::MAX_PARAM_LENGTH]);
+	void GetDefaultConnStr(wchar_t[MAX_PARAM_LENGTH]);
 	int GetNumOfRecords(wchar_t*, wchar_t[10], wchar_t[1024]);
 	int GetTables(StkObject*, wchar_t[10], wchar_t[1024]);
 	int GetColumnInfoByTableName(wchar_t*,	StkObject*, wchar_t[10], wchar_t[1024]);
 	int GetRecordsByTableName(wchar_t*, int, StkObject*, wchar_t*, wchar_t*, int, int, wchar_t[10], wchar_t[1024]);
-	int ConvertAttrType(wchar_t[Global::COLUMNTYPE_LENGTH], wchar_t[Global::COLUMNTYPE_LENGTH]);
+	int ConvertAttrType(wchar_t[COLUMNTYPE_LENGTH], wchar_t[COLUMNTYPE_LENGTH]);
 	void SqlEncoding(wchar_t*, wchar_t*, int);
 };
