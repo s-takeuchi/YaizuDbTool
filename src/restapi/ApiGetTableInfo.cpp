@@ -30,7 +30,7 @@ StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t U
 	wchar_t ConnStr[256];
 	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType, L"");
+	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 	Da->GetTables(DatObj, StateMsg, Msg);
 
 	if (StkPlWcsCmp(TableName, L"") != 0) {

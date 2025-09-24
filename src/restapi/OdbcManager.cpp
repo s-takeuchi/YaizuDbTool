@@ -1,5 +1,6 @@
 ﻿#include "OdbcManager.h"
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
+#include "dataaccess.h"
 #include "DbAccessor.h"
 #include "DbPostgreSqlAccessor.h"
 #include "DbMariaDbAccessor.h"
@@ -26,8 +27,15 @@ OdbcManager* OdbcManager::GetInstance()
 	return ThisInstance;
 }
 
-DbAccessor* OdbcManager::CreateAccessorObject(int Type, wchar_t* ConnStr)
+// Create DbAccessor object
+// Type [Input] : Type of DBMS. If ommitted, the value in StkData is used.
+// Return : Created DbAccessor object
+DbAccessor* OdbcManager::CreateAccessorObject(int Type)
 {
+	int Init;
+	wchar_t ConnStr[256];
+	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
+
 	if (Type == POSTGRESQL_ACCESSOR) {
 		return new DbPostgreSqlAccessor(ConnStr);
 	}

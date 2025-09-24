@@ -31,9 +31,9 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 		DbAccessor* DaPostgreSql = NULL;
 		DbAccessor* DaMySql      = NULL;
 
-		DaMariaDb    = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::MARIADB_ACCESSOR, L"");
-		DaPostgreSql = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::POSTGRESQL_ACCESSOR, L"");
-		DaMySql      = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::MYSQL_ACCESSOR, L"");
+		DaMariaDb    = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::MARIADB_ACCESSOR);
+		DaPostgreSql = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::POSTGRESQL_ACCESSOR);
+		DaMySql      = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::MYSQL_ACCESSOR);
 
 		DaMariaDb->GetDefaultConnStr(ConnStrMariaDb);
 		DaPostgreSql->GetDefaultConnStr(ConnStrPostgreSql);
@@ -83,7 +83,7 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 		DatObjDb->AppendChildElement(new StkObject(L"DbType", DbmsTypeStr));
 		DatObjDb->AppendChildElement(new StkObject(L"ConnStr", ConnStr));
 
-		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType, L"");
+		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 		wchar_t ErrMsg[1024] = L"";
 		int Ret = Da->Test(ConnStr, ErrMsg);
 		if (Ret == 0) {
@@ -164,7 +164,7 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 		AddCodeAndMsg(ResObj, 0, L"", L"");
 		StkObject* DatObj = new StkObject(L"Data");
 		StkObject* DatObjDb = new StkObject(L"OdbcInfo");
-		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType, L"");
+		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
 		wchar_t ErrMsg[1024] = L"";
 		int Ret = Da->Test(ConnStr, ErrMsg);
 		if (Ret == 0) {
