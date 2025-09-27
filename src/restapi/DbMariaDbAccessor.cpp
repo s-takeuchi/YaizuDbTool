@@ -56,10 +56,7 @@ int DbMariaDbAccessor::GetTables(StkObject* Obj, wchar_t StateMsg[10], wchar_t M
 {
 	SQLRETURN Ret = 0;
 
-	wchar_t ConnStr[256];
-	int Init;
-	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
+	Ret = OpenDatabase(pImpl->ConnectionString, StateMsg, Msg);
 	if (Ret != 0) {
 		return Ret;
 	}
@@ -78,10 +75,7 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	SQLRETURN Ret = 0;
 
-	wchar_t ConnStr[256];
-	int Init;
-	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
+	Ret = OpenDatabase(pImpl->ConnectionString, StateMsg, Msg);
 	if (Ret != 0) {
 		return 0;
 	}
@@ -155,8 +149,6 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 int DbMariaDbAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCols, StkObject* DatObj, wchar_t* SortTarget, wchar_t* SortOrder, int Limit, int Offset, wchar_t StateMsg[10], wchar_t Msg[1024])
 {
 	SQLRETURN Ret = 0;
-	wchar_t ConnStr[256];
-	int Init;
 
 	size_t LenOfTableName = StkPlWcsLen(TableName);
 	wchar_t* EcdTableName = new wchar_t[LenOfTableName * 4 + 2];
@@ -169,8 +161,7 @@ int DbMariaDbAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCols, 
 		SqlEncoding(SortTarget, EcdSortTarget, TYPE_KEY);
 	}
 
-	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
+	Ret = OpenDatabase(pImpl->ConnectionString, StateMsg, Msg);
 
 	wchar_t ColumnName[5][COLUMNNAME_LENGTH];
 	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2];

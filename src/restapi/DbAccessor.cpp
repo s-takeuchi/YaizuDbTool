@@ -118,10 +118,7 @@ int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	SQLRETURN Ret = 0;
 
-	wchar_t ConnStr[256];
-	int Init;
-	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
-	Ret = OpenDatabase(ConnStr, StateMsg, Msg);
+	Ret = OpenDatabase(pImpl->ConnectionString, StateMsg, Msg);
 	if (Ret != 0) {
 		return Ret;
 	}
