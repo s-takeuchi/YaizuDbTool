@@ -10,6 +10,8 @@
 class DbAccessor::Impl
 {
 public:
+	wchar_t* ConnectionString;
+
 	SQLHENV  Henv;
 	SQLHDBC  Hdbc;
 	SQLHSTMT Hstmt;
@@ -21,11 +23,6 @@ DbMariaDbAccessor::DbMariaDbAccessor(wchar_t* TmpConnStr) : DbAccessor(TmpConnSt
 
 DbMariaDbAccessor::~DbMariaDbAccessor()
 {
-}
-
-void DbMariaDbAccessor::GetDefaultConnStr(wchar_t DefConnStr[MAX_PARAM_LENGTH])
-{
-	StkPlLStrCpy(DefConnStr, L"Driver={MariaDB ODBC 3.1 Driver};Server=localhost;UID=UID;PWD=PWD;DB=DATABASE_NAME;Port=3306;");
 }
 
 int DbMariaDbAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[10], wchar_t Msg[1024])

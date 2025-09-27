@@ -15,7 +15,6 @@ public:
 	DbMySqlAccessor(wchar_t*);
 	~DbMySqlAccessor();
 
-	void GetDefaultConnStr(wchar_t[MAX_PARAM_LENGTH]);
 	int GetNumOfRecords(wchar_t*, wchar_t[10], wchar_t[1024]);
 	int GetTables(StkObject*, wchar_t[10], wchar_t[1024]);
 	int GetColumnInfoByTableName(wchar_t*,	StkObject*, wchar_t[10], wchar_t[1024]);

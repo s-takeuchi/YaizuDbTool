@@ -11,6 +11,8 @@
 class DbAccessor::Impl
 {
 public:
+	wchar_t* ConnectionString;
+
 	SQLHENV  Henv;
 	SQLHDBC  Hdbc;
 	SQLHSTMT Hstmt;
@@ -22,11 +24,6 @@ DbPostgreSqlAccessor::DbPostgreSqlAccessor(wchar_t* TmpConnStr) : DbAccessor(Tmp
 
 DbPostgreSqlAccessor::~DbPostgreSqlAccessor()
 {
-}
-
-void DbPostgreSqlAccessor::GetDefaultConnStr(wchar_t DefConnStr[MAX_PARAM_LENGTH])
-{
-	StkPlLStrCpy(DefConnStr, L"Driver={PostgreSQL Unicode};Server=127.0.0.1;Database=DATABASE_NAME;UID=UID;PWD=PWD;Port=5432;");
 }
 
 int DbPostgreSqlAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[10], wchar_t Msg[1024])

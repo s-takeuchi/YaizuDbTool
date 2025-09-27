@@ -10,6 +10,8 @@
 class DbAccessor::Impl
 {
 public:
+	wchar_t* ConnectionString;
+
 	SQLHENV  Henv;
 	SQLHDBC  Hdbc;
 	SQLHSTMT Hstmt;
@@ -21,11 +23,6 @@ DbMySqlAccessor::DbMySqlAccessor(wchar_t* TmpConnStr) : DbAccessor(TmpConnStr)
 
 DbMySqlAccessor::~DbMySqlAccessor()
 {
-}
-
-void DbMySqlAccessor::GetDefaultConnStr(wchar_t DefConnStr[MAX_PARAM_LENGTH])
-{
-	StkPlLStrCpy(DefConnStr, L"Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Port=3306;Option=131072;Stmt=;Database=DATABASE_NAME;Uid=UID;Pwd=PWD;");
 }
 
 int DbMySqlAccessor::GetNumOfRecords(wchar_t* TableName, wchar_t StateMsg[10], wchar_t Msg[1024])

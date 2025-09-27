@@ -22,6 +22,9 @@ public:
 DbAccessor::DbAccessor(wchar_t* TmpConnStr)
 {
 	pImpl = new Impl;
+	pImpl->Henv = 0;
+	pImpl->Hdbc = 0;
+	pImpl->Hstmt = 0;
 	size_t Len = StkPlWcsLen(TmpConnStr);
 	pImpl->ConnectionString = new wchar_t[Len + 1];
 	StkPlWcsCpy(pImpl->ConnectionString, Len + 1, TmpConnStr);
@@ -340,7 +343,7 @@ int DbAccessor::OpenDatabase(wchar_t* ConnectStr, wchar_t StateMsg[10], wchar_t 
 	}
 
 	// Alloc statement handle 
-	if (SQLAllocHandle(SQL_HANDLE_STMT, pImpl->Hdbc, &pImpl->Hstmt) == SQL_ERROR) {
+	if (SQLAllocHandle(SQL_HANDLE_STMT, pImpl->Hdbc, &(pImpl->Hstmt)) == SQL_ERROR) {
 		SQLGetDiagRecW(SQL_HANDLE_DBC, pImpl->Hdbc, 1, CvtStateMsg, &Native, CvtMsg, 1024, &ActualMsgLen);
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
@@ -365,6 +368,7 @@ int DbAccessor::CloseDatabase(wchar_t StateMsg[10], wchar_t Msg[1024])
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
+	pImpl->Hstmt = 0;
 
 	// SQLDisconnect
 	SQLRETURN Ret = SQLDisconnect(pImpl->Hdbc);
@@ -380,6 +384,7 @@ int DbAccessor::CloseDatabase(wchar_t StateMsg[10], wchar_t Msg[1024])
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
+	pImpl->Hdbc = 0;
 
 	// Free environment handle
 	if (SQLFreeHandle(SQL_HANDLE_ENV, pImpl->Henv) == SQL_ERROR) {
@@ -387,6 +392,7 @@ int DbAccessor::CloseDatabase(wchar_t StateMsg[10], wchar_t Msg[1024])
 		ConvertMessage(StateMsg, Msg, (char16_t*)CvtStateMsg, (char16_t*)CvtMsg);
 		return -1;
 	}
+	pImpl->Henv = 0;
 
 	return 0;
 }

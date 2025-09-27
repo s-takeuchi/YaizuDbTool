@@ -28,21 +28,20 @@ OdbcManager* OdbcManager::GetInstance()
 }
 
 // Create DbAccessor object
-// Type [Input] : Type of DBMS. If ommitted, the value in StkData is used.
 // Return : Created DbAccessor object
-DbAccessor* OdbcManager::CreateAccessorObject(int Type)
+DbAccessor* OdbcManager::CreateAccessorObject()
 {
-	int Init;
 	wchar_t ConnStr[256];
+	int Init;
 	int DbmsType = DataAccess::GetInstance()->GetOdbcConfing(ConnStr, &Init);
 
-	if (Type == POSTGRESQL_ACCESSOR) {
+	if (DbmsType == POSTGRESQL_ACCESSOR) {
 		return new DbPostgreSqlAccessor(ConnStr);
 	}
-	if (Type == MARIADB_ACCESSOR) {
+	if (DbmsType == MARIADB_ACCESSOR) {
 		return new DbMariaDbAccessor(ConnStr);
 	}
-	if (Type == MYSQL_ACCESSOR) {
+	if (DbmsType == MYSQL_ACCESSOR) {
 		return new DbMySqlAccessor(ConnStr);
 	}
 	return NULL;

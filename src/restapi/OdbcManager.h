@@ -20,7 +20,7 @@ public:
 	static OdbcManager* GetInstance();
 
 	// Create accessor object
-	DbAccessor* CreateAccessorObject(int);
+	DbAccessor* CreateAccessorObject();
 	// Delete accessor object
 	void DeleteAccessorObject(DbAccessor*);
 

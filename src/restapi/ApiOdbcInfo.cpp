@@ -27,21 +27,9 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 		wchar_t ConnStrMariaDb[Global::MAX_PARAM_LENGTH];
 		wchar_t ConnStrMySql[Global::MAX_PARAM_LENGTH];
 
-		DbAccessor* DaMariaDb    = NULL;
-		DbAccessor* DaPostgreSql = NULL;
-		DbAccessor* DaMySql      = NULL;
-
-		DaMariaDb    = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::MARIADB_ACCESSOR);
-		DaPostgreSql = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::POSTGRESQL_ACCESSOR);
-		DaMySql      = OdbcManager::GetInstance()->CreateAccessorObject(OdbcManager::MYSQL_ACCESSOR);
-
-		DaMariaDb->GetDefaultConnStr(ConnStrMariaDb);
-		DaPostgreSql->GetDefaultConnStr(ConnStrPostgreSql);
-		DaMySql->GetDefaultConnStr(ConnStrMySql);
-
-		OdbcManager::GetInstance()->DeleteAccessorObject(DaMariaDb);
-		OdbcManager::GetInstance()->DeleteAccessorObject(DaPostgreSql);
-		OdbcManager::GetInstance()->DeleteAccessorObject(DaMySql);
+		StkPlLStrCpy(ConnStrPostgreSql, L"Driver={PostgreSQL Unicode};Server=127.0.0.1;Database=DATABASE_NAME;UID=UID;PWD=PWD;Port=5432;");
+		StkPlLStrCpy(ConnStrMariaDb, L"Driver={MariaDB ODBC 3.1 Driver};Server=localhost;UID=UID;PWD=PWD;DB=DATABASE_NAME;Port=3306;");
+		StkPlLStrCpy(ConnStrMySql, L"Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Port=3306;Option=131072;Stmt=;Database=DATABASE_NAME;Uid=UID;Pwd=PWD;");
 
 		StkObject* DatObjMariaDb = new StkObject(L"OdbcInfo");
 		DatObjMariaDb->AppendChildElement(new StkObject(L"DbType", L"MariaDB"));
@@ -83,7 +71,7 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 		DatObjDb->AppendChildElement(new StkObject(L"DbType", DbmsTypeStr));
 		DatObjDb->AppendChildElement(new StkObject(L"ConnStr", ConnStr));
 
-		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
+		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject();
 		wchar_t ErrMsg[1024] = L"";
 		int Ret = Da->Test(ConnStr, ErrMsg);
 		if (Ret == 0) {
@@ -164,7 +152,7 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 		AddCodeAndMsg(ResObj, 0, L"", L"");
 		StkObject* DatObj = new StkObject(L"Data");
 		StkObject* DatObjDb = new StkObject(L"OdbcInfo");
-		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject(DbmsType);
+		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject();
 		wchar_t ErrMsg[1024] = L"";
 		int Ret = Da->Test(ConnStr, ErrMsg);
 		if (Ret == 0) {
