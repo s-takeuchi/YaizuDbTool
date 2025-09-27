@@ -80,7 +80,6 @@ rem ########## Testing ##########
 echo;
 echo Test starts
 start /d webapp webapp\sample.exe
-timeout /t 3
 webapp\restapitest.exe
 echo Test ends
 
