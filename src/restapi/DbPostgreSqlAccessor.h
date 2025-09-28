@@ -3,6 +3,7 @@
 	#include <windows.h>
 #endif
 #include "DbAccessor.h"
+#include "FilteringCondition.h"
 
 class DbPostgreSqlAccessor : public DbAccessor
 {
@@ -16,6 +17,7 @@ public:
 	~DbPostgreSqlAccessor();
 
 	int GetNumOfRecords(wchar_t*, wchar_t[10], wchar_t[1024]);
+	int GetNumOfRecords(wchar_t*, FilteringCondition*, wchar_t[10], wchar_t[1024]);
 	int GetTables(StkObject*, wchar_t[10], wchar_t[1024]);
 	int GetColumnInfoByTableName(wchar_t*,	StkObject*, wchar_t[10], wchar_t[1024]);
 	int GetRecordsByTableName(wchar_t*, int, StkObject*, wchar_t*, wchar_t*, int, int, wchar_t[10], wchar_t[1024]);

@@ -133,6 +133,7 @@
     <ClInclude Include="DbMariaDbAccessor.h" />
     <ClInclude Include="DbMySqlAccessor.h" />
     <ClInclude Include="DbPostgreSqlAccessor.h" />
+    <ClInclude Include="FilteringCondition.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="MyMsgProc.h" />
     <ClInclude Include="OdbcManager.h" />

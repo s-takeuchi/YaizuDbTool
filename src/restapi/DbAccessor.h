@@ -2,6 +2,7 @@
 #ifdef WIN32
     #include <windows.h>
 #endif
+#include "FilteringCondition.h"
 #include "../../../YaizuComLib/src/commonfunc/StkObject.h"
 
 class DbAccessor
@@ -39,6 +40,7 @@ public:
 
 	virtual int Test(wchar_t[MAX_PARAM_LENGTH], wchar_t[1024]);
 	virtual int GetNumOfRecords(wchar_t*, wchar_t[10], wchar_t[1024]) = 0;
+	virtual int GetNumOfRecords(wchar_t*, FilteringCondition*, wchar_t[10], wchar_t[1024]) = 0;
 	virtual int GetTables(StkObject*, wchar_t[10], wchar_t[1024]) = 0;
 	virtual int GetColumnInfoByTableName(wchar_t*,	StkObject*, wchar_t[10], wchar_t[1024]) = 0;
 	virtual int GetRecordsByTableName(wchar_t*, int, StkObject*, wchar_t*, wchar_t*, int, int, wchar_t[10], wchar_t[1024]) = 0;
