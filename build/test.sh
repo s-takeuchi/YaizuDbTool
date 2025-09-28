@@ -26,6 +26,5 @@ cd $BUILDDIR
 echo
 echo Test starts
 ./cmdfreak&
-sleep 3
 ./restapitest
 echo Test ends
