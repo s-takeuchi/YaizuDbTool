@@ -4,6 +4,7 @@
 #include "Global.h"
 #include "OdbcManager.h"
 #include "DbAccessor.h"
+#include "FilteringCondition.h"
 #include "../../../YaizuComLib/src/commonfunc/StkStringParser.h"
 
 StkObject* ApiGetRecCount::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3], wchar_t* Token)
@@ -52,6 +53,16 @@ StkObject* ApiGetRecCount::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t Ur
 	// Get records
 	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject();
 	StkObject* ColumnObj = new StkObject(L"Column");
+	wchar_t ColumnName[Global::COLUMNNAME_LENGTH];
+	int OpeType;
+	wchar_t Value[Global::COLUMNVAL_LENGTH];
+	FilteringCondition* TopFilCond = NULL;
+	FilteringCondition* PrevFilCond = NULL;
+	for (int Loop = 1; Loop <= 5; Loop++) {
+		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName, &OpeType, Value);
+		FilteringCondition* CurFilCond = new FilteringCondition();
+		////////
+	}
 	int NumOfRecs = Da->GetNumOfRecords(TableNameAc, StateMsg, Msg);
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 

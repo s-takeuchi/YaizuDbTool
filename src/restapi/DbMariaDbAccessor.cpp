@@ -61,20 +61,25 @@ int DbMariaDbAccessor::GetNumOfRecords(wchar_t* TableName, FilteringCondition* F
 	wchar_t* EcdTableName = new wchar_t[LenOfTableName * 4 + 2];
 	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
 
-	wchar_t ColumnName[5][COLUMNNAME_LENGTH];
 	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2];
 	int OpeType[5];
-	wchar_t Value[5][COLUMNVAL_LENGTH];
 	wchar_t ValueCnv[5][COLUMNVAL_LENGTH * 4 + 2];
-	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
-	for (int Loop = 1; Loop <= 5; Loop++) {
-		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
-		SqlEncoding(ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);
-		if (FilterSwitch && (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11)) {
-			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
+	bool FilterSwitch = false;
+	if (FilCond != NULL) {
+		FilterSwitch = true;
+	}
+	FilteringCondition* CurFilCond = FilCond;
+	int Loop = 0;
+	while (CurFilCond) {
+		SqlEncoding(CurFilCond->ColumnName, ColumnNameCnv[Loop], TYPE_KEY);
+		OpeType[Loop] = CurFilCond->OpeType;
+		if (FilterSwitch && (CurFilCond->OpeType == 10 || CurFilCond->OpeType == 11)) {
+			SqlEncoding(CurFilCond->ColumnVal, ValueCnv[Loop], TYPE_LIKE_VALUE);
 		} else {
-			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_VALUE);
+			SqlEncoding(CurFilCond->ColumnVal, ValueCnv[Loop], TYPE_VALUE);
 		}
+		CurFilCond = CurFilCond->Next;
+		Loop++;
 	}
 
 	int Ret = GetNumOfRecordsCommon(EcdTableName, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg);
