@@ -16,7 +16,6 @@ public:
 	DbPostgreSqlAccessor(wchar_t*);
 	~DbPostgreSqlAccessor();
 
-	int GetNumOfRecords(wchar_t*, wchar_t[10], wchar_t[1024]);
 	int GetNumOfRecords(wchar_t*, FilteringCondition*, wchar_t[10], wchar_t[1024]);
 	int GetTables(StkObject*, wchar_t[10], wchar_t[1024]);
 	int GetColumnInfoByTableName(wchar_t*,	StkObject*, wchar_t[10], wchar_t[1024]);

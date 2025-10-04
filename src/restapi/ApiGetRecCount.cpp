@@ -51,26 +51,32 @@ StkObject* ApiGetRecCount::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t Ur
 	}
 
 	// Get records
-	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject();
 	StkObject* ColumnObj = new StkObject(L"Column");
 	wchar_t ColumnName[Global::COLUMNNAME_LENGTH];
 	int OpeType;
 	wchar_t ColumnVal[Global::COLUMNVAL_LENGTH];
 	FilteringCondition* TopFilCond = NULL;
-	FilteringCondition* PrevFilCond = NULL;
-	for (int Loop = 1; Loop <= 5; Loop++) {
-		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName, &OpeType, ColumnVal);
-		FilteringCondition* CurFilCond = new FilteringCondition(ColumnName, OpeType, ColumnVal);
-		if (TopFilCond == NULL) {
-			TopFilCond = CurFilCond;
+	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
+	if (FilterSwitch) {
+		FilteringCondition* PrevFilCond = NULL;
+		for (int Loop = 1; Loop <= 5; Loop++) {
+			DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName, &OpeType, ColumnVal);
+			FilteringCondition* CurFilCond = new FilteringCondition(ColumnName, OpeType, ColumnVal);
+			if (TopFilCond == NULL) {
+				TopFilCond = CurFilCond;
+			}
+			if (PrevFilCond != NULL) {
+				PrevFilCond->SetNext(CurFilCond);
+			}
+			PrevFilCond = CurFilCond;
 		}
-		if (PrevFilCond != NULL) {
-			PrevFilCond->SetNext(CurFilCond);
-		}
-		PrevFilCond = CurFilCond;
 	}
-	int NumOfRecs = Da->GetNumOfRecords(TableNameAc, StateMsg, Msg);
+	DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject();
+	int NumOfRecs = Da->GetNumOfRecords(TableNameAc, TopFilCond, StateMsg, Msg);
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);
+	if (TopFilCond) {
+		delete TopFilCond;
+	}
 
 	StkObject* DataObj = new StkObject(L"Data");
 	DataObj->AppendChildElement(new StkObject(L"NumOfRecords", NumOfRecs));
