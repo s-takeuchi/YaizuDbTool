@@ -71,14 +71,14 @@ int DbPostgreSqlAccessor::GetNumOfRecords(wchar_t* TableName, FilteringCondition
 	FilteringCondition* CurFilCond = FilCond;
 	int Loop = 0;
 	while (CurFilCond) {
-		SqlEncoding(CurFilCond->ColumnName, ColumnNameCnv[Loop], TYPE_KEY);
-		OpeType[Loop] = CurFilCond->OpeType;
-		if (FilterSwitch && (CurFilCond->OpeType == 10 || CurFilCond->OpeType == 11)) {
-			SqlEncoding(CurFilCond->ColumnVal, ValueCnv[Loop], TYPE_LIKE_VALUE);
+		SqlEncoding(CurFilCond->GetColumnName(), ColumnNameCnv[Loop], TYPE_KEY);
+		OpeType[Loop] = CurFilCond->GetOpeType();
+		if (FilterSwitch && (CurFilCond->GetOpeType() == 10 || CurFilCond->GetOpeType() == 11)) {
+			SqlEncoding(CurFilCond->GetColumnVal(), ValueCnv[Loop], TYPE_LIKE_VALUE);
 		} else {
-			SqlEncoding(CurFilCond->ColumnVal, ValueCnv[Loop], TYPE_VALUE);
+			SqlEncoding(CurFilCond->GetColumnVal(), ValueCnv[Loop], TYPE_VALUE);
 		}
-		CurFilCond = CurFilCond->Next;
+		CurFilCond = CurFilCond->GetNext();
 		Loop++;
 	}
 

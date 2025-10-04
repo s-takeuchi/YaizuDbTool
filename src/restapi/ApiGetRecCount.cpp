@@ -55,13 +55,19 @@ StkObject* ApiGetRecCount::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t Ur
 	StkObject* ColumnObj = new StkObject(L"Column");
 	wchar_t ColumnName[Global::COLUMNNAME_LENGTH];
 	int OpeType;
-	wchar_t Value[Global::COLUMNVAL_LENGTH];
+	wchar_t ColumnVal[Global::COLUMNVAL_LENGTH];
 	FilteringCondition* TopFilCond = NULL;
 	FilteringCondition* PrevFilCond = NULL;
 	for (int Loop = 1; Loop <= 5; Loop++) {
-		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName, &OpeType, Value);
-		FilteringCondition* CurFilCond = new FilteringCondition();
-		////////
+		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName, &OpeType, ColumnVal);
+		FilteringCondition* CurFilCond = new FilteringCondition(ColumnName, OpeType, ColumnVal);
+		if (TopFilCond == NULL) {
+			TopFilCond = CurFilCond;
+		}
+		if (PrevFilCond != NULL) {
+			PrevFilCond->SetNext(CurFilCond);
+		}
+		PrevFilCond = CurFilCond;
 	}
 	int NumOfRecs = Da->GetNumOfRecords(TableNameAc, StateMsg, Msg);
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);
