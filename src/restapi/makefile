@@ -2,7 +2,7 @@ LDFLAGS = -L/usr/local/lib64 -L/usr/local/lib
 LIBS    = -lstdc++fs -pthread -static-libgcc -lssl -lcrypto -lstdc++ -lodbc -lodbcinst
 CCOPTS    = -DUNICODE -std=c++1z
 
-cmdfreak : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o Global.o
+cmdfreak : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o Global.o FilteringCondition.o
 	cd ../../../YaizuComLib/src/stkpl; make
 	cp ../../../YaizuComLib/src/stkpl/stkpl.a .
 	cd ../../../YaizuComLib/src/stkwebapp; make
@@ -18,7 +18,7 @@ cmdfreak : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCo
 	cd ../../../YaizuComLib/src/stkdata; make
 	cp ../../../YaizuComLib/src/stkdata/stkdata.a .
 
-	g++ -o cmdfreak CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o  ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o Global.o stkpl.a stkwebapp.a stkwebapp_um.a commonfunc.a stksocket.a stkthread.a stkdata.a $(LDFLAGS) $(LIBS)
+	g++ -o cmdfreak CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o  ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o Global.o FilteringCondition.o stkpl.a stkwebapp.a stkwebapp_um.a commonfunc.a stksocket.a stkthread.a stkdata.a $(LDFLAGS) $(LIBS)
 
 CmdFreakRestApi.o : CmdFreakRestApi.cpp
 	g++ -c CmdFreakRestApi.cpp $(CCOPTS)
@@ -64,6 +64,9 @@ OdbcManager.o : OdbcManager.cpp
 
 Global.o : Global.cpp
 	g++ -c Global.cpp $(CCOPTS)
+
+FilteringCondition.o : FilteringCondition.cpp
+	g++ -c FilteringCondition.cpp $(CCOPTS)
 
 clean :
 	rm -f *.o *.a cmdfreak
