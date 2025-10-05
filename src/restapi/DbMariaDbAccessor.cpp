@@ -197,6 +197,54 @@ int DbMariaDbAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCols, 
 	return NumOfRecs;
 }
 
+int DbMariaDbAccessor::GetRecordsByTableName(wchar_t* TableName, FilteringCondition* FilCond, int NumOfCols, StkObject* DatObj, wchar_t* SortTarget, wchar_t* SortOrder, int Limit, int Offset, wchar_t StateMsg[10], wchar_t Msg[1024])
+{
+	SQLRETURN Ret = 0;
+
+	size_t LenOfTableName = StkPlWcsLen(TableName);
+	wchar_t* EcdTableName = new wchar_t[LenOfTableName * 4 + 2];
+	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
+
+	wchar_t* EcdSortTarget = NULL;
+	if (SortTarget != NULL && *SortTarget != L'\0') {
+		size_t LenOfSortTarget = StkPlWcsLen(SortTarget);
+		EcdSortTarget = new  wchar_t[LenOfSortTarget * 4 + 2];
+		SqlEncoding(SortTarget, EcdSortTarget, TYPE_KEY);
+	}
+
+	Ret = OpenDatabase(pImpl->ConnectionString, StateMsg, Msg);
+
+	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2];
+	int OpeType[5];
+	wchar_t ValueCnv[5][COLUMNVAL_LENGTH * 4 + 2];
+	bool FilterSwitch = false;
+	if (FilCond != NULL) {
+		FilterSwitch = true;
+	}
+	FilteringCondition* CurFilCond = FilCond;
+	int Loop = 0;
+	while (CurFilCond) {
+		SqlEncoding(CurFilCond->GetColumnName(), ColumnNameCnv[Loop], TYPE_KEY);
+		OpeType[Loop] = CurFilCond->GetOpeType();
+		if (FilterSwitch && (CurFilCond->GetOpeType() == 10 || CurFilCond->GetOpeType() == 11)) {
+			SqlEncoding(CurFilCond->GetColumnVal(), ValueCnv[Loop], TYPE_LIKE_VALUE);
+		} else {
+			SqlEncoding(CurFilCond->GetColumnVal(), ValueCnv[Loop], TYPE_VALUE);
+		}
+		CurFilCond = CurFilCond->GetNext();
+		Loop++;
+	}
+
+	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, EcdSortTarget, SortOrder, Limit, Offset, StateMsg, Msg);
+
+	delete[] EcdTableName;
+	if (EcdSortTarget != NULL) {
+		delete[] EcdSortTarget;
+	}
+	Ret = CloseDatabase(StateMsg, Msg);
+	return NumOfRecs;
+}
+
 int DbMariaDbAccessor::ConvertAttrType(wchar_t InAttr[COLUMNTYPE_LENGTH], wchar_t OutAttr[COLUMNTYPE_LENGTH])
 {
 	if (StkPlWcsStr((wchar_t*)InAttr, L"bigint") != NULL ||
