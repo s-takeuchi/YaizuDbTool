@@ -46,7 +46,7 @@ int DbMariaDbAccessor::GetNumOfRecords(wchar_t* TableName, FilteringCondition* F
 	while (CurFilCond) {
 		SqlEncoding(CurFilCond->GetColumnName(), ColumnNameCnv[Loop], TYPE_KEY);
 		OpeType[Loop] = CurFilCond->GetOpeType();
-		if (FilterSwitch && (CurFilCond->GetOpeType() == 10 || CurFilCond->GetOpeType() == 11)) {
+		if (CurFilCond->GetOpeType() == 10 || CurFilCond->GetOpeType() == 11) {
 			SqlEncoding(CurFilCond->GetColumnVal(), ValueCnv[Loop], TYPE_LIKE_VALUE);
 		} else {
 			SqlEncoding(CurFilCond->GetColumnVal(), ValueCnv[Loop], TYPE_VALUE);
@@ -226,7 +226,7 @@ int DbMariaDbAccessor::GetRecordsByTableName(wchar_t* TableName, FilteringCondit
 	while (CurFilCond) {
 		SqlEncoding(CurFilCond->GetColumnName(), ColumnNameCnv[Loop], TYPE_KEY);
 		OpeType[Loop] = CurFilCond->GetOpeType();
-		if (FilterSwitch && (CurFilCond->GetOpeType() == 10 || CurFilCond->GetOpeType() == 11)) {
+		if (CurFilCond->GetOpeType() == 10 || CurFilCond->GetOpeType() == 11) {
 			SqlEncoding(CurFilCond->GetColumnVal(), ValueCnv[Loop], TYPE_LIKE_VALUE);
 		} else {
 			SqlEncoding(CurFilCond->GetColumnVal(), ValueCnv[Loop], TYPE_VALUE);
