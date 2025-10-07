@@ -51,7 +51,6 @@ StkObject* ApiGetRecCount::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t Ur
 	}
 
 	// Get records
-	StkObject* ColumnObj = new StkObject(L"Column");
 	wchar_t ColumnName[Global::COLUMNNAME_LENGTH];
 	int OpeType;
 	wchar_t ColumnVal[Global::COLUMNVAL_LENGTH];

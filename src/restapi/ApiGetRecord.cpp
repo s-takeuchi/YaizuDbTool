@@ -4,6 +4,7 @@
 #include "Global.h"
 #include "OdbcManager.h"
 #include "DbAccessor.h"
+#include "FilteringCondition.h"
 #include "../../../YaizuComLib/src/commonfunc/StkStringParser.h"
 
 StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3], wchar_t* Token)
@@ -90,9 +91,33 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	StkObject* ColumnObj = new StkObject(L"Column");
 	int NumOfCols = Da->GetColumnInfoByTableName(TableNameAc, ColumnObj, StateMsg, Msg);
 	delete ColumnObj;
+
+	wchar_t ColumnName[Global::COLUMNNAME_LENGTH];
+	int OpeType;
+	wchar_t ColumnVal[Global::COLUMNVAL_LENGTH];
+	FilteringCondition* TopFilCond = NULL;
+	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
+	if (FilterSwitch) {
+		FilteringCondition* PrevFilCond = NULL;
+		for (int Loop = 1; Loop <= 5; Loop++) {
+			DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName, &OpeType, ColumnVal);
+			FilteringCondition* CurFilCond = new FilteringCondition(ColumnName, OpeType, ColumnVal);
+			if (TopFilCond == NULL) {
+				TopFilCond = CurFilCond;
+			}
+			if (PrevFilCond != NULL) {
+				PrevFilCond->SetNext(CurFilCond);
+			}
+			PrevFilCond = CurFilCond;
+		}
+	}
+
 	StkObject* DatObj = new StkObject(L"Data");
-	int NumOfRecs = Da->GetRecordsByTableName(TableNameAc, NumOfCols, DatObj, SortColumnNameAc, SortOrder, LimitInt, OffsetInt, StateMsg, Msg);
+	int NumOfRecs = Da->GetRecordsByTableName(TableNameAc, TopFilCond, NumOfCols, DatObj, SortColumnNameAc, SortOrder, LimitInt, OffsetInt, StateMsg, Msg);
 	OdbcManager::GetInstance()->DeleteAccessorObject(Da);
+	if (TopFilCond) {
+		delete TopFilCond;
+	}
 
 	if (SortColumnNameAc != NULL && *SortColumnNameAc != L'\0') {
 		StkObject* SearchObj = new StkObject(L"Data");
