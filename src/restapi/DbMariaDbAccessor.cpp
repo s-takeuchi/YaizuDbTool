@@ -8,7 +8,6 @@
 #include "DbAccessor.h"
 #include "DbMariaDbAccessor.h"
 #include "FilteringCondition.h"
-#include "dataaccess.h"
 
 class DbAccessor::Impl
 {
@@ -152,49 +151,6 @@ int DbMariaDbAccessor::GetColumnInfoByTableName(wchar_t* TableName, StkObject* T
 	Ret = CloseDatabase(StateMsg, Msg);
 
 	return Loop;
-}
-
-int DbMariaDbAccessor::GetRecordsByTableName(wchar_t* TableName, int NumOfCols, StkObject* DatObj, wchar_t* SortTarget, wchar_t* SortOrder, int Limit, int Offset, wchar_t StateMsg[10], wchar_t Msg[1024])
-{
-	SQLRETURN Ret = 0;
-
-	size_t LenOfTableName = StkPlWcsLen(TableName);
-	wchar_t* EcdTableName = new wchar_t[LenOfTableName * 4 + 2];
-	SqlEncoding(TableName, EcdTableName, TYPE_KEY);
-
-	wchar_t* EcdSortTarget = NULL;
-	if (SortTarget != NULL && *SortTarget != L'\0') {
-		size_t LenOfSortTarget = StkPlWcsLen(SortTarget);
-		EcdSortTarget = new  wchar_t[LenOfSortTarget * 4 + 2];
-		SqlEncoding(SortTarget, EcdSortTarget, TYPE_KEY);
-	}
-
-	Ret = OpenDatabase(pImpl->ConnectionString, StateMsg, Msg);
-
-	wchar_t ColumnName[5][COLUMNNAME_LENGTH];
-	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2];
-	int OpeType[5];
-	wchar_t Value[5][COLUMNVAL_LENGTH];
-	wchar_t ValueCnv[5][COLUMNVAL_LENGTH * 4 + 2];
-	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
-	for (int Loop = 1; Loop <= 5; Loop++) {
-		DataAccess::GetInstance()->GetFilterCondition(Loop, ColumnName[Loop - 1], &OpeType[Loop - 1], Value[Loop - 1]);
-		SqlEncoding(ColumnName[Loop - 1], ColumnNameCnv[Loop - 1], TYPE_KEY);
-		if (FilterSwitch && (OpeType[Loop - 1] == 10 || OpeType[Loop - 1] == 11)) {
-			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_LIKE_VALUE);
-		} else {
-			SqlEncoding(Value[Loop - 1], ValueCnv[Loop - 1], TYPE_VALUE);
-		}
-	}
-
-	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, EcdSortTarget, SortOrder, Limit, Offset, StateMsg, Msg);
-
-	delete [] EcdTableName;
-	if (EcdSortTarget != NULL) {
-		delete [] EcdSortTarget;
-	}
-	Ret = CloseDatabase(StateMsg, Msg);
-	return NumOfRecs;
 }
 
 int DbMariaDbAccessor::GetRecordsByTableName(wchar_t* TableName, FilteringCondition* FilCond, int NumOfCols, StkObject* DatObj, wchar_t* SortTarget, wchar_t* SortOrder, int Limit, int Offset, wchar_t StateMsg[10], wchar_t Msg[1024])
