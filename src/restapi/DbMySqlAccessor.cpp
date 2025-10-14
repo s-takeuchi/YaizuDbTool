@@ -54,7 +54,7 @@ int DbMySqlAccessor::GetNumOfRecords(wchar_t* TableName, FilteringCondition* Fil
 		Loop++;
 	}
 
-	int Ret = GetNumOfRecordsCommon(EcdTableName, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg);
+	int Ret = GetNumOfRecordsCommon(EcdTableName, FilterSwitch, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg);
 	delete[] EcdTableName;
 	return Ret;
 }
@@ -181,7 +181,7 @@ int DbMySqlAccessor::GetRecordsByTableName(wchar_t* TableName, FilteringConditio
 		Loop++;
 	}
 
-	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, EcdSortTarget, SortOrder, Limit, Offset, StateMsg, Msg);
+	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, FilterSwitch, ColumnNameCnv, OpeType, ValueCnv, EcdSortTarget, SortOrder, Limit, Offset, StateMsg, Msg);
 
 	delete[] EcdTableName;
 	if (EcdSortTarget != NULL) {

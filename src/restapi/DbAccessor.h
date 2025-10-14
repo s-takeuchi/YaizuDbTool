@@ -25,11 +25,11 @@ protected:
 	int CloseDatabase(wchar_t[10], wchar_t[1024]);
 
 	int GetTablesCommon(const wchar_t*, StkObject*, wchar_t[10], wchar_t[1024]);
-	int GetRecordsByTableNameCommon(const wchar_t*, int, StkObject* RecObj,
+	int GetRecordsByTableNameCommon(const wchar_t*, int, StkObject* RecObj, bool,
 		wchar_t[5][COLUMNNAME_LENGTH * 4 + 2], int[5], const wchar_t[5][COLUMNVAL_LENGTH * 4 + 2],
 		const wchar_t[COLUMNNAME_LENGTH * 4 + 2], const wchar_t[5],
 		int, int, wchar_t[10], wchar_t[1024]);
-	int GetNumOfRecordsCommon(wchar_t*, wchar_t[5][COLUMNNAME_LENGTH * 4 + 2],
+	int GetNumOfRecordsCommon(wchar_t*, bool, wchar_t[5][COLUMNNAME_LENGTH * 4 + 2],
 		int[5], wchar_t[5][COLUMNVAL_LENGTH * 4 + 2], wchar_t[10], wchar_t[1024]);
 
 	void ConvertMessage(wchar_t[10], wchar_t[1024], const char16_t[10], const char16_t[1024]);

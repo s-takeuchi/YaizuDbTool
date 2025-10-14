@@ -54,7 +54,7 @@ int DbPostgreSqlAccessor::GetNumOfRecords(wchar_t* TableName, FilteringCondition
 		Loop++;
 	}
 
-	int Ret = GetNumOfRecordsCommon(EcdTableName, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg);
+	int Ret = GetNumOfRecordsCommon(EcdTableName, FilterSwitch, ColumnNameCnv, OpeType, ValueCnv, StateMsg, Msg);
 	delete[] EcdTableName;
 	return Ret;
 }
@@ -190,7 +190,7 @@ int DbPostgreSqlAccessor::GetRecordsByTableName(wchar_t* TableName, FilteringCon
 		Loop++;
 	}
 
-	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, ColumnNameCnv, OpeType, ValueCnv, EcdSortTarget, SortOrder, Limit, Offset, StateMsg, Msg);
+	int NumOfRecs = GetRecordsByTableNameCommon(EcdTableName, NumOfCols, DatObj, FilterSwitch, ColumnNameCnv, OpeType, ValueCnv, EcdSortTarget, SortOrder, Limit, Offset, StateMsg, Msg);
 
 	delete[] EcdTableName;
 	if (EcdSortTarget != NULL) {

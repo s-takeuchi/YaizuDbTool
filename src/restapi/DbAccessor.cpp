@@ -5,7 +5,6 @@
 #include <sqlext.h>
 
 #include "DbAccessor.h"
-#include "dataaccess.h"
 #include "../../../YaizuComLib/src/commonfunc/StkObject.h"
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
 
@@ -110,7 +109,13 @@ int DbAccessor::GetTablesCommon(const wchar_t* Query, StkObject* Obj, wchar_t St
 	return 0;
 }
 
-int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], wchar_t Value[5][COLUMNVAL_LENGTH * 4 + 2], wchar_t StateMsg[10], wchar_t Msg[1024])
+int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName,
+	bool FilterSwitch,
+	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2],
+	int OpeType[5],
+	wchar_t Value[5][COLUMNVAL_LENGTH * 4 + 2],
+	wchar_t StateMsg[10],
+	wchar_t Msg[1024])
 {
 	SQLWCHAR CvtStateMsg[10];
 	SQLWCHAR CvtMsg[1024];
@@ -122,8 +127,6 @@ int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[
 	if (Ret != 0) {
 		return Ret;
 	}
-
-	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 
 	wchar_t SqlBuf[1024];
 	StkPlSwPrintf(SqlBuf, 1024, L"select count(*) from %ls", TableName);
@@ -186,7 +189,7 @@ int DbAccessor::GetNumOfRecordsCommon(wchar_t* TableName, wchar_t ColumnNameCnv[
 }
 
 int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
-	int NumOfCols, StkObject* Obj,
+	int NumOfCols, StkObject* Obj, bool FilterSwitch,
 	wchar_t ColumnNameCnv[5][COLUMNNAME_LENGTH * 4 + 2], int OpeType[5], const wchar_t Value[5][COLUMNVAL_LENGTH * 4 + 2],
 	const wchar_t SortTarget[COLUMNNAME_LENGTH * 4 + 2],
 	const wchar_t SortOrder[5],
@@ -198,8 +201,6 @@ int DbAccessor::GetRecordsByTableNameCommon(const wchar_t* TableName,
 	SQLINTEGER Native; // This will not be refered from anywhere
 	SQLSMALLINT ActualMsgLen; // This will not be refered from anywhere
 	SQLRETURN Ret = 0;
-
-	bool FilterSwitch = DataAccess::GetInstance()->GetFilterSwitch();
 
 	wchar_t SqlBuf[1024];
 	StkPlLStrCpy(SqlBuf, L"");
