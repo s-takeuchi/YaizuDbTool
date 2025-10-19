@@ -6,7 +6,7 @@
 #include "dataaccess.h"
 #include "Global.h"
 #include "OdbcManager.h"
-#include "../../../YaizuComLib/\src/stkdb/DbAccessor.h"
+#include "../../../YaizuComLib/src/stkdb/DbAccessor.h"
 
 StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t* Token)
 {
