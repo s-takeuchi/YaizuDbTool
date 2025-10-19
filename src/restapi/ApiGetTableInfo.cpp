@@ -1,8 +1,8 @@
 ﻿#include "MyMsgProc.h"
 #include "ApiGetTableInfo.h"
 #include "dataaccess.h"
-#include "DbAccessor.h"
 #include "OdbcManager.h"
+#include "../../../YaizuComLib/\src/stkdb/DbAccessor.h"
 #include "../../../YaizuComLib/src/commonfunc/StkStringParser.h"
 
 StkObject* ApiGetTableInfo::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3], wchar_t* Token)

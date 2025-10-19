@@ -63,7 +63,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;Psapi.lib;x64\Debug\commonfunc.lib;x64\Debug\stkthread.lib;x64\Debug\stksocket.lib;x64\Debug\stkwebapp.lib;x64\Debug\stkdata.lib;x64\Debug\stkpl.lib;x64\Debug\stkwebapp_um.lib;Crypt32.lib;libssl_static.lib;libcrypto_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;Psapi.lib;x64\Debug\commonfunc.lib;x64\Debug\stkthread.lib;x64\Debug\stksocket.lib;x64\Debug\stkwebapp.lib;x64\Debug\stkdata.lib;x64\Debug\stkpl.lib;x64\Debug\stkwebapp_um.lib;x64\Debug\stkdb.lib;Crypt32.lib;libssl_static.lib;libcrypto_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -89,7 +89,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;Psapi.lib;x64\Release\commonfunc.lib;x64\Release\stkthread.lib;x64\Release\stksocket.lib;x64\Release\stkwebapp.lib;x64\Release\stkdata.lib;x64\Release\stkpl.lib;x64\Release\stkwebapp_um.lib;Crypt32.lib;libssl_static.lib;libcrypto_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;Psapi.lib;x64\Release\commonfunc.lib;x64\Release\stkthread.lib;x64\Release\stksocket.lib;x64\Release\stkwebapp.lib;x64\Release\stkdata.lib;x64\Release\stkpl.lib;x64\Release\stkwebapp_um.lib;x64\Release\stkdb.lib;Crypt32.lib;libssl_static.lib;libcrypto_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -113,11 +113,6 @@
     <ClCompile Include="ApiOdbcInfo.cpp" />
     <ClCompile Include="CmdFreakRestApi.cpp" />
     <ClCompile Include="dataaccess.cpp" />
-    <ClCompile Include="DbAccessor.cpp" />
-    <ClCompile Include="DbMariaDbAccessor.cpp" />
-    <ClCompile Include="DbMySqlAccessor.cpp" />
-    <ClCompile Include="DbPostgreSqlAccessor.cpp" />
-    <ClCompile Include="FilteringCondition.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="MyMsgProc.cpp" />
     <ClCompile Include="OdbcManager.cpp" />
@@ -130,11 +125,6 @@
     <ClInclude Include="ApiGetTableInfo.h" />
     <ClInclude Include="ApiOdbcInfo.h" />
     <ClInclude Include="dataaccess.h" />
-    <ClInclude Include="DbAccessor.h" />
-    <ClInclude Include="DbMariaDbAccessor.h" />
-    <ClInclude Include="DbMySqlAccessor.h" />
-    <ClInclude Include="DbPostgreSqlAccessor.h" />
-    <ClInclude Include="FilteringCondition.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="MyMsgProc.h" />
     <ClInclude Include="OdbcManager.h" />

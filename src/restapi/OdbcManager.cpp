@@ -1,10 +1,10 @@
 ﻿#include "OdbcManager.h"
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
+#include "../../../YaizuComLib/\src/stkdb/DbAccessor.h"
+#include "../../../YaizuComLib/\src/stkdb/DbPostgreSqlAccessor.h"
+#include "../../../YaizuComLib/\src/stkdb/DbMariaDbAccessor.h"
+#include "../../../YaizuComLib/\src/stkdb/DbMySqlAccessor.h"
 #include "dataaccess.h"
-#include "DbAccessor.h"
-#include "DbPostgreSqlAccessor.h"
-#include "DbMariaDbAccessor.h"
-#include "DbMySqlAccessor.h"
 
 OdbcManager* OdbcManager::ThisInstance;
 

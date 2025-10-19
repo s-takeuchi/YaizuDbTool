@@ -17,8 +17,10 @@ cmdfreak : CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o ApiGetRecCo
 	cp ../../../YaizuComLib/src/stkthread/stkthread.a .
 	cd ../../../YaizuComLib/src/stkdata; make
 	cp ../../../YaizuComLib/src/stkdata/stkdata.a .
+	cd ../../../YaizuComLib/src/stkdb; make
+	cp ../../../YaizuComLib/src/stkdb/stkdb.a .
 
-	g++ -o cmdfreak CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o  ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o Global.o FilteringCondition.o stkpl.a stkwebapp.a stkwebapp_um.a commonfunc.a stksocket.a stkthread.a stkdata.a $(LDFLAGS) $(LIBS)
+	g++ -o cmdfreak CmdFreakRestApi.o MyMsgProc.o dataaccess.o ApiGetSystem.o  ApiGetRecCount.o ApiGetRecord.o ApiGetTableInfo.o ApiFilterInfo.o ApiOdbcInfo.o DbAccessor.o DbMariaDbAccessor.o DbMySqlAccessor.o DbPostgreSqlAccessor.o OdbcManager.o Global.o FilteringCondition.o stkpl.a stkwebapp.a stkwebapp_um.a commonfunc.a stksocket.a stkthread.a stkdata.a stkdb.a $(LDFLAGS) $(LIBS)
 
 CmdFreakRestApi.o : CmdFreakRestApi.cpp
 	g++ -c CmdFreakRestApi.cpp $(CCOPTS)
@@ -47,26 +49,12 @@ ApiFilterInfo.o : ApiFilterInfo.cpp
 ApiOdbcInfo.o : ApiOdbcInfo.cpp
 	g++ -c ApiOdbcInfo.cpp $(CCOPTS)
 
-DbAccessor.o : DbAccessor.cpp
-	g++ -c DbAccessor.cpp $(CCOPTS)
-
-DbMariaDbAccessor.o : DbMariaDbAccessor.cpp
-	g++ -c DbMariaDbAccessor.cpp $(CCOPTS)
-
-DbMySqlAccessor.o : DbMySqlAccessor.cpp
-	g++ -c DbMySqlAccessor.cpp $(CCOPTS)
-
-DbPostgreSqlAccessor.o : DbPostgreSqlAccessor.cpp
-	g++ -c DbPostgreSqlAccessor.cpp $(CCOPTS)
-
 OdbcManager.o : OdbcManager.cpp
 	g++ -c OdbcManager.cpp $(CCOPTS)
 
 Global.o : Global.cpp
 	g++ -c Global.cpp $(CCOPTS)
 
-FilteringCondition.o : FilteringCondition.cpp
-	g++ -c FilteringCondition.cpp $(CCOPTS)
 
 clean :
 	rm -f *.o *.a cmdfreak
@@ -77,5 +65,6 @@ clean :
 	cd ../../../YaizuComLib/src/stksocket; make clean
 	cd ../../../YaizuComLib/src/stkthread; make clean
 	cd ../../../YaizuComLib/src/stkdata; make clean
+	cd ../../../YaizuComLib/src/stkdb; make clean
 
 all : clean cmdfreak

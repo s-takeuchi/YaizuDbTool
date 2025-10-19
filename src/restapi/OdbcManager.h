@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "DbAccessor.h"
+#include "../../../YaizuComLib/\src/stkdb/DbAccessor.h"
 
 class OdbcManager
 {

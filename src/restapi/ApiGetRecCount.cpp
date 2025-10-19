@@ -3,8 +3,8 @@
 #include "dataaccess.h"
 #include "Global.h"
 #include "OdbcManager.h"
-#include "DbAccessor.h"
-#include "FilteringCondition.h"
+#include "../../../YaizuComLib/\src/stkdb/DbAccessor.h"
+#include "../../../YaizuComLib/\src/stkdb/FilteringCondition.h"
 #include "../../../YaizuComLib/src/commonfunc/StkStringParser.h"
 
 StkObject* ApiGetRecCount::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlPath[StkWebAppExec::URL_PATH_LENGTH], int* ResultCode, wchar_t Locale[3], wchar_t* Token)
