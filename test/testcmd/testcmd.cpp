@@ -133,7 +133,7 @@ int TestGeneral(wchar_t* OdbcConStr)
 	wchar_t StateMsg[10] = L"";
 	wchar_t Msg[1024] = L"";
 	DbAccessor* DbAcc = new DbPostgreSqlAccessor(OdbcConStr);
-	Ret = DbAcc->Test(OdbcConStr, Msg);
+	Ret = DbAcc->Test(StateMsg, Msg);
 	if (Ret != 0) {
 		ShowErrorMsg(StateMsg, Msg);
 		return -1;

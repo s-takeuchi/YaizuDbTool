@@ -73,7 +73,11 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 
 		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject();
 		wchar_t ErrMsg[1024] = L"";
-		int Ret = Da->Test(ConnStr, ErrMsg);
+		wchar_t StateMsg[10] = L"";
+		wchar_t Msg[1024] = L"";
+		int Ret = Da->Test(StateMsg, Msg);
+		StkPlSwPrintf(ErrMsg, 1024, L"ODBC: %ls %ls", (StateMsg == NULL) ? L"null" : (wchar_t*)StateMsg, (Msg == NULL) ? L"null" : (wchar_t*)Msg);
+
 		if (Ret == 0) {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"connectable"));
 		} else {
@@ -153,8 +157,12 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 		StkObject* DatObj = new StkObject(L"Data");
 		StkObject* DatObjDb = new StkObject(L"OdbcInfo");
 		DbAccessor* Da = OdbcManager::GetInstance()->CreateAccessorObject();
+		wchar_t StateMsg[10] = L"";
+		wchar_t Msg[1024] = L"";
 		wchar_t ErrMsg[1024] = L"";
-		int Ret = Da->Test(ConnStr, ErrMsg);
+		int Ret = Da->Test(StateMsg, Msg);
+		StkPlSwPrintf(ErrMsg, 1024, L"ODBC: %ls %ls", (StateMsg == NULL) ? L"null" : (wchar_t*)StateMsg, (Msg == NULL) ? L"null" : (wchar_t*)Msg);
+
 		if (Ret == 0) {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"connectable"));
 		} else {
