@@ -109,7 +109,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>x64\Debug\stkpl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>x64\Debug\stkpl.lib;x64\Debug\commonfunc.lib;x64\Debug\stkdb.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -127,7 +127,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>x64\Release\stkpl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>x64\Release\stkpl.lib;x64\Release\commonfunc.lib;x64\Release\stkdb.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -5,6 +5,8 @@
 #include <sqlext.h>
 
 #include "../../../YaizuComLib/src/stkpl/StkPl.h"
+#include "../../../YaizuComLib/src/stkdb/DbAccessor.h"
+#include "../../../YaizuComLib/src/stkdb/DbPostgreSqlAccessor.h"
 
 #define POSTGRESQL 1
 #define MYSQL 2
@@ -130,16 +132,13 @@ int TestGeneral(wchar_t* OdbcConStr)
 	int Ret = 0;
 	wchar_t StateMsg[10] = L"";
 	wchar_t Msg[1024] = L"";
-	Ret = OpenDatabase(OdbcConStr, StateMsg, Msg);
+	DbAccessor* DbAcc = new DbPostgreSqlAccessor(OdbcConStr);
+	Ret = DbAcc->Test(OdbcConStr, Msg);
 	if (Ret != 0) {
 		ShowErrorMsg(StateMsg, Msg);
 		return -1;
 	}
-	Ret = CloseDatabase(StateMsg, Msg);
-	if (Ret != 0) {
-		ShowErrorMsg(StateMsg, Msg);
-		return -1;
-	}
+
 	return 0;
 }
 
