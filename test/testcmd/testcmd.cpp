@@ -46,12 +46,30 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 		break;
 	}
 
+	/////
+	StkPlPrintf("Test connection ... ");
 	Ret = DbAcc->Test(StateMsg, Msg);
 	if (Ret != 0) {
+		StkPlPrintf("NG\r\n");
 		ShowErrorMsg(StateMsg, Msg);
+		delete DbAcc;
 		return -1;
 	}
+	StkPlPrintf("OK\r\n");
 
+	/////
+	StkObject* TableObj = new StkObject(L"test-table");
+	StkObject* ColumnObj1 = new StkObject(L"ColumnInfo");
+	ColumnObj1->AppendChildElement(new StkObject(L"Name", L"aaa"));
+	ColumnObj1->AppendChildElement(new StkObject(L"Type", L"integer"));
+	StkObject* ColumnObj2 = new StkObject(L"ColumnInfo");
+	ColumnObj2->AppendChildElement(new StkObject(L"Name", L"bbb"));
+	ColumnObj2->AppendChildElement(new StkObject(L"Type", L"integer"));
+	TableObj->AppendChildElement(ColumnObj1);
+	TableObj->AppendChildElement(ColumnObj2);
+	DbAcc->AddTable(TableObj, StateMsg, Msg);
+
+	delete DbAcc;
 	return 0;
 }
 
