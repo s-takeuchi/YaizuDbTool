@@ -58,7 +58,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	StkPlPrintf("OK\r\n");
 
 	/////
-	StkObject* TableObj = new StkObject(L"test-table");
+	StkObject* TableObj = new StkObject(L"test_table");
 	StkObject* ColumnObj1 = new StkObject(L"ColumnInfo");
 	ColumnObj1->AppendChildElement(new StkObject(L"Name", L"aaa"));
 	ColumnObj1->AppendChildElement(new StkObject(L"Type", L"integer"));
@@ -67,7 +67,12 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	ColumnObj2->AppendChildElement(new StkObject(L"Type", L"integer"));
 	TableObj->AppendChildElement(ColumnObj1);
 	TableObj->AppendChildElement(ColumnObj2);
-	DbAcc->AddTable(TableObj, StateMsg, Msg);
+	if (DbAcc->AddTable(TableObj, StateMsg, Msg) != 0) {
+		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+		delete DbAcc;
+		return -1;
+	}
+	StkPlPrintf("OK\r\n");
 
 	delete DbAcc;
 	return 0;
