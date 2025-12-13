@@ -58,6 +58,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	StkPlPrintf("OK\r\n");
 
 	/////
+	StkPlPrintf("Create table ... ");
 	StkObject* TableObj = new StkObject(L"test_table");
 	StkObject* ColumnObj1 = new StkObject(L"ColumnInfo");
 	ColumnObj1->AppendChildElement(new StkObject(L"Name", L"aaa"));
@@ -68,6 +69,14 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	TableObj->AppendChildElement(ColumnObj1);
 	TableObj->AppendChildElement(ColumnObj2);
 	if (DbAcc->CreateTable(TableObj, StateMsg, Msg) != 0) {
+		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+	} else {
+		StkPlPrintf("OK\r\n");
+	}
+
+	/////
+	StkPlPrintf("Drop table ... ");
+	if (DbAcc->DropTable(L"test_table", StateMsg, Msg) != 0) {
 		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
 		delete DbAcc;
 		return -1;
