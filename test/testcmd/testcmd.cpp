@@ -70,8 +70,32 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	TableObj->AppendChildElement(ColumnObj2);
 	if (DbAcc->CreateTable(TableObj, StateMsg, Msg) != 0) {
 		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
-	} else {
-		StkPlPrintf("OK\r\n");
+		delete DbAcc;
+		return -1;
+	}
+	StkPlPrintf("OK\r\n");
+	
+	delete DbAcc;
+	return 0;
+}
+
+int TestCleanup(wchar_t* OdbcConStr, int DbmsType)
+{
+	wchar_t StateMsg[10] = L"";
+	wchar_t Msg[1024] = L"";
+	DbAccessor* DbAcc = NULL;
+	switch (DbmsType) {
+	case POSTGRESQL:
+		DbAcc = new DbPostgreSqlAccessor(OdbcConStr);
+		break;
+	case MYSQL:
+		DbAcc = new DbMySqlAccessor(OdbcConStr);
+		break;
+	case MARIADB:
+		DbAcc = new DbMariaDbAccessor(OdbcConStr);
+		break;
+	default:
+		break;
 	}
 
 	/////
@@ -100,6 +124,7 @@ int main(int argc, char *argv[])
 		StkPlPrintf("test_scenario:\n");
 		StkPlPrintf("    GENERAL ... 3 tables, 8 columns and 150 records in each table.\n");
 		StkPlPrintf("    MAX_TABLES ... 300 tables, 8 columns and 150 records in each table.\n");
+		StkPlPrintf("    CLEANUP ... Drop all tables which were created in this test command.\n");
 		StkPlPrintf("\n");
 		StkPlPrintf("ex. %ls postgresql \"Driver={PostgreSQL};Server=127.0.0.1;Database=testdb;UID=admin;PWD=admin;Port=5432;\" GENERAL\n", CmdName);
 		StkPlExit(0);
@@ -126,7 +151,10 @@ int main(int argc, char *argv[])
 		DbmsType = MARIADB;
 	}
 
-	if (TestGeneral(OdbcConStr, DbmsType) != 0) {
+	if (strcmp(argv[3], "GENERAL") == 0 && TestGeneral(OdbcConStr, DbmsType) != 0) {
+		//
+	}
+	if (strcmp(argv[3], "CLEANUP") == 0 && TestCleanup(OdbcConStr, DbmsType) != 0) {
 		//
 	}
 
