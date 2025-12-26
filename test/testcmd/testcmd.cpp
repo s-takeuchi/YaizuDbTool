@@ -71,10 +71,19 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	if (DbAcc->CreateTable(TableObj, StateMsg, Msg) != 0) {
 		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
 		delete DbAcc;
+		delete TableObj;
 		return -1;
 	}
+	delete TableObj;
 	StkPlPrintf("OK\r\n");
 	
+	/////
+	StkPlPrintf("Insert records ... ");
+	int ErrCode = 0;
+	StkObject* RecordInfo = StkObject::CreateObjectFromJson(L"\"test_table\" : {\"RecordInfo\" : [\"xxx\", 20]}", &ErrCode);
+	DbAcc->InsertRecord(RecordInfo, StateMsg, Msg);
+	delete RecordInfo;
+
 	delete DbAcc;
 	return 0;
 }
