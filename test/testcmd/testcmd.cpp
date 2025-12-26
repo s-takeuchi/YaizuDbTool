@@ -1,4 +1,4 @@
-#ifdef WIN32
+﻿#ifdef WIN32
 	#include <windows.h>
 #endif
 #include <sql.h>
@@ -61,7 +61,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 
 	/////
 	StkPlPrintf("Create table ... ");
-	StkObject* TableInfo = StkObject::CreateObjectFromJson(L"{\"test_table\" : {\"ColumnInfo\" : [{\"Name\":\"name\", \"Type\":\"varchar(20)\"}, {\"Name\":\"age\", \"Type\":\"integer\"}]}}", &ErrCode);
+	StkObject* TableInfo = StkObject::CreateObjectFromJson(L"{\"test_table\" : {\"ColumnInfo\" : [{\"Name\":\"番号\", \"Type\":\"integer\"}, {\"Name\":\"prefecture\", \"Type\":\"varchar(10)\"}, {\"Name\":\"size\", \"Type\":\"varchar(10)\"}, {\"Name\":\"名称\", \"Type\":\"varchar(20)\"}, {\"Name\":\"age\", \"Type\":\"integer\"}, {\"Name\":\"memo\", \"Type\":\"varchar(80)\"}]}}", &ErrCode);
 	if (DbAcc->CreateTable(TableInfo, StateMsg, Msg) != 0) {
 		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
 		delete DbAcc;
@@ -72,16 +72,44 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	StkPlPrintf("OK\r\n");
 	
 	/////
-	StkPlPrintf("Insert records ... ");
-	StkObject* RecordInfo = StkObject::CreateObjectFromJson(L"{\"test_table\" : [{\"RecordInfo\" : [\"xxx\", 20]}, {\"RecordInfo\" : [\"yyy\", 30]}]}", &ErrCode);
-	if (DbAcc->InsertRecord(RecordInfo, StateMsg, Msg) != 0) {
-		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
-		delete DbAcc;
-		delete RecordInfo;
-		return -1;
+	{
+		StkPlPrintf("Insert records ... ");
+		wchar_t* Pref[10] = { L"静岡", L"石川", L"神奈川", L"愛知", L"北海道", L"東京", L"沖縄", L"三重", L"京都", L"青森" };
+		wchar_t* Size[3] = { L"大規模", L"中規模", L"小規模" };
+		wchar_t Chmemo[15] = { L'松', L'a', L'竹', L'7', L'梅', L'古', L'今', L'東', L'西', L'x', L'\'', L'\"', L',', L';', L'`'};
+		for (int Page = 0; Page < 5; Page++) {
+			StkObject* Root = new StkObject(L"");
+			for (int Loop = 0; Loop < 30; Loop++) {
+				StkObject* Table = new StkObject(L"test_table");
+				StkObject* Rec0 = new StkObject(L"RecordInfo", Page * 30 + Loop);
+				StkObject* Rec1 = new StkObject(L"RecordInfo", Pref[StkPlRand() % 10]);
+				StkObject* Rec2 = new StkObject(L"RecordInfo", Size[StkPlRand() % 3]);
+				StkObject* Rec3 = new StkObject(L"RecordInfo", L"𠮷野家;♩♩♩;💛💛💛;👉👉👉");
+				StkObject* Rec4 = new StkObject(L"RecordInfo", StkPlRand() % 500);
+				wchar_t Memo[80] = L"";
+				for (int ChIndex = 0; ChIndex < 75; ChIndex++) {
+					Memo[ChIndex] = Chmemo[StkPlRand() % 15];
+				}
+				Memo[75] = L'\0';
+				StkObject* Rec5 = new StkObject(L"RecordInfo", Memo);
+				Table->AppendChildElement(Rec0);
+				Table->AppendChildElement(Rec1);
+				Table->AppendChildElement(Rec2);
+				Table->AppendChildElement(Rec3);
+				Table->AppendChildElement(Rec4);
+				Table->AppendChildElement(Rec5);
+				Root->AppendChildElement(Table);
+			}
+			if (DbAcc->InsertRecord(Root, StateMsg, Msg) != 0) {
+				StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+				delete DbAcc;
+				delete Root;
+				return -1;
+			}
+			delete Root;
+		}
+		StkPlPrintf("OK\r\n");
 	}
-	delete RecordInfo;
-	StkPlPrintf("OK\r\n");
 
 	delete DbAcc;
 	return 0;
