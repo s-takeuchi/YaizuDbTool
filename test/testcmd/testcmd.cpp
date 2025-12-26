@@ -57,32 +57,31 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	}
 	StkPlPrintf("OK\r\n");
 
+	int ErrCode = 0;
+
 	/////
 	StkPlPrintf("Create table ... ");
-	StkObject* TableObj = new StkObject(L"test_table");
-	StkObject* ColumnObj1 = new StkObject(L"ColumnInfo");
-	ColumnObj1->AppendChildElement(new StkObject(L"Name", L"aaa"));
-	ColumnObj1->AppendChildElement(new StkObject(L"Type", L"integer"));
-	StkObject* ColumnObj2 = new StkObject(L"ColumnInfo");
-	ColumnObj2->AppendChildElement(new StkObject(L"Name", L"bbb"));
-	ColumnObj2->AppendChildElement(new StkObject(L"Type", L"integer"));
-	TableObj->AppendChildElement(ColumnObj1);
-	TableObj->AppendChildElement(ColumnObj2);
-	if (DbAcc->CreateTable(TableObj, StateMsg, Msg) != 0) {
+	StkObject* TableInfo = StkObject::CreateObjectFromJson(L"{\"test_table\" : {\"ColumnInfo\" : [{\"Name\":\"name\", \"Type\":\"varchar(20)\"}, {\"Name\":\"age\", \"Type\":\"integer\"}]}}", &ErrCode);
+	if (DbAcc->CreateTable(TableInfo, StateMsg, Msg) != 0) {
 		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
 		delete DbAcc;
-		delete TableObj;
+		delete TableInfo;
 		return -1;
 	}
-	delete TableObj;
+	delete TableInfo;
 	StkPlPrintf("OK\r\n");
 	
 	/////
 	StkPlPrintf("Insert records ... ");
-	int ErrCode = 0;
-	StkObject* RecordInfo = StkObject::CreateObjectFromJson(L"\"test_table\" : {\"RecordInfo\" : [\"xxx\", 20]}", &ErrCode);
-	DbAcc->InsertRecord(RecordInfo, StateMsg, Msg);
+	StkObject* RecordInfo = StkObject::CreateObjectFromJson(L"{\"test_table\" : [{\"RecordInfo\" : [\"xxx\", 20]}, {\"RecordInfo\" : [\"yyy\", 30]}]}", &ErrCode);
+	if (DbAcc->InsertRecord(RecordInfo, StateMsg, Msg) != 0) {
+		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+		delete DbAcc;
+		delete RecordInfo;
+		return -1;
+	}
 	delete RecordInfo;
+	StkPlPrintf("OK\r\n");
 
 	delete DbAcc;
 	return 0;
