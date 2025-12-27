@@ -61,14 +61,36 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 
 	/////
 	StkPlPrintf("Create table ... ");
-	StkObject* TableInfo = StkObject::CreateObjectFromJson(L"{\"test_table\" : {\"ColumnInfo\" : [{\"Name\":\"番号\", \"Type\":\"integer\"}, {\"Name\":\"prefecture\", \"Type\":\"varchar(10)\"}, {\"Name\":\"size\", \"Type\":\"varchar(10)\"}, {\"Name\":\"名称\", \"Type\":\"varchar(20)\"}, {\"Name\":\"age\", \"Type\":\"integer\"}, {\"Name\":\"memo\", \"Type\":\"varchar(80)\"}]}}", &ErrCode);
-	if (DbAcc->CreateTable(TableInfo, StateMsg, Msg) != 0) {
-		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
-		delete DbAcc;
+	{
+		StkObject* TableInfo = StkObject::CreateObjectFromJson(L"{\"test_table\" : {\"ColumnInfo\" : [{\"Name\":\"番号\", \"Type\":\"integer\"}, {\"Name\":\"prefecture\", \"Type\":\"varchar(10)\"}, {\"Name\":\"size\", \"Type\":\"varchar(10)\"}, {\"Name\":\"名称\", \"Type\":\"varchar(20)\"}, {\"Name\":\"age\", \"Type\":\"integer\"}, {\"Name\":\"memo\", \"Type\":\"varchar(80)\"}, {\"Name\":\"ポイント\", \"Type\":\"real\"}, {\"Name\":\"💛\", \"Type\":\"real\"}]}}", &ErrCode);
+		if (DbAcc->CreateTable(TableInfo, StateMsg, Msg) != 0) {
+			StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+			delete DbAcc;
+			delete TableInfo;
+			return -1;
+		}
 		delete TableInfo;
-		return -1;
 	}
-	delete TableInfo;
+	{
+		char32_t ChCol[15] = { U'🀄', U'🈁', U'🃏', U'𝝅', U'𝄢', U'𩸽', U'𠀋', U'𡈽', U'𥔎', U'𠮷', U'🌈', U'🔥', U'🚀', U'✨', U'🤝' };
+		char32_t ColName[65] = U"";
+		for (int ChIndex = 0; ChIndex < 16; ChIndex++) {
+			ColName[ChIndex] = ChCol[StkPlRand() % 15];
+		}
+		wchar_t* ColNameWc = StkPlCreateWideCharFromUtf32(ColName);
+		wchar_t JsonTxt[512] = L"";
+		StkPlSwPrintf(JsonTxt, 512, L"{\"𠮷a♩あ🎵z☺\" : {\"ColumnInfo\" : [{\"Name\":\"◆_■\", \"Type\":\"integer\"}, {\"Name\":\"%ls\", \"Type\":\"varchar(80)\"}, {\"Name\":\"a\", \"Type\":\"integer\"}, {\"Name\":\"b\", \"Type\":\"integer\"}, {\"Name\":\"c\", \"Type\":\"integer\"}, {\"Name\":\"d\", \"Type\":\"integer\"}, {\"Name\":\"e\", \"Type\":\"integer\"}, {\"Name\":\"f\", \"Type\":\"integer\"}]}}", ColNameWc);
+		delete ColNameWc;
+
+		StkObject* TableInfo = StkObject::CreateObjectFromJson(JsonTxt, &ErrCode);
+		if (DbAcc->CreateTable(TableInfo, StateMsg, Msg) != 0) {
+			StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+			delete DbAcc;
+			delete TableInfo;
+			return -1;
+		}
+		delete TableInfo;
+	}
 	StkPlPrintf("OK\r\n");
 	
 	/////
@@ -92,12 +114,16 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 				}
 				Memo[75] = L'\0';
 				StkObject* Rec5 = new StkObject(L"RecordInfo", Memo);
+				StkObject* Rec6 = new StkObject(L"RecordInfo", (float)(StkPlRand() % 1000) / 100.0f);
+				StkObject* Rec7 = new StkObject(L"RecordInfo", (float)(StkPlRand() % 100) / 1000.0f);
 				Table->AppendChildElement(Rec0);
 				Table->AppendChildElement(Rec1);
 				Table->AppendChildElement(Rec2);
 				Table->AppendChildElement(Rec3);
 				Table->AppendChildElement(Rec4);
 				Table->AppendChildElement(Rec5);
+				Table->AppendChildElement(Rec6);
+				Table->AppendChildElement(Rec7);
 				Root->AppendChildElement(Table);
 			}
 			if (DbAcc->InsertRecord(Root, StateMsg, Msg) != 0) {
@@ -137,6 +163,11 @@ int TestCleanup(wchar_t* OdbcConStr, int DbmsType)
 	/////
 	StkPlPrintf("Drop table ... ");
 	if (DbAcc->DropTable(L"test_table", StateMsg, Msg) != 0) {
+		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+		delete DbAcc;
+		return -1;
+	}
+	if (DbAcc->DropTable(L"𠮷a♩あ🎵z☺", StateMsg, Msg) != 0) {
 		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
 		delete DbAcc;
 		return -1;
