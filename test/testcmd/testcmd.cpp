@@ -79,7 +79,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 		}
 		wchar_t* ColNameWc = StkPlCreateWideCharFromUtf32(ColName);
 		wchar_t JsonTxt[512] = L"";
-		StkPlSwPrintf(JsonTxt, 512, L"{\"𠮷a♩あ🎵z☺\" : {\"ColumnInfo\" : [{\"Name\":\"◆_■\", \"Type\":\"integer\"}, {\"Name\":\"%ls\", \"Type\":\"varchar(80)\"}, {\"Name\":\"a\", \"Type\":\"integer\"}, {\"Name\":\"b\", \"Type\":\"integer\"}, {\"Name\":\"c\", \"Type\":\"integer\"}, {\"Name\":\"d\", \"Type\":\"integer\"}, {\"Name\":\"e\", \"Type\":\"integer\"}, {\"Name\":\"f\", \"Type\":\"integer\"}]}}", ColNameWc);
+		StkPlSwPrintf(JsonTxt, 512, L"{\"𠮷a♩あ🎵z☺\" : {\"ColumnInfo\" : [{\"Name\":\"◆_■\", \"Type\":\"varchar(80)\"}, {\"Name\":\"%ls\", \"Type\":\"varchar(80)\"}, {\"Name\":\"a\", \"Type\":\"integer\"}, {\"Name\":\"b\", \"Type\":\"integer\"}, {\"Name\":\"c\", \"Type\":\"integer\"}, {\"Name\":\"d\", \"Type\":\"integer\"}, {\"Name\":\"e\", \"Type\":\"integer\"}, {\"Name\":\"f\", \"Type\":\"integer\"}]}}", ColNameWc);
 		delete ColNameWc;
 
 		StkObject* TableInfo = StkObject::CreateObjectFromJson(JsonTxt, &ErrCode);
@@ -91,11 +91,35 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 		}
 		delete TableInfo;
 	}
+	{
+		StkObject* Root = new StkObject(L"");
+		StkObject* TableInfo = new StkObject(L"✨✨✨✨🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀");
+		StkObject* ColumnInfo = NULL;
+		for (int Loop = 0; Loop < 60; Loop++) {
+			wchar_t Name[10] = { 0 };
+			StkPlSwPrintf(Name, 10, L"Col%02d", Loop);
+			StkObject* ColumnName = new StkObject(L"Name", Name);
+			StkObject* ColumnType = new StkObject(L"Type", L"integer");
+			ColumnName->SetNext(ColumnType);
+			ColumnInfo = new StkObject(L"ColumnInfo");
+			ColumnInfo->AppendChildElement(ColumnName);
+			TableInfo->AppendChildElement(ColumnInfo);
+		}
+		Root->AppendChildElement(TableInfo);
+
+		if (DbAcc->CreateTable(Root, StateMsg, Msg) != 0) {
+			StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+			delete DbAcc;
+			delete Root;
+			return -1;
+		}
+		delete Root;
+	}
 	StkPlPrintf("OK\r\n");
 	
 	/////
+	StkPlPrintf("Insert records ... ");
 	{
-		StkPlPrintf("Insert records ... ");
 		wchar_t* Pref[10] = { L"静岡", L"石川", L"神奈川", L"愛知", L"北海道", L"東京", L"沖縄", L"三重", L"京都", L"青森" };
 		wchar_t* Size[3] = { L"大規模", L"中規模", L"小規模" };
 		wchar_t Chmemo[15] = { L'松', L'a', L'竹', L'7', L'梅', L'古', L'今', L'東', L'西', L'x', L'\'', L'\"', L',', L';', L'`'};
@@ -134,8 +158,58 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 			}
 			delete Root;
 		}
-		StkPlPrintf("OK\r\n");
 	}
+	{
+		wchar_t Chmemo[15] = { L'松', L'a', L'竹', L'7', L'梅', L'古', L'今', L'東', L'西', L'x', L'\'', L'\"', L',', L';', L'`' };
+		for (int Page = 0; Page < 500; Page++) {
+			StkObject* Root = new StkObject(L"");
+			for (int Loop = 0; Loop < 30; Loop++) {
+				StkObject* Table = new StkObject(L"𠮷a♩あ🎵z☺");
+				wchar_t Memo[80] = L"";
+				for (int ChIndex = 0; ChIndex < 75; ChIndex++) {
+					Memo[ChIndex] = Chmemo[StkPlRand() % 15];
+				}
+				StkObject* Rec0 = new StkObject(L"RecordInfo", Memo);
+				StkObject* Rec1 = new StkObject(L"RecordInfo", Memo);
+				Table->AppendChildElement(Rec0);
+				Table->AppendChildElement(Rec1);
+				Table->AppendChildElement(new StkObject(L"RecordInfo", Page * 30 + Loop));
+				Table->AppendChildElement(new StkObject(L"RecordInfo", 0));
+				Table->AppendChildElement(new StkObject(L"RecordInfo", 0));
+				Table->AppendChildElement(new StkObject(L"RecordInfo", 0));
+				Table->AppendChildElement(new StkObject(L"RecordInfo", 0));
+				Table->AppendChildElement(new StkObject(L"RecordInfo", 0));
+				Root->AppendChildElement(Table);
+			}
+			if (DbAcc->InsertRecord(Root, StateMsg, Msg) != 0) {
+				StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+				delete DbAcc;
+				delete Root;
+				return -1;
+			}
+			delete Root;
+		}
+	}
+	{
+		for (int Page = 0; Page < 15; Page++) {
+			StkObject* Root = new StkObject(L"");
+			for (int Loop = 0; Loop < 10; Loop++) {
+				StkObject* Table = new StkObject(L"✨✨✨✨🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀");
+				for (int ChIndex = 0; ChIndex < 60; ChIndex++) {
+					Table->AppendChildElement(new StkObject(L"RecordInfo", StkPlRand() % 1000));
+				}
+				Root->AppendChildElement(Table);
+			}
+			if (DbAcc->InsertRecord(Root, StateMsg, Msg) != 0) {
+				StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+				delete DbAcc;
+				delete Root;
+				return -1;
+			}
+			delete Root;
+		}
+	}
+	StkPlPrintf("OK\r\n");
 
 	delete DbAcc;
 	return 0;
@@ -168,6 +242,11 @@ int TestCleanup(wchar_t* OdbcConStr, int DbmsType)
 		return -1;
 	}
 	if (DbAcc->DropTable(L"𠮷a♩あ🎵z☺", StateMsg, Msg) != 0) {
+		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+		delete DbAcc;
+		return -1;
+	}
+	if (DbAcc->DropTable(L"✨✨✨✨🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀", StateMsg, Msg) != 0) {
 		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
 		delete DbAcc;
 		return -1;
