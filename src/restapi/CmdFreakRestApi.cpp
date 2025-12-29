@@ -16,15 +16,56 @@
 #include "ApiGetRecCount.h"
 #include "ApiFilterInfo.h"
 
+void HealthCheck(StkWebApp* Soc, int Ids[], int Count)
+{
+	////////// Main logic starts
+	int Interval = 0;
+	while (!Soc->IsStop()) {
+		StkPlSleepMs(100);
+
+		// Health Check begin
+		if (Interval == 600 * 2) { // once two minutes
+			long long StartTm = 0;
+			long long EndTm = 0;
+			wchar_t ApiStr[StkWebAppExec::URL_PATH_LENGTH] = L"";
+			for (int Loop = 0; Loop < Count; Loop++) {
+				Soc->GetStatusOfApiCall(Ids[Loop], &StartTm, &EndTm, ApiStr);
+				ApiStr[32] = L'\0';
+				bool StillRunning = false;
+				int Diff = 0;
+				if (StartTm == 0 || EndTm != 0) {
+					Diff = 0;
+				} else if (EndTm == 0) {
+					long long Now = StkPlGetTime();
+					Diff = (int)(Now - StartTm);
+					StillRunning = true;
+				}
+				wchar_t LogBuf[100] = L"";
+				if (Diff != 0) {
+					StkPlSwPrintf(LogBuf, 100, L"HC: ThId=%d, Api=%ls, elapsed time(sec) = %d %s", Ids[Loop], ApiStr, Diff, (StillRunning == true) ? L"(Running)" : L"");
+					MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
+				}
+			}
+			Interval = 0;
+		}
+		// Health Check end
+
+		Interval++;
+	}
+	StkPlSleepMs(100);
+	////////// Main logic ends
+}
+
 void CmdFreakRestApi(wchar_t* IpAddr, int Port)
 {
-	int Ids[7] = {11, 12, 13, 14, 15, 16, 17};
+	static const int THREADCOUNT = 7;
+	int Ids[THREADCOUNT] = {11, 12, 13, 14, 15, 16, 17};
 
-	StkWebApp* Soc = new StkWebApp(Ids, 7, IpAddr, Port);
+	StkWebApp* Soc = new StkWebApp(Ids, THREADCOUNT, IpAddr, Port);
 
 	ApiGetSystem* ApiGetSystemObj = new ApiGetSystem();
 	Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/system/", (StkWebAppExec*)ApiGetSystemObj);
-	ApiGetSystemObj->SetNumOfThreads(7);
+	ApiGetSystemObj->SetNumOfThreads(THREADCOUNT);
 
 	ApiOdbcInfo* ApiGetOdbcInfoObj = new ApiOdbcInfo();
 	Soc->AddReqHandler(StkWebAppExec::STKWEBAPP_METHOD_GET, L"/api/odbcinfo/$", (StkWebAppExec*)ApiGetOdbcInfoObj);
@@ -52,9 +93,7 @@ void CmdFreakRestApi(wchar_t* IpAddr, int Port)
 
 	StkWebAppUm_RegisterApi(Soc);
 
-	////////// Main logic starts
-	Soc->TheLoop();
-	////////// Main logic ends
+	HealthCheck(Soc, Ids, THREADCOUNT);
 
 	StkWebAppUm_UnregisterApi(Soc);
 
