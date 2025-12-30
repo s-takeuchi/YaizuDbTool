@@ -20,10 +20,12 @@ void ShowErrorMsg(wchar_t StateMsg[10], wchar_t Msg[1024])
 	char* ChStateMsg = StkPlWideCharToSjis(StateMsg);
 	char* ChMsg = StkPlWideCharToSjis(Msg);
 #else
-	char* ChStateMsg = StkPlWideCharToUtf8(StateMsg);
-	char* ChMsg = StkPlWideCharToUtf8(Msg);
+	char* ChStateMsg = StkPlCreateUtf8FromWideChar(StateMsg);
+	char* ChMsg = StkPlCreateUtf8FromWideChar(Msg);
 #endif
 	StkPlPrintf("An error occurred!\n%s\n%s\n", ChStateMsg, ChMsg);
+	delete[] ChStateMsg;
+	delete[] ChMsg;
 }
 
 int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
@@ -72,7 +74,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 		delete TableInfo;
 	}
 	{
-		char32_t ChCol[15] = { U'🀄', U'🈁', U'🃏', U'𝝅', U'𝄢', U'𩸽', U'𠀋', U'𡈽', U'𥔎', U'𠮷', U'🌈', U'🔥', U'🚀', U'✨', U'🤝' };
+		const char32_t ChCol[15] = { U'🀄', U'🈁', U'🃏', U'𝝅', U'𝄢', U'𩸽', U'𠀋', U'𡈽', U'𥔎', U'𠮷', U'🌈', U'🔥', U'🚀', U'✨', U'🤝' };
 		char32_t ColName[65] = U"";
 		for (int ChIndex = 0; ChIndex < 16; ChIndex++) {
 			ColName[ChIndex] = ChCol[StkPlRand() % 15];
@@ -120,8 +122,8 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	/////
 	StkPlPrintf("Insert records ... ");
 	{
-		wchar_t* Pref[10] = { L"静岡", L"石川", L"神奈川", L"愛知", L"北海道", L"東京", L"沖縄", L"三重", L"京都", L"青森" };
-		wchar_t* Size[3] = { L"大規模", L"中規模", L"小規模" };
+		const wchar_t* Pref[10] = { L"静岡", L"石川", L"神奈川", L"愛知", L"北海道", L"東京", L"沖縄", L"三重", L"京都", L"青森" };
+		const wchar_t* Size[3] = { L"大規模", L"中規模", L"小規模" };
 		wchar_t Chmemo[15] = { L'松', L'a', L'竹', L'7', L'梅', L'古', L'今', L'東', L'西', L'x', L'\'', L'\"', L',', L';', L'`'};
 		for (int Page = 0; Page < 5; Page++) {
 			StkObject* Root = new StkObject(L"");
@@ -297,10 +299,10 @@ int main(int argc, char *argv[])
 		DbmsType = MARIADB;
 	}
 
-	if (strcmp(argv[3], "GENERAL") == 0 && TestGeneral(OdbcConStr, DbmsType) != 0) {
+	if (StkPlStrCmp(argv[3], "GENERAL") == 0 && TestGeneral(OdbcConStr, DbmsType) != 0) {
 		//
 	}
-	if (strcmp(argv[3], "CLEANUP") == 0 && TestCleanup(OdbcConStr, DbmsType) != 0) {
+	if (StkPlStrCmp(argv[3], "CLEANUP") == 0 && TestCleanup(OdbcConStr, DbmsType) != 0) {
 		//
 	}
 
