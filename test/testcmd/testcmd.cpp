@@ -76,9 +76,9 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 		delete TableInfo;
 	}
 	{
-		const char32_t ChCol[15] = { U'🀄', U'🈁', U'🃏', U'𝝅', U'𝄢', U'𩸽', U'𠀋', U'𡈽', U'𥔎', U'𠮷', U'🌈', U'🔥', U'🚀', U'✨', U'🤝' };
+		const char32_t ChCol[15] = { U'🀄', U'🈁', U'🃏', U'𝝅', U'𝄢', U'𩸽', U'𠀋', U'𡈽', U'𥔎', U'𠮷', U'🌈', U'🔥', U'🚀', U'🀅', U'🤝' };
 		char32_t ColName[65] = U"";
-		for (int ChIndex = 0; ChIndex < 16; ChIndex++) {
+		for (int ChIndex = 0; ChIndex < 15; ChIndex++) {
 			ColName[ChIndex] = ChCol[StkPlRand() % 15];
 		}
 		wchar_t* ColNameWc = StkPlCreateWideCharFromUtf32(ColName);
@@ -97,7 +97,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	}
 	{
 		StkObject* Root = new StkObject(L"");
-		StkObject* TableInfo = new StkObject(L"✨✨✨✨🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀");
+		StkObject* TableInfo = new StkObject(L"🀅🀅🀅🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀");
 		StkObject* ColumnInfo = NULL;
 		for (int Loop = 0; Loop < 60; Loop++) {
 			wchar_t Name[10] = { 0 };
@@ -198,7 +198,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 		for (int Page = 0; Page < 15; Page++) {
 			StkObject* Root = new StkObject(L"");
 			for (int Loop = 0; Loop < 10; Loop++) {
-				StkObject* Table = new StkObject(L"✨✨✨✨🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀");
+				StkObject* Table = new StkObject(L"🀅🀅🀅🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀");
 				for (int ChIndex = 0; ChIndex < 60; ChIndex++) {
 					Table->AppendChildElement(new StkObject(L"RecordInfo", StkPlRand() % 1000));
 				}
@@ -250,7 +250,7 @@ int TestCleanup(wchar_t* OdbcConStr, int DbmsType)
 		delete DbAcc;
 		return -1;
 	}
-	if (DbAcc->DropTable(L"✨✨✨✨🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀", StateMsg, Msg) != 0) {
+	if (DbAcc->DropTable(L"🀅🀅🀅🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀", StateMsg, Msg) != 0) {
 		ShowErrorMsg(StateMsg, Msg);
 		delete DbAcc;
 		return -1;
