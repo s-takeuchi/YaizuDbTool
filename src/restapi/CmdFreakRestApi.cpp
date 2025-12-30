@@ -6,6 +6,7 @@
 #include "../../../YaizuComLib/src/stkwebapp/StkWebAppExec.h"
 #include "../../../YaizuComLib/src/stkwebapp_um/stkwebapp_um.h"
 #include "../../../YaizuComLib/src/commonfunc/msgproc.h"
+#include "../../../YaizuComLib/src/stkdb/DbAccessor.h"
 #include "dataaccess.h"
 #include "Global.h"
 #include "MyMsgProc.h"
@@ -176,12 +177,20 @@ int main(int Argc, char* Argv[])
 	StkPlSPrintf(LogBuf, 1024, "Stkdata is now available (DB version = %d)", DbVersion);
 	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
 
+	// Init DB access
+	DbAccessor::Init();
+	MessageProc::AddLog("DB access environment initialized.", MessageProc::LOG_TYPE_INFO);
+
 	Global::EventLogging(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTART), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTART), -1);
 
 	// Exec rest api
 	CmdFreakRestApi(IpAddr, Port);
 
 	Global::EventLogging(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_SVCSTOP), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_SVCSTOP), -1);
+
+	// Finalize DB access
+	DbAccessor::Uninit();
+	MessageProc::AddLog("DB access environment finalized.", MessageProc::LOG_TYPE_INFO);
 
 	// Stop AutoSave
 	DatAc->StopAutoSave();
