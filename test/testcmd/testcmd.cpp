@@ -16,16 +16,19 @@
 
 void ShowErrorMsg(wchar_t StateMsg[10], wchar_t Msg[1024])
 {
+	wchar_t BufTxt[1024] = L"";
+	StkPlSwPrintf(BufTxt, 1024, L"NG\nAn error occurred!\n%ls\n%ls\n", StateMsg, Msg);
 #ifdef WIN32
-	char* ChStateMsg = StkPlWideCharToSjis(StateMsg);
-	char* ChMsg = StkPlWideCharToSjis(Msg);
+	char* Out = StkPlWideCharToSjis(BufTxt);
+	StkPlPrintf(Out);
+	delete[] Out;
 #else
 	char* ChStateMsg = StkPlCreateUtf8FromWideChar(StateMsg);
 	char* ChMsg = StkPlCreateUtf8FromWideChar(Msg);
-#endif
-	StkPlPrintf("An error occurred!\n%s\n%s\n", ChStateMsg, ChMsg);
+	StkPlPrintf("NG\nAn error occurred!\n%s\n%s\n", ChStateMsg, ChMsg);
 	delete[] ChStateMsg;
 	delete[] ChMsg;
+#endif
 }
 
 int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
@@ -52,7 +55,6 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	StkPlPrintf("Test connection ... ");
 	Ret = DbAcc->Test(StateMsg, Msg);
 	if (Ret != 0) {
-		StkPlPrintf("NG\r\n");
 		ShowErrorMsg(StateMsg, Msg);
 		delete DbAcc;
 		return -1;
@@ -66,7 +68,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	{
 		StkObject* TableInfo = StkObject::CreateObjectFromJson(L"{\"test_table\" : {\"ColumnInfo\" : [{\"Name\":\"番号\", \"Type\":\"integer\"}, {\"Name\":\"prefecture\", \"Type\":\"varchar(10)\"}, {\"Name\":\"size\", \"Type\":\"varchar(10)\"}, {\"Name\":\"名称\", \"Type\":\"varchar(20)\"}, {\"Name\":\"age\", \"Type\":\"integer\"}, {\"Name\":\"memo\", \"Type\":\"varchar(80)\"}, {\"Name\":\"ポイント\", \"Type\":\"real\"}, {\"Name\":\"💛\", \"Type\":\"real\"}]}}", &ErrCode);
 		if (DbAcc->CreateTable(TableInfo, StateMsg, Msg) != 0) {
-			StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+			ShowErrorMsg(StateMsg, Msg);
 			delete DbAcc;
 			delete TableInfo;
 			return -1;
@@ -86,7 +88,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 
 		StkObject* TableInfo = StkObject::CreateObjectFromJson(JsonTxt, &ErrCode);
 		if (DbAcc->CreateTable(TableInfo, StateMsg, Msg) != 0) {
-			StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+			ShowErrorMsg(StateMsg, Msg);
 			delete DbAcc;
 			delete TableInfo;
 			return -1;
@@ -110,7 +112,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 		Root->AppendChildElement(TableInfo);
 
 		if (DbAcc->CreateTable(Root, StateMsg, Msg) != 0) {
-			StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+			ShowErrorMsg(StateMsg, Msg);
 			delete DbAcc;
 			delete Root;
 			return -1;
@@ -153,7 +155,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 				Root->AppendChildElement(Table);
 			}
 			if (DbAcc->InsertRecord(Root, StateMsg, Msg) != 0) {
-				StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+				ShowErrorMsg(StateMsg, Msg);
 				delete DbAcc;
 				delete Root;
 				return -1;
@@ -184,7 +186,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 				Root->AppendChildElement(Table);
 			}
 			if (DbAcc->InsertRecord(Root, StateMsg, Msg) != 0) {
-				StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+				ShowErrorMsg(StateMsg, Msg);
 				delete DbAcc;
 				delete Root;
 				return -1;
@@ -203,7 +205,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 				Root->AppendChildElement(Table);
 			}
 			if (DbAcc->InsertRecord(Root, StateMsg, Msg) != 0) {
-				StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+				ShowErrorMsg(StateMsg, Msg);
 				delete DbAcc;
 				delete Root;
 				return -1;
@@ -239,17 +241,17 @@ int TestCleanup(wchar_t* OdbcConStr, int DbmsType)
 	/////
 	StkPlPrintf("Drop table ... ");
 	if (DbAcc->DropTable(L"test_table", StateMsg, Msg) != 0) {
-		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+		ShowErrorMsg(StateMsg, Msg);
 		delete DbAcc;
 		return -1;
 	}
 	if (DbAcc->DropTable(L"𠮷a♩あ🎵z☺", StateMsg, Msg) != 0) {
-		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+		ShowErrorMsg(StateMsg, Msg);
 		delete DbAcc;
 		return -1;
 	}
 	if (DbAcc->DropTable(L"✨✨✨✨🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀", StateMsg, Msg) != 0) {
-		StkPlWPrintf(L"NG %ls : %ls\r\n", StateMsg, Msg);
+		ShowErrorMsg(StateMsg, Msg);
 		delete DbAcc;
 		return -1;
 	}
@@ -262,11 +264,7 @@ int TestCleanup(wchar_t* OdbcConStr, int DbmsType)
 int main(int argc, char *argv[])
 {
 	if (argc != 4) {
-		wchar_t CmdName[64] = L"";
-		wchar_t* PathToCmd = StkPlCreateWideCharFromUtf8(argv[0]);
-		StkPlGetFileNameFromFullPath(PathToCmd, CmdName, 64);
-		delete[] PathToCmd;
-		StkPlWPrintf(L"Usage: %ls dbms odbc_connection_string test_scenario\n", CmdName);
+		StkPlPrintf("Usage: tescmd dbms odbc_connection_string test_scenario\n");
 		StkPlPrintf("dbms:\n");
 		StkPlPrintf("    postgresql, mysql or mariadb\n");
 		StkPlPrintf("test_scenario:\n");
@@ -274,7 +272,7 @@ int main(int argc, char *argv[])
 		StkPlPrintf("    MAX_TABLES ... 300 tables, 8 columns and 150 records in each table.\n");
 		StkPlPrintf("    CLEANUP ... Drop all tables which were created in this test command.\n");
 		StkPlPrintf("\n");
-		StkPlPrintf("ex. %ls postgresql \"Driver={PostgreSQL};Server=127.0.0.1;Database=testdb;UID=admin;PWD=admin;Port=5432;\" GENERAL\n", CmdName);
+		StkPlPrintf("ex. testcmd postgresql \"Driver={PostgreSQL};Server=127.0.0.1;Database=testdb;UID=admin;PWD=admin;Port=5432;\" GENERAL\n");
 		StkPlExit(0);
 	}
 	StkPlPrintf("dbms = %s\n", argv[1]);
@@ -299,12 +297,14 @@ int main(int argc, char *argv[])
 		DbmsType = MARIADB;
 	}
 
+	DbAccessor::Init();
 	if (StkPlStrCmp(argv[3], "GENERAL") == 0 && TestGeneral(OdbcConStr, DbmsType) != 0) {
 		//
 	}
 	if (StkPlStrCmp(argv[3], "CLEANUP") == 0 && TestCleanup(OdbcConStr, DbmsType) != 0) {
 		//
 	}
+	DbAccessor::Uninit();
 
 	delete[] Dbms;
 	delete[] OdbcConStr;
