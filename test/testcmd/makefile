@@ -7,8 +7,10 @@ testcmd : testcmd.o
 	cp ../../../YaizuComLib/src/stkpl/stkpl.a .
 	cd ../../../YaizuComLib/src/commonfunc; make
 	cp ../../../YaizuComLib/src/commonfunc/commonfunc.a .
+	cd ../../../YaizuComLib/src/stkdb; make
+	cp ../../../YaizuComLib/src/stkdb/stkdb.a .
 
-	g++ -o testcmd testcmd.o stkpl.a commonfunc.a $(LDFLAGS) $(LIBS)
+	g++ -o testcmd testcmd.o stkpl.a commonfunc.a stkdb.a $(LDFLAGS) $(LIBS)
 
 testcmd.o : testcmd.cpp
 	g++ -c testcmd.cpp $(CCOPTS)
@@ -17,5 +19,6 @@ clean :
 	rm -f *.o *.a testcmd
 	cd ../../../YaizuComLib/src/stkpl; make clean
 	cd ../../../YaizuComLib/src/commonfunc; make clean
+	cd ../../../YaizuComLib/src/stkdb; make clean
 
 all : clean testcmd
