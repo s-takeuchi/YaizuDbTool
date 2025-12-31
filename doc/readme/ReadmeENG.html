@@ -231,8 +231,8 @@ CmdFreak works as a 64-bit application hense ODBC driver has to be 64-bit editio
 <hr/>
 <h1>12. Management limitations</h1>
 <ul>
-<li>Maximum length of table name: 64</li>	
-<li>Maximum length of column name: 64</li>	
+<li>Maximum length of table name: 64 (Depends on the connected DBMS. PostgreSQL = 63 bytes, MySQL/MariaDB = 64 characters)</li>	
+<li>Maximum length of column name: 64 (Depends on the connected DBMS. PostgreSQL = 63 bytes, MySQL/MariaDB = 64 characters)</li>	
 <li>Maximum length of column value(characters): 63 (64th or later characters are not displayed)</li>
 <li>Maximum number of tables: 300</li>
 <li>Maximum number of columns: 50 (51st or later columns are not displayed)</li>
