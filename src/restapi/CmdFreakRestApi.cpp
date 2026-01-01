@@ -25,7 +25,7 @@ void HealthCheck(StkWebApp* Soc, int Ids[], int Count)
 		StkPlSleepMs(100);
 
 		// Health Check begin
-		if (Interval == 600 * 2) { // once two minutes
+		if (Interval == 600 * 60 * 12) { // once 12 hours
 			long long StartTm = 0;
 			long long EndTm = 0;
 			wchar_t ApiStr[StkWebAppExec::URL_PATH_LENGTH] = L"";
