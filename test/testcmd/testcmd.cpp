@@ -126,7 +126,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	{
 		const wchar_t* Pref[10] = { L"静岡", L"石川", L"神奈川", L"愛知", L"北海道", L"東京", L"沖縄", L"三重", L"京都", L"青森" };
 		const wchar_t* Size[3] = { L"大規模", L"中規模", L"小規模" };
-		wchar_t Chmemo[15] = { L'松', L'a', L'竹', L'7', L'梅', L'古', L'今', L'東', L'西', L'x', L'\'', L'\"', L',', L';', L'`'};
+		wchar_t Chmemo[17] = { L'山', L'海', L' ', L'7', L'<', L'>', L'(', L')', L':', L'x', L'\'', L'\"', L',', L';', L'`', L'~', L'%'};
 		for (int Page = 0; Page < 5; Page++) {
 			StkObject* Root = new StkObject(L"");
 			for (int Loop = 0; Loop < 30; Loop++) {
@@ -138,7 +138,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 				StkObject* Rec4 = new StkObject(L"RecordInfo", StkPlRand() % 500);
 				wchar_t Memo[80] = L"";
 				for (int ChIndex = 0; ChIndex < 75; ChIndex++) {
-					Memo[ChIndex] = Chmemo[StkPlRand() % 15];
+					Memo[ChIndex] = Chmemo[StkPlRand() % 17];
 				}
 				Memo[75] = L'\0';
 				StkObject* Rec5 = new StkObject(L"RecordInfo", Memo);
