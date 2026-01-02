@@ -31,8 +31,22 @@ function initClientMessage() {
     });
     addClientMessage('ODBC_SELECTION', {'en':'Select DBMS : ', 'ja':'DBMSの選択 : '});
     addClientMessage('ODBC_CONFAILURE', {
-        'en':'DBMS connection failed.<br>This may be caused by one of the following issues:<br>- The DBMS is not working properly.<br>- No ODBC driver is installed.<br>- The ODBC connection string is invalid.<br>- There are issues with the DBMS on the network.<br>The detailed information:<br>',
-        'ja':'DBMSとの接続に失敗しました。<br>次の要因が考えられます。<br>- DBMSが適切に起動していない。<br>- ODBCドライバがインストールされていない。<br>- ODBCの接続文字列が不正。<br>- DBMSとの接続経路に何らかの問題がある。<br>詳細情報：<br>'
+        'en':'Database connection failed.<br>' +
+            'This may be caused by one of the following issues:<br>' +
+            '- The DBMS is not working properly.<br>' +
+            '- No ODBC driver is installed. (64bit version of the driver is not installed)<br>' +
+            '- The ODBC connection string is invalid.  (Invalid syntax/server address/database name*)<br>' +
+            '- There are issues with the DBMS on the network.<br>' +
+            '* note: Some ODBC drivers do not support database names containing multibyte characters.<br>' +
+            '<br>The detailed information:<br>',
+        'ja': 'データベースへの接続に失敗しました。<br>' +
+            '次の要因が考えられます。<br>' +
+            '- DBMSが適切に起動していない。<br>' +
+            '- ODBCドライバがインストールされていない(64bit版ドライバがインストールされていない)。<br>' +
+            '- ODBCの接続文字列が不正(構文/サーバアドレス/データベース名※ など)。<br>' +
+            '- DBMSとの接続経路に何らかの問題がある。<br>' +
+            '※ 注意：一部のODBCドライバは、マルチバイト文字を含むデータベース名をサポートしていません。<br>' +
+            '<br>詳細情報：<br>'
     });
 
     //
