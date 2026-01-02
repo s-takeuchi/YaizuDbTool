@@ -66,7 +66,7 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	/////
 	StkPlPrintf("Create table ... ");
 	{
-		StkObject* TableInfo = StkObject::CreateObjectFromJson(L"{\"test_table\" : {\"ColumnInfo\" : [{\"Name\":\"番号\", \"Type\":\"integer\"}, {\"Name\":\"prefecture\", \"Type\":\"varchar(10)\"}, {\"Name\":\"size\", \"Type\":\"varchar(10)\"}, {\"Name\":\"名称\", \"Type\":\"varchar(20)\"}, {\"Name\":\"age\", \"Type\":\"integer\"}, {\"Name\":\"memo\", \"Type\":\"varchar(80)\"}, {\"Name\":\"ポイント\", \"Type\":\"real\"}, {\"Name\":\"💛\", \"Type\":\"real\"}]}}", &ErrCode);
+		StkObject* TableInfo = StkObject::CreateObjectFromJson(L"{\"test_table\" : {\"ColumnInfo\" : [{\"Name\":\"番号\", \"Type\":\"integer\"}, {\"Name\":\"prefecture\", \"Type\":\"varchar(10)\"}, {\"Name\":\"size\", \"Type\":\"varchar(10)\"}, {\"Name\":\"名称\", \"Type\":\"varchar(20)\"}, {\"Name\":\"age\", \"Type\":\"integer\"}, {\"Name\":\"memo\", \"Type\":\"varchar(80)\"}, {\"Name\":\"ポイント1\", \"Type\":\"real\"}, {\"Name\":\"ポイント2\", \"Type\":\"real\"}]}}", &ErrCode);
 		if (DbAcc->CreateTable(TableInfo, StateMsg, Msg) != 0) {
 			ShowErrorMsg(StateMsg, Msg);
 			delete DbAcc;
@@ -76,14 +76,27 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 		delete TableInfo;
 	}
 	{
-		const char32_t ChCol[15] = { U'🀄', U'🈁', U'🃏', U'𝝅', U'𝄢', U'𩸽', U'𠀋', U'𡈽', U'𥔎', U'𠮷', U'🌈', U'🔥', U'🚀', U'🀅', U'🤝' };
+		const char32_t ChColPg[15] = { U'🀄', U'🈁', U'🃏', U'𝝅', U'𝄢', U'𩸽', U'𠀋', U'𡈽', U'𥔎', U'𠮷', U'🌈', U'🔥', U'🚀', U'🀅', U'🤝' };
+		const char32_t ChColMr[15] = { U'中', U'コ', U'国', U'元', U'＠', U'鰹', U'丈', U'土', U'埼', U'吉', U'「', U'火', U'／', U'発', U'＆' };
 		char32_t ColName[65] = U"";
-		for (int ChIndex = 0; ChIndex < 15; ChIndex++) {
-			ColName[ChIndex] = ChCol[StkPlRand() % 15];
+		int MaxCulSize = 15;
+		if (DbmsType != POSTGRESQL) {
+			MaxCulSize = 63;
+		}
+		for (int ChIndex = 0; ChIndex < MaxCulSize; ChIndex++) {
+			if (DbmsType == POSTGRESQL) {
+				ColName[ChIndex] = ChColPg[StkPlRand() % 15];
+			} else {
+				ColName[ChIndex] = ChColMr[StkPlRand() % 15];
+			}
 		}
 		wchar_t* ColNameWc = StkPlCreateWideCharFromUtf32(ColName);
 		wchar_t JsonTxt[512] = L"";
-		StkPlSwPrintf(JsonTxt, 512, L"{\"𠮷a♩あ🎵z☺\" : {\"ColumnInfo\" : [{\"Name\":\"◆_■\", \"Type\":\"varchar(80)\"}, {\"Name\":\"%ls\", \"Type\":\"varchar(80)\"}, {\"Name\":\"a\", \"Type\":\"integer\"}, {\"Name\":\"b\", \"Type\":\"integer\"}, {\"Name\":\"c\", \"Type\":\"integer\"}, {\"Name\":\"d\", \"Type\":\"integer\"}, {\"Name\":\"e\", \"Type\":\"integer\"}, {\"Name\":\"f\", \"Type\":\"integer\"}]}}", ColNameWc);
+		if (DbmsType == POSTGRESQL) {
+			StkPlSwPrintf(JsonTxt, 512, L"{\"𠮷a♩あ🎵z☺\" : {\"ColumnInfo\" : [{\"Name\":\"◆_■\", \"Type\":\"varchar(80)\"}, {\"Name\":\"%ls\", \"Type\":\"varchar(80)\"}, {\"Name\":\"a\", \"Type\":\"integer\"}, {\"Name\":\"b\", \"Type\":\"integer\"}, {\"Name\":\"c\", \"Type\":\"integer\"}, {\"Name\":\"d\", \"Type\":\"integer\"}, {\"Name\":\"e\", \"Type\":\"integer\"}, {\"Name\":\"f\", \"Type\":\"integer\"}]}}", ColNameWc);
+		} else {
+			StkPlSwPrintf(JsonTxt, 512, L"{\"吉adあ円z・\" : {\"ColumnInfo\" : [{\"Name\":\"菱_矩\", \"Type\":\"varchar(80)\"}, {\"Name\":\"%ls\", \"Type\":\"varchar(80)\"}, {\"Name\":\"a\", \"Type\":\"integer\"}, {\"Name\":\"b\", \"Type\":\"integer\"}, {\"Name\":\"c\", \"Type\":\"integer\"}, {\"Name\":\"d\", \"Type\":\"integer\"}, {\"Name\":\"e\", \"Type\":\"integer\"}, {\"Name\":\"f\", \"Type\":\"integer\"}]}}", ColNameWc);
+		}
 		delete ColNameWc;
 
 		StkObject* TableInfo = StkObject::CreateObjectFromJson(JsonTxt, &ErrCode);
@@ -97,7 +110,12 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 	}
 	{
 		StkObject* Root = new StkObject(L"");
-		StkObject* TableInfo = new StkObject(L"🀅🀅🀅🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀");
+		StkObject* TableInfo = NULL;
+		if (DbmsType == POSTGRESQL) {
+			TableInfo = new StkObject(L"🀅🀅🀅🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀");
+		} else {
+			TableInfo = new StkObject(L"月月月月月00000火火火火火11111水水水水水22222木木木木木33333金金金金金44444土土土土土@@@@@123");
+		}
 		StkObject* ColumnInfo = NULL;
 		for (int Loop = 0; Loop < 60; Loop++) {
 			wchar_t Name[10] = { 0 };
@@ -168,7 +186,12 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 		for (int Page = 0; Page < 500; Page++) {
 			StkObject* Root = new StkObject(L"");
 			for (int Loop = 0; Loop < 30; Loop++) {
-				StkObject* Table = new StkObject(L"𠮷a♩あ🎵z☺");
+				StkObject* Table = NULL;
+				if (DbmsType == POSTGRESQL) {
+					Table = new StkObject(L"𠮷a♩あ🎵z☺");
+				} else {
+					Table = new StkObject(L"吉adあ円z・");
+				}
 				wchar_t Memo[80] = L"";
 				for (int ChIndex = 0; ChIndex < 75; ChIndex++) {
 					Memo[ChIndex] = Chmemo[StkPlRand() % 15];
@@ -198,7 +221,12 @@ int TestGeneral(wchar_t* OdbcConStr, int DbmsType)
 		for (int Page = 0; Page < 15; Page++) {
 			StkObject* Root = new StkObject(L"");
 			for (int Loop = 0; Loop < 10; Loop++) {
-				StkObject* Table = new StkObject(L"🀅🀅🀅🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀");
+				StkObject* Table = NULL;
+				if (DbmsType == POSTGRESQL) {
+					Table = new StkObject(L"🀅🀅🀅🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀");
+				} else {
+					Table = new StkObject(L"月月月月月00000火火火火火11111水水水水水22222木木木木木33333金金金金金44444土土土土土@@@@@123");
+				}
 				for (int ChIndex = 0; ChIndex < 60; ChIndex++) {
 					Table->AppendChildElement(new StkObject(L"RecordInfo", StkPlRand() % 1000));
 				}
@@ -389,33 +417,20 @@ int TestCleanup(wchar_t* OdbcConStr, int DbmsType)
 		break;
 	}
 
-	/////
-	bool ErrorFlag = false;
 	StkPlPrintf("Drop table ... ");
-	if (DbAcc->DropTable(L"test_table", StateMsg, Msg) != 0) {
-		ShowErrorMsg(StateMsg, Msg);
-		ErrorFlag = true;
+	StkObject* Obj = new StkObject(L"");
+	DbAcc->GetTables(Obj, StateMsg, Msg);
+	StkObject* Target = Obj->GetFirstChildElement();
+	while (Target) {
+		wchar_t* TableName = Target->GetFirstChildElement()->GetStringValue();
+		DbAcc->DropTable(TableName, StateMsg, Msg);
+		StkPlPrintf("%ls", TableName);
+		if (Target->GetNext()) {
+			StkPlPrintf(",");
+		}
+		Target = Target->GetNext();
 	}
-	if (DbAcc->DropTable(L"𠮷a♩あ🎵z☺", StateMsg, Msg) != 0) {
-		ShowErrorMsg(StateMsg, Msg);
-		ErrorFlag = true;
-	}
-	if (DbAcc->DropTable(L"🀅🀅🀅🔥🔥🔥🔥🌈🌈🌈🌈🚀🚀🚀🚀", StateMsg, Msg) != 0) {
-		ShowErrorMsg(StateMsg, Msg);
-		ErrorFlag = true;
-	}
-	if (DbAcc->DropTable(L"system_engineer", StateMsg, Msg) != 0) {
-		ShowErrorMsg(StateMsg, Msg);
-		ErrorFlag = true;
-	}
-	if (DbAcc->DropTable(L"assignment", StateMsg, Msg) != 0) {
-		ShowErrorMsg(StateMsg, Msg);
-		ErrorFlag = true;
-	}
-	if (!ErrorFlag) {
-		StkPlPrintf("OK\r\n");
-		ErrorFlag = true;
-	}
+	StkPlPrintf(" ... OK\r\n");
 
 	delete DbAcc;
 	return 0;
