@@ -48,6 +48,10 @@ function initClientMessage() {
             '※ 注意：一部のODBCドライバは、マルチバイト文字を含むデータベース名をサポートしていません。<br>' +
             '<br>詳細情報：<br>'
     });
+    addClientMessage('ODBC_NOT_CONFIGURED', {
+        'en': 'The ODBC connection is not configured yet. Please contact the CmdFreak administrator to configure it.',
+        'ja': 'ODBC接続の設定がされていません。CmdFreakの管理者にODBC接続を設定するよう問い合わせてください。'
+    });
 
     //
     // Service information
@@ -270,13 +274,21 @@ function checkOdbcConnection() {
         return;
     }
     if (responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo.DbType === 'Init') {
-        displayAlertInfo('#cmdfreakdata', getClientMessage('WELCOME_MSG') + '<p>' + getClientMessage('WELCOME_CONFIGODBC') + '</p>');
+        if (responseData['API_GET_USER'].Data.User.Role == 0) {
+            displayAlertInfo('#cmdfreakdata', getClientMessage('WELCOME_MSG') + '<p>' + getClientMessage('WELCOME_CONFIGODBC') + '</p>');
+        } else {
+            displayAlertInfo('#cmdfreakdata', getClientMessage('ODBC_NOT_CONFIGURED'));
+        }
         return;
     }
     if (responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo.Status === 'unconnectable') {
-        displayAlertDanger('#cmdfreakdata',
-            getClientMessage('ODBC_CONFAILURE')
-            + responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo.Message);
+        if (responseData['API_GET_USER'].Data.User.Role == 0) {
+            displayAlertDanger('#cmdfreakdata',
+                getClientMessage('ODBC_CONFAILURE')
+                + responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo.Message);
+        } else {
+            displayAlertInfo('#cmdfreakdata', getClientMessage('ODBC_NOT_CONFIGURED'));
+        }
         return;
     }
     displayTableList();
