@@ -31,7 +31,7 @@ function initClientMessage() {
     });
     addClientMessage('ODBC_SELECTION', {'en':'Select DBMS : ', 'ja':'DBMSの選択 : '});
     addClientMessage('ODBC_CONFAILURE', {
-        'en':'Database connection failed.<br>' +
+        'en':'DBMS connection failed.<br>' +
             'This may be caused by one of the following issues:<br>' +
             '- The DBMS is not working properly.<br>' +
             '- No ODBC driver is installed. (64bit version of the driver is not installed)<br>' +
@@ -39,7 +39,7 @@ function initClientMessage() {
             '- There are issues with the DBMS on the network.<br>' +
             '* note: Some ODBC drivers do not support database names containing multibyte characters.<br>' +
             '<br>The detailed information:<br>',
-        'ja': 'データベースへの接続に失敗しました。<br>' +
+        'ja': 'DBMSへの接続に失敗しました。<br>' +
             '次の要因が考えられます。<br>' +
             '- DBMSが適切に起動していない。<br>' +
             '- ODBCドライバがインストールされていない(64bit版ドライバがインストールされていない)。<br>' +
@@ -51,6 +51,10 @@ function initClientMessage() {
     addClientMessage('ODBC_NOT_CONFIGURED', {
         'en': 'The ODBC connection is not configured yet. Please contact the CmdFreak administrator to configure it.',
         'ja': 'ODBC接続の設定がされていません。CmdFreakの管理者にODBC接続を設定するよう問い合わせてください。'
+    });
+    addClientMessage('ODBC_NODB', {
+        'en': 'The DBMS connection was successful, but the database connection failed.<br>Please confirm that an appropriate database name is specified in the ODBC connection settings.<br>',
+        'ja': 'DBMSへの接続は成功しましたが、データベースには接続していません。<br>ODBC接続の設定を確認し、データベース名が適切か確認してください。<br>'
     });
 
     //
@@ -286,6 +290,14 @@ function checkOdbcConnection() {
             displayAlertDanger('#cmdfreakdata',
                 getClientMessage('ODBC_CONFAILURE')
                 + responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo.Message);
+        } else {
+            displayAlertInfo('#cmdfreakdata', getClientMessage('ODBC_NOT_CONFIGURED'));
+        }
+        return;
+    }
+    if (responseData['API_GET_ODBCINFO_CONFIGURED'].Data.OdbcInfo.Status === 'nodb') {
+        if (responseData['API_GET_USER'].Data.User.Role == 0) {
+            displayAlertDanger('#cmdfreakdata', getClientMessage('ODBC_NODB'));
         } else {
             displayAlertInfo('#cmdfreakdata', getClientMessage('ODBC_NOT_CONFIGURED'));
         }

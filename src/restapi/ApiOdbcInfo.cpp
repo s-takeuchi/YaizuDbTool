@@ -79,7 +79,12 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 		StkPlSwPrintf(ErrMsg, 1024, L"ODBC: %ls %ls", (StateMsg == NULL) ? L"null" : (wchar_t*)StateMsg, (Msg == NULL) ? L"null" : (wchar_t*)Msg);
 
 		if (Ret == 0) {
-			DatObjDb->AppendChildElement(new StkObject(L"Status", L"connectable"));
+			wchar_t DbName[Global::DBNAME_LENGTH] = L"";
+			if (Da->GetCurrentDatabaseCommon(DbName, StateMsg, Msg) == 0) {
+				DatObjDb->AppendChildElement(new StkObject(L"Status", L"connectable"));
+			} else {
+				DatObjDb->AppendChildElement(new StkObject(L"Status", L"nodb"));
+			}
 		} else {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"unconnectable"));
 			DatObjDb->AppendChildElement(new StkObject(L"Message", ErrMsg));
@@ -163,8 +168,13 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 		int Ret = Da->Test(StateMsg, Msg);
 		StkPlSwPrintf(ErrMsg, 1024, L"ODBC: %ls %ls", (StateMsg == NULL) ? L"null" : (wchar_t*)StateMsg, (Msg == NULL) ? L"null" : (wchar_t*)Msg);
 
+		wchar_t DbName[Global::DBNAME_LENGTH] = L"";
 		if (Ret == 0) {
-			DatObjDb->AppendChildElement(new StkObject(L"Status", L"connectable"));
+			if (Da->GetCurrentDatabaseCommon(DbName, StateMsg, Msg) == 0) {
+				DatObjDb->AppendChildElement(new StkObject(L"Status", L"connectable"));
+			} else {
+				DatObjDb->AppendChildElement(new StkObject(L"Status", L"nodb"));
+			}
 		} else {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"unconnectable"));
 			DatObjDb->AppendChildElement(new StkObject(L"Message", ErrMsg));
@@ -174,7 +184,11 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 		DatObj->AppendChildElement(DatObjDb);
 		ResObj->AppendChildElement(DatObj);
 
-		Global::EventLogging(MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), YourId);
+		wchar_t EventLogEn[100] = L"";
+		wchar_t EventLogJp[100] = L"";
+		StkPlSwPrintf(EventLogEn, 100, L"%ls [DB=%ls]", MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), DbName);
+		StkPlSwPrintf(EventLogJp, 100, L"%ls [DB=%ls]", MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_LOG_DBMSCHANGE), DbName);
+		Global::EventLogging(EventLogEn, EventLogJp, YourId);
 		*ResultCode = 200;
 	}
 

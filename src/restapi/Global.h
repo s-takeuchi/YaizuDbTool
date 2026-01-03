@@ -6,6 +6,9 @@ class Global
 public:
 	static const int MAX_PARAM_LENGTH = 28800;
 
+	static const int DBNAME_LENGTH = 65;
+	static const int TABLENAME_LENGTH = 65;
+
 	static const int COLUMNNAME_LENGTH = 65;
 	static const int COLUMNVAL_LENGTH = 64;
 
