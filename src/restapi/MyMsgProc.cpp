@@ -6,7 +6,7 @@ void MyMsgProc::AddMsg()
 	// =====================================================================================================
 
 	//
-	// Errors
+	// Information / Error messages
 	//
 
 	//(★)
@@ -29,8 +29,16 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddJpn(CMDFRK_ACCESS_RIGHT_ERROR, L"アクセス権限エラーが発生しました。");
 	MessageProc::AddEng(CMDFRK_ACCESS_RIGHT_ERROR, L"Access right error occurred.");
 
+	//(★)
+	MessageProc::AddJpn(CMDFRK_ODBCINFO_WIN, L"\"Driver=\"には、64-bit ODBC データ ソースで表示されるドライバ名を指定してください。");
+	MessageProc::AddEng(CMDFRK_ODBCINFO_WIN, L"Specify the driver name which displayed at 64bit ODBC data source to \"Driver\".");
+
+	//(★)
+	MessageProc::AddJpn(CMDFRK_ODBCINFO_LIN, L"\"Driver=\"には、odbcinst -q -d で確認できるドライバ名、またはドライバの共有ライブラリパスを指定してください。");
+	MessageProc::AddEng(CMDFRK_ODBCINFO_LIN, L"Spcify the driver name which can be confirmed at \"odbcint -q -d\" or the path to the shared library to \"Driver=\".");
+
 	//
-	// Logging
+	// Logging messages
 	//
 
 	//(NC6)

@@ -20,17 +20,23 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 	}
 
 	if (StkPlWcsStr(UrlPath, L"?query=default")) {
-		AddCodeAndMsg(ResObj, 0, L"", L"");
 		StkObject* DatObj = new StkObject(L"Data");
 
 		wchar_t ConnStrPostgreSql[Global::MAX_PARAM_LENGTH];
 		wchar_t ConnStrMariaDb[Global::MAX_PARAM_LENGTH];
 		wchar_t ConnStrMySql[Global::MAX_PARAM_LENGTH];
 
-		StkPlLStrCpy(ConnStrPostgreSql, L"Driver={PostgreSQL Unicode};Server=127.0.0.1;Database=DATABASE_NAME;UID=UID;PWD=PWD;Port=5432;");
-		StkPlLStrCpy(ConnStrMariaDb, L"Driver={MariaDB ODBC 3.1 Driver};Server=localhost;UID=UID;PWD=PWD;DB=DATABASE_NAME;Port=3306;");
-		StkPlLStrCpy(ConnStrMySql, L"Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Port=3306;Option=131072;Stmt=;Database=DATABASE_NAME;Uid=UID;Pwd=PWD;");
-
+#ifdef WIN32
+		AddCodeAndMsg(ResObj, 0, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_ODBCINFO_WIN), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_ODBCINFO_WIN));
+		StkPlLStrCpy(ConnStrPostgreSql, L"Driver={DRIVER_NAME};Server=localhost;Port=5432;Database=DATABASE_NAME;User=UID;Password=PWD;");
+		StkPlLStrCpy(ConnStrMariaDb, L"Driver={DRIVER_NAME};Server=localhost;Port=3306;Database=DATABASE_NAME;User=UID;Password=PWD;");
+		StkPlLStrCpy(ConnStrMySql, L"Driver={DRIVER_NAME};Server=localhost;Port=3306;Database=DATABASE_NAME;User=UID;Password=PWD;");
+#else
+		AddCodeAndMsg(ResObj, 0, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_ODBCINFO_LIN), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_ODBCINFO_WIN));
+		StkPlLStrCpy(ConnStrPostgreSql, L"Driver=DRIVER_NAME_OR_SO_PATH;Server=localhost;Port=5432;Database=DATABASE_NAME;User=UID;Password=PWD;");
+		StkPlLStrCpy(ConnStrMariaDb, L"Driver=DRIVER_NAME_OR_SO_PATH;Server=localhost;Port=3306;Database=DATABASE_NAME;User=UID;Password=PWD;");
+		StkPlLStrCpy(ConnStrMySql, L"Driver=DRIVER_NAME_OR_SO_PATH;Server=localhost;Port=3306;Database=DATABASE_NAME;User=UID;Password=PWD;");
+#endif
 		StkObject* DatObjMariaDb = new StkObject(L"OdbcInfo");
 		DatObjMariaDb->AppendChildElement(new StkObject(L"DbType", L"MariaDB"));
 		DatObjMariaDb->AppendChildElement(new StkObject(L"ConnStr", ConnStrMariaDb));

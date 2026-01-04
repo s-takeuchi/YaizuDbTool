@@ -9,6 +9,8 @@ public:
 	static const int CMDFRK_PARAM_LENGTH_TOO_LONG     = 3123;
 	static const int CMDFRK_AUTH_ERROR                = 3124;
 	static const int CMDFRK_ACCESS_RIGHT_ERROR        = 3125;
+	static const int CMDFRK_ODBCINFO_WIN              = 3126;
+	static const int CMDFRK_ODBCINFO_LIN              = 3127;
 
 	// Logging
 	static const int CMDFRK_LOG_DBMSCHANGE            = 3336;
