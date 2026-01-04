@@ -28,7 +28,7 @@ function initClientMessage() {
     addClientMessage('ODBC_CONNSTR_GUIDE', {
         'en': 'Configure ODBC connection.<br>' +
             'Select the connection target DBMS and specify the ODBC connection string.<br>' +
-            'After DBMS selection the text-box is refreshed corresponding to it. Please update the connection string according to the configuration of DBMS and ODBC driver.<br>',
+            'After selecting a DBMS, the text box is refreshed accordingly. Please update the connection string according to the configuration of DBMS and ODBC driver.<br>',
         'ja': 'ODBC接続の設定を行います。<br>' +
             '接続対象のDBMSを選択し，ODBCの接続文字列を指定してください。<br>' +
             'DBMSを選択すると、テキストボックスはそれに応じたテンプレートに切り替わります。DBMSおよびODBCドライバの構成に合わせて接続文字列を変更してください。<br>'
