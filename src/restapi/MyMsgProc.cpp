@@ -30,12 +30,12 @@ void MyMsgProc::AddMsg()
 	MessageProc::AddEng(CMDFRK_ACCESS_RIGHT_ERROR, L"Access right error occurred.");
 
 	//(★)
-	MessageProc::AddJpn(CMDFRK_ODBCINFO_WIN, L"\"Driver=\"には、64-bit ODBC データ ソースで表示されるドライバ名を指定してください。");
-	MessageProc::AddEng(CMDFRK_ODBCINFO_WIN, L"Specify the driver name which displayed at 64bit ODBC data source to \"Driver\".");
+	MessageProc::AddJpn(CMDFRK_ODBCINFO_WIN, L"\"Driver=\" には、64-bit ODBC データ ソースに表示されているドライバ名を指定してください。");
+	MessageProc::AddEng(CMDFRK_ODBCINFO_WIN, L"Specify the driver name shown in the 64-bit ODBC Data Source Administrator for \"Driver=\".");
 
 	//(★)
-	MessageProc::AddJpn(CMDFRK_ODBCINFO_LIN, L"\"Driver=\"には、odbcinst -q -d で確認できるドライバ名、またはドライバの共有ライブラリパスを指定してください。");
-	MessageProc::AddEng(CMDFRK_ODBCINFO_LIN, L"Spcify the driver name which can be confirmed at \"odbcinst -q -d\" or the path to the shared library to \"Driver=\".");
+	MessageProc::AddJpn(CMDFRK_ODBCINFO_LIN, L"\"Driver=\"には、\"odbcinst -q -d\" で確認できるドライバ名、またはドライバの共有ライブラリパスを指定してください。");
+	MessageProc::AddEng(CMDFRK_ODBCINFO_LIN, L"Specify the driver name shown by \"odbcinst -q -d\", or the path to the shared library, for \"Driver=\".");
 
 	//
 	// Logging messages
