@@ -28,12 +28,12 @@ StkObject* ApiOdbcInfo::GetOdbcInfo(wchar_t UrlPath[StkWebAppExec::URL_PATH_LENG
 
 #ifdef WIN32
 		AddCodeAndMsg(ResObj, 0, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_ODBCINFO_WIN), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_ODBCINFO_WIN));
-		StkPlLStrCpy(ConnStrPostgreSql, L"Driver={DRIVER_NAME};Server=localhost;Port=5432;Database=DATABASE_NAME;User=UID;Password=PWD;");
+		StkPlLStrCpy(ConnStrPostgreSql, L"Driver={DRIVER_NAME};Server=localhost;Port=5432;Database=DATABASE_NAME;UID=UID;PWD=PWD;");
 		StkPlLStrCpy(ConnStrMariaDb, L"Driver={DRIVER_NAME};Server=localhost;Port=3306;Database=DATABASE_NAME;User=UID;Password=PWD;");
 		StkPlLStrCpy(ConnStrMySql, L"Driver={DRIVER_NAME};Server=localhost;Port=3306;Database=DATABASE_NAME;User=UID;Password=PWD;");
 #else
-		AddCodeAndMsg(ResObj, 0, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_ODBCINFO_LIN), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_ODBCINFO_WIN));
-		StkPlLStrCpy(ConnStrPostgreSql, L"Driver=DRIVER_NAME_OR_SO_PATH;Server=localhost;Port=5432;Database=DATABASE_NAME;User=UID;Password=PWD;");
+		AddCodeAndMsg(ResObj, 0, MyMsgProc::GetMsgEng(MyMsgProc::CMDFRK_ODBCINFO_LIN), MyMsgProc::GetMsgJpn(MyMsgProc::CMDFRK_ODBCINFO_LIN));
+		StkPlLStrCpy(ConnStrPostgreSql, L"Driver=DRIVER_NAME_OR_SO_PATH;Server=localhost;Port=5432;Database=DATABASE_NAME;UID=UID;PWD=PWD;");
 		StkPlLStrCpy(ConnStrMariaDb, L"Driver=DRIVER_NAME_OR_SO_PATH;Server=localhost;Port=3306;Database=DATABASE_NAME;User=UID;Password=PWD;");
 		StkPlLStrCpy(ConnStrMySql, L"Driver=DRIVER_NAME_OR_SO_PATH;Server=localhost;Port=3306;Database=DATABASE_NAME;User=UID;Password=PWD;");
 #endif

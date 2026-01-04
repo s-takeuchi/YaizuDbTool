@@ -35,7 +35,7 @@ void MyMsgProc::AddMsg()
 
 	//(★)
 	MessageProc::AddJpn(CMDFRK_ODBCINFO_LIN, L"\"Driver=\"には、odbcinst -q -d で確認できるドライバ名、またはドライバの共有ライブラリパスを指定してください。");
-	MessageProc::AddEng(CMDFRK_ODBCINFO_LIN, L"Spcify the driver name which can be confirmed at \"odbcint -q -d\" or the path to the shared library to \"Driver=\".");
+	MessageProc::AddEng(CMDFRK_ODBCINFO_LIN, L"Spcify the driver name which can be confirmed at \"odbcinst -q -d\" or the path to the shared library to \"Driver=\".");
 
 	//
 	// Logging messages
