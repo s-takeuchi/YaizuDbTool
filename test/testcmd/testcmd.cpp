@@ -468,10 +468,6 @@ int TestCleanup(wchar_t* OdbcConStr, int DbmsType)
 	while (Target) {
 		wchar_t* TableName = Target->GetFirstChildElement()->GetStringValue();
 		DbAcc->DropTable(TableName, StateMsg, Msg);
-		StkPlPrintf("%ls", TableName);
-		if (Target->GetNext()) {
-			StkPlPrintf(",");
-		}
 		Target = Target->GetNext();
 	}
 	StkPlPrintf(" ... OK\r\n");
@@ -522,7 +518,7 @@ int main(int argc, char *argv[])
 	}
 
 	DbAccessor::Init();
-	if (StkPlStrCmp(argv[3], "TRICK") == 0 && TestTrick(OdbcConStr, DbmsType) != 0) {
+	if (StkPlStrCmp(argv[3], "TRICK") == 0 && TestTrick(OdbcConStr, DbmsType) == 0) {
 		//
 	} else if (StkPlStrCmp(argv[3], "SE_SERVICE") == 0 && TestSeService(OdbcConStr, DbmsType) == 0) {
 		//
