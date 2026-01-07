@@ -425,7 +425,7 @@ int TestTable300(wchar_t* OdbcConStr, int DbmsType)
 
 		for (int Loop = 0; Loop < 300; Loop++) {
 			wchar_t Sql[512] = L"";
-			StkPlSwPrintf(Sql, 512, L"{\"DymmyTable%00d\" : {\"ColumnInfo\" : [{\"Name\":\"id\", \"Type\":\"integer\"}, {\"Name\":\"name\", \"Type\":\"varchar(12)\"}, {\"Name\":\"age\", \"Type\":\"integer\"}]}}", Loop);
+			StkPlSwPrintf(Sql, 512, L"{\"DymmyTable_abcdefghi_xxxyyyzzz_ooopppqqq_lllmmmnnn_%03d\" : {\"ColumnInfo\" : [{\"Name\":\"id\", \"Type\":\"integer\"}, {\"Name\":\"name\", \"Type\":\"varchar(12)\"}, {\"Name\":\"age\", \"Type\":\"integer\"}]}}", Loop);
 			StkObject* TableInfo = StkObject::CreateObjectFromJson(Sql, &ErrCode);
 			if (DbAcc->CreateTable(TableInfo, StateMsg, Msg) != 0) {
 				ShowErrorMsg(StateMsg, Msg);
@@ -470,7 +470,7 @@ int TestCleanup(wchar_t* OdbcConStr, int DbmsType)
 		DbAcc->DropTable(TableName, StateMsg, Msg);
 		Target = Target->GetNext();
 	}
-	StkPlPrintf(" ... OK\r\n");
+	StkPlPrintf("OK\r\n");
 
 	delete DbAcc;
 	return 0;
