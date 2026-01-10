@@ -64,8 +64,8 @@ rem ########## Checking file existence ##########
 echo;
 echo Checking "stkdatagui.exe" existence...
 if not exist "..\..\YaizuComLib\src\stkdatagui\x64\Release\stkdatagui.exe" goto ERRORRAISED
-echo Checking "nginx-1.12.2.zip" existence...
-if not exist "..\..\YaizuComLib\src\stkwebapp\nginx-1.12.2.zip" goto ERRORRAISED
+echo Checking "nginx-1.28.1.zip" existence...
+if not exist "..\..\YaizuComLib\src\stkwebapp\nginx-1.28.1.zip" goto ERRORRAISED
 echo Checking "jquery-3.2.0.min.js" existence...
 if not exist "..\..\YaizuComLib\src\stkwebapp\jquery-3.2.0.min.js" goto ERRORRAISED
 echo Checking "IcoMoon-Free.ttf" existence...
@@ -100,11 +100,11 @@ copy "..\src\restapi\sample.conf" webapp
 copy "..\..\YaizuComLib\src\stkwebapp\x64\Release\stkwebappcmd.exe" webapp
 
 mkdir webapp\nginx
-copy "..\..\YaizuComLib\src\stkwebapp\nginx-1.12.2.zip" webapp\nginx
+copy "..\..\YaizuComLib\src\stkwebapp\nginx-1.28.1.zip" webapp\nginx
 pushd webapp\nginx
-%SEVENZIP% x "nginx-1.12.2.zip"
+%SEVENZIP% x "nginx-1.28.1.zip"
 popd
-xcopy /y /q /i /s /e "webapp\nginx\nginx-1.12.2" webapp
+xcopy /y /q /i /s /e "webapp\nginx\nginx-1.28.1" webapp
 if exist webapp\nginx rmdir /S /Q webapp\nginx
 
 mkdir webapp\bootstrap

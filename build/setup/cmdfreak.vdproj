@@ -21,7 +21,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_081EF809D02947A3BD714C1CA0FDAA81"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_082D687CE9334B189E6E539A3C28D467"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_10F6084E799041F6AC4A03226913EADD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -171,6 +183,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_65E6FCFC532F4E4DAC0CA463C72C942E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_66BE592DC236487E8FAA3F65906FC35B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -303,6 +321,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C226BDACAA4D4DC09B0737B58CB78E87"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C38BB5691FC348F596AE32CD2FC3F00C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -322,12 +346,6 @@
         "Entry"
         {
         "MsmKey" = "8:_D3CE2C2B7DF548B5A3411A7E9BE4AD91"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D4B989F33F2948F58D363AC9017B409F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -534,12 +552,52 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_081EF809D02947A3BD714C1CA0FDAA81"
+            {
+            "SourcePath" = "8:..\\webapp\\docs\\CODE_OF_CONDUCT.md"
+            "TargetName" = "8:CODE_OF_CONDUCT.md"
+            "Tag" = "8:"
+            "Folder" = "8:_95954E258A084E619345C2682B243FB8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_082D687CE9334B189E6E539A3C28D467"
             {
             "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap-reboot.css.map"
             "TargetName" = "8:bootstrap-reboot.css.map"
             "Tag" = "8:"
             "Folder" = "8:_E215234CAD8443FA92853F27748A3F6A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_10F6084E799041F6AC4A03226913EADD"
+            {
+            "SourcePath" = "8:..\\webapp\\docs\\CONTRIBUTING.md"
+            "TargetName" = "8:CONTRIBUTING.md"
+            "Tag" = "8:"
+            "Folder" = "8:_95954E258A084E619345C2682B243FB8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1034,6 +1092,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_65E6FCFC532F4E4DAC0CA463C72C942E"
+            {
+            "SourcePath" = "8:..\\webapp\\docs\\SECURITY.md"
+            "TargetName" = "8:SECURITY.md"
+            "Tag" = "8:"
+            "Folder" = "8:_95954E258A084E619345C2682B243FB8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_66BE592DC236487E8FAA3F65906FC35B"
             {
             "SourcePath" = "8:..\\webapp\\contrib\\README"
@@ -1474,6 +1552,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C226BDACAA4D4DC09B0737B58CB78E87"
+            {
+            "SourcePath" = "8:..\\webapp\\docs\\README.md"
+            "TargetName" = "8:README.md"
+            "Tag" = "8:"
+            "Folder" = "8:_95954E258A084E619345C2682B243FB8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C38BB5691FC348F596AE32CD2FC3F00C"
             {
             "SourcePath" = "8:..\\webapp\\html\\bootstrap-4.4.1-dist\\css\\bootstrap-reboot.min.css.map"
@@ -1540,26 +1638,6 @@
             "TargetName" = "8:cmdfreak.html"
             "Tag" = "8:"
             "Folder" = "8:_C6CCF0B06DFA408B9DF190DFEC304FCA"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D4B989F33F2948F58D363AC9017B409F"
-            {
-            "SourcePath" = "8:..\\webapp\\docs\\README"
-            "TargetName" = "8:README"
-            "Tag" = "8:"
-            "Folder" = "8:_95954E258A084E619345C2682B243FB8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
