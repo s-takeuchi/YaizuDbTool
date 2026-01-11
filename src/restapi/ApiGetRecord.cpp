@@ -25,10 +25,10 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	}
 	wchar_t Dummy1[512] = L"";
 	wchar_t Dummy2[512] = L"";
-	wchar_t TableName[512] = L"";
-	wchar_t TableNameAc[512] = L"";
-	wchar_t SortColumnName[512] = L"";
-	wchar_t SortColumnNameAc[512] = L"";
+	wchar_t TableName[768] = L"";
+	wchar_t TableNameAc[768] = L"";
+	wchar_t SortColumnName[768] = L"";
+	wchar_t SortColumnNameAc[768] = L"";
 	wchar_t SortOrder[512] = L"";
 	wchar_t Limit[512] = L"";
 	int LimitInt = -1;
@@ -36,16 +36,16 @@ StkObject* ApiGetRecord::ExecuteImpl(StkObject* ReqObj, int Method, wchar_t UrlP
 	int OffsetInt = -1;
 
 	if (StkPlWcsStr(UrlPath, L"query=") != NULL) {
-		if (StkStringParser::ParseInto3Params(UrlPath, L"$query=$&$", L'$', Dummy1, 512, TableName, 512, Dummy2, 512) != 1) {
-			StkStringParser::ParseInto2Params(UrlPath, L"$query=$", L'$', Dummy1, 512, TableName, 512);
+		if (StkStringParser::ParseInto3Params(UrlPath, L"$query=$&$", L'$', Dummy1, 512, TableName, 768, Dummy2, 512) != 1) {
+			StkStringParser::ParseInto2Params(UrlPath, L"$query=$", L'$', Dummy1, 512, TableName, 768);
 		}
-		DecodeURL(TableName, 512, TableNameAc, 512);
+		DecodeURL(TableName, 768, TableNameAc, 768);
 	}
 	if (StkPlWcsStr(UrlPath, L"sort=") != NULL) {
-		if (StkStringParser::ParseInto3Params(UrlPath, L"$sort=$&$", L'$', Dummy1, 512, SortColumnName, 512, Dummy2, 512) != 1) {
-			StkStringParser::ParseInto2Params(UrlPath, L"$sort=$", L'$', Dummy1, 512, SortColumnName, 512);
+		if (StkStringParser::ParseInto3Params(UrlPath, L"$sort=$&$", L'$', Dummy1, 512, SortColumnName, 768, Dummy2, 512) != 1) {
+			StkStringParser::ParseInto2Params(UrlPath, L"$sort=$", L'$', Dummy1, 512, SortColumnName, 768);
 		}
-		DecodeURL(SortColumnName, 512, SortColumnNameAc, 512);
+		DecodeURL(SortColumnName, 768, SortColumnNameAc, 768);
 	}
 	if (StkPlWcsStr(UrlPath, L"sortOrder=") != NULL) {
 		if (StkStringParser::ParseInto3Params(UrlPath, L"$sortOrder=$&$", L'$', Dummy1, 512, SortOrder, 512, Dummy2, 512) != 1) {
