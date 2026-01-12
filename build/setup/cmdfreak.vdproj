@@ -75,12 +75,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1F4C39A0DC1146B18F29A1712CF12A10"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_2114F5DF238D4DE4B80F11E93226C596"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -310,6 +304,12 @@
         "Entry"
         {
         "MsmKey" = "8:_B78D10BE0DC341E3A87D0E4892DD05EF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BA937FD4A98646C0BA357540039A3886"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -725,26 +725,6 @@
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1F4C39A0DC1146B18F29A1712CF12A10"
-            {
-            "SourcePath" = "8:..\\webapp\\sample.dat"
-            "TargetName" = "8:sample.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:TRUE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
@@ -1518,6 +1498,26 @@
             "TargetName" = "8:unicode-to-nginx.pl"
             "Tag" = "8:"
             "Folder" = "8:_5B8BB49AAAF34EDF8EF33A8BB78C9320"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BA937FD4A98646C0BA357540039A3886"
+            {
+            "SourcePath" = "8:..\\webapp\\cmdfreak.dat"
+            "TargetName" = "8:cmdfreak.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"

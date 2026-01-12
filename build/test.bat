@@ -69,7 +69,7 @@ echo;
 echo Deployment of files and folders...
 mkdir webapp
 copy "..\src\restapi\x64\Debug\cmdfreak.exe" webapp
-copy "..\src\restapi\sample.dat" webapp
+copy "..\src\restapi\cmdfreak.dat" webapp
 copy "..\src\restapi\cmdfreak.conf" webapp
 echo servicehost=localhost>> webapp\cmdfreak.conf
 echo serviceport=10008>> webapp\cmdfreak.conf

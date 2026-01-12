@@ -15,7 +15,7 @@ cp cmdfreak $BUILDDIR/SOURCES
 cp cmdfreak.conf $BUILDDIR/SOURCES
 echo servicehost=127.0.0.1 >> $BUILDDIR/SOURCES/cmdfreak.conf
 echo serviceport=7121 >> $BUILDDIR/SOURCES/cmdfreak.conf
-cp sample.dat $BUILDDIR/SOURCES
+cp cmdfreak.dat $BUILDDIR/SOURCES
 cp cmdfreak.service $BUILDDIR/SOURCES
 cp cmdfreak_nginx.conf $BUILDDIR/SOURCES
 cp ../resource/cmdfreak.html $BUILDDIR/SOURCES
@@ -67,7 +67,7 @@ Source15: bootstrap-reboot.css
 Source16: bootstrap-reboot.css.map
 Source17: bootstrap-reboot.min.css
 Source18: bootstrap-reboot.min.css.map
-Source23: sample.dat
+Source23: cmdfreak.dat
 Source24: stopcmdfreak
 Source25: stkcommon.js
 Source26: stkcommon.css
@@ -168,7 +168,7 @@ install -p -m 644 %{SOURCE43} %{buildroot}/%{_datarootdir}/nginx/html/img/favico
 %{_datarootdir}/nginx/html/bootstrap-4.4.1-dist/js/bootstrap.js.map
 %{_datarootdir}/nginx/html/bootstrap-4.4.1-dist/js/bootstrap.min.js
 %{_datarootdir}/nginx/html/bootstrap-4.4.1-dist/js/bootstrap.min.js.map
-%config(noreplace) %{_sysconfdir}/sample.dat
+%config(noreplace) %{_sysconfdir}/cmdfreak.dat
 %{_bindir}/stopcmdfreak
 %{_datarootdir}/nginx/html/IcoMoon-Free.css
 %{_datarootdir}/nginx/html/IcoMoon-Free.ttf

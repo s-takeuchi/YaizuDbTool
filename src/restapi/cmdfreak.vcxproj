@@ -134,7 +134,7 @@
     <Image Include="icon1.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="sample.rc" />
+    <ResourceCompile Include="cmdfreak.rc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\YaizuComLib\src\commonfunc\commonfunc.vcxproj">

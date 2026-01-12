@@ -95,7 +95,7 @@ copy "..\..\YaizuComLib\src\stkdatagui\x64\Release\stkdatagui.exe" webapp
 copy "..\LICENSE" webapp\LICENSE.cmdfreak
 copy "..\src\restapi\x64\Release\cmdfreak.exe" webapp
 copy "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.conf" webapp
-copy "..\src\restapi\sample.dat" webapp
+copy "..\src\restapi\cmdfreak.dat" webapp
 copy "..\src\restapi\cmdfreak.conf" webapp
 copy "..\..\YaizuComLib\src\stkwebapp\x64\Release\stkwebappcmd.exe" webapp
 

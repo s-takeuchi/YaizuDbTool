@@ -81,7 +81,7 @@ BEGIN
             VALUE "FileVersion", "1.2.0.0"
             VALUE "InternalName", "CmdFreak Server"
             VALUE "LegalCopyright", "Copyright (C) 2020 Shinya Takeuchi"
-            VALUE "OriginalFilename", "sample.exe"
+            VALUE "OriginalFilename", "cmdfreak.exe"
             VALUE "ProductName", "CmdFreak Server"
             VALUE "ProductVersion", "1.2.0.0"
         END

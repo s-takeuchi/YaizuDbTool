@@ -165,7 +165,7 @@ int main(int Argc, char* Argv[])
 
 	// Initialize data tables and start AutoSave
 	if (DatAc->CreateCmdFreakTables() != 0) {
-		MessageProc::AddLog("sample.dat is not found.", MessageProc::LOG_TYPE_FATAL);
+		MessageProc::AddLog("cmdfreak.dat is not found.", MessageProc::LOG_TYPE_FATAL);
 		// Stop AutoSave
 		DatAc->StopAutoSave();
 		return -1;

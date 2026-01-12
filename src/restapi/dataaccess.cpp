@@ -10,7 +10,7 @@ DataAccess* DataAccess::ThisInstance;
 
 DataAccess::DataAccess()
 {
-	StkPlWcsCpy(DataFileName, FILENAME_MAX, L"sample.dat");
+	StkPlWcsCpy(DataFileName, FILENAME_MAX, L"cmdfreak.dat");
 }
 
 DataAccess::~DataAccess()

@@ -13,7 +13,7 @@ cd ../src/restapi
 make all
 cp cmdfreak $BUILDDIR
 cp cmdfreak.conf $BUILDDIR
-cp sample.dat $BUILDDIR
+cp cmdfreak.dat $BUILDDIR
 echo servicehost=localhost >> $BUILDDIR/cmdfreak.conf
 echo serviceport=10008 >> $BUILDDIR/cmdfreak.conf
 cd ../../test/restapitest
