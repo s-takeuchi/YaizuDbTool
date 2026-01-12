@@ -12,10 +12,10 @@ mkdir -p $BUILDDIR
 cd ../src/restapi
 make all
 cp cmdfreak $BUILDDIR
-cp sample.conf $BUILDDIR
+cp cmdfreak.conf $BUILDDIR
 cp sample.dat $BUILDDIR
-echo servicehost=localhost >> $BUILDDIR/sample.conf
-echo serviceport=10008 >> $BUILDDIR/sample.conf
+echo servicehost=localhost >> $BUILDDIR/cmdfreak.conf
+echo serviceport=10008 >> $BUILDDIR/cmdfreak.conf
 cd ../../test/restapitest
 make all
 cp restapitest $BUILDDIR

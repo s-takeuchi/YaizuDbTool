@@ -47,9 +47,9 @@ if exist webapp rmdir /S /Q webapp
 
 rem ########## Building ##########
 echo;
-echo Building sample.sln...
+echo Building cmdfreak.sln...
 rem Considering execution privilege, .exe is built as Debug. (Debug=AsInvoker, Release=AsAdmin)
-%MSBUILD% "..\src\restapi\sample.sln" /t:clean;build /p:Configuration=Debug /p:platform="x64"
+%MSBUILD% "..\src\restapi\cmdfreak.sln" /t:clean;build /p:Configuration=Debug /p:platform="x64"
 IF %ERRORLEVEL% NEQ 0 goto ERRORRAISED
 echo Building restapitest.sln...
 %MSBUILD% "..\test\restapitest\restapitest.sln" /t:clean;build /p:Configuration=Release /p:platform="x64"
@@ -58,8 +58,8 @@ IF %ERRORLEVEL% NEQ 0 goto ERRORRAISED
 
 rem ########## Checking file existence ##########
 echo;
-echo Checking "sample.exe" existence...
-if not exist "..\src\restapi\x64\Debug\sample.exe" goto ERRORRAISED
+echo Checking "cmdfreak.exe" existence...
+if not exist "..\src\restapi\x64\Debug\cmdfreak.exe" goto ERRORRAISED
 echo Checking "restapitest.exe" existence...
 if not exist "..\test\restapitest\x64\Release\restapitest.exe" goto ERRORRAISED
 
@@ -68,18 +68,18 @@ rem ########## Deployment of files and folders ##########
 echo;
 echo Deployment of files and folders...
 mkdir webapp
-copy "..\src\restapi\x64\Debug\sample.exe" webapp
+copy "..\src\restapi\x64\Debug\cmdfreak.exe" webapp
 copy "..\src\restapi\sample.dat" webapp
-copy "..\src\restapi\sample.conf" webapp
-echo servicehost=localhost>> webapp\sample.conf
-echo serviceport=10008>> webapp\sample.conf
+copy "..\src\restapi\cmdfreak.conf" webapp
+echo servicehost=localhost>> webapp\cmdfreak.conf
+echo serviceport=10008>> webapp\cmdfreak.conf
 copy "..\test\restapitest\x64\Release\restapitest.exe" webapp
 
 
 rem ########## Testing ##########
 echo;
 echo Test starts
-start /d webapp webapp\sample.exe
+start /d webapp webapp\cmdfreak.exe
 webapp\restapitest.exe
 echo Test ends
 

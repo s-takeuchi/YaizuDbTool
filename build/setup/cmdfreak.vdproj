@@ -123,12 +123,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_2E65EE88D48A4C38B0F91E7A5CC0D7F4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_36B2DA93227E4887BF8DF790A407B57B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -160,6 +154,12 @@
         "Entry"
         {
         "MsmKey" = "8:_50CDBA62B36D46E7923F11700E09A86E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_54A8F16C265E409C9D767141F57D689A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -357,13 +357,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_D993E29B557D43AE96BE425983D0E915"
+        "MsmKey" = "8:_D616840A2B014BA89A93FDC7F7EE8659"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D9AD7146F4B046A69BF424B09FEBF6B7"
+        "MsmKey" = "8:_D993E29B557D43AE96BE425983D0E915"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -496,7 +496,7 @@
             "Object" = "8:_2C2037B9A5FF43EAA007A64BC19E469C"
             "FileType" = "3:2"
             "InstallAction" = "3:2"
-            "Arguments" = "8:inst ProductName=CmdFreak SrvProgram=sample WebPort=[EDITA1] SrvPort=[EDITA2]"
+            "Arguments" = "8:inst ProductName=CmdFreak SrvProgram=cmdfreak WebPort=[EDITA1] SrvPort=[EDITA2]"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
             "Identifier" = "8:_A15C4B1F_3533_4479_A8E3_AADF8B1E68F3"
@@ -892,26 +892,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2E65EE88D48A4C38B0F91E7A5CC0D7F4"
-            {
-            "SourcePath" = "8:..\\webapp\\sample.conf"
-            "TargetName" = "8:sample.conf"
-            "Tag" = "8:"
-            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_36B2DA93227E4887BF8DF790A407B57B"
             {
             "SourcePath" = "8:..\\webapp\\conf\\uwsgi_params"
@@ -1018,6 +998,26 @@
             "TargetName" = "8:index.html"
             "Tag" = "8:"
             "Folder" = "8:_C6CCF0B06DFA408B9DF190DFEC304FCA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_54A8F16C265E409C9D767141F57D689A"
+            {
+            "SourcePath" = "8:..\\webapp\\cmdfreak.conf"
+            "TargetName" = "8:cmdfreak.conf"
+            "Tag" = "8:"
+            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1672,12 +1672,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D993E29B557D43AE96BE425983D0E915"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D616840A2B014BA89A93FDC7F7EE8659"
             {
-            "SourcePath" = "8:..\\webapp\\html\\50x.html"
-            "TargetName" = "8:50x.html"
+            "SourcePath" = "8:..\\webapp\\cmdfreak.exe"
+            "TargetName" = "8:cmdfreak.exe"
             "Tag" = "8:"
-            "Folder" = "8:_C6CCF0B06DFA408B9DF190DFEC304FCA"
+            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1692,12 +1692,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D9AD7146F4B046A69BF424B09FEBF6B7"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D993E29B557D43AE96BE425983D0E915"
             {
-            "SourcePath" = "8:..\\webapp\\sample.exe"
-            "TargetName" = "8:sample.exe"
+            "SourcePath" = "8:..\\webapp\\html\\50x.html"
+            "TargetName" = "8:50x.html"
             "Tag" = "8:"
-            "Folder" = "8:_86390656788F4E7E90369616F8C082B6"
+            "Folder" = "8:_C6CCF0B06DFA408B9DF190DFEC304FCA"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2156,7 +2156,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:CmdFreak"
         "ProductCode" = "8:{64E66CF9-94FA-4709-84F8-8ABF2FA7A6AD}"
-        "PackageCode" = "8:{45823AB0-539E-4C61-A0D6-07EB08611B59}"
+        "PackageCode" = "8:{BC515647-56A7-4558-95E8-64A402BB67FA}"
         "UpgradeCode" = "8:{9F177B9B-A453-41D8-8EF8-DC8C3BF6D25B}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -2173,7 +2173,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_D9AD7146F4B046A69BF424B09FEBF6B7"
+        "ARPPRODUCTICON" = "8:_D616840A2B014BA89A93FDC7F7EE8659"
         "ARPIconIndex" = "3:101"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -2479,7 +2479,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:80"
+                            "Value" = "8:7120"
                             "DefaultValue" = "8:"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -2531,7 +2531,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:8085"
+                            "Value" = "8:7121"
                             "DefaultValue" = "8:"
                             "UsePlugInResources" = "11:TRUE"
                             }

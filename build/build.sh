@@ -12,9 +12,9 @@ mkdir -p $BUILDDIR/SOURCES
 cd ../src/restapi
 make all
 cp cmdfreak $BUILDDIR/SOURCES
-cp sample.conf $BUILDDIR/SOURCES
-echo servicehost=127.0.0.1 >> $BUILDDIR/SOURCES/sample.conf
-echo serviceport=8085 >> $BUILDDIR/SOURCES/sample.conf
+cp cmdfreak.conf $BUILDDIR/SOURCES
+echo servicehost=127.0.0.1 >> $BUILDDIR/SOURCES/cmdfreak.conf
+echo serviceport=7121 >> $BUILDDIR/SOURCES/cmdfreak.conf
 cp sample.dat $BUILDDIR/SOURCES
 cp cmdfreak.service $BUILDDIR/SOURCES
 cp cmdfreak_nginx.conf $BUILDDIR/SOURCES
@@ -50,7 +50,7 @@ Requires: nginx >= 1:1.20
 
 License: No License No Life
 Source1: cmdfreak
-Source2: sample.conf
+Source2: cmdfreak.conf
 Source3: cmdfreak_nginx.conf
 Source4: cmdfreak.service
 Source5: cmdfreak.html
@@ -139,7 +139,7 @@ install -p -m 644 %{SOURCE43} %{buildroot}/%{_datarootdir}/nginx/html/img/favico
 
 %files
 %{_bindir}/cmdfreak
-%config(noreplace) %{_sysconfdir}/sample.conf
+%config(noreplace) %{_sysconfdir}/cmdfreak.conf
 %{_sysconfdir}/nginx/conf.d/cmdfreak_nginx.conf
 %config(noreplace) %{_sysconfdir}/systemd/system/cmdfreak.service
 %{_datarootdir}/nginx/html/cmdfreak.html
@@ -192,12 +192,12 @@ fi
 if [ \$1 = 1 ]; then
     echo "New installation (post)"
     mkdir -p %{_datadir}/cmdfreak
-    echo workdir=%{_datadir}/cmdfreak >> %{_sysconfdir}/sample.conf
+    echo workdir=%{_datadir}/cmdfreak >> %{_sysconfdir}/cmdfreak.conf
     setsebool httpd_can_network_connect on -P
-    semanage port -a -t http_port_t -p tcp 8080
-    semanage port -a -t http_port_t -p tcp 8085
+    semanage port -a -t http_port_t -p tcp 7120
+    semanage port -a -t http_port_t -p tcp 7121
     if [ -e /usr/bin/firewall-cmd ]; then
-        firewall-cmd --add-port=8080/tcp --permanent
+        firewall-cmd --add-port=7210/tcp --permanent
         firewall-cmd --reload
     fi
     systemctl daemon-reload
@@ -223,10 +223,10 @@ if [ \$1 = 0 ]; then
     do
         sleep 1
     done
-    semanage port -d -t http_port_t -p tcp 8080
-    semanage port -d -t http_port_t -p tcp 8085
+    semanage port -d -t http_port_t -p tcp 7120
+    semanage port -d -t http_port_t -p tcp 7121
     if [ -e /usr/bin/firewall-cmd ]; then
-        firewall-cmd --remove-port=8080/tcp --permanent
+        firewall-cmd --remove-port=7120/tcp --permanent
         firewall-cmd --reload
     fi
     systemctl disable cmdfreak.service

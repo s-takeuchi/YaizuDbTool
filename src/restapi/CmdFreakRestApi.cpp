@@ -137,10 +137,10 @@ int main(int Argc, char* Argv[])
 
 	// Load properties
 	StkProperties* Prop = new StkProperties();
-	if (Prop->GetProperties(L"sample.conf") == 0) {
+	if (Prop->GetProperties(L"cmdfreak.conf") == 0) {
 		char IpAddrTmp[256];
 		if (Prop->GetPropertyStr("servicehost", IpAddrTmp) != 0) {
-			MessageProc::AddLog("servicehost is not found in sample.conf.", MessageProc::LOG_TYPE_FATAL);
+			MessageProc::AddLog("servicehost is not found in cmdfreak.conf.", MessageProc::LOG_TYPE_FATAL);
 			return -1;
 		}
 		StkPlSPrintf(LogBuf, 1024, "servicehost property = %s", IpAddrTmp);
@@ -148,15 +148,15 @@ int main(int Argc, char* Argv[])
 		StkPlConvUtf8ToWideChar(IpAddr, 256, IpAddrTmp);
 
 		if (Prop->GetPropertyInt("serviceport", &Port) != 0) {
-			MessageProc::AddLog("serviceport is not found in sample.conf.", MessageProc::LOG_TYPE_FATAL);
+			MessageProc::AddLog("serviceport is not found in cmdfreak.conf.", MessageProc::LOG_TYPE_FATAL);
 			return -1;
 		}
 		StkPlSPrintf(LogBuf, 1024, "serviceport property = %d", Port);
 		MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
 
-		MessageProc::AddLog("sample.conf is loaded.", MessageProc::LOG_TYPE_INFO);
+		MessageProc::AddLog("cmdfreak.conf is loaded.", MessageProc::LOG_TYPE_INFO);
 	} else {
-		MessageProc::AddLog("sample.conf is not found.", MessageProc::LOG_TYPE_FATAL);
+		MessageProc::AddLog("cmdfreak.conf is not found.", MessageProc::LOG_TYPE_FATAL);
 		return -1;
 	}
 
