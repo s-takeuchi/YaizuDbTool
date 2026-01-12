@@ -419,10 +419,20 @@ int TestTable300(wchar_t* OdbcConStr, int DbmsType)
 	}
 
 	/////
+	StkPlPrintf("Test connection ... ");
+	Ret = DbAcc->Test(StateMsg, Msg);
+	if (Ret != 0) {
+		ShowErrorMsg(StateMsg, Msg);
+		delete DbAcc;
+		return -1;
+	}
+	StkPlPrintf("OK\r\n");
+
+	int ErrCode = 0;
+
+	/////
 	StkPlPrintf("Create tables ... ");
 	{
-		int ErrCode = 0;
-
 		for (int Loop = 0; Loop < 300; Loop++) {
 			wchar_t Sql[512] = L"";
 			StkPlSwPrintf(Sql, 512, L"{\"DymmyTable_abcdefghi_xxxyyyzzz_ooopppqqq_lllmmmnnn_%03d\" : {\"ColumnInfo\" : [{\"Name\":\"id\", \"Type\":\"integer\"}, {\"Name\":\"name\", \"Type\":\"varchar(12)\"}, {\"Name\":\"age\", \"Type\":\"integer\"}]}}", Loop);
@@ -461,13 +471,28 @@ int TestCleanup(wchar_t* OdbcConStr, int DbmsType)
 		break;
 	}
 
+	/////
+	StkPlPrintf("Test connection ... ");
+	int Ret = DbAcc->Test(StateMsg, Msg);
+	if (Ret != 0) {
+		ShowErrorMsg(StateMsg, Msg);
+		delete DbAcc;
+		return -1;
+	}
+	StkPlPrintf("OK\r\n");
+
 	StkPlPrintf("Drop table ... ");
 	StkObject* Obj = new StkObject(L"");
 	DbAcc->GetTables(Obj, StateMsg, Msg);
 	StkObject* Target = Obj->GetFirstChildElement();
 	while (Target) {
 		wchar_t* TableName = Target->GetFirstChildElement()->GetStringValue();
-		DbAcc->DropTable(TableName, StateMsg, Msg);
+		if (DbAcc->DropTable(TableName, StateMsg, Msg) != 0) {
+			ShowErrorMsg(StateMsg, Msg);
+			delete DbAcc;
+			delete Obj;
+			return -1;
+		}
 		Target = Target->GetNext();
 	}
 	StkPlPrintf("OK\r\n");
@@ -484,12 +509,12 @@ int main(int argc, char *argv[])
 		StkPlPrintf("    postgresql, mysql or mariadb\n");
 		StkPlPrintf("test_scenario:\n");
 		StkPlPrintf("    TRICK ... Multibyte chars, max length of table name and column name,\n");
-		StkPlPrintf("              75 bytes data, 15,000 records and special char set.\n");
+		StkPlPrintf("              60 columns, 15,000 records, 75 bytes data and special char set.\n");
 		StkPlPrintf("    SE_SERVICE ... DB for Virtual SE Service.\n");
 		StkPlPrintf("    TABLE300 ... Add 300 tables.\n");
 		StkPlPrintf("    CLEANUP ... Drop all tables in the specified database.\n");
 		StkPlPrintf("\nex.\n");
-		StkPlPrintf("testcmd mysql \"Driver=MySQL;Server=127.0.0.1;Database=test;UID=admin;PWD=admin;Port=5432;\" TRICK\n");
+		StkPlPrintf("testcmd mysql \"Driver=PostgreSQL;Server=127.0.0.1;Database=testdb;UID=postgres;PWD=postgres;Port=5432;\" TRICK\n");
 		StkPlExit(0);
 	}
 	StkPlPrintf("dbms = %s\n", argv[1]);
@@ -518,14 +543,18 @@ int main(int argc, char *argv[])
 	}
 
 	DbAccessor::Init();
-	if (StkPlStrCmp(argv[3], "TRICK") == 0 && TestTrick(OdbcConStr, DbmsType) == 0) {
+	if (StkPlStrCmp(argv[3], "TRICK") == 0) {
 		//
-	} else if (StkPlStrCmp(argv[3], "SE_SERVICE") == 0 && TestSeService(OdbcConStr, DbmsType) == 0) {
+		TestTrick(OdbcConStr, DbmsType);
+	} else if (StkPlStrCmp(argv[3], "SE_SERVICE") == 0) {
 		//
-	} else if (StkPlStrCmp(argv[3], "TABLE300") == 0 && TestTable300(OdbcConStr, DbmsType) == 0) {
+		TestSeService(OdbcConStr, DbmsType);
+	} else if (StkPlStrCmp(argv[3], "TABLE300") == 0) {
 		//
-	} else if (StkPlStrCmp(argv[3], "CLEANUP") == 0 && TestCleanup(OdbcConStr, DbmsType) == 0) {
+		TestTable300(OdbcConStr, DbmsType);
+	} else if (StkPlStrCmp(argv[3], "CLEANUP") == 0) {
 		//
+		TestCleanup(OdbcConStr, DbmsType);
 	} else {
 		StkPlPrintf("Error : Unrecognized test scenario. [%s]\n", argv[3]);
 		StkPlExit(0);
