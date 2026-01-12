@@ -201,8 +201,7 @@ if [ \$1 = 1 ]; then
         firewall-cmd --reload
     fi
     systemctl daemon-reload
-    systemctl stop nginx.service
-    systemctl start nginx.service
+    systemctl restart nginx.service
     systemctl enable nginx.service
     systemctl start cmdfreak.service
     systemctl enable cmdfreak.service
@@ -230,8 +229,14 @@ if [ \$1 = 0 ]; then
         firewall-cmd --reload
     fi
     systemctl disable cmdfreak.service
+fi
+
+%postun
+if [ \$1 = 0 ]; then
+    echo "Uninstallation (postun)"
     systemctl start nginx.service
 fi
+
 
 EOF
 
