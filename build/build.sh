@@ -197,7 +197,7 @@ if [ \$1 = 1 ]; then
     semanage port -a -t http_port_t -p tcp 7120
     semanage port -a -t http_port_t -p tcp 7121
     if [ -e /usr/bin/firewall-cmd ]; then
-        firewall-cmd --add-port=7210/tcp --permanent
+        firewall-cmd --add-port=7120/tcp --permanent
         firewall-cmd --reload
     fi
     systemctl daemon-reload
