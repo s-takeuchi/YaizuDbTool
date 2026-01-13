@@ -210,11 +210,17 @@ Password : manager<br/>
 <hr/>
 <h1>8. CmdFreakサービスの起動・停止</h1>
 
+<u>Windows版</u><br/>
 CmdFreakサービスの起動および停止は，Windowsのスタートメニューから行います。<br/>
 <ul>
 <li>[CmdFreak]-[Start CmdFreak service] : サービス開始</li>
 <li>[CmdFreak]-[Stop CmdFreak service] : サービス停止</li>
 </ul>
+
+<u>Linux版</u><br/>
+CmdFreakサービスの起動および停止は，以下のコマンドで行います。<br/>
+起動：<i># systemctl start cmdfreak</i><br/>
+停止：<i># systemctl stop cmdfreak</i><br/>
 
 
 <hr/>
@@ -252,7 +258,8 @@ IPアドレスおよびポート番号を変更します。<br/>
 <li>CmdFreakサービスを停止します。</li>
 <li>
 nginx.confにSSL/TLS接続のための設定を追加します。<br/>
-＜インストール先フォルダ＞\conf\nginx.conf のserverディレクティブに以下の記述を追加します。<br/>
+＜インストール先フォルダ＞\conf\nginx.conf(Windows版)または/etc/nginx/conf.d/cmdfreak_nginx.conf (Linux版) のserverディレクティブに
+以下の記述を追加します。<br/>
 (秘密鍵および証明書ファイルへのパスは個別の環境に応じて変更してください。)<br/>
 ssl on;<br/>
 ssl_certificate "D:\\work\\server.crt";<br/>

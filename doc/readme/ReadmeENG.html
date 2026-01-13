@@ -209,11 +209,17 @@ If main console is not appeared or an error ocurred, confirm the things shown be
 <hr/>
 <h1>8. Start/Stop CmdFreak service</h1>
 
+<u>For Windows</u><br/>
 Start and stop of CmdFreak service can be performed by Windows start menu.<br/>
 <ul>
 <li>[CmdFreak]-[Start CmdFreak service] : Start service<br/>
 <li>[CmdFreak]-[Stop CmdFreak service] : Stop service<br/>
 </ul>
+
+<u>For Linux</u><br/>
+Start and stop operation for CmdFreak service can be performed by following command.<br/>
+Start: <i># systemctl start cmdfreak</i><br/>
+Stop: <i># systemctl stop cmdfreak</i><br/>
 
 
 <hr/>
@@ -251,7 +257,7 @@ In order to connect to CmdFreak using SSL/TLS from browser, following steps are 
 <li>Stop CmdFreak service.</li>
 <li>
 Add SSL/TLS settings to nginx.conf.<br/>
-Add followings to server directive in &lt;Installation folder&gt;\conf\nginx.conf<br/>
+Add followings to server directive in &lt;Installation folder&gt;\conf\nginx.conf (for Windows) or /etc/nginx/conf.d/cmdfreak_nginx.conf (for Linux)<br/>
 (Regarding certificate and private key, modify the path according to your environment.)<br/>
 ssl on;<br/>
 ssl_certificate "D:\\work\\server.crt";<br/>
