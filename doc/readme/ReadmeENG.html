@@ -85,6 +85,7 @@ PostgreSQL 17 (+ ODBC Driver: psqlODBC 17)<br/>
 Version 1.2.0 ---> 1.3.0
 <ol>
 <li>Support for Linux</li>
+<li>Optimize for x64 CPU architecture</li>
 <li>ODBC connection lifecycle stability improved.</li>
 </ol>
 
@@ -104,8 +105,14 @@ Version 1.0.0 ---> 1.1.0
 <hr/>
 <h1>4. Installation</h1>
 
+<u>For Windows</u><br/>
 Execute cmdfreak.msi and launch the installer.<br/>
 Follow the on-screen dialog prompts.<br/>
+Installer requests the user to input following information.<br/>
+<ul>
+<li>Listening port number of Web server</li>The port number that Web browser connects to.
+<li>Listening port number of REST-API service</li>The port number of SERVAL server service that Web server internally connects to.
+</ul>
 CmdFreak installer performs following steps during the installation.<br>
 <ul>
 <li>Register exceptions of Windows firewall for CmdFreak.</li> 
@@ -116,6 +123,20 @@ Overwrite installation(Repair) can be performed if cmdfreak.msi is executed afte
 <ul>
 <li>Stop CmdFreak service before overwrite installation. If you perform the overwrite installation without service stop, restart of operating system is required after overwrite installation done.</li> 
 <li>During overwrite installation, port numbers which Web server and CmdFreak service use might be changed into default. Confirm the port number after overwrite installation.</li> 
+</ul>
+
+<u>For Linux</u><br/>
+Install cmdfreak-1.3-0.el9.x86_64.rpm or cmdfreak-1.3-0.el10.x86_64.rpm using following command.<br/>
+<i># rpm -ivh serval-1.3-0.el9.x86_64.rpm</i><br/>
+or<br/>
+<i># rpm -ivh serval-1.3-0.el10.x86_64.rpm</i><br/>
+Note that nginx 1.20 or later version, and unixODBC need to be installed before CmdFreak installation.<br/>
+CmdFreak installer performs following steps during the installation.<br>
+<ul>
+    <li>Change httpd_can_network_connect of SELinux into on.</li>
+    <li>Register exceptions of firewall for CmdFreak.</li>
+    <li>Register service of CmdFreak to the target system.</li>
+    <li>Auto start of CmdFreak and restart of Web server.</li>
 </ul>
 
 
@@ -129,8 +150,8 @@ In order to upgrade from CmdFreak 1.2.0, perform installation according to follo
 <li>Uninstall CmdFreak 1.2.0.</li>
 <li>Install CmdFreak 1.3.0.</li>
 <li>Stop CmdFreak service.</li>
-<li>Copy and overwrite to &lt;Installation folder&gt;\sample.dat file from sample.dat which is copied in previous step.</li>
-<li>Modify &lt;Installation folder&gt;\conf\nginx.conf and &lt;Installation folder&gt;sample.conf if necessary.</li>
+<li>Rename, copy and overwrite to &lt;Installation folder&gt;\cmdfreak.dat file from sample.dat which is copied in previous step.</li>
+<li>Modify &lt;Installation folder&gt;\conf\nginx.conf and &lt;Installation folder&gt;cmdfreak.conf if necessary.</li>
 <li>Start CmdFreak service.</li>
 </ol>
 
@@ -138,13 +159,28 @@ In order to upgrade from CmdFreak 1.2.0, perform installation according to follo
 <hr/>
 <h1>6. Uninstallation</h1>
 
+<u>For Windows</u><br/>
 Select Remove CmdFreak with execution of cmdfreak.msi or perform uninstallation of CmdFreak from Control Panel.<br/>
 CmdFreak uninstallation performs following things during uninstallation.<br/>
 <ul>
 <li>Auto stop of CmdFreak service and Web server.</li>  
 <li>Deletion of CmdFreak service from the target system. </li> 
 <li>Deletion of Windows firewall exception for CmdFreak.</li> 
+<li>Starts Web server</li>
 </ul>
+
+<u>For Linux</u><br/>
+Uninstall the CmdFreak using following command.<br/>
+<i># rpm -e cmdfreak</i><br/>
+CmdFreak uninstaller performs following steps during the uninstallation.<br>
+<ul>
+    <li>Auto stop of CmdFreak service and Web server.</li>  
+    <li>Unregister exceptions of firewall for CmdFreak.</li>
+    <li>Remove the service of CmdFreak from the target system.</li>
+    <li>Starts Web server</li>
+</ul>
+
+
 
 
 <hr/>
@@ -152,10 +188,10 @@ CmdFreak uninstallation performs following things during uninstallation.<br/>
 
 Connect to the URL shown below by Web browser for use of CmdFreak after installation. If main console is displayed after login sequence of CmdFreak, it shows the installation is successfully completed.<br/>
 <p>
-http://&lt;Host name or IP address of CmdFreak&gt;:&lt;Port number of Web server&gt;/cmdfreak.html
+http://&lt;Host name or IP address of CmdFreak&gt;:&lt;Port number of Web server&gt;
 </p>
 <p>
-In case of specification of default installations parameters : http://localhost/cmdfreak.html
+In case of specification of default installations parameters : http://localhost:7120
 </p>
 Initial login user name and password are follows.
 <p>
@@ -238,7 +274,7 @@ CmdFreak works as a 64-bit application hense ODBC driver has to be 64-bit editio
 <li>Maximum length of table name: 64 (Depends on the connected DBMS. PostgreSQL = 63 bytes, MySQL/MariaDB = 64 characters)</li>	
 <li>Maximum length of column name: 64 (Depends on the connected DBMS. PostgreSQL = 63 bytes, MySQL/MariaDB = 64 characters)</li>	
 <li>Maximum length of column value(characters): 63 (64th or later characters are not displayed)</li>
-<li>Maximum number of tables: 300</li>
+<li>Maximum number of tables: 300 (301st or later tables are not displayed)</li>
 <li>Maximum number of columns: 50 (51st or later columns are not displayed)</li>
 </ul>
 

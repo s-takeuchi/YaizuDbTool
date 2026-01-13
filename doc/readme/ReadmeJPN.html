@@ -88,6 +88,7 @@ PostgreSQL 17 (+ ODBC Driver: psqlODBC 17)<br/>
 バージョン 1.2.0 ---> 1.3.0
 <ol>
 <li>Linuxをサポートしました。</li>
+<li>x64 CPUアーキテクチャ向けに最適化しました。</li>
 <li>ODBC接続の安定性を向上しました。</li>
 </ol>
 
@@ -107,8 +108,14 @@ PostgreSQL 17 (+ ODBC Driver: psqlODBC 17)<br/>
 <hr/>
 <h1>4. インストール方法</h1>
 
+<u>Windows版</u><br/>
 cmdfreak.msiを実行することによりインストーラが起動します。<br/>
 インストーラの指示に従いインストールを進めてください。<br/>
+インストーラは以下の情報の入力をユーザーに求めます。<br/>
+<ul>
+<li>Webサーバの待ち受けポート番号</li>Webブラウザが接続するポート番号です。
+<li>SERVALサーバのサービスの待ち受けポート番号</li>Webサーバが内部的に接続するSERVALサーバのサービスのポート番号です。
+</ul>
 CmdFreakのインストーラは，インストール時に以下の操作を行います。<br/>
 <ul>
 <li>CmdFreakに対するWindowsファイアウォールへの例外登録。</li> 
@@ -119,6 +126,20 @@ CmdFreak インストール後にcmdfreak.msi を起動するとプログラム�
 <ul>
 <li>上書きインストール実行前にCmdFreakのサービスを停止してください。停止せずに上書きインストールを実行すると，上書きインストール後にオペレーティングシステムの再起動が必要になります。 </li> 
 <li>上書きインストール後にWebサーバおよびCmdFreak サービスが使用するポート番号がデフォルトに変更される場合があります。必要に応じて上書きインストール後にポート番号を変更してください。</li> 
+</ul>
+
+<u>Linux版</u><br/>
+cmdfreak-1.3-0.el9.x86_64.rpm またはcmdfreak-1.3-0.el10.x86_64.rpm を以下のコマンドでインストールします。<br/>
+<i># rpm -ivh cmdfreak-1.3-0.el9.x86_64.rpm</i><br/>
+または<br/>
+<i># rpm -ivh cmdfreak-1.3-0.el10.x86_64.rpm</i><br/>
+CmdFreakのインストール前にnginx 1.20以降およびunixODBCがあらかじめインストールされている必要があります。<br/>
+CmdFreakのインストーラは，インストール時に以下の操作を行います。<br>
+<ul>
+    <li>SELinuxのhttpd_can_network_connectをonにします。</li>
+    <li>CmdFreakに対するファイアウォールへの例外登録。</li>
+    <li>CmdFreakのサービスのシステムへの登録。</li>
+    <li>CmdFreakのサービスの自動起動と、Webサーバの再起動。</li>
 </ul>
 
 
@@ -132,8 +153,8 @@ CmdFreak 1.2.0からアップグレードするには，以下の手順に従い
 <li>CmdFreak 1.2.0をアンインストールします。</li>
 <li>CmdFreak 1.3.0をインストールします。</li>
 <li>CmdFreakサービスを停止します。</li>
-<li>コピーしたsample.datを＜インストール先フォルダ＞\sample.datに上書きコピーします。</li>
-<li>＜インストール先フォルダ＞\conf\nginx.confおよび＜インストール先フォルダ＞\sample.confを必要に応じて修正します。</li>
+<li>コピーしたsample.datを＜インストール先フォルダ＞\cmdfreak.datにリネームして上書きコピーします。</li>
+<li>＜インストール先フォルダ＞\conf\nginx.confおよび＜インストール先フォルダ＞\cmdfreak.confを必要に応じて修正します。</li>
 <li>CmdFreakサービスを開始します。</li>
 </ol>
 
@@ -141,12 +162,25 @@ CmdFreak 1.2.0からアップグレードするには，以下の手順に従い
 <hr/>
 <h1>6. アンインストール方法</h1>
 
+<u>Windows版</u><br/>
 cmdfreak.msi を起動してRemove CmdFreakを選択するか，コントロールパネルからCmdFreakのアンインストールを行ってください。<br/>
 CmdFreakのアンインストールは，アンインストール時に以下の操作を行います。<br/>
 <ul>
 <li>CmdFreakサービスおよびWebサーバの自動停止。</li>  
 <li>CmdFreakサービスのシステムからの削除。 </li> 
-<li>CmdFreakに対するWindowsファイアウォールからの例外削除。</li> 
+<li>CmdFreakに対するWindowsファイアウォールからの例外削除。</li>
+<li>Webサーバの起動</li>
+</ul>
+
+<u>Linux版</u><br/>
+以下のコマンドでCmdFreakをアンインストールします。<br/>
+<i># rpm -e cmdfreak</i><br/>
+CmdFreakのアンインストーラは、アンインストール時に以下の操作を行います。<br>
+<ul>
+    <li>CmdFreakサービスおよびWebサーバの自動停止。</li>  
+    <li>ファイアウォールのCmdFreakの例外登録の解除</li>
+    <li>CmdFreakサービスをシステムからの除去</li>
+    <li>Webサーバの起動</li>
 </ul>
 
 
@@ -155,10 +189,10 @@ CmdFreakのアンインストールは，アンインストール時に以下の
 
 CmdFreakのインストール後，Webブラウザから下記のURLに接続してください。 CmdFreakのログインページからログインに成功し，メインコンソールが表示されていれば，インストールは問題なく完了しています。<br/>
 <p>
-http://＜CmdFreakのホスト名またはIPアドレス＞:＜Webサーバのポート番号＞/cmdfreak.html
+http://＜CmdFreakのホスト名またはIPアドレス＞:＜Webサーバのポート番号＞
 </p>
 <p>
-デフォルト値を指定してインストールした場合：http://localhost/cmdfreak.html
+デフォルト値を指定してインストールした場合：http://localhost:7120
 </p>
 初期ログインユーザー名およびパスワードは次の通りです。
 <p>
@@ -241,7 +275,7 @@ CmdFreakは64ビットアプリケーションとして動作するため，ODBC
 <li>最大テーブル名長(文字): 64 (接続先のDBMSの仕様に依存。PostgreSQL=63バイト, MySQL/MariaDB=64文字)</li>
 <li>最大カラム名長(文字): 64 (接続先のDBMSの仕様に依存。PostgreSQL=63バイト, MySQL/MariaDB=64文字)</li>
 <li>最大カラム値長(文字): 63 (64文字以降は表示されません)</li>
-<li>最大テーブル数: 300</li>
+<li>最大テーブル数: 300 (301番目以降のテーブルは表示されません)</li>
 <li>最大カラム数: 50 (51番目以降のカラムは表示されません)</li>
 </ul>
 
