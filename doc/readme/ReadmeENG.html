@@ -13,9 +13,9 @@
 
 <h1>1. CmdFreak summary</h1>
 
-Several information systems and application software suites use a RDBMS (Relational Database Management System) as a persistence mechanism for their own data. The range of RDBMS usage shows a tendency of expansion.
-Most RDBMSs are used as a background service for information systems and application software. However, such systems can also be accessed directly for data mining, quicker commercial operation and maintenance.
-An appropriate RDBMS can be chosen to match the characteristics of the target information system and application software. As a result, multiple RDBMSs are often used simultaneously in the same business operation and maintenance environment. However, multiple RDBMS usage is characterized by the following problems:
+Several information systems and application software suites use a RDBMS (Relational Database Management System) as a persistence mechanism for their own data. The use of RDBMSs continues to expand.
+Most RDBMSs are used as a background service for information systems and application software. However, such systems can also be accessed directly for data mining and faster business operations and maintenance.
+An appropriate RDBMS can be chosen to match the characteristics of the target information system and application software. As a result, multiple RDBMSs are often used simultaneously in the same business operation and maintenance environment. However, operating multiple RDBMSs introduces the following issues:
 
 <ul>
 <li>Different data reference software applications need to be provided, which may increase the learning cost.</li>
@@ -25,8 +25,8 @@ An appropriate RDBMS can be chosen to match the characteristics of the target in
 CmdFreak is a relational database viewer (data reference software) that provides solutions for the above problems.
 
 <ul>
-<li>CmdFreak supports the major free RDBMS MySQL, PostgreSQL and MariaDB systems, providing a common user interface for these RDBMSs and enabling data reference as a common operation. It does not need to learn different reference software applications for multiple RDBMSs, which helps to reduce related learning costs.</li>
-<li>CmdFreak works as web application software, and comes with an all-in-one installer incorporating web server software. This eliminates the need for web server pre-configuration and the use of script language. The introduction cost is practically zero.</li>
+<li>CmdFreak supports the major free RDBMS MySQL, PostgreSQL and MariaDB systems, providing a common user interface for these RDBMSs and enabling data reference as a common operation. This eliminates the need to learn different database viewer tools for multiple RDBMSs, which helps to reduce related learning costs.</li>
+<li>CmdFreak works as a web application, and comes with an all-in-one installer incorporating web server software. This eliminates the need for web server pre-configuration and the use of script language. As a result, the client-side installation cost is practically zero.</li>
 </ul>
 
 CmdFreak provides the following functions for database reference:
@@ -84,20 +84,20 @@ PostgreSQL 17 (+ ODBC Driver: psqlODBC 17)<br/>
 
 Version 1.2.0 ---> 1.3.0
 <ol>
-<li>Support for Linux</li>
-<li>Optimize for x64 CPU architecture</li>
+<li>Added Linux support.</li>
+<li>Optimized for x64 CPU architecture</li>
 <li>ODBC connection lifecycle stability improved.</li>
 </ol>
 
 Version 1.1.0 ---> 1.2.0
 <ol>
-<li>Responsive design has been adopted for smartphone user.</li>
+<li>Responsive design has been adopted for smartphone users.</li>
 <li>User management function has been added.</li>
 </ol>
 
 Version 1.0.0 ---> 1.1.0
 <ol>
-<li>Support for displaying unlimited record.</li>
+<li>Support for displaying an unlimited number of records.</li>
 <li>Performance improvement for multiple user access.</li>
 </ol>
 
@@ -108,18 +108,18 @@ Version 1.0.0 ---> 1.1.0
 <u>For Windows</u><br/>
 Execute cmdfreak.msi and launch the installer.<br/>
 Follow the on-screen dialog prompts.<br/>
-Installer requests the user to input following information.<br/>
+The installer prompts the user to enter the following information:<br/>
 <ul>
 <li>Listening port number of Web server</li>The port number that Web browser connects to.
 <li>Listening port number of REST-API service</li>The port number of SERVAL server service that Web server internally connects to.
 </ul>
-CmdFreak installer performs following steps during the installation.<br>
+CmdFreak installer performs the following steps during the installation.<br>
 <ul>
 <li>Register exceptions of Windows firewall for CmdFreak.</li> 
 <li>Register service of CmdFreak to the target system.</li> 
 <li>Auto start of CmdFreak service and Web server.</li> 
 </ul>
-Overwrite installation(Repair) can be performed if cmdfreak.msi is executed after CmdFreak installation. Note that the items shown below for overwrite installation.<br/>
+An overwrite installation (Repair) can be performed by re-running cmdfreak.msi after CmdFreak installation. Note that the items shown below for overwrite installation.<br/>
 <ul>
 <li>Stop CmdFreak service before overwrite installation. If you perform the overwrite installation without service stop, restart of operating system is required after overwrite installation done.</li> 
 <li>During overwrite installation, port numbers which Web server and CmdFreak service use might be changed into default. Confirm the port number after overwrite installation.</li> 
@@ -127,23 +127,25 @@ Overwrite installation(Repair) can be performed if cmdfreak.msi is executed afte
 
 <u>For Linux</u><br/>
 Install cmdfreak-1.3-0.el9.x86_64.rpm or cmdfreak-1.3-0.el10.x86_64.rpm using following command.<br/>
-<i># rpm -ivh serval-1.3-0.el9.x86_64.rpm</i><br/>
+<i># rpm -ivh cmdfreak-1.3-0.el9.x86_64.rpm</i><br/>
 or<br/>
-<i># rpm -ivh serval-1.3-0.el10.x86_64.rpm</i><br/>
+<i># rpm -ivh cmdfreak-1.3-0.el10.x86_64.rpm</i><br/>
 Note that nginx 1.20 or later version, and unixODBC need to be installed before CmdFreak installation.<br/>
-CmdFreak installer performs following steps during the installation.<br>
+CmdFreak installer performs the following steps during the installation.<br>
 <ul>
     <li>Change httpd_can_network_connect of SELinux into on.</li>
     <li>Register exceptions of firewall for CmdFreak.</li>
     <li>Register service of CmdFreak to the target system.</li>
-    <li>Auto start of CmdFreak and restart of Web server.</li>
+    <li>Auto start of CmdFreak and restart of Web server(nginx).</li>
 </ul>
+If an existing nginx instance is already in operation, restarting nginx may affect active sites.<br>
 
 
 <hr/>
 <h1>5. Upgrade installation</h1>
 
-In order to upgrade from CmdFreak 1.2.0, perform installation according to following steps.<br/>
+In order to upgrade from CmdFreak 1.2.0, perform installation according to following steps.
+Linux edition is offered from 1.3.0 hence upgrade installation is out of support.<br/>
 <ol>
 <li>Stop CmdFreak service.</li>
 <li>Copy &lt;Installation folder&gt;\sample.dat file to other folder.</li>
@@ -151,7 +153,7 @@ In order to upgrade from CmdFreak 1.2.0, perform installation according to follo
 <li>Install CmdFreak 1.3.0.</li>
 <li>Stop CmdFreak service.</li>
 <li>Rename, copy and overwrite to &lt;Installation folder&gt;\cmdfreak.dat file from sample.dat which is copied in previous step.</li>
-<li>Modify &lt;Installation folder&gt;\conf\nginx.conf and &lt;Installation folder&gt;cmdfreak.conf if necessary.</li>
+<li>Modify &lt;Installation folder&gt;\conf\nginx.conf and &lt;Installation folder&gt;\cmdfreak.conf if necessary.</li>
 <li>Start CmdFreak service.</li>
 </ol>
 
@@ -164,23 +166,23 @@ Select Remove CmdFreak with execution of cmdfreak.msi or perform uninstallation 
 CmdFreak uninstallation performs following things during uninstallation.<br/>
 <ul>
 <li>Auto stop of CmdFreak service and Web server.</li>  
-<li>Deletion of CmdFreak service from the target system. </li> 
+<li>Deletion of CmdFreak service and Web server from the target system. </li> 
 <li>Deletion of Windows firewall exception for CmdFreak.</li> 
-<li>Starts Web server</li>
 </ul>
 
 <u>For Linux</u><br/>
 Uninstall the CmdFreak using following command.<br/>
 <i># rpm -e cmdfreak</i><br/>
-CmdFreak uninstaller performs following steps during the uninstallation.<br>
+CmdFreak uninstaller performs the following steps during the uninstallation.<br>
 <ul>
-    <li>Auto stop of CmdFreak service and Web server.</li>  
+    <li>Auto stop of CmdFreak service and Web server(nginx).</li>  
     <li>Unregister exceptions of firewall for CmdFreak.</li>
     <li>Remove the service of CmdFreak from the target system.</li>
     <li>Starts Web server</li>
 </ul>
-
-
+If an existing nginx instance is already in operation, restarting nginx may affect active sites.<br>
+During uninstallation, the SELinux configuration (httpd_can_network_connect) is not reverted to pre-installation status.
+Revert it manually if necessary.<br/>
 
 
 <hr/>
@@ -198,11 +200,11 @@ Initial login user name and password are follows.
 User name : admin<br/>
 Password : manager<br/>
 </p>
-If main console is not appeared or an error ocurred, confirm the things shown below.<br/>
+If main console is not appeared or an error occurred, confirm the things shown below.<br/>
 <ul>
-<li>When host name is specified in the URL for the connection to CmdFreak from browser, confirm that the host name can be solved. In case the host name is not solved, change the host name to other name which can be solved, and then retry.</li>
+<li>When host name is specified in the URL for the connection to CmdFreak from browser, confirm that the host name can be resolved. In case the host name is not resolved, change the host name to another name that can be resolved, and then retry.</li>
 <li>Confirm that CmdFreak(nginx.exe) is registered as an exception of Windows firewall. If not, register nginx.exe to the Windows firewall as an exception. </li>
-<li>Confirm that the specified port number is not duplicated from other port numbers. If duplicated, specify the independent port number according to the description shown later.</li>
+<li>Confirm that the specified port number is not already in use by another process. If it is, choose a different port number as described below.</li>
 </ul>
 
 
@@ -237,7 +239,7 @@ In order to change the IP address/host name and port number after installation, 
 Change IP address/host name and port number.<br/>
 <p>
 <u>In case you change IP address/host name and port number which CmdFreak service uses:</u><br/>
-Specify IP address/host name and port number to servicehost and serviceport properties in &lt;Installation folder&gt;\sample.conf<br/>
+Specify IP address/host name and port number to servicehost and serviceport properties in &lt;Installation folder&gt;\cmdfreak.conf<br/>
 Specify IP address/host name and port number to proxy_pass of location /api/ section in &lt;Installation folder&gt;\conf\nginx.conf<br/>
 </p>
 <p>
@@ -245,7 +247,7 @@ Specify IP address/host name and port number to proxy_pass of location /api/ sec
 Change listen and server_name in &lt;Installation folder&gt;\conf\nginx.conf<br/>
 </p>
 </li>
-<li>CHange firewall setting if necessary.</li>
+<li>Change firewall setting if necessary.</li>
 <li>Start CmdFreak service.</li>
 </ol>
 
@@ -270,8 +272,8 @@ ssl_certificate_key "D:\\work\\server.key";<br/>
 
 <hr/>
 <h1>11. About ODBC driver</h1>
-CmdFreak uses ODBC for connecting to RDBMS. Therefore ODBC driver needs to be installed into same server where CmdFreak works. ODBC driver needs to be choosen depending on the type of target RDBMS. For example, If you want to use MySQL, ODBC driver for MySQL is required.
-CmdFreak works as a 64-bit application hense ODBC driver has to be 64-bit edition of driver. ODBC driver is provided by the vendor who provides RDBMS. Download it from the vendoer Web site.<br/>
+CmdFreak uses ODBC for connecting to RDBMS. Therefore ODBC driver needs to be installed into same server where CmdFreak works. ODBC driver needs to be chosen depending on the type of target RDBMS. For example, If you want to use MySQL, ODBC driver for MySQL is required.
+CmdFreak works as a 64-bit application hence ODBC driver has to be 64-bit edition of driver. ODBC driver is provided by the vendor who provides RDBMS. Download it from the vendor Web site.<br/>
 
 
 <hr/>

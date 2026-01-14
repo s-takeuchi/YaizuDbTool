@@ -139,14 +139,16 @@ CmdFreakのインストーラは，インストール時に以下の操作を行
     <li>SELinuxのhttpd_can_network_connectをonにします。</li>
     <li>CmdFreakに対するファイアウォールへの例外登録。</li>
     <li>CmdFreakのサービスのシステムへの登録。</li>
-    <li>CmdFreakのサービスの自動起動と、Webサーバの再起動。</li>
+    <li>CmdFreakのサービスの自動起動と、Webサーバ(nginx)の再起動。</li>
 </ul>
+既存のnginxを稼働・運用中の場合、再起動により稼働中サイトへ影響する可能性があります。<br/>
 
 
 <hr/>
 <h1>5. アップグレードインストール方法</h1>
 
-CmdFreak 1.2.0からアップグレードするには，以下の手順に従いアップグレードインストールを進めてください。<br/>
+CmdFreak 1.2.0からアップグレードするには，以下の手順に従いアップグレードインストールを進めてください。
+(Linux版は1.3.0から提供のためアップグレード対象外です。)<br/>
 <ol>
 <li>CmdFreakサービスを停止します。</li>
 <li>＜インストール先フォルダ＞\sample.datを他のフォルダにコピーします。</li>
@@ -167,9 +169,8 @@ cmdfreak.msi を起動してRemove CmdFreakを選択するか，コントロー�
 CmdFreakのアンインストールは，アンインストール時に以下の操作を行います。<br/>
 <ul>
 <li>CmdFreakサービスおよびWebサーバの自動停止。</li>  
-<li>CmdFreakサービスのシステムからの削除。 </li> 
+<li>CmdFreakサービスおよびWebサーバのシステムからの削除。 </li> 
 <li>CmdFreakに対するWindowsファイアウォールからの例外削除。</li>
-<li>Webサーバの起動</li>
 </ul>
 
 <u>Linux版</u><br/>
@@ -177,12 +178,13 @@ CmdFreakのアンインストールは，アンインストール時に以下の
 <i># rpm -e cmdfreak</i><br/>
 CmdFreakのアンインストーラは、アンインストール時に以下の操作を行います。<br>
 <ul>
-    <li>CmdFreakサービスおよびWebサーバの自動停止。</li>  
+    <li>CmdFreakサービスおよびWebサーバ(nginx)の自動停止。</li>  
     <li>ファイアウォールのCmdFreakの例外登録の解除</li>
     <li>CmdFreakサービスをシステムからの除去</li>
     <li>Webサーバの起動</li>
 </ul>
-
+既存のnginxを稼働・運用中の場合、再起動により稼働中サイトへ影響する可能性があります。<br/>
+アンインストール時、SELinux設定（httpd_can_network_connect）は変更前に戻しません。必要に応じて手動で戻してください。<br/>
 
 <hr/>
 <h1>7. CmdFreakへのログイン方法</h1>
@@ -238,7 +240,7 @@ CmdFreakは，2種類のIPアドレスとポート番号を使用します。<br
 IPアドレスおよびポート番号を変更します。<br/>
 <p>
 <u>CmdFreakサービスが使用するIPアドレスおよびポート番号を変更する場合:</u><br/>
-＜インストール先フォルダ＞\sample.conf のservicehostおよびserviceport プロパティにCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
+＜インストール先フォルダ＞\cmdfreak.conf のservicehostおよびserviceport プロパティにCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
 ＜インストール先フォルダ＞\conf\nginx.conf のlocation /api/ セクションのproxy_pass にCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
 </p>
 <p>
