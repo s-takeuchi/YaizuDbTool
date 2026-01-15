@@ -43,8 +43,8 @@ cd $BUILDDIR
 SPEC=cmdfreak.spec
 cat <<EOF > ./$SPEC
 Name:    cmdfreak
-Version: 1.0
-Release: 0.el8
+Version: 1.3
+Release: 0%{?dist}
 Summary: CmdFreak
 Requires: nginx >= 1:1.20
 

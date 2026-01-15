@@ -44,7 +44,7 @@ rem ########## Initializing ##########
 echo;
 echo Initializing...
 if exist webapp rmdir /S /Q webapp
-if exist deployment\cfk120.zip del deployment\cfk120.zip
+if exist deployment\cfk130.zip del deployment\cfk130.zip
 
 
 rem ########## Building ##########
@@ -135,7 +135,7 @@ if defined LOCALMACHINE (
   if not exist deployment mkdir deployment
   copy ..\doc\readme\ReadmeJPN.html deployment
   copy ..\doc\readme\ReadmeENG.html deployment
-  copy setup\Release\cmdfreak.msi deployment
+  copy setup\Release\cmdfreak-1.3.0.msi deployment
 )
 
 
@@ -144,12 +144,12 @@ if defined LOCALMACHINE (
   echo;
   echo ZIP packing stage...
   cd deployment
-  %SEVENZIP% a cfk120.zip cmdfreak.msi
-  %SEVENZIP% a cfk120.zip ReadmeENG.html
-  %SEVENZIP% a cfk120.zip ReadmeJPN.html
+  %SEVENZIP% a cfk130.zip cmdfreak-1.3.0.msi
+  %SEVENZIP% a cfk130.zip ReadmeENG.html
+  %SEVENZIP% a cfk130.zip ReadmeJPN.html
   del ReadmeENG.html
   del ReadmeJPN.html
-  del cmdfreak.msi
+  del cmdfreak-1.3.0.msi
   cd..
 )
 

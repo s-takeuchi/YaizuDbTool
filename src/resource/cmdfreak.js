@@ -256,7 +256,7 @@ function displayInformation() {
     svcInfo.append('<div style="float:left;padding-right:15px;"><img src="img/cristal_image48c.png"/></div>');
     svcInfo.append('<div style="float:left;padding-top:20px;height:55px;"><strong>' + productName + ' ' + version + '</strong></div>');
     svcInfo.append('<div style="clear:both;">');
-    svcInfo.append('Copyright (C) 2020 Shinya Takeuchi<br/>All Rights Reserved.');
+    svcInfo.append('Copyright (C) 2026 Shinya Takeuchi<br/>All Rights Reserved.');
     svcInfo.append('<p>');
     svcInfo.append('Build Time = ' + buildTime + '<br/>');
     svcInfo.append('Service Start Time = ' + startTime + '<br/>');
