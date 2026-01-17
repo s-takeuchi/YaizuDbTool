@@ -184,7 +184,6 @@ StkObject* ApiOdbcInfo::PostOdbcInfo(StkObject* ReqObj, int* ResultCode, wchar_t
 		} else {
 			DatObjDb->AppendChildElement(new StkObject(L"Status", L"unconnectable"));
 			DatObjDb->AppendChildElement(new StkObject(L"Message", ErrMsg));
-			MessageProc::AddLog(ErrMsg, MessageProc::LOG_TYPE_ERROR);
 		}
 		OdbcManager::GetInstance()->DeleteAccessorObject(Da);
 		DatObj->AppendChildElement(DatObjDb);
