@@ -251,9 +251,9 @@ fi
 if [ ! -e ../deployment ]; then
     mkdir -p ../deployment
 fi
-cp ../../doc/readme/ReadmeENG.html /deployment
-cp ../../doc/readme/ReadmeJPN.html /deployment
-cp ../../LICENSE /deployment
+cp ../../doc/readme/ReadmeENG.html ../deployment
+cp ../../doc/readme/ReadmeJPN.html ../deployment
+cp ../../LICENSE ../deployment
 cp RPMS/x86_64/cmdfreak-1.*.rpm ../deployment
 cd ../deployment
 tar czvf cfk130.tar.gz ReadmeENG.html ReadmeJPN.html LICENSE cmdfreak-1.*.rpm
