@@ -92,7 +92,6 @@ echo Deployment of files and folders...
 
 mkdir webapp
 copy "..\..\YaizuComLib\src\stkdatagui\x64\Release\stkdatagui.exe" webapp
-copy "..\LICENSE" webapp\LICENSE.cmdfreak
 copy "..\src\restapi\x64\Release\cmdfreak.exe" webapp
 copy "..\..\YaizuComLib\src\stkwebapp\stkwebappcmd.conf" webapp
 copy "..\src\restapi\cmdfreak.dat" webapp
@@ -115,7 +114,6 @@ popd
 xcopy /y /q /i /s /e "webapp\bootstrap\bootstrap-4.4.1-dist" webapp\html\bootstrap-4.4.1-dist
 if exist webapp\bootstrap rmdir /S /Q webapp\bootstrap
 
-mkdir webapp\license
 mkdir webapp\html\img
 copy "..\src\resource\*.*" webapp\html
 copy "..\src\resource\img\*.*" webapp\html\img
@@ -135,6 +133,7 @@ if defined LOCALMACHINE (
   if not exist deployment mkdir deployment
   copy ..\doc\readme\ReadmeJPN.html deployment
   copy ..\doc\readme\ReadmeENG.html deployment
+  copy "..\LICENSE" deployment
   copy setup\Release\cmdfreak-1.3.0.msi deployment
 )
 
@@ -144,11 +143,13 @@ if defined LOCALMACHINE (
   echo;
   echo ZIP packing stage...
   cd deployment
-  %SEVENZIP% a cfk130.zip cmdfreak-1.3.0.msi
   %SEVENZIP% a cfk130.zip ReadmeENG.html
   %SEVENZIP% a cfk130.zip ReadmeJPN.html
+  %SEVENZIP% a cfk130.zip LICENSE
+  %SEVENZIP% a cfk130.zip cmdfreak-1.3.0.msi
   del ReadmeENG.html
   del ReadmeJPN.html
+  del LICENSE
   del cmdfreak-1.3.0.msi
   cd..
 )
