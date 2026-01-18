@@ -6,7 +6,7 @@ After=network.service
 Type=simple
 Restart=no
 ExecStart=/usr/bin/cmdfreak
-ExecStop=/usr/bin/stopcmdfreak sample.conf /usr/bin/cmdfreak
+ExecStop=/usr/bin/stopcmdfreak cmdfreak.conf /usr/bin/cmdfreak
 KillMode=process
 
 [Install]
