@@ -470,6 +470,12 @@ int DataAccess::StopAutoSave()
 {
 	wchar_t Buf[FILENAME_MAX];
 	StkPlGetFullPathFromFileName(DataFileName, Buf);
+	size_t WorkDatLength = StkPlGetFileSize(Buf);
+	if (WorkDatLength == (size_t)-1) {
+#ifndef WIN32
+		StkPlSwPrintf(Buf, FILENAME_MAX, L"/etc/%ls", DataFileName);
+#endif
+	}
 	AutoSave(Buf, 30, false);
 	LockAllTable(2);
 	SaveData(Buf);
