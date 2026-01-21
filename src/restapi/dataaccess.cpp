@@ -468,17 +468,13 @@ int DataAccess::DbUpdate_NonVer_V3()
 // Return : always zero returned
 int DataAccess::StopAutoSave()
 {
-	wchar_t Buf[FILENAME_MAX];
-	StkPlGetFullPathFromFileName(DataFileName, Buf);
-	size_t WorkDatLength = StkPlGetFileSize(Buf);
-	if (WorkDatLength == (size_t)-1) {
-#ifndef WIN32
-		StkPlSwPrintf(Buf, FILENAME_MAX, L"/etc/%ls", DataFileName);
-#endif
-	}
-	AutoSave(Buf, 30, false);
+	wchar_t LogBuf[1024] = L"";
+	StkPlSwPrintf(LogBuf, 1024, L"The data file path = [%ls]", DataFileName);
+	MessageProc::AddLog(LogBuf, MessageProc::LOG_TYPE_INFO);
+
+	AutoSave(DataFileName, 30, false);
 	LockAllTable(2);
-	SaveData(Buf);
+	SaveData(DataFileName);
 	UnlockAllTable();
 	return 0;
 }
