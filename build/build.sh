@@ -256,7 +256,14 @@ cp ../../doc/readme/ReadmeJPN.html ../deployment
 cp ../../LICENSE ../deployment
 cp RPMS/x86_64/cmdfreak-1.*.rpm ../deployment
 cd ../deployment
-tar czvf cfk130.tar.gz ReadmeENG.html ReadmeJPN.html LICENSE cmdfreak-1.*.rpm
+
+if ls *.el9.*.rpm >/dev/null 2>&1; then
+    TARGZFILE=cfk130.el9.tar.gz
+elif ls *.el10.*.rpm >/dev/null 2>&1; then
+    TARGZFILE=cfk130.el10.tar.gz
+fi
+
+tar czvf $TARGZFILE ReadmeENG.html ReadmeJPN.html LICENSE cmdfreak-1.*.rpm
 yes|rm ReadmeENG.html
 yes|rm ReadmeJPN.html
 yes|rm LICENSE
