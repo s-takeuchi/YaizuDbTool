@@ -28,27 +28,27 @@ CmdFreak works on systems with the following specifications:
 - Memory:1 GB or more
 - Free disk space: 40 MB or more
 - Operating systems/editions supported:  
-  Windows 11
-  Windows Server 2022
-  Windows Server 2025
-  Red Hat Enterprise Linux 9
-  Red Hat Enterprise Linux 10
-  AlmaLinux 9
-  AlmaLinux 10
+  Windows 11  
+  Windows Server 2022  
+  Windows Server 2025  
+  Red Hat Enterprise Linux 9  
+  Red Hat Enterprise Linux 10  
+  AlmaLinux 9  
+  AlmaLinux 10  
 - Web browsers supported:  
   Microsoft Edge  
   Google Chrome  
-  Mozilla Firefox
+  Mozilla Firefox  
 - DBMSs supported:  
-  MySQL 8.4
-  MariaDB 11.4
+  MySQL 8.4  
+  MariaDB 11.4  
   MariaDB 11.8  
-  PostgreSQL 17
-  PostgreSQL 18
-  CmdFreak connects to DBMSs via ODBC; an appropriate ODBC driver for the target DBMS is required.
+  PostgreSQL 17  
+  PostgreSQL 18  
+  (CmdFreak connects to DBMSs via ODBC; an appropriate ODBC driver for the target DBMS is required.)
 
 ## Change history
-###Version 1.2.0 ---> 1.3.0
+### Version 1.2.0 ---> 1.3.0
 
 - Added Linux support.
 - Optimized for x64 CPU architecture.
