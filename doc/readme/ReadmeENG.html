@@ -49,7 +49,7 @@ CmdFreak works on systems with the following specifications:
 
 <ul><li>Memory:1 GB or more</li></ul>
 
-<ul><li>Free disk space: 20 MB or more</li></ul>
+<ul><li>Free disk space: 40 MB or more</li></ul>
 
 <ul><li>Operating systems/editions supported:<br/>
 Windows 11<br/>
@@ -178,7 +178,7 @@ CmdFreak uninstaller performs the following steps during the uninstallation.<br>
     <li>Auto stop of CmdFreak service and Web server(nginx).</li>  
     <li>Unregister exceptions of firewall for CmdFreak.</li>
     <li>Remove the service of CmdFreak from the target system.</li>
-    <li>Starts Web server</li>
+    <li>Starts the Web server</li>
 </ul>
 If an existing nginx instance is already in operation, restarting nginx may affect active sites.<br>
 During uninstallation, the SELinux configuration (httpd_can_network_connect) is not reverted to pre-installation status.
@@ -203,7 +203,8 @@ Password : manager<br/>
 If main console is not appeared or an error occurred, confirm the things shown below.<br/>
 <ul>
 <li>When host name is specified in the URL for the connection to CmdFreak from browser, confirm that the host name can be resolved. In case the host name is not resolved, change the host name to another name that can be resolved, and then retry.</li>
-<li>Confirm that CmdFreak(nginx.exe) is registered as an exception of Windows firewall. If not, register nginx.exe to the Windows firewall as an exception. </li>
+<li>Confirm that the Web server (nginx) process or port number is registered as a firewall exception.
+If not, register the process or port number as a firewall exception. </li>
 <li>Confirm that the specified port number is not already in use by another process. If it is, choose a different port number as described below.</li>
 </ul>
 
@@ -239,15 +240,17 @@ In order to change the IP address/host name and port number after installation, 
 Change IP address/host name and port number.<br/>
 <p>
 <u>In case you change IP address/host name and port number which CmdFreak service uses:</u><br/>
-Specify IP address/host name and port number to servicehost and serviceport properties in &lt;Installation folder&gt;\cmdfreak.conf<br/>
-Specify IP address/host name and port number to proxy_pass of location /api/ section in &lt;Installation folder&gt;\conf\nginx.conf<br/>
+Specify IP address/host name and port number to servicehost and serviceport properties in &lt;Installation folder&gt;\cmdfreak.conf (for Windows)
+or /etc/cmdfreak.conf (for Linux)<br/>
+Specify IP address/host name and port number to proxy_pass of location /api/ section in &lt;Installation folder&gt;\conf\nginx.conf (for Windows)
+or /etc/nginx/conf.d/cmdfreak_nginx.conf (for Linux)<br/>
 </p>
 <p>
 <u>In case you change IP address/host name and port number which Web server uses:</u><br/>
-Change listen and server_name in &lt;Installation folder&gt;\conf\nginx.conf<br/>
+Change listen and server_name in &lt;Installation folder&gt;\conf\nginx.conf (for Windows) or /etc/nginx/conf.d/cmdfreak_nginx.conf (for Linux)<br/>
 </p>
 </li>
-<li>Change firewall setting if necessary.</li>
+<li>Change firewall setting if necessary. If SELinux is enabled, add access permission to the target port using "semanage port" command.</li>
 <li>Start CmdFreak service.</li>
 </ol>
 

@@ -54,7 +54,7 @@ CmdFreakは以下の環境で動作します。
 
 <ul><li>動作に必要なメモリ容量: 1GBytes以上</li></ul>
 
-<ul><li>導入に必要な空きディスク容量: 20MBytes以上</li></ul>
+<ul><li>導入に必要な空きディスク容量: 40MBytes以上</li></ul>
 
 <ul><li>サポートするオペレーティングシステム／エディション:<br/>
 Windows 11<br/>
@@ -204,7 +204,7 @@ Password : manager<br/>
 メインコンソールが表示されない場合，またはエラーが表示される場合下記を確認してください。<br/>
 <ul>
 <li>ブラウザからCmdFreakへの接続でURLにホスト名を指定している場合，ホスト名からIPアドレスが名前解決できること。 名前解決できない場合，名前解決可能なホストに変更し，再度接続を試みてください。</li>
-<li>CmdFreak(nginx.exe)がWindowsのファイアウォールに例外登録されていること。 例外登録されていない場合，nginx.exe をファイアウォールの例外に登録してください。</li>
+<li>Webサーバ(nginx)のプロセスまたはポート番号がファイアウォールに例外登録されていること。 例外登録されていない場合，プロセスまたはポート番号をファイアウォールの例外に登録してください。</li>
 <li>WebサーバおよびCmdFreakサービスが使用するポート番号が他のプロセスが使用するポート番号と重なっていないこと。 後述のポート番号の変更手順に従い，ポート番号が重ならないよう変更を行ってください。</li>
 </ul>
 
@@ -240,15 +240,15 @@ CmdFreakは，2種類のIPアドレスとポート番号を使用します。<br
 IPアドレスおよびポート番号を変更します。<br/>
 <p>
 <u>CmdFreakサービスが使用するIPアドレスおよびポート番号を変更する場合:</u><br/>
-＜インストール先フォルダ＞\cmdfreak.conf のservicehostおよびserviceport プロパティにCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
-＜インストール先フォルダ＞\conf\nginx.conf のlocation /api/ セクションのproxy_pass にCmdFreakサービスのIPアドレスおよびポート番号を設定します。<br/>
+＜インストール先フォルダ＞\cmdfreak.conf (Windows版)または/etc/cmdfreak.conf (Linux版) のservicehostおよびserviceport プロパティにCmdFreakサービスのIPアドレス／ホスト名およびポート番号を設定します。<br/>
+＜インストール先フォルダ＞\conf\nginx.conf (Windows版)または/etc/nginx/conf.d/cmdfreak_nginx.conf (Linux版) のlocation /api/ セクションのproxy_pass にCmdFreakサービスのIPアドレス／ホスト名およびポート番号を設定します。<br/>
 </p>
 <p>
 <u>Webサーバが使用するIPアドレスおよびポート番号を変更する場合:</u><br/>
-＜インストール先フォルダ＞\conf\nginx.conf のlistenおよびserver_name を変更します。<br/>
+＜インストール先フォルダ＞\conf\nginx.conf (Windows版)または/etc/nginx/conf.d/cmdfreak_nginx.conf (Linux版) のlistenおよびserver_name を変更します。<br/>
 </p>
 </li>
-<li>必要に応じてファイアウォールの設定を変更します。</li>
+<li>必要に応じてファイアウォールの設定を変更します。SELinuxが有効なときは、"semanage port"コマンドで対象のポートに対してアクセス許可を与えます。</li>
 <li>CmdFreakサービスを起動します。</li>
 </ol>
 
