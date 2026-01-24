@@ -264,12 +264,12 @@ In order to connect to CmdFreak using SSL/TLS from browser, following steps are 
 <li>
 Add SSL/TLS settings to nginx.conf.<br/>
 Add followings to server directive in &lt;Installation folder&gt;\conf\nginx.conf (for Windows) or /etc/nginx/conf.d/cmdfreak_nginx.conf (for Linux)<br/>
-(Regarding certificate and private key, modify the path according to your environment.)<br/>
-ssl on;<br/>
-ssl_certificate "D:\\work\\server.crt";<br/>
-ssl_certificate_key "D:\\work\\server.key";<br/>
+(Adjust the port number and paths to the certificate and private key as needed for your environment.)<br/>
+ssl_certificate "D:\\work\\server.crt";<br>
+ssl_certificate_key "D:\\work\\server.key";<br>
+listen 7120 ssl;<br>
+listen [::]:7120 ssl;<br>
 </li>
-<li>Change listen port number into 443 or appropriate HTTPS port number.</li>
 <li>Change firewall setting if necessary. If SELinux is enabled, add access permission to the target port using "semanage port" command.</li>
 <li>For Linux, reload the nginx configuration as follows:<br># systemctl reload nginx</li>
 <li>Start CmdFreak service.</li>
