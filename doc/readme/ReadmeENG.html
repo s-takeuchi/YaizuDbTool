@@ -251,6 +251,7 @@ Change listen and server_name in &lt;Installation folder&gt;\conf\nginx.conf (fo
 </p>
 </li>
 <li>Change firewall setting if necessary. If SELinux is enabled, add access permission to the target port using "semanage port" command.</li>
+<li>Reload the nginx configuration as follows:<br># systemctl reload nginx</li>
 <li>Start CmdFreak service.</li>
 </ol>
 
@@ -269,6 +270,8 @@ ssl_certificate "D:\\work\\server.crt";<br/>
 ssl_certificate_key "D:\\work\\server.key";<br/>
 </li>
 <li>Change listen port number into 443 or appropriate HTTPS port number.</li>
+<li>Change firewall setting if necessary. If SELinux is enabled, add access permission to the target port using "semanage port" command.</li>
+<li>Reload the nginx configuration as follows:<br># systemctl reload nginx</li>
 <li>Start CmdFreak service.</li>
 </ol>
 
